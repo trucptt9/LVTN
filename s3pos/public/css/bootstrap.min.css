@@ -64,7 +64,7 @@ section {
 }
 body {
     margin: 0;
-    font-family: "Noto Sans", sans-serif;
+    font-family: 'Roboto Slab', serif;
     font-size: 0.875rem;
     font-weight: 400;
     line-height: 1.5;
@@ -2903,13 +2903,13 @@ fieldset:disabled a.btn {
 }
 .btn-danger {
     color: #fff;
-    background-color: #d57171;
-    border-color: #d57171;
+    background-color: #f90f0f;
+    border-color: #f90f0f;
 }
 .btn-danger:hover {
     color: #fff;
-    background-color: #cc5353;
-    border-color: #c94a4a;
+    background-color: #fd0000;
+    border-color: #ff0000;
 }
 .btn-danger.focus,
 .btn-danger:focus {
@@ -5222,8 +5222,9 @@ input[type="submit"].btn-block {
     padding: 0.75rem 1rem;
     margin-bottom: 1rem;
     list-style: none;
-    background-color: #e9ecef;
+    background-color: #fff;
     border-radius: 0.2rem;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 0px 2px 0px, rgba(14, 30, 37, 0.32) 0px 0px 8px;
 }
 .breadcrumb-item + .breadcrumb-item {
     padding-left: 0.5rem;

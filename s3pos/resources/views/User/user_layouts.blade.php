@@ -10,6 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- App favicon -->
     <link rel="shortcut icon" href="assets\images\favicon.ico">
+    <link rel="stylesheet" href="{{ asset('css/newcustom.css') }}">
     <!-- App css -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" id="bootstrap-stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
@@ -17,6 +18,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     {{-- <link href="{{ asset('css/icons.min.css') }}" rel="stylesheet" type="text/css"> --}}
     <link href="{{ asset('css/app.min.css') }}" rel="stylesheet" type="text/css" id="app-stylesheet">
+    
     
 </head>
 
@@ -107,7 +109,7 @@
                 <li class="dropdown notification-list">
                     <a class="nav-link dropdown-toggle nav-user mr-0" data-toggle="dropdown" href="#"
                         role="button" aria-haspopup="false" aria-expanded="false">
-                        <img src="assets\images\users\avatar-1.jpg" alt="user-image" class="rounded-circle">
+                        <i class="fa-regular fa-circle-user fa-xl"></i>
                         <span class="pro-user-name ml-1">
                             Maxine K <i class="mdi mdi-chevron-down"></i>
                         </span>
@@ -115,34 +117,28 @@
                     <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
                         <!-- item-->
                         <div class="dropdown-header noti-title">
-                            <h6 class="text-overflow m-0">Welcome !</h6>
+                            <h6 class="text-overflow m-0">Chào mừng tên user !</h6>
                         </div>
 
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
                             <i class="mdi mdi-account-outline"></i>
-                            <span>Profile</span>
+                            <span><i class="fa-regular fa-user"></i> Tài khoản</span>
                         </a>
 
                         <!-- item-->
                         <a href="javascript:void(0);" class="dropdown-item notify-item">
                             <i class="mdi mdi-settings-outline"></i>
-                            <span>Settings</span>
+                            <span><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất </span>
                         </a>
 
                         <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <i class="mdi mdi-lock-outline"></i>
-                            <span>Lock Screen</span>
-                        </a>
+                       
 
-                        <div class="dropdown-divider"></div>
+                        {{-- <div class="dropdown-divider"></div> --}}
 
                         <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <i class="mdi mdi-logout-variant"></i>
-                            <span>Logout</span>
-                        </a>
+                       
 
                     </div>
                 </li>
@@ -192,7 +188,7 @@
                     <form class="app-search">
                         <div class="app-search-box">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search...">
+                                <input type="text" class="form-control" placeholder="Tìm kiếm...">
                                 <div class="input-group-append">
                                     <button class="btn" type="submit">
                                         <i class="fas fa-search"></i>
@@ -250,7 +246,7 @@
                         </a>
                         <ul class="nav-second-level" aria-expanded="false">
                             <li><a href="forms-general.html">Danh sách nhân viên</a></li>
-                            <li><a href="forms-advanced.html">Phòng ban/Phân quyền</a></li>
+                            <li><a href="forms-advanced.html">Phòng ban</a></li>
                             <li><a href="forms-general.html">Ca làm việc</a></li>
                         </ul>
                     </li>
@@ -362,11 +358,23 @@
         <!-- ============================================================== -->
 
         <div class="content-page">
+           
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                      <li class="breadcrumb-item"><a href="#">Quản lý cửa hàng</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Chuỗi cửa hàng</li>
+                    </ol>
+                  </nav>
+            
             <div class="content">
 
                 <!-- Start container-fluid -->
                 <div class="contain-fluid">
-                    @yield('content')
+                    
+                    
+                        @yield('content')
+                    
+                   
                 </div>
                 <!-- end container-fluid -->
 
