@@ -17,4 +17,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/login',[UserController::class,'login'])->name('user.login');
 Route::get('/',[UserController::class,'dashboard'])->name('user.dashboard');
 
-Route::get('/stores',[AreaController::class,'show'])->name('user.stores');
+Route::prefix('brand')->group(function () {
+   
+    Route::get('detail',[UserController::class,'detail'])->name('brand.detail');
+    
+});
+Route::prefix('stores')->group(function () {
+    Route::get('/',[StoreController::class,'show'])->name('store.all');
+    Route::get('/table',[StoreController::class,'table'])->name('store.table');
+    
+});

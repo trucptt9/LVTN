@@ -2,3 +2,20 @@
     height: 30px!important;
     width: 30px!important;
 }
+.col-total{
+    padding:25px;
+    margin:5px;
+    border: 1px solid #009ef7c7;
+    border-radius: 10px;
+}
+.title{
+    font-weight: 600;
+    color: #444444;
+}
+.btn-status{
+    font-weight: bold;
+    color: white;
+    background: #4fc55b;
+    padding: 5px;
+    border-radius: 6px
+}

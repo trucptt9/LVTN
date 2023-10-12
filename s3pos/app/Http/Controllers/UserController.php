@@ -13,4 +13,7 @@ class UserController extends Controller
     public function dashboard(){
         return view('User.user_layouts');
     }
+    public function detail(){
+        return view('User.user.brand.brand_detail');
+    }
 }

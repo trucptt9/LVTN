@@ -18,7 +18,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     {{-- <link href="{{ asset('css/icons.min.css') }}" rel="stylesheet" type="text/css"> --}}
     <link href="{{ asset('css/app.min.css') }}" rel="stylesheet" type="text/css" id="app-stylesheet">
-    
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>`
     
 </head>
 
@@ -178,13 +178,13 @@
             </div>
 
             <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
-                <li>
+                {{-- <li>
                     <button class="button-menu-mobile">
                         <i class="mdi mdi-menu"></i>
                     </button>
-                </li>
+                </li> --}}
 
-                <li class="d-none d-sm-block">
+                <li class="d-none d-sm-block" style="float: right">
                     <form class="app-search">
                         <div class="app-search-box">
                             <div class="input-group">
@@ -229,10 +229,10 @@
                             <span class="menu-arrow"></span>
                         </a>
                         <ul class="nav-second-level" aria-expanded="false">
-                            <li><a href="{{ route('user.stores') }}">Chuỗi cửa hàng</a></li>
-                            <li><a href="#">Danh sách cửa hàng</a></li>
+                            <li><a href="{{ route('brand.stores') }}">Danh sách cửa hàng</a></li>
                             <li><a href="#">Danh sách khu vực</a></li>
                             <li><a href="#">Danh sách kênh bán hàng</a></li>
+                            <li><a href="{{ route('brand.detail') }}">Thông tin nhãn hàng</a></li>
                         </ul>
                     </li>
 
@@ -401,9 +401,16 @@
 
 
 
-    <!-- Vendor js -->
+    
     <script src="{{ asset('js\vendor.min.js') }}"></script>
     <script src="{{ asset('js\app.min.js') }}"></script>
+    <script>
+        $.ajaxSetup({
+             headers: {
+                 'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+            }
+                            });
+    </script>
   
 
 </body>
