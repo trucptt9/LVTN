@@ -41,7 +41,7 @@
                             class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
                             <!--begin:Menu link-->
                             <span class="menu-link py-3">
-                                <span class="menu-title">Help</span>
+                                <span class="menu-title">Help fsdfsf</span>
                                 <span class="menu-arrow d-lg-none"></span>
                             </span>
                             <!--end:Menu link-->
