@@ -53,6 +53,36 @@ class Order extends Model
         'total' => 'integer',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        self::creating(function ($model) {
+            $model->status = $model->status ?? self::STATUS_TMP;
+            $model->code = $model->code ?? generateRandomString();
+            $model->vat = $model->vat ?? 0;
+            $model->order_start = $model->order_start ?? now();
+            $model->discount = $model->discount ?? 0;
+            $model->discount_type = $model->discount_type ?? self::TYPE_PERCENT;
+        });
+        self::created(function ($model) {
+        });
+        self::updated(function ($model) {
+        });
+        self::deleted(function ($model) {
+        });
+    }
+    const TYPE_VND = 1;
+    const TYPE_PERCENT = 2;
+
+    public static function get_type($type = '')
+    {
+        $types = [
+            self::TYPE_VND => ['VND', 'secondary', COLOR_SECONDARY],
+            self::TYPE_PERCENT => ['%', 'success', COLOR_SUCCESS],
+        ];
+        return $type == '' ? $types : $types["$type"];
+    }
+
     const STATUS_TMP = 1;
     const STATUS_FINISH = 2;
     const STATUS_DESTROY = 3;
@@ -118,11 +148,6 @@ class Order extends Model
             return $query->whereIn('orders.status', $status);
         }
         return $query->where('orders.status', $status);
-    }
-
-    public function scopeTableId($query, $table_id)
-    {
-        return $query->where('orders.table_id', $table_id);
     }
 
     public function scopeCustomerId($query, $customer_id)

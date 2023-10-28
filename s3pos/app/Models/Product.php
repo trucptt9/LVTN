@@ -13,7 +13,7 @@ class Product extends Model
     protected $fillable = [
         'category_id',
         'code',
-        'image',
+        'name',
         'image',
         'price',
         'cost',
@@ -33,6 +33,24 @@ class Product extends Model
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        self::creating(function ($model) {
+            $model->status = $model->status ?? true;
+            $model->code = $model->code ?? generateRandomString();
+            $model->price = $model->price ?? 0;
+            $model->cost = $model->cost ?? 0;
+            $model->is_menu = $model->is_menu ?? true;
+        });
+        self::created(function ($model) {
+        });
+        self::updated(function ($model) {
+        });
+        self::deleted(function ($model) {
+        });
+    }
 
     public function scopeOfCode($query, $code)
     {

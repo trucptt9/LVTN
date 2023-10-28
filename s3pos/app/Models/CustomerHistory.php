@@ -27,6 +27,22 @@ class CustomerHistory extends Model
         'customer_id' => 'integer',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        self::creating(function ($model) {
+            $model->type = $model->type ?? self::TYPE_ADD;
+            $model->code = $model->code ?? generateRandomString();
+            $model->point = $model->point ?? 0;
+        });
+        self::created(function ($model) {
+        });
+        self::updated(function ($model) {
+        });
+        self::deleted(function ($model) {
+        });
+    }
+
     const TYPE_ADD = 1;
     const TYPE_SUB = 2;
 

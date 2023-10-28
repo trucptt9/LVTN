@@ -22,10 +22,23 @@ class AdminHistory extends Model
 
     protected $casts = [
         'admin_id' => 'integer',
-        'data_json' => 'json',
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        self::creating(function ($model) {
+            $model->admin_id = $model->admin_id ?? auth('admin')->user()->id;
+        });
+        self::created(function ($model) {
+        });
+        self::updated(function ($model) {
+        });
+        self::deleted(function ($model) {
+        });
+    }
 
     public function admin()
     {

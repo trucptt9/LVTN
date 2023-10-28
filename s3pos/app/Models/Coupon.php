@@ -34,6 +34,23 @@ class Coupon extends Model
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        self::creating(function ($model) {
+            $model->status = $model->status ?? false;
+            $model->code = $model->code ?? generateRandomString();
+            $model->value = $model->value ?? 0;
+            $model->type_value = $model->type_value ?? self::TYPE_PERCENT;
+        });
+        self::created(function ($model) {
+        });
+        self::updated(function ($model) {
+        });
+        self::deleted(function ($model) {
+        });
+    }
+
     const TYPE_VND = 1;
     const TYPE_PERCENT = 2;
 

@@ -53,6 +53,24 @@ class Admin extends Authenticatable
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        self::creating(function ($model) {
+            $model->status = $model->status ?? self::STATUS_UN_ACTIVE;
+            $model->is_supper = $model->is_supper ?? self::NOT_SUPPER;
+            $model->is_root = $model->is_root ?? self::NOT_ROOT;
+            $model->gender = $model->gender ?? self::GENDER_OTHER;
+            $model->code = $model->code ?? generateRandomString();
+        });
+        self::created(function ($model) {
+        });
+        self::updated(function ($model) {
+        });
+        self::deleted(function ($model) {
+        });
+    }
+
     const GENDER_MALE = 1;
     const GENDER_FEMALE = 2;
     const GENDER_OTHER = 3;

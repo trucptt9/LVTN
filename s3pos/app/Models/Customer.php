@@ -34,6 +34,22 @@ class Customer extends Model
         'status' => 'boolean'
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        self::creating(function ($model) {
+            $model->status = $model->status ?? true;
+            $model->code = $model->code ?? generateRandomString();
+            $model->point_current = $model->point_current ?? 0;
+        });
+        self::created(function ($model) {
+        });
+        self::updated(function ($model) {
+        });
+        self::deleted(function ($model) {
+        });
+    }
+
     public function group()
     {
         return $this->belongsTo(CustomerGroup::class, 'group_id');

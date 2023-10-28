@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('address');
             $table->string('logo')->nullable();
-            $table->integer('status')->index()->nullable()->default(1);
+            $table->boolean('status')->index()->nullable()->default(false);
             $table->string('description')->nullable();
             $table->timestamps();
             $table->foreign('type_id')->references('id')->on('business_types')->onDelete('cascade');

@@ -38,6 +38,25 @@ class BillService extends Model
         'day_start' => 'date:Y-m-d',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        self::creating(function ($model) {
+            $model->discount = $model->discount ?? 0;
+            $model->discount_type = $model->discount_type ?? self::TYPE_PERCENT;
+            $model->sub_total = $model->sub_total ?? 0;
+            $model->total = $model->total ?? 0;
+            $model->status_payment = $model->status_payment ?? self::UN_PAID;
+            $model->status = $model->status ?? self::STATUS_TMP;
+        });
+        self::created(function ($model) {
+        });
+        self::updated(function ($model) {
+        });
+        self::deleted(function ($model) {
+        });
+    }
+
     const STATUS_TMP = 1;
     const STATUS_FINISH = 2;
 

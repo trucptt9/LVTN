@@ -24,22 +24,27 @@ class Area extends Model
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
-        'status' => 'integer',
+        'status' => 'boolean',
         'capacity' => 'integer',
         'priority' => 'integer',
         'store_id' => 'integer',
     ];
 
-    const STATUS_ACTIVE = 1;
-    const STATUS_SUSPEND = 2;
-
-    public static function get_status($status = '')
+    public static function boot()
     {
-        $types = [
-            self::STATUS_ACTIVE => ['Đang hoạt động', 'success', COLOR_SUCCESS],
-            self::STATUS_SUSPEND => ['Tạm ngưng', 'light', COLOR_LIGHT],
-        ];
-        return $status == '' ? $types : $types["$status"];
+        parent::boot();
+        self::creating(function ($model) {
+            $model->code = $model->code ?? generateRandomString();
+            $model->capacity = $model->capacity ?? 1;
+            $model->status = $model->status ?? true;
+            $model->priority = $model->priority ?? self::getOrder($model->store_id);
+        });
+        self::created(function ($model) {
+        });
+        self::updated(function ($model) {
+        });
+        self::deleted(function ($model) {
+        });
     }
 
     public function tables()
@@ -79,5 +84,11 @@ class Area extends Model
             $query->where('areas.code', 'LIKE', "%$search%")
                 ->orWhere('areas.name', 'LIKE', "%$search%");
         });
+    }
+
+    public static function getOrder($store_id)
+    {
+        $max = Area::storeId($store_id)->max('priority') ?? 0;
+        return $max + 1;
     }
 }

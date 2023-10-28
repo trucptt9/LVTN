@@ -31,6 +31,21 @@ class Store extends Model
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        self::creating(function ($model) {
+            $model->status = $model->status ?? true;
+            $model->code = $model->code ?? generateRandomString();
+        });
+        self::created(function ($model) {
+        });
+        self::updated(function ($model) {
+        });
+        self::deleted(function ($model) {
+        });
+    }
+
     public function scopeOfCode($query, $code)
     {
         return $query->where('stores.code', $code);

@@ -33,6 +33,24 @@ class Settings extends Model
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        self::creating(function ($model) {
+            $model->status = $model->status ?? true;
+            $model->code = $model->code ?? generateRandomString();
+            $model->type = $model->type ?? self::TYPE_TEXT;
+            $model->value = $model->value ?? '';
+            $model->numering = $model->numering ?? self::getOrder($model->store_id, $model->group_id);
+        });
+        self::created(function ($model) {
+        });
+        self::updated(function ($model) {
+        });
+        self::deleted(function ($model) {
+        });
+    }
+
     const TYPE_TEXT = 0;
     const TYPE_FILE = 1;
     const TYPE_SELECT = 2;

@@ -5,23 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SettingGroup extends Model
+class Menu extends Model
 {
     use HasFactory;
-    protected $table = 'setting_groups';
+    protected $table = 'menus';
 
     protected $fillable = [
-        'code',
+        'parent_id',
         'name',
-        'icon',
+        'url',
         'status',
-        'numering',
+        'icon',
+        'numering'
     ];
 
     protected $hidden = [];
 
     protected $casts = [
         'status' => 'boolean',
+        'parent_id' => 'integer',
         'numering' => 'integer',
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
@@ -31,9 +33,10 @@ class SettingGroup extends Model
     {
         parent::boot();
         self::creating(function ($model) {
+            $parent_id = $model->parent_id ?? 0;
             $model->status = $model->status ?? true;
-            $model->code = $model->code ?? generateRandomString();
-            $model->numering = $model->numering ?? self::getOrder();
+            $model->parent_id = $parent_id;
+            $model->numering = $model->numering ?? self::getOrder($parent_id);
         });
         self::created(function ($model) {
         });
@@ -43,24 +46,29 @@ class SettingGroup extends Model
         });
     }
 
-    public function scopeOfCode($query, $code)
-    {
-        return $query->where('setting_groups.code', $code);
-    }
-
     public function scopeOfStatus($query, $status)
     {
-        return $query->where('setting_groups.status', $status);
+        return $query->where('menus.status', $status);
     }
 
-    public function settings()
+    public function scopeParentId($query, $parent_id)
     {
-        return $this->hasMany(Settings::class, 'group_id', 'id')->active();
+        return $query->where('menus.parent_id', $parent_id);
     }
 
-    public static function getOrder()
+    public function parent()
     {
-        $max = SettingGroup::max('order') ?? 0;
+        return $this->belongsTo(Menu::class, 'parent_id');
+    }
+
+    public function menus()
+    {
+        return $this->hasMany(Menu::class, 'parent_id', 'id');
+    }
+
+    public static function getOrder($parent_id)
+    {
+        $max = Menu::parentId($parent_id)->max('numering') ?? 0;
         return $max + 1;
     }
 }

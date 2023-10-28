@@ -58,6 +58,23 @@ class Staff extends Authenticatable
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        self::creating(function ($model) {
+            $model->status = $model->status ?? self::STATUS_UN_ACTIVE;
+            $model->code = $model->code ?? generateRandomString();
+            $model->gender = $model->gender ?? self::GENDER_OTHER;
+            $model->is_supper = $model->is_supper ?? self::NOT_SUPPER;
+        });
+        self::created(function ($model) {
+        });
+        self::updated(function ($model) {
+        });
+        self::deleted(function ($model) {
+        });
+    }
+
     const GENDER_MALE = 1;
     const GENDER_FEMALE = 2;
     const GENDER_OTHER = 3;

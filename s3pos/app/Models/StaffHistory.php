@@ -22,10 +22,23 @@ class StaffHistory extends Model
 
     protected $casts = [
         'staff_id' => 'integer',
-        'data_json' => 'json',
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        self::creating(function ($model) {
+            $model->staff_id = $model->staff_id ?? auth()->user()->id;
+        });
+        self::created(function ($model) {
+        });
+        self::updated(function ($model) {
+        });
+        self::deleted(function ($model) {
+        });
+    }
 
     public function staff()
     {

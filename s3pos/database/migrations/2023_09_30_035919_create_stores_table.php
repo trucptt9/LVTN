@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone');
             $table->string('address');
-            $table->integer('status')->index()->nullable()->default(1);
+            $table->boolean('status')->index()->nullable()->default(false);
             $table->string('description')->nullable();
             $table->timestamps();
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
