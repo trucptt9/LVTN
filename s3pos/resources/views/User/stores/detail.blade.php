@@ -37,7 +37,7 @@
             <!--begin::Layout-->
             <div class="d-flex flex-column flex-lg-row">
                 <!--begin::Sidebar-->
-                <div class="flex-column flex-lg-row-auto w-lg-250px w-xl-350px mb-10">
+                <div class="flex-column flex-lg-row-auto w-lg-250px w-xl-300px mb-10">
                     <!--begin::Card-->
                     <div class="card mb-5 mb-xl-8">
                         <!--begin::Card body-->
@@ -483,11 +483,12 @@
             function getTableOfArea() {
                 $.get("{{ route('area.table') }}", function(res) {
                     $('.area_table').html(res);
+                    $("#kt_table_area").DataTable();    
                 })
             }
             $('.areas').click(function(e) {
-
                 getTableOfArea();
+                
             })
             $('.btn-add').click(function(e) {
                 e.preventDefault();
@@ -509,6 +510,7 @@
             function getTableOfTable() {
                 $.get("{{ route('table.table') }}", function(res) {
                     $('.tables_table').html(res);
+                    $("#kt_table_table").DataTable();    
                 })
             }
                 $('.tabletry').click(function(e) {
@@ -533,7 +535,7 @@
             
                 //tab nhan vien
                 function getTableOfStaff() {
-                $.get("{{ route('staffs.table') }}", function(res) {
+                $.get("{{ route('staff.table') }}", function(res) {
                     $('.staff_table').html(res);
                 })
             }

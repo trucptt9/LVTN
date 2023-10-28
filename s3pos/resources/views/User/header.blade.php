@@ -85,7 +85,7 @@
                                         </span>
                                         <span class="menu-title">Quản lý khu vực bàn</span> 
                                     </a>
-                                    <a class="menu-link py-3" href="{{ route('table.index') }}" target="_blank"
+                                    <a class="menu-link py-3" href="{{ route('table.index') }}"
                                        data-bs-toggle="tooltip"
                                         data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                                         <span class="menu-icon">
@@ -118,7 +118,7 @@
                                 <!--begin:Menu item-->
                                 <div class="menu-item">
                                     <!--begin:Menu link-->
-                                    <a class="menu-link py-3" href="{{ route('staffs') }}" 
+                                    <a class="menu-link py-3" href="{{ route('staff.index') }}" 
                                          data-bs-toggle="tooltip"
                                         data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                                         <span class="menu-icon">
@@ -164,7 +164,7 @@
                                 <!--begin:Menu item-->
                                 <div class="menu-item">
                                     <!--begin:Menu link-->
-                                    <a class="menu-link py-3" href="#" target="_blank" title=""
+                                    <a class="menu-link py-3" href="{{ route('customer.index') }}" title=""
                                         data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click"
                                         data-bs-placement="right">
                                         <span class="menu-icon">
@@ -175,7 +175,7 @@
                                         </span>
                                         <span class="menu-title">Danh sách khách hàng</span>
                                     </a>
-                                    <a class="menu-link py-3" href="#" target="_blank" title=""
+                                    <a class="menu-link py-3" href="{{ route('customer_group.index') }}" title=""
                                         data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click"
                                         data-bs-placement="right">
                                         <span class="menu-icon">
@@ -184,19 +184,9 @@
                                                 <span class="path2"></span>
                                             </i>
                                         </span>
-                                        <span class="menu-title">Danh mục khách hàng</span>
+                                        <span class="menu-title">Loại thẻ thành viên</span>
                                     </a>
-                                    <a class="menu-link py-3" href="#" target="_blank"
-                                        data-bs-toggle="tooltip"
-                                        data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
-                                        <span class="menu-icon">
-                                            <i class="ki-duotone ki-rocket fs-2">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                        </span>
-                                        <span class="menu-title">Lịch sử tích đổi điểm</span>
-                                    </a>
+                                   
 
                                     <!--end:Menu link-->
                                 </div>
@@ -204,7 +194,93 @@
                             </div>
                             <!--end:Menu sub-->
                         </div>
-
+                        <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
+                        data-kt-menu-placement="bottom-start"
+                        class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+                        <!--begin:Menu link-->
+                        <span class="menu-link py-3">
+                            <span class="menu-title">Thực đơn</span>
+                            <span class="menu-arrow d-lg-none"></span>
+                        </span>
+                        <!--end:Menu link-->
+                        <!--begin:Menu sub-->
+                        <div
+                            class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown px-lg-2 py-lg-4 w-lg-220px">
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link py-3" href="{{ route('category.index') }}" title=""
+                                    data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click"
+                                    data-bs-placement="right">
+                                    <span class="menu-icon">
+                                        <i class="ki-duotone ki-rocket fs-2">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </span>
+                                    <span class="menu-title">Danh mục món</span>
+                                </a>
+                                <a class="menu-link py-3" href="{{ route('product.index') }}" title=""
+                                    data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click"
+                                    data-bs-placement="right">
+                                    <span class="menu-icon">
+                                        <i class="ki-duotone ki-rocket fs-2">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </span>
+                                    <span class="menu-title">Danh sách món</span>
+                                </a>
+                                <a class="menu-link py-3" href="{{ route('category_topping.index') }}" title=""
+                                    data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click"
+                                    data-bs-placement="right">
+                                    <span class="menu-icon">
+                                        <i class="ki-duotone ki-rocket fs-2">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </span>
+                                    <span class="menu-title">Danh mục topping</span>
+                                </a>
+                                <a class="menu-link py-3" href="{{ route('topping.index') }}" title=""
+                                    data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click"
+                                    data-bs-placement="right">
+                                    <span class="menu-icon">
+                                        <i class="ki-duotone ki-rocket fs-2">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </span>
+                                    <span class="menu-title">Danh sách topping</span>
+                                </a>
+                                <a class="menu-link py-3" href="{{ route('unit.index') }}" title=""
+                                data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click"
+                                data-bs-placement="right">
+                                <span class="menu-icon">
+                                    <i class="ki-duotone ki-rocket fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>
+                                </span>
+                                <span class="menu-title">Danh sách đơn vị</span>
+                            </a>
+                            <a class="menu-link py-3" href="{{ route('customer_group.index') }}" title=""
+                                data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click"
+                                data-bs-placement="right">
+                                <span class="menu-icon">
+                                    <i class="ki-duotone ki-rocket fs-2">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>
+                                </span>
+                                <span class="menu-title">Thiết lập menu</span>
+                            </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                        </div>
+                        <!--end:Menu sub-->
+                    </div>
                         <div data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
                             data-kt-menu-placement="bottom-start"
                             class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
@@ -220,7 +296,7 @@
                                 <!--begin:Menu item-->
                                 <div class="menu-item">
                                     <!--begin:Menu link-->
-                                    <a class="menu-link py-3" href="#" target="_blank"
+                                    <a class="menu-link py-3" href="" 
                                          data-bs-toggle="tooltip"
                                         data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
                                         <span class="menu-icon">
@@ -229,19 +305,9 @@
                                                 <span class="path2"></span>
                                             </i>
                                         </span>
-                                        <span class="menu-title">Quản lý sản phẩm</span>
+                                        <span class="menu-title">Danh sách nguyên vật liệu</span>
                                     </a>
-                                    <a class="menu-link py-3" href="#" target="_blank" title=""
-                                        data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click"
-                                        data-bs-placement="right">
-                                        <span class="menu-icon">
-                                            <i class="ki-duotone ki-rocket fs-2">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                        </span>
-                                        <span class="menu-title">Quản lý đơn vị</span>
-                                    </a>
+                                   
                                     <a class="menu-link py-3" href="#" target="_blank" title=""
                                         data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click"
                                         data-bs-placement="right">
@@ -308,7 +374,7 @@
                                 <!--begin:Menu item-->
                                 <div class="menu-item">
                                     <!--begin:Menu link-->
-                                    <a class="menu-link py-3" href="#" target="_blank" title=""
+                                    <a class="menu-link py-3" href="{{ route('order.index') }}" title=""
                                         data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click"
                                         data-bs-placement="right">
                                         <span class="menu-icon">
@@ -330,17 +396,7 @@
                                         </span>
                                         <span class="menu-title">Quản lý bán hàng</span>
                                     </a>
-                                    <a class="menu-link py-3" href="#" target="_blank" title=""
-                                        data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click"
-                                        data-bs-placement="right">
-                                        <span class="menu-icon">
-                                            <i class="ki-duotone ki-rocket fs-2">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                        </span>
-                                        <span class="menu-title">Thiết lập menu</span>
-                                    </a>
+                                  
 
 
                                     <!--end:Menu link-->
@@ -431,7 +487,7 @@
                                         </span>
                                         <span class="menu-title">Quản lý tài chính</span>
                                     </a>
-                                    <a class="menu-link py-3" href="#" target="_blank" title=""
+                                    <a class="menu-link py-3" href="{{ route('promotion.index') }}"  title=""
                                         data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click"
                                         data-bs-placement="right">
                                         <span class="menu-icon">

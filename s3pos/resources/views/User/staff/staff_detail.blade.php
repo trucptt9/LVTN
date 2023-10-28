@@ -127,7 +127,7 @@
                         <!--end:::Tab item-->
                         <!--begin:::Tab item-->
                         <li class="nav-item">
-                            <a class="nav-link text-active-primary pb-4 fs-6" data-kt-countup-tabs="true"
+                            <a class="nav-link text-active-primary pb-4 fs-6 permision" data-kt-countup-tabs="true"
                                 data-bs-toggle="tab" href="#permission">Phân quyền</a>
                         </li>
                         <!--end:::Tab item-->
@@ -218,49 +218,9 @@
                                     <!--begin::Table wrapper-->
                                     <div class="table-responsive">
                                         <!--begin::Table-->
-                                        <table class="table align-middle table-bordered gy-5"
-                                            id="kt_table_users_login_session">
-                                            <thead class="border-bottom border-gray-200 fs-7 fw-bold">
-                                                <tr class="text-start text-muted text-uppercase gs-0">
-
-                                                    <td>Quyền</td>
-                                                    <td class="text-center">Thêm</td>
-                                                    <td class="text-center">Sửa</td>
-                                                    <td class="text-center">Xóa</td>
-                                                    <td class="text-center">Phân quyền</td>
-
-
-                                                </tr>
-                                            </thead>
-                                            <tbody class="fs-6 fw-semibold text-gray-600">
-
-                                                <tr>
-                                                    <td>Quản lý nhân viên</td>
-                                                    <td class="text-center"><input class="form-check-input"
-                                                            type="checkbox" value="" id="flexCheckDefault" /></td>
-                                                    <td class="text-center"><input class="form-check-input"
-                                                            type="checkbox" value="" id="flexCheckDefault" /></td>
-                                                    <td class="text-center"><input class="form-check-input"
-                                                            type="checkbox" value="" id="flexCheckDefault" /></td>
-                                                    <td class="text-center">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                            id="flexCheckDefault" />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Quản lý cửa hàng</td>
-                                                    <td class="text-center"><input class="form-check-input"
-                                                            type="checkbox" value="" id="flexCheckDefault" /></td>
-                                                    <td class="text-center"><input class="form-check-input"
-                                                            type="checkbox" value="" id="flexCheckDefault" /></td>
-                                                    <td class="text-center"><input class="form-check-input"
-                                                            type="checkbox" value="" id="flexCheckDefault" /></td>
-                                                    <td class="text-center">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                            id="flexCheckDefault" />
-                                                    </td>
-                                                </tr>
-                                            </tbody>
+                                        <table class="table align-middle table-bordered gy-5 permition_table"
+                                            id="kt_table_permison">
+                                           
                                         </table>
                                         <!--end::Table-->
                                     </div>
@@ -1089,27 +1049,17 @@
             });
 
             $("#kt_datepicker_1").flatpickr();
-
-            function loadStaffList() {
-                $.get("{{ route('staffs.list') }}", function(res) {
-                    $('.staff_list').html(res);
+            
+            $('.permision').click(function(e){
+                $.get("{{ route('staff.table_permision') }}", function(res){
+                    $('.permition_table').html(res)
                 })
-            }
-
-            function loadScheduleList() {
-                $.get("{{ route('staffs.schedule') }}", function(res) {
-                    $('.schedule_list_content').html(res);
-                })
-            }
-
-            $('.staffs_list').click(function(e) {
-                e.preventDefault();
-                loadStaffList();
+                $('#kt_table_permison').DataTable();
             })
-            $('.schedule_list').click(function(e) {
-                e.preventDefault();
-                loadScheduleList();
-            })
+            
+           
+
+           
             //checked cấp tài khoản
             $(document).on('click', '#account_staff', function() {
 

@@ -20,4 +20,7 @@ class StoreController extends Controller
     public function report(){
       return view('user.stores.report');  
     }
+    public function order_page(){
+      return view('user.order_page.index');  
+    }
 }

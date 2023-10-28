@@ -2232,7 +2232,7 @@ progress {
 .form-control {
     display: block;
     width: 100%;
-    padding: 0.775rem 1rem;
+    padding: 0.5rem 1rem;
     font-size: 1.1rem;
     font-weight: 500;
     line-height: 1.5;
@@ -2259,7 +2259,7 @@ progress {
 .form-control:focus {
     color: var(--bs-gray-700);
     background-color: var(--bs-body-bg);
-    border-color: var(--bs-gray-400);
+    border-color: var(--bs-primary);
     outline: 0;
     box-shadow: false, 0 0 0 0.25rem rgba(0, 158, 247, 0.25);
 }
@@ -2461,8 +2461,8 @@ textarea.form-control-lg {
 }
 .form-check-input {
     --bs-form-check-bg: transparent;
-    width: 1.75rem;
-    height: 1.75rem;
+    width: 1.4rem;
+    height: 1.4rem;
     margin-top: -0.125rem;
     vertical-align: top;
     background-color: var(--bs-form-check-bg);
@@ -27729,6 +27729,7 @@ h6 {
     border: 0;
     border-bottom: 1px solid var(--bs-primary);
     transition: color 0.2s ease;
+    color: var(--bs-primary);
 }
 .nav-line-tabs.nav-line-tabs-2x {
     border-bottom-width: 2px;
@@ -27773,7 +27774,7 @@ h6 {
 .nav.nav-pills.nav-pills-custom .nav-link.active,
 .nav.nav-pills.nav-pills-custom .show > .nav-link.active {
     background-color: transparent;
-    border: 1px solid var(--bs-border-dashed-color);
+    border: 2px solid #6389e7!important;
     transition-duration: 1ms;
     position: relative;
 }
@@ -34387,7 +34388,7 @@ h6 {
     border: 1px solid var(--bs-gray-300);
 }
 .btn.btn-outline-dashed {
-    border: 1px dashed var(--bs-gray-300);
+    border: 1px dashed var(--bs-gray-400);
 }
 .btn.btn-flush {
     appearance: none;
@@ -34457,7 +34458,7 @@ h6 {
 }
 .btn.btn-outline.btn-outline-dashed {
     border-width: 1px;
-    border-style: dashed;
+    border-style: solid;
 }
 .btn-check:active + .btn.btn-outline.btn-outline-dashed,
 .btn-check:checked + .btn.btn-outline.btn-outline-dashed,
@@ -34778,6 +34779,7 @@ h6 {
     color: var(--bs-primary);
     border-color: var(--bs-primary-light);
     background-color: var(--bs-primary-light) !important;
+   
 }
 .btn-check:active + .btn.btn-active-light-primary .svg-icon,
 .btn-check:active + .btn.btn-active-light-primary i,
@@ -38821,7 +38823,7 @@ code:not([class*="language-"]) {
     border: 0;
 }
 .form-check.form-check-solid .form-check-input:not(:checked) {
-    background-color: var(--bs-gray-200);
+    background-color: var(--bs-gray-300);
 }
 .form-check.form-check-solid .form-check-input[type="checkbox"]:indeterminate {
     background-color: #009ef7;

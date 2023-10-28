@@ -20,8 +20,8 @@
     <!--end::Fonts-->
     @yield('style')
     <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
-    <link href="{{asset('user/assets/plugins/global/plugins.bundle.css')}} " rel="stylesheet" type="text/css"/>
-    <link href="{{asset('user/assets/css/style.bundle.css')}}"  rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('user/assets/plugins/global/plugins.bundle.css') }} " rel="stylesheet" type="text/css" />
+    <link href="{{ asset('user/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
     <!--end::Global Stylesheets Bundle-->
     <style>
         .row-header {
@@ -57,7 +57,8 @@
 
         }
     </style>
-
+    <link href="{{ asset('user/assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet"
+        type="text/css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -120,8 +121,8 @@
         var hostUrl = "user/assets/";
     </script>
     <!--begin::Global Javascript Bundle(mandatory for all pages)-->
-    <script src="{{asset('user/assets/plugins/global/plugins.bundle.js')}}"></script>
-    <script src="{{asset('user/assets/js/scripts.bundle.js')}}"></script>
+    <script src="{{ asset('user/assets/plugins/global/plugins.bundle.js') }}"></script>
+    <script src="{{ asset('user/assets/js/scripts.bundle.js') }}"></script>
     <!--end::Global Javascript Bundle-->
     <!--begin::Vendors Javascript(used for this page only)-->
     {{-- <script src="{{asset('user/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js')}}"></script>
@@ -136,7 +137,7 @@
     <script src="https://cdn.amcharts.com/lib/5/geodata/usaLow.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZonesLow.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZoneAreasLow.js"></script> --}}
-    <script src="{{asset('user/assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
+    <script src="{{ asset('user/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <!--end::Vendors Javascript-->
     @yield('script')
     <!--end::Javascript-->

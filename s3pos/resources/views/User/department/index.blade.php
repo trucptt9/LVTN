@@ -236,8 +236,10 @@
                             </div>
                             <!--end::Card header-->
                             <!--begin::Card body-->
-                            <div class=" department_table card-body py-4">
-
+                            <div class="  card-body py-4">
+                                <table class="table department_table align-middle table-row-dashed fs-6 gy-5" id="kt_table_department">
+    
+                                </table>
                             </div>
                             <!--end::Card body-->
                         </div>
@@ -269,6 +271,7 @@
             function loadData() {
                 $.get("{{ route('departments.table') }}", function(res) {
                     $('.department_table').html(res);
+                    $('#kt_table_department').DataTable();
                 })
             }
             $('.btn-add').click(function(e){

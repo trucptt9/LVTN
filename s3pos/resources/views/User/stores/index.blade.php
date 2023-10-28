@@ -5,39 +5,39 @@
     <!--end::Vendor Stylesheets-->
 @endsection
 @section('content')
-  <!--begin::Toolbar-->
-  <div class="toolbar py-5 " id="kt_toolbar">
-    <!--begin::Container-->
-    <div id="kt_toolbar_container" class="container-xxl d-flex flex-stack flex-wrap">
-        <!--begin::Page title-->
-        <div class="page-title d-flex flex-column me-3">
+    <!--begin::Toolbar-->
+    <div class="toolbar py-5 " id="kt_toolbar">
+        <!--begin::Container-->
+        <div id="kt_toolbar_container" class="container-xxl d-flex flex-stack flex-wrap">
+            <!--begin::Page title-->
+            <div class="page-title d-flex flex-column me-3">
 
-            <!--begin::Breadcrumb-->
-            <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-1">
-                <!--begin::Item-->
-                <h6 class="breadcrumb-item text-white opacity-75">
-                    Cửa hàng
-                </h6>
-                <!--end::Item-->
-                <!--begin::Item-->
-                <h6 class="breadcrumb-item">
-                    <span class="bullet bg-white opacity-75 w-5px h-2px"></span>
-                </h6>
-                <!--end::Item-->
-                <!--begin::Item-->
-                <h6 class="breadcrumb-item text-white opacity-75">Quản lý cửa hàng</h6>
-                <!--end::Item-->
+                <!--begin::Breadcrumb-->
+                <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-1">
+                    <!--begin::Item-->
+                    <h6 class="breadcrumb-item text-white opacity-75">
+                        Cửa hàng
+                    </h6>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <h6 class="breadcrumb-item">
+                        <span class="bullet bg-white opacity-75 w-5px h-2px"></span>
+                    </h6>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <h6 class="breadcrumb-item text-white opacity-75">Quản lý cửa hàng</h6>
+                    <!--end::Item-->
 
 
-            </ul>
-            <!--end::Breadcrumb-->
+                </ul>
+                <!--end::Breadcrumb-->
+            </div>
+            <!--end::Page title-->
+
         </div>
-        <!--end::Page title-->
-
+        <!--end::Container-->
     </div>
-    <!--end::Container-->
-</div>
-<!--end::Toolbar-->
+    <!--end::Toolbar-->
     <!--begin::Main-->
     <!--begin::Root-->
     <div class="d-flex flex-column flex-root">
@@ -238,74 +238,97 @@
                             <!--end::Card header-->
                             <!--begin::Card body-->
                             <div class="store_table card-body py-4">
+                                <div id="kt_table_users_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                                    <div class="table-responsive">
+                                        <table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer"
+                                            id="kt_table_stores">
 
+                                            <thead>
+                                                <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
+                                                   
+                                                    <th class="min-w-125px">Tên cửa hàng</th>
+                                                    <th class="min-w-125px">Mã cửa hàng</th>
+                                                    <th class="min-w-125px">Số điện thoại</th>
+                                                    <th class="min-w-150px">Địa chỉ</th>
+                                                    <th class="w-100px text-center">Trạng thái</th>
+                                                    <th class="w-70px text-center">#</th>
+                                                    <th class="text-center w-90px">#</th>
+                                                </tr>
+                                            </thead>
+                                            
+                                            <tbody class="text-gray-600 fw-semibold load-table">
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                    </div>
+                                    <!--end::Card body-->
+                                </div>
+                                <!--end::Card-->
                             </div>
-                            <!--end::Card body-->
+                            <!--end::Post-->
                         </div>
-                        <!--end::Card-->
+                        <!--end::Container-->
+
                     </div>
-                    <!--end::Post-->
+                    <!--end::Wrapper-->
                 </div>
-                <!--end::Container-->
-
+                <!--end::Page-->
             </div>
-            <!--end::Wrapper-->
-        </div>
-        <!--end::Page-->
-    </div>
-    <!--end::Root-->
+            <!--end::Root-->
 
 
 
 
 
-    <!--end::Modals-->
-@endsection
+            <!--end::Modals-->
+        @endsection
 
-@section('script')
-    <script>
-        $(document).ready(function() {
-            loadData();
-            loadReport();
+        @section('script')
+            <script>
+                $(document).ready(function() {
+                    loadData();
+                    loadReport();
 
-            function loadData() {
-                $.get("{{ route('store.table') }}", function(res) {
-                    $('.store_table').html(res);
+                    function loadData() {
+                        $.get("{{ route('store.table') }}", function(res) {
+                            $('.load-table').html(res);
+                        })
+                    }
+
+                    function loadReport() {
+                        $.get("{{ route('store.report') }}", function(res) {
+                            $('.report').html(res);
+                        })
+                    }
+                    $('.btn-add').click(function(e) {
+                        e.preventDefault();
+                        $('#modal_add_store').trigger('reset');
+                        $('#modal_add_store').modal('show');
+                    })
+                    $('.btn-close').click(function(e) {
+                        e.preventDefault();
+                        $('#modal_add_store').trigger('reset');
+                        $('#modal_add_store').modal('hide');
+                    })
+                    $('.btn-cancle').click(function(e) {
+                        e.preventDefault();
+                        $('#modal_add_store').trigger('reset');
+                        $('#modal_add_store').modal('hide');
+                    })
                 })
-            }
-
-            function loadReport() {
-                $.get("{{ route('store.report') }}", function(res) {
-                    $('.report').html(res);
-                })
-            }
-            $('.btn-add').click(function(e) {
-                e.preventDefault();
-                $('#modal_add_store').trigger('reset');
-                $('#modal_add_store').modal('show');
-            })
-            $('.btn-close').click(function(e) {
-                e.preventDefault();
-                $('#modal_add_store').trigger('reset');
-                $('#modal_add_store').modal('hide');
-            })
-            $('.btn-cancle').click(function(e) {
-                e.preventDefault();
-                $('#modal_add_store').trigger('reset');
-                $('#modal_add_store').modal('hide');
-            })
-        })
-    </script>
-    <!--begin::Custom Javascript(used for this page only)-->
-    <script src=""></script>
-    <script src="user/assets/js/custom/apps/user-management/users/list/table.js"></script>
-    <script src="user/assets/js/custom/apps/user-management/users/list/export-users.js"></script>
-    <script src="user/assets/js/custom/apps/user-management/users/list/add.js"></script>
-    <script src="user/assets/js/widgets.bundle.js"></script>
-    <script src="user/assets/js/custom/widgets.js"></script>
-    <script src="user/assets/js/custom/apps/chat/chat.js"></script>
-    <script src="user/assets/js/custom/utilities/modals/upgrade-plan.js"></script>
-    <script src="user/assets/js/custom/utilities/modals/create-app.js"></script>
-    <script src="user/assets/js/custom/utilities/modals/users-search.js"></script>
-    <!--end::Custom Javascript-->
-@endsection
+            </script>
+            <!--begin::Custom Javascript(used for this page only)-->
+            <script src=""></script>
+            <script src="user/assets/js/custom/apps/user-management/users/list/table.js"></script>
+            <script src="user/assets/js/custom/apps/user-management/users/list/export-users.js"></script>
+            <script src="user/assets/js/custom/apps/user-management/users/list/add.js"></script>
+            <script src="user/assets/js/widgets.bundle.js"></script>
+            <script src="user/assets/js/custom/widgets.js"></script>
+            <script src="user/assets/js/custom/apps/chat/chat.js"></script>
+            <script src="user/assets/js/custom/utilities/modals/upgrade-plan.js"></script>
+            <script src="user/assets/js/custom/utilities/modals/create-app.js"></script>
+            <script src="user/assets/js/custom/utilities/modals/users-search.js"></script>
+            <!--end::Custom Javascript-->
+        @endsection

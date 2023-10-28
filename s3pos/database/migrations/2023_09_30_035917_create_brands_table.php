@@ -11,12 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('branches', function (Blueprint $table) {
+        Schema::create('brands', function (Blueprint $table) {
             $table->id();
             $table->string('code');
             $table->string('name');
             $table->string('phone');
+            $table->string('email');
             $table->string('address'); 
+            $table->integer('type');
+            $table->string('logo')->nullable();
             $table->integer('status');
             $table->string('description')->nullable();
             $table->timestamps();

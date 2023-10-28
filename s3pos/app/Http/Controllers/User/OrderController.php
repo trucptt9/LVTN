@@ -20,4 +20,7 @@ class OrderController extends Controller
       public function report(){
         return view('user.order.report');  
       }
+      public function table_detail(){
+        return view('user.order.table_detail');  
+      }
 }

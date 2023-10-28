@@ -78,9 +78,10 @@
             function loadData() {
                 $.get("{{ route('area.table') }}", function(res) {
                     $('.area_table').html(res);
+                    $("#kt_table_area").DataTable();
                 })
             }
-
+            
             function loadReport() {
                 $.get("{{ route('area.report') }}", function(res) {
                     $('.report').html(res);

@@ -185,9 +185,11 @@
             </div>
             <!--end::Card header-->
             <!--begin::Card body-->
-            <div class="area_table card-body py-4">
+            <div class=" card-body py-4">
                 <!--begin::Table-->
-              
+                <table class="table area_table align-middle table-row-dashed fs-6 gy-5" id="kt_table_area">
+    
+                </table>
                 <!--end::Table-->
             </div>
             <!--end::Card body-->

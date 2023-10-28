@@ -18,5 +18,10 @@ class DepartmentController extends Controller
     {
         return view('user.department.department_detail');
     }
+    public function table_permision()
+    {
+        return view('user.department.permission_table');
+    }
+
 
 }

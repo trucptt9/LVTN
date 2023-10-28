@@ -76,39 +76,40 @@
 @endsection
 
 @section('script')
-<script>
-    $(document).ready(function() {
-        loadData();
-        loadReport();
+    <script>
+        $(document).ready(function() {
+            loadData();
+            loadReport();
 
-        function loadData() {
-            $.get("{{ route('table.table') }}", function(res) {
-                $('.tables_table').html(res);
-            })
-        }
+            function loadData() {
+                $.get("{{ route('table.table') }}", function(res) {
+                    $('.tables_table').html(res);
+                    $('#kt_table_table').DataTable();
+                })
+            }
 
-        function loadReport() {
-            $.get("{{ route('table.report') }}", function(res) {
-                $('.report').html(res);
+            function loadReport() {
+                $.get("{{ route('table.report') }}", function(res) {
+                    $('.report').html(res);
+                })
+            }
+            $('.btn-add').click(function(e) {
+                e.preventDefault();
+                $('#modal_add_table').trigger('reset');
+                $('#modal_add_table').modal('show');
             })
-        }
-        $('.btn-add').click(function(e) {
-            e.preventDefault();
-            $('#modal_add_table').trigger('reset');
-            $('#modal_add_table').modal('show');
+            $('.btn-close').click(function(e) {
+                e.preventDefault();
+                $('#modal_add_table').trigger('reset');
+                $('#modal_add_table').modal('hide');
+            })
+            $('.btn-cancle').click(function(e) {
+                e.preventDefault();
+                $('#modal_add_table').trigger('reset');
+                $('#modal_add_table').modal('hide');
+            })
         })
-        $('.btn-close').click(function(e) {
-            e.preventDefault();
-            $('#modal_add_table').trigger('reset');
-            $('#modal_add_table').modal('hide');
-        })
-        $('.btn-cancle').click(function(e) {
-            e.preventDefault();
-            $('#modal_add_table').trigger('reset');
-            $('#modal_add_table').modal('hide');
-        })
-    })
-</script>
+    </script>
     <!--begin::Custom Javascript(used for this page only)-->
     <script src=""></script>
     <script src="user/assets/js/custom/apps/user-management/users/list/table.js"></script>

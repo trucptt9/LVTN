@@ -1,43 +1,43 @@
 @extends('user.layout')
 @section('style')
     <!--begin::Vendor Stylesheets(used for this page only)-->
-    <link href="user/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('user/assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
     <!--end::Vendor Stylesheets-->
 @endsection
 @section('content')
-  <!--begin::Toolbar-->
-  <div class="toolbar py-5 " id="kt_toolbar">
-    <!--begin::Container-->
-    <div id="kt_toolbar_container" class="container-xxl d-flex flex-stack flex-wrap">
-        <!--begin::Page title-->
-        <div class="page-title d-flex flex-column me-3">
+    <!--begin::Toolbar-->
+    <div class="toolbar py-5 " id="kt_toolbar">
+        <!--begin::Container-->
+        <div id="kt_toolbar_container" class="container-xxl d-flex flex-stack flex-wrap">
+            <!--begin::Page title-->
+            <div class="page-title d-flex flex-column me-3">
 
-            <!--begin::Breadcrumb-->
-            <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-1">
-                <!--begin::Item-->
-                <h6 class="breadcrumb-item text-white opacity-75">
-                   Bán hàng
-                </h6>
-                <!--end::Item-->
-                <!--begin::Item-->
-                <h6 class="breadcrumb-item">
-                    <span class="bullet bg-white opacity-75 w-5px h-2px"></span>
-                </h6>
-                <!--end::Item-->
-                <!--begin::Item-->
-                <h6 class="breadcrumb-item text-white opacity-75">Quản lý đơn hàng</h6>
-                <!--end::Item-->
+                <!--begin::Breadcrumb-->
+                <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-1">
+                    <!--begin::Item-->
+                    <h6 class="breadcrumb-item text-white opacity-75">
+                        Bán hàng
+                    </h6>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <h6 class="breadcrumb-item">
+                        <span class="bullet bg-white opacity-75 w-5px h-2px"></span>
+                    </h6>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <h6 class="breadcrumb-item text-white opacity-75">Quản lý đơn hàng</h6>
+                    <!--end::Item-->
 
 
-            </ul>
-            <!--end::Breadcrumb-->
+                </ul>
+                <!--end::Breadcrumb-->
+            </div>
+            <!--end::Page title-->
+
         </div>
-        <!--end::Page title-->
-
+        <!--end::Container-->
     </div>
-    <!--end::Container-->
-</div>
-<!--end::Toolbar-->
+    <!--end::Toolbar-->
     <!--begin::Main-->
     <!--begin::Root-->
     <div class="d-flex flex-column flex-root">
@@ -97,9 +97,9 @@
                                             <div class="px-7 py-5" data-kt-user-table-filter="form">
                                                 <!--begin::Input group-->
                                                 <div class="mb-10">
-                                                    <label class="form-label fs-6 fw-semibold">Role:</label>
+                                                    <label class="form-label fs-6 fw-semibold">Nhân viên:</label>
                                                     <select class="form-select form-select-solid fw-bold"
-                                                        data-kt-select2="true" data-placeholder="Select option"
+                                                        data-kt-select2="true" data-placeholder="Chọn nhân viên"
                                                         data-allow-clear="true" data-kt-user-table-filter="role"
                                                         data-hide-search="true">
                                                         <option></option>
@@ -113,8 +113,7 @@
                                                 <!--end::Input group-->
                                                 <!--begin::Input group-->
                                                 <div class="mb-10">
-                                                    <label class="form-label fs-6 fw-semibold">Two Step
-                                                        Verification:</label>
+                                                    <label class="form-label fs-6 fw-semibold">Ngày:</label>
                                                     <select class="form-select form-select-solid fw-bold"
                                                         data-kt-select2="true" data-placeholder="Select option"
                                                         data-allow-clear="true" data-kt-user-table-filter="two-step"
@@ -237,8 +236,10 @@
                             </div>
                             <!--end::Card header-->
                             <!--begin::Card body-->
-                            <div class="order_table card-body py-4">
-
+                            <div class="card-body py-4">
+                                <table class="table order_table align-middle table-row-dashed fs-6 gy-5" id="kt_table_order">
+                                   
+                                </table>
                             </div>
                             <!--end::Card body-->
                         </div>
@@ -265,12 +266,17 @@
 @section('script')
     <script>
         $(document).ready(function() {
+
+           
+
             loadData();
             loadReport();
-
+          
             function loadData() {
                 $.get("{{ route('order.table') }}", function(res) {
+                    // alert(1)
                     $('.order_table').html(res);
+                    $("#kt_table_order").DataTable();
                 })
             }
 
@@ -281,31 +287,32 @@
             }
             $('.btn-add').click(function(e) {
                 e.preventDefault();
-                $('#modal_add_store').trigger('reset');
-                $('#modal_add_store').modal('show');
+                $('#modal_add_order').trigger('reset');
+                $('#modal_add_order').modal('show');
             })
             $('.btn-close').click(function(e) {
                 e.preventDefault();
-                $('#modal_add_store').trigger('reset');
-                $('#modal_add_store').modal('hide');
+                $('#modal_add_order').trigger('reset');
+                $('#modal_add_order').modal('hide');
             })
             $('.btn-cancle').click(function(e) {
                 e.preventDefault();
-                $('#modal_add_store').trigger('reset');
-                $('#modal_add_store').modal('hide');
+                $('#modal_add_order').trigger('reset');
+                $('#modal_add_order').modal('hide');
             })
         })
     </script>
     <!--begin::Custom Javascript(used for this page only)-->
-    <script src=""></script>
-    <script src="user/assets/js/custom/apps/user-management/users/list/table.js"></script>
-    <script src="user/assets/js/custom/apps/user-management/users/list/export-users.js"></script>
-    <script src="user/assets/js/custom/apps/user-management/users/list/add.js"></script>
-    <script src="user/assets/js/widgets.bundle.js"></script>
-    <script src="user/assets/js/custom/widgets.js"></script>
-    <script src="user/assets/js/custom/apps/chat/chat.js"></script>
-    <script src="user/assets/js/custom/utilities/modals/upgrade-plan.js"></script>
-    <script src="user/assets/js/custom/utilities/modals/create-app.js"></script>
-    <script src="user/assets/js/custom/utilities/modals/users-search.js"></script>
+    <script src="{{ asset('user/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+
+    <script src="{{ asset('user/assets/js/custom/apps/user-management/users/list/table.js') }}"></script>
+    <script src="{{ asset('user/assets/js/custom/apps/user-management/users/list/export-users.js') }}"></script>
+    <script src="{{ asset('user/assets/js/custom/apps/user-management/users/list/add.js') }}"></script>
+    <script src="{{ asset('user/assets/js/widgets.bundle.js') }}"></script>
+    <script src="{{ asset('user/assets/js/custom/widgets.js') }}"></script>
+    <script src="{{ asset('user/assets/js/custom/apps/chat/chat.js') }}"></script>
+    <script src="{{ asset('user/assets/js/custom/utilities/modals/upgrade-plan.js') }}"></script>
+    <script src="{{ asset('user/assets/js/custom/utilities/modals/create-app.js') }}"></script>
+    <script src="{{ asset('user/assets/js/custom/utilities/modals/users-search.js') }}"></script>
     <!--end::Custom Javascript-->
 @endsection
