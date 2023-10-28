@@ -11,18 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('coupons', function (Blueprint $table) {
+        Schema::create('settings', function (Blueprint $table) {
             $table->id()->index();
             $table->unsignedBigInteger('store_id')->index();
-            $table->string('code')->unique();
-            $table->date('start');
-            $table->date('end')->nullable();
-            $table->integer('value')->nullable()->default(0);
-            $table->integer('type_value')->nullable()->default(1);
-            $table->integer('status')->nullable()->default(1);
+            $table->string('code');
+            $table->string('name');
             $table->string('description')->nullable();
+            $table->integer('type')->nullable()->default(0);
+            $table->string('value');
+            $table->string('data')->nullable();
+            $table->integer('numering')->nullable()->default(0);
+            $table->integer('group_id')->index();
+            $table->boolean('status')->nullable()->default(true);
             $table->timestamps();
-            $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade');
         });
     }
 
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('coupons');
+        Schema::dropIfExists('settings');
     }
 };

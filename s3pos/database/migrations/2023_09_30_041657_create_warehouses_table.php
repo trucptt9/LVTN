@@ -12,13 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('warehouses', function (Blueprint $table) {
-            $table->id();
-            $table->string('name'); 
-            $table->string('address');  
+            $table->id()->index();
+            $table->unsignedBigInteger('store_id')->index();
+            $table->string('code')->unique();
+            $table->string('name');
+            $table->string('address');
             $table->string('phone');
-            $table->integer('status');
-            $table->string('description')->nullable(); 
+            $table->integer('status')->nullable()->default(1);
+            $table->string('description')->nullable();
             $table->timestamps();
+            $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade');
         });
     }
 

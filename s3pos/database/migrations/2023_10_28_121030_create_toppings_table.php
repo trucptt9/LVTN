@@ -11,18 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('coupons', function (Blueprint $table) {
+        Schema::create('toppings', function (Blueprint $table) {
             $table->id()->index();
-            $table->unsignedBigInteger('store_id')->index();
+            $table->unsignedBigInteger('group_id')->index();
             $table->string('code')->unique();
-            $table->date('start');
-            $table->date('end')->nullable();
-            $table->integer('value')->nullable()->default(0);
-            $table->integer('type_value')->nullable()->default(1);
+            $table->string('name');
+            $table->string('image')->nullable();
+            $table->integer('price')->nullable()->default(0);
+            $table->integer('cost')->nullable()->default(0);
+            $table->boolean('is_menu')->nullable();
             $table->integer('status')->nullable()->default(1);
-            $table->string('description')->nullable();
             $table->timestamps();
-            $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade');
+            $table->foreign('group_id')->references('id')->on('topping_groups')->onDelete('cascade');
         });
     }
 
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('coupons');
+        Schema::dropIfExists('toppings');
     }
 };

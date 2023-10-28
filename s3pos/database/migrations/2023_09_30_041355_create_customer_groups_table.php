@@ -12,13 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('customer_groups', function (Blueprint $table) {
-            $table->id();
-            $table->string('code'); 
-            $table->string('name');  
-            $table->integer('status');
-            $table->string('description')->nullable(); 
-            
+            $table->id()->index();
+            $table->unsignedBigInteger('brand_id')->index();
+            $table->string('code')->unique();
+            $table->string('name');
+            $table->boolean('default')->nullable()->default(false);
+            $table->integer('status')->index()->nullable()->default(1);
+            $table->string('description')->nullable();
             $table->timestamps();
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
         });
     }
 

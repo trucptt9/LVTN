@@ -12,16 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('promotions', function (Blueprint $table) {
-            $table->id();
-            $table->string('code'); 
-            $table->integer('subject');  
+            $table->id()->index();
+            $table->unsignedBigInteger('store_id')->index();
+            $table->string('code')->unique();
+            $table->string('subject');
             $table->date('start');
-            $table->date('end'); 
-            $table->integer('value');
-            $table->integer('type_value');
-            $table->integer('total_order'); 
+            $table->date('end')->nullable();
+            $table->integer('value')->nullable()->default(0);
+            $table->integer('type_value')->nullable()->default(1);
+            $table->integer('total_order');
+            $table->integer('status')->nullable()->default(1);
             $table->string('description')->nullable();
             $table->timestamps();
+            $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade');
         });
     }
 

@@ -12,11 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('admin_histories', function (Blueprint $table) {
-            $table->id();
-            $table->integer('type');
-            $table->string('link'); 
+            $table->id()->index();
+            $table->unsignedBigInteger('admin_id')->index();
+            $table->integer('action');
+            $table->string('link');
             $table->string('note');
             $table->timestamps();
+            $table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
         });
     }
 

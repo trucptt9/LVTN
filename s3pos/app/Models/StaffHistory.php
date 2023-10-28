@@ -6,13 +6,13 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AdminHistory extends Model
+class StaffHistory extends Model
 {
     use HasFactory;
-    protected $table = 'admin_histories';
+    protected $table = 'staff_histories';
 
     protected $fillable = [
-        'admin_id',
+        'staff_id',
         'note',
         'action',
         'link',
@@ -21,35 +21,35 @@ class AdminHistory extends Model
     protected $hidden = [];
 
     protected $casts = [
-        'admin_id' => 'integer',
+        'staff_id' => 'integer',
         'data_json' => 'json',
         'created_at' => 'datetime'
     ];
 
-    public function admin()
+    public function staff()
     {
-        return $this->belongsTo(Admin::class, 'admin_id');
+        return $this->belongsTo(Staff::class, 'staff_id');
     }
 
-    public function scopeAdminId($query, $admin_id)
+    public function scopeStaffId($query, $staff_id)
     {
-        if (is_array($admin_id)) {
-            return $query->whereIn('admin_histories.admin_id', $admin_id);
+        if (is_array($staff_id)) {
+            return $query->whereIn('staff_histories.staff_id', $staff_id);
         }
-        return $query->where('admin_histories.admin_id', $admin_id);
+        return $query->where('staff_histories.staff_id', $staff_id);
     }
 
     public function scopeOfDate($query, $from, $to)
     {
         $_from = Carbon::parse($from)->startOfDay();
         $_to = Carbon::parse($to)->endOfDay();
-        return $query->whereBetween('admin_histories.created_at', [$_from, $_to]);
+        return $query->whereBetween('staff_histories.created_at', [$_from, $_to]);
     }
 
     public function scopeSearch($query, $search)
     {
         return $query->where(function ($query) use ($search) {
-            $query->where('admin_histories.note', 'LIKE', "%$search%");
+            $query->where('staff_histories.note', 'LIKE', "%$search%");
         });
     }
 }

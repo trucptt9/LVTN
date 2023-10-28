@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sale_chanels', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');  
-            $table->integer('default')->nullable();
-            $table->integer('status'); 
-            $table->string('description')->nullable();
+        Schema::create('sale_channels', function (Blueprint $table) {
+            $table->id()->index();
+            $table->unsignedBigInteger('source_id')->index();
+            $table->string('code')->unique();
+            $table->string('name');
+            $table->boolean('default')->nullable()->default(false);
+            $table->integer('status')->index()->nullable()->default(1);
             $table->timestamps();
+            $table->foreign('source_id')->references('id')->on('sale_sources')->onDelete('cascade');
         });
     }
 
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sale_chanels');
+        Schema::dropIfExists('sale_channels');
     }
 };

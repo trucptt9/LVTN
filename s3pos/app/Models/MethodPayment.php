@@ -5,18 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Area extends Model
+class MethodPayment extends Model
 {
     use HasFactory;
-    protected $table = 'areas';
+    protected $table = 'method_payments';
 
     protected $fillable = [
         'store_id',
         'code',
         'name',
-        'capacity',
-        'priority',
-        'status'
+        'status',
+        'description'
     ];
 
     protected $hidden = [];
@@ -25,8 +24,6 @@ class Area extends Model
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
         'status' => 'integer',
-        'capacity' => 'integer',
-        'priority' => 'integer',
         'store_id' => 'integer',
     ];
 
@@ -42,9 +39,9 @@ class Area extends Model
         return $status == '' ? $types : $types["$status"];
     }
 
-    public function tables()
+    public function channels()
     {
-        return $this->hasMany(Table::class, 'area_id', 'id');
+        return $this->hasMany(PortPayment::class, 'method_id', 'id');
     }
 
     public function store()
@@ -54,30 +51,30 @@ class Area extends Model
 
     public function scopeOfCode($query, $code)
     {
-        return $query->where('areas.code', $code);
-    }
-
-    public function scopeOfStatus($query, $status)
-    {
-        if (is_array($status)) {
-            return $query->whereIn('areas.status', $status);
-        }
-        return $query->where('areas.status', $status);
+        return $query->where('method_payments.code', $code);
     }
 
     public function scopeStoreId($query, $store_id)
     {
         if (is_array($store_id)) {
-            return $query->whereIn('areas.store_id', $store_id);
+            return $query->whereIn('method_payments.store_id', $store_id);
         }
-        return $query->where('areas.store_id', $store_id);
+        return $query->where('method_payments.store_id', $store_id);
+    }
+
+    public function scopeOfStatus($query, $status)
+    {
+        if (is_array($status)) {
+            return $query->whereIn('method_payments.status', $status);
+        }
+        return $query->where('method_payments.status', $status);
     }
 
     public function scopeSearch($query, $search)
     {
         return $query->where(function ($query) use ($search) {
-            $query->where('areas.code', 'LIKE', "%$search%")
-                ->orWhere('areas.name', 'LIKE', "%$search%");
+            $query->where('method_payments.code', 'LIKE', "%$search%")
+                ->orWhere('method_payments.name', 'LIKE', "%$search%");
         });
     }
 }

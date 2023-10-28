@@ -11,12 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('port_methods', function (Blueprint $table) {
-            $table->id();
+        Schema::create('method_payments', function (Blueprint $table) {
+            $table->id()->index();
+            $table->unsignedBigInteger('store_id')->index();
+            $table->string('code');
             $table->string('name');
-            $table->integer('status'); 
+            $table->integer('status');
             $table->string('description')->nullable();
             $table->timestamps();
+            $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade');
         });
     }
 
@@ -25,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('port_methods');
+        Schema::dropIfExists('method_payments');
     }
 };

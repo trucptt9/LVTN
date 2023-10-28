@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('satff_histories', function (Blueprint $table) {
-            $table->id();
-            $table->integer('type'); 
-            $table->string('link'); 
-            $table->dateTime('date'); 
-            $table->string('description')->nullable(); 
+        Schema::create('staff_histories', function (Blueprint $table) {
+            $table->id()->index();
+            $table->unsignedBigInteger('staff_id')->index();
+            $table->integer('action');
+            $table->string('link')->nullable();
+            $table->text('description');
             $table->timestamps();
+            $table->foreign('staff_id')->references('id')->on('staffs')->onDelete('cascade');
         });
     }
 
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('satff_histories');
+        Schema::dropIfExists('staff_histories');
     }
 };

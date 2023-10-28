@@ -11,19 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('brands', function (Blueprint $table) {
+        Schema::create('stores', function (Blueprint $table) {
             $table->id()->index();
+            $table->unsignedBigInteger('brand_id')->index();
             $table->unsignedBigInteger('type_id')->index();
-            $table->string('code')->unique()->index();
+            $table->string('code')->index()->unique();
             $table->string('name');
             $table->string('phone');
-            $table->string('email');
             $table->string('address');
-            $table->string('logo')->nullable();
             $table->integer('status')->index()->nullable()->default(1);
             $table->string('description')->nullable();
             $table->timestamps();
-            $table->foreign('type_id')->references('id')->on('business_types')->onDelete('cascade');
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
+            $table->foreign('type_id')->references('id')->on('store_types')->onDelete('cascade');
         });
     }
 
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('branches');
+        Schema::dropIfExists('stores');
     }
 };

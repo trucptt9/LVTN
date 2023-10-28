@@ -11,16 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('the_tables', function (Blueprint $table) {
-            $table->id();
-            $table->string('code'); 
-            $table->string('name'); 
-            $table->string('type'); 
-            $table->integer('seat'); 
-            $table->integer('default')->nullable();
-            $table->integer('status'); 
-            $table->string('description')->nullable();
+        Schema::create('tables', function (Blueprint $table) {
+            $table->id()->index();
+            $table->unsignedBigInteger('area_id')->index();
+            $table->unsignedBigInteger('type_id')->index();
+            $table->string('code')->unique()->index();
+            $table->string('name');
+            $table->integer('seat')->nullable()->default(1);
+            $table->integer('status')->index()->nullable()->default(1);
             $table->timestamps();
+            $table->foreign('area_id')->references('id')->on('areas')->onDelete('cascade');
+            $table->foreign('type_id')->references('id')->on('table_types')->onDelete('cascade');
         });
     }
 
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('the_tables');
+        Schema::dropIfExists('tables');
     }
 };

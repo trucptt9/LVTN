@@ -12,18 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('bill_services', function (Blueprint $table) {
-            $table->id();
-            $table->string('code');
-            $table->integer('total'); 
-            $table->integer('subtotal');
-            $table->integer('discount');
-            $table->integer('type_discount');
-            $table->date('day_end'); 
+            $table->id()->index();
+            $table->unsignedBigInteger('store_id')->index();
+            $table->string('code')->unique();
+            $table->integer('discount')->nullable()->default(0);
+            $table->integer('discount_type')->nullable()->default(1);
+            $table->integer('subtotal')->nullable()->default(0);
+            $table->integer('total')->nullable()->default(0);
+            $table->date('day_end');
             $table->date('day_start');
-            $table->string('desscription');
-            $table->integer('status_payment');
-            $table->integer('status');
+            $table->string('description')->nullable();
+            $table->integer('status_payment')->nullable()->default(1);
+            $table->integer('status')->nullable()->default(1);
             $table->timestamps();
+            $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade');
         });
     }
 

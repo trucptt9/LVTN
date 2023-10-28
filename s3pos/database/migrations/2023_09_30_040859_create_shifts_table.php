@@ -12,14 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('shifts', function (Blueprint $table) {
-            $table->id();
-            $table->string('name'); 
-            $table->time('start'); 
-            $table->time('end'); 
-            $table->integer('wage'); 
-            $table->integer('status'); 
-            $table->string('description'); 
+            $table->id()->index();
+            $table->unsignedBigInteger('store_id')->index();
+            $table->string('code')->unique()->index();
+            $table->string('name');
+            $table->time('start');
+            $table->time('end')->nullable();
+            $table->integer('salary')->nullable()->default(0);
+            $table->integer('status')->nullable()->default(1);
+            $table->string('description');
             $table->timestamps();
+            $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade');
         });
     }
 

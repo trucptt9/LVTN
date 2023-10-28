@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('customer_histories', function (Blueprint $table) {
-            $table->id();
-            $table->integer('type'); 
-            $table->integer('point');  
-            $table->dateTime('date');
-            $table->string('note')->nullable(); 
-           
+            $table->id()->index();
+            $table->unsignedBigInteger('customer_id')->index();
+            $table->integer('type')->index()->nullable()->default(1);
+            $table->integer('point')->nullable()->default(0);
+            $table->string('note')->nullable();
             $table->timestamps();
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
         });
     }
 

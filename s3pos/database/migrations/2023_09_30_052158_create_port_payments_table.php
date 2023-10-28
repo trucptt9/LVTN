@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('departments', function (Blueprint $table) {
+        Schema::create('port_payments', function (Blueprint $table) {
             $table->id()->index();
-            $table->unsignedBigInteger('brand_id')->index();
-            $table->string('code')->unique();
+            $table->unsignedBigInteger('method_id')->index();
+            $table->string('code');
             $table->string('name');
-            $table->integer('status')->nullable()->index()->default(1);
-            $table->string('description');
+            $table->integer('status');
+            $table->string('description')->nullable();
             $table->timestamps();
-            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
+            $table->foreign('method_id')->references('id')->on('method_payments')->onDelete('cascade');
         });
     }
 
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('departments');
+        Schema::dropIfExists('port_payments');
     }
 };
