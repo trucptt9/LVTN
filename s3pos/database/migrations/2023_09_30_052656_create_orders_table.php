@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id()->index();
+            $table->string('code')->unique()->index();
             $table->unsignedBigInteger('table_id')->index();
             $table->unsignedBigInteger('customer_id')->index();
             $table->unsignedBigInteger('portal_payment_id')->index();

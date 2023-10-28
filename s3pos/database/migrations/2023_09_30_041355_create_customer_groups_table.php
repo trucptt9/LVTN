@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('code')->unique();
             $table->string('name');
             $table->boolean('default')->nullable()->default(false);
-            $table->integer('status')->index()->nullable()->default(1);
+            $table->boolean('status')->nullable()->default(false);
             $table->string('description')->nullable();
             $table->timestamps();
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');

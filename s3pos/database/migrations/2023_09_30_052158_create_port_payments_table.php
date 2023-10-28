@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('method_id')->index();
             $table->string('code');
             $table->string('name');
-            $table->integer('status');
+            $table->boolean('status')->nullable()->default(false);
             $table->string('description')->nullable();
             $table->timestamps();
             $table->foreign('method_id')->references('id')->on('method_payments')->onDelete('cascade');

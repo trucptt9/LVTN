@@ -29,6 +29,8 @@ class Settings extends Model
         'group_id' => 'integer',
         'numering' => 'integer',
         'status' => 'boolean',
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
     const TYPE_TEXT = 0;

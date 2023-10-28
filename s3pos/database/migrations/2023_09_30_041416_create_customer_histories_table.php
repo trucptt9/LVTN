@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('customer_histories', function (Blueprint $table) {
             $table->id()->index();
+            $table->string('code')->unique()->index();
             $table->unsignedBigInteger('customer_id')->index();
             $table->integer('type')->index()->nullable()->default(1);
             $table->integer('point')->nullable()->default(0);

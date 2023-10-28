@@ -17,10 +17,10 @@ return new class extends Migration
             $table->string('code')->unique();
             $table->integer('discount')->nullable()->default(0);
             $table->integer('discount_type')->nullable()->default(1);
-            $table->integer('subtotal')->nullable()->default(0);
+            $table->integer('sub_total')->nullable()->default(0);
             $table->integer('total')->nullable()->default(0);
             $table->date('day_end');
-            $table->date('day_start');
+            $table->date('day_start')->nullable();
             $table->string('description')->nullable();
             $table->integer('status_payment')->nullable()->default(1);
             $table->integer('status')->nullable()->default(1);

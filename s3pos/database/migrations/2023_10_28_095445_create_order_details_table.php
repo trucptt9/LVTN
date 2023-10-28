@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('parent_id')->nullable()->default(0);
             $table->integer('item_id')->index();
             $table->integer('quantity')->nullable()->default(1);
+            $table->integer('price')->nullable()->default(0);
             $table->string('note')->nullable();
             $table->integer('total')->nullable()->default(0);
             $table->timestamps();

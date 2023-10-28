@@ -19,7 +19,7 @@ return new class extends Migration
             $table->time('start');
             $table->time('end')->nullable();
             $table->integer('salary')->nullable()->default(0);
-            $table->integer('status')->nullable()->default(1);
+            $table->boolean('status')->nullable()->default(false);
             $table->string('description');
             $table->timestamps();
             $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade');

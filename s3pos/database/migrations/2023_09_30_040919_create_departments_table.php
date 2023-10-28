@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('brand_id')->index();
             $table->string('code')->unique();
             $table->string('name');
-            $table->integer('status')->nullable()->index()->default(1);
+            $table->boolean('status')->nullable()->default(false);
             $table->string('description');
             $table->timestamps();
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');

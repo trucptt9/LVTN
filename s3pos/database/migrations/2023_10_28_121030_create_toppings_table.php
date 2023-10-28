@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('price')->nullable()->default(0);
             $table->integer('cost')->nullable()->default(0);
             $table->boolean('is_menu')->nullable();
-            $table->integer('status')->nullable()->default(1);
+            $table->boolean('status')->nullable()->default(false);
             $table->timestamps();
             $table->foreign('group_id')->references('id')->on('topping_groups')->onDelete('cascade');
         });

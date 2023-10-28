@@ -8,4 +8,55 @@ use Illuminate\Database\Eloquent\Model;
 class Table extends Model
 {
     use HasFactory;
+    protected $table = 'tables';
+
+    protected $fillable = [
+        'area_id',
+        'type_id',
+        'code',
+        'name',
+        'status',
+        'seat'
+    ];
+
+    protected $hidden = [];
+
+    protected $casts = [
+        'status' => 'boolean',
+        'area_id' => 'integer',
+        'type_id' => 'integer',
+        'seat' => 'integer',
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
+    ];
+
+    public function scopeOfCode($query, $code)
+    {
+        return $query->where('tables.code', $code);
+    }
+
+    public function scopeOfStatus($query, $status)
+    {
+        return $query->where('tables.status', $status);
+    }
+
+    public function scopeAreaId($query, $area_id)
+    {
+        return $query->where('tables.area_id', $area_id);
+    }
+
+    public function scopeTypeId($query, $type_id)
+    {
+        return $query->where('tables.type_id', $type_id);
+    }
+
+    public function area()
+    {
+        return $this->belongsTo(Area::class, 'area_id');
+    }
+
+    public function type()
+    {
+        return $this->belongsTo(TableType::class, 'type_id');
+    }
 }

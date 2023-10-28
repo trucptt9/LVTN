@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('code')->unique();
             $table->string('name');
             $table->boolean('default')->nullable()->default(false);
-            $table->integer('status')->index()->nullable()->default(1);
+            $table->boolean('status')->nullable()->default(false);
             $table->timestamps();
             $table->foreign('source_id')->references('id')->on('sale_sources')->onDelete('cascade');
         });

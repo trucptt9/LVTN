@@ -23,6 +23,8 @@ class SettingGroup extends Model
     protected $casts = [
         'status' => 'boolean',
         'numering' => 'integer',
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
     public function scopeOfCode($query, $code)

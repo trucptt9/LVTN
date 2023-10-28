@@ -23,7 +23,8 @@ class StaffHistory extends Model
     protected $casts = [
         'staff_id' => 'integer',
         'data_json' => 'json',
-        'created_at' => 'datetime'
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
     public function staff()

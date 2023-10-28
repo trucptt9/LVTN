@@ -17,8 +17,7 @@ return new class extends Migration
             $table->string('code')->unique();
             $table->string('name');
             $table->string('address');
-            $table->string('phone');
-            $table->integer('status')->nullable()->default(1);
+            $table->boolean('status')->nullable()->default(false);
             $table->string('description')->nullable();
             $table->timestamps();
             $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade');

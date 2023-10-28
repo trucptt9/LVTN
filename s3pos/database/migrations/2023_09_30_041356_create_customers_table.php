@@ -18,10 +18,10 @@ return new class extends Migration
             $table->string('code')->unique()->index();
             $table->string('name');
             $table->string('phone');
-            $table->string('address')->nullable();
             $table->string('email')->nullable();
-            $table->integer('point_current');
-            $table->integer('status')->index()->nullable()->default(1);
+            $table->string('address')->nullable();
+            $table->integer('point_current')->nullable()->default(0);
+            $table->boolean('status')->nullable()->default(false);
             $table->string('description')->nullable();
             $table->timestamps();
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
