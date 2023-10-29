@@ -28,6 +28,7 @@ return new class extends Migration
             $table->boolean('is_supper')->nullable()->default(false);
             $table->integer('status')->index()->nullable()->default(1);
             $table->string('description')->nullable();
+            $table->timestamp('last_login')->nullable();
             $table->timestamps();
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');

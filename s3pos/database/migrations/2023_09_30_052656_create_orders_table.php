@@ -33,6 +33,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->integer('status')->nullable()->default(1);
             $table->timestamps();
+            $table->softDeletes();
             $table->foreign('table_id')->references('id')->on('tables')->onDelete('cascade');
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
             $table->foreign('portal_payment_id')->references('id')->on('port_payments')->onDelete('cascade');

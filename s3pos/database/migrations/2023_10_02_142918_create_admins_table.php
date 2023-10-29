@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('gender')->nullable()->default(3);
             $table->boolean('is_supper')->nullable()->default(false);
             $table->boolean('is_root')->nullable()->default(false);
+            $table->timestamp('last_login')->nullable();
             $table->integer('status')->nullable()->default(1);
             $table->timestamps();
         });

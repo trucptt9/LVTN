@@ -78,6 +78,11 @@ class Coupon extends Model
         return $query->where('coupons.store_id', $store_id);
     }
 
+    public function scopeExpired($query)
+    {
+        return $query->where('coupons.end', '<=', now());
+    }
+
     public function store()
     {
         return $this->belongsTo(Store::class, 'store_id');

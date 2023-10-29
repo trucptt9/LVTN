@@ -60,7 +60,7 @@ class SettingGroup extends Model
 
     public static function getOrder()
     {
-        $max = SettingGroup::max('order') ?? 0;
+        $max = SettingGroup::max('numering') ?? 0;
         return $max + 1;
     }
 }

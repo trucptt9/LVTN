@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\RoleController;
+use App\Http\Controllers\User\RoleController;
 use App\Http\Controllers\User\DepartmentController;
 use App\Http\Controllers\User\AreaController;
 use App\Http\Controllers\User\AuthController;
@@ -18,6 +18,7 @@ use App\Http\Controllers\User\MaterialController;
 use App\Http\Controllers\User\PromotionController;
 use App\Http\Controllers\User\UnitController;
 use App\Http\Controllers\User\ProductController;
+use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\ReportController;
 use App\Http\Controllers\User\SettingController;
 use App\Http\Controllers\User\ShiftController;
@@ -39,14 +40,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('login', [AuthController::class, 'login']);
-Route::post('login', [AuthController::class, 'login_post']);
-Route::get('forgot_password', [AuthController::class, 'forgot_password']);
-Route::post('forgot_password', [AuthController::class, 'forgot_password_post']);
+Route::get('login', [AuthController::class, 'login'])->name('login');
+Route::post('login', [AuthController::class, 'login_post'])->name('login_post');
+Route::get('forgot_password', [AuthController::class, 'forgot_password'])->name('forgot_password');
+Route::post('forgot_password', [AuthController::class, 'forgot_password_post'])->name('forgot_password_post');
 
 Route::middleware(['auth', 'checkStaff'])->group(function () {
+    Route::get('logout', [HomeController::class, 'logout'])->name('logout');
     // home
     Route::get('', [HomeController::class, 'index'])->name('index');
+
+    // profile
+    Route::prefix('profile')->name('profile.')->group(function () {
+        Route::get('', [ProfileController::class, 'index'])->name('index');
+    });
 
     // store
     Route::prefix('roles')->name('role.')->group(function () {

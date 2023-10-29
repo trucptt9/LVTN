@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Events\GenerateDataBrand;
 use App\Events\GenerateDataStore;
+use App\Events\StaffLogin;
 use App\Listeners\GenerateDataBrandListen;
 use App\Listeners\GenerateDataStoreListen;
+use App\Listeners\StaffLoginListen;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -27,6 +29,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         GenerateDataBrand::class => [
             GenerateDataBrandListen::class,
+        ],
+        StaffLogin::class => [
+            StaffLoginListen::class,
         ],
     ];
 

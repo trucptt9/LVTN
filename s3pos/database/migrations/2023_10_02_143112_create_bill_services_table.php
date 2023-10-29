@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('bill_services', function (Blueprint $table) {
             $table->id()->index();
-            $table->unsignedBigInteger('store_id')->index();
+            $table->unsignedBigInteger('license_id')->index();
             $table->string('code')->unique();
             $table->integer('discount')->nullable()->default(0);
             $table->integer('discount_type')->nullable()->default(1);
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->integer('status_payment')->nullable()->default(1);
             $table->integer('status')->nullable()->default(1);
             $table->timestamps();
-            $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade');
+            $table->foreign('license_id')->references('id')->on('licenses')->onDelete('cascade');
         });
     }
 

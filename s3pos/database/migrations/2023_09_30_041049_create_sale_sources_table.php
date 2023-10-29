@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('sale_sources', function (Blueprint $table) {
             $table->id()->index();
             $table->unsignedBigInteger('store_id')->index();
+            $table->string('code');
             $table->string('name');
             $table->boolean('default')->nullable()->default(false);
             $table->boolean('status')->nullable()->default(false);

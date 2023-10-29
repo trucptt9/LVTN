@@ -15,7 +15,8 @@ class MethodPayment extends Model
         'code',
         'name',
         'status',
-        'description'
+        'description',
+        'default'
     ];
 
     protected $hidden = [];
@@ -25,12 +26,14 @@ class MethodPayment extends Model
         'updated_at' => 'datetime:Y-m-d H:i:s',
         'status' => 'boolean',
         'store_id' => 'integer',
+        'default' => 'boolean'
     ];
 
     public static function boot()
     {
         parent::boot();
         self::creating(function ($model) {
+            $model->default = $model->default ?? false;
             $model->status = $model->status ?? true;
             $model->code = $model->code ?? generateRandomString();
         });
@@ -62,6 +65,11 @@ class MethodPayment extends Model
     public function store()
     {
         return $this->belongsTo(Store::class, 'store_id');
+    }
+
+    public function scopeOfDefault($query, $default)
+    {
+        return $query->where('method_payments.default', $default);
     }
 
     public function scopeOfCode($query, $code)

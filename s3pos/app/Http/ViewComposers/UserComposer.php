@@ -2,6 +2,7 @@
 
 namespace App\Http\ViewComposers;
 
+use App\Models\Brand;
 use App\Models\Menu;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
@@ -36,5 +37,10 @@ class UserComposer
             });
         }
         $view->with('user_menu', $menus);
+
+        $staff = auth()->check() ? auth()->user() : null;
+        $brand = $staff ? Brand::find($staff->brand_id) : null;
+        $view->with('user_brand', $brand);
+        $view->with('user_staff', $staff);
     }
 }

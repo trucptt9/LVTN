@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('sale_channels', function (Blueprint $table) {
             $table->id()->index();
             $table->unsignedBigInteger('source_id')->index();
-            $table->string('code')->unique();
+            $table->string('code');
             $table->string('name');
             $table->boolean('default')->nullable()->default(false);
             $table->boolean('status')->nullable()->default(false);

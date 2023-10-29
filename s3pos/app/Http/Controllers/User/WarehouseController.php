@@ -7,5 +7,18 @@ use Illuminate\Http\Request;
 
 class WarehouseController extends Controller
 {
-    //
+    public function index()
+    {
+        return view('user.warehouse.index');
+    }
+
+    public function table()
+    {
+        return view('user.warehouse.table');
+    }
+
+    public function detail()
+    {
+        return view('user.warehouse.detail');
+    }
 }

@@ -80,6 +80,11 @@ class Promotion extends Model
         return $query->where('promotions.store_id', $store_id);
     }
 
+    public function scopeExpired($query)
+    {
+        return $query->where('promotions.end', '<=', now());
+    }
+
     public function store()
     {
         return $this->belongsTo(Store::class, 'store_id');

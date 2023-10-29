@@ -15,7 +15,8 @@ class PortPayment extends Model
         'code',
         'name',
         'status',
-        'description'
+        'description',
+        'default'
     ];
 
     protected $hidden = [];
@@ -25,12 +26,14 @@ class PortPayment extends Model
         'updated_at' => 'datetime:Y-m-d H:i:s',
         'status' => 'boolean',
         'method_id' => 'integer',
+        'default' => 'boolean'
     ];
 
     public static function boot()
     {
         parent::boot();
         self::creating(function ($model) {
+            $model->default = $model->default ?? false;
             $model->status = $model->status ?? true;
             $model->code = $model->code ?? generateRandomString();
         });
@@ -57,6 +60,11 @@ class PortPayment extends Model
     public function method()
     {
         return $this->belongsTo(MethodPayment::class, 'method_id');
+    }
+
+    public function scopeOfDefault($query, $default)
+    {
+        return $query->where('port_payments.default', $default);
     }
 
     public function scopeOfCode($query, $code)

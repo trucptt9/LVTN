@@ -27,6 +27,7 @@ class Admin extends Authenticatable
         'is_supper',
         'is_root',
         'status',
+        'last_login'
     ];
 
     /**

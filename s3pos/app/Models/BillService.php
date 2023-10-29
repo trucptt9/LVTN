@@ -11,7 +11,7 @@ class BillService extends Model
     protected $table = 'bill_services';
 
     protected $fillable = [
-        'store_id',
+        'license_id',
         'code',
         'discount',
         'discount_type',
@@ -29,7 +29,7 @@ class BillService extends Model
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
-        'store_id' => 'integer',
+        'license_id' => 'integer',
         'sub_total' => 'integer',
         'total' => 'integer',
         'status_payment' => 'integer',
@@ -93,9 +93,9 @@ class BillService extends Model
         return $type == '' ? $types : $types["$type"];
     }
 
-    public function store()
+    public function license()
     {
-        return $this->belongsTo(Store::class, 'store_id');
+        return $this->belongsTo(License::class, 'license_id');
     }
 
     public function scopeOfCode($query, $code)
@@ -118,9 +118,9 @@ class BillService extends Model
         return $query->where('bill_services.discount_type', $discount_type);
     }
 
-    public function scopeStoreId($query, $store_id)
+    public function scopeStoreId($query, $license_id)
     {
-        return $query->where('bill_services.store_id', $store_id);
+        return $query->where('bill_services.license_id', $license_id);
     }
 
     public function scopeSearch($query, $search)

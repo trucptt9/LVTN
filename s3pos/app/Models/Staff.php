@@ -31,6 +31,7 @@ class Staff extends Authenticatable
         'department_id',
         'brand_id',
         'role_id',
+        'last_login'
     ];
 
     /**
@@ -39,7 +40,8 @@ class Staff extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password'
+        'password',
+        'last_login'
     ];
 
     /**

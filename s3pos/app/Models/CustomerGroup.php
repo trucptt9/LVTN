@@ -34,7 +34,7 @@ class CustomerGroup extends Model
         parent::boot();
         self::creating(function ($model) {
             $model->status = $model->status ?? true;
-            $model->default = $model->default ?? true;
+            $model->default = $model->default ?? false;
             $model->code = $model->code ?? generateRandomString();
         });
         self::created(function ($model) {
