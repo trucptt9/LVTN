@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class Menu extends Model
 {
@@ -39,10 +40,13 @@ class Menu extends Model
             $model->numering = $model->numering ?? self::getOrder($parent_id);
         });
         self::created(function ($model) {
+            Cache::forget('user-menu');
         });
         self::updated(function ($model) {
+            Cache::forget('user-menu');
         });
         self::deleted(function ($model) {
+            Cache::forget('user-menu');
         });
     }
 

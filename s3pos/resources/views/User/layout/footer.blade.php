@@ -14,11 +14,6 @@
                     Phát triển bởi {{ env('COPYRIGHT') }}
                 </a>
             </li>
-            <li class="menu-item">
-                <a href="#" target="_blank" class="menu-link px-2">
-                    Hướng dẫn sử dụng
-                </a>
-            </li>
         </ul>
         <!--end::Menu-->
     </div>
