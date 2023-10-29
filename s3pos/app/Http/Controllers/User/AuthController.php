@@ -53,10 +53,28 @@ class AuthController extends Controller
 
     public function forgot_password()
     {
-        return view('user.authen.login');
+        return view('user.authen.forgot_password');
     }
 
     public function forgot_password_post()
+    {
+    }
+
+    public function reset()
+    {
+        return view('user.authen.reset');
+    }
+
+    public function reset_post()
+    {
+    }
+
+    public function license()
+    {
+        return view('user.authen.license');
+    }
+
+    public function license_active()
     {
     }
 }

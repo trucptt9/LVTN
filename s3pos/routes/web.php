@@ -44,55 +44,54 @@ Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'login_post'])->name('login_post');
 Route::get('forgot_password', [AuthController::class, 'forgot_password'])->name('forgot_password');
 Route::post('forgot_password', [AuthController::class, 'forgot_password_post'])->name('forgot_password_post');
+Route::get('reset', [AuthController::class, 'reset'])->name('reset');
+Route::post('reset', [AuthController::class, 'reset_post'])->name('reset_post');
+Route::get('license', [AuthController::class, 'license'])->name('license');
+Route::post('license', [AuthController::class, 'license_active'])->name('license_active');
 
 Route::middleware(['auth', 'checkStaff'])->group(function () {
     Route::get('logout', [HomeController::class, 'logout'])->name('logout');
     // home
     Route::get('', [HomeController::class, 'index'])->name('index');
 
-    // profile
-    Route::prefix('profile')->name('profile.')->group(function () {
-        Route::get('', [ProfileController::class, 'index'])->name('index');
-    });
-
     // store
     Route::prefix('roles')->name('role.')->group(function () {
         Route::get('', [RoleController::class, 'index'])->name('index');
         Route::get('table', [RoleController::class, 'table'])->name('table');
-        Route::get('detail', [RoleController::class, 'detail'])->name('detail');
+        Route::get('detail/{id}', [RoleController::class, 'detail'])->name('detail');
     });
     Route::prefix('stores')->name('store.')->group(function () {
         Route::get('', [StoreController::class, 'index'])->name('index');
         Route::get('table', [StoreController::class, 'table'])->name('table');
         Route::get('report', [StoreController::class, 'report'])->name('report');
-        Route::get('detail', [StoreController::class, 'detail'])->name('detail');
+        Route::get('detail/{id}', [StoreController::class, 'detail'])->name('detail');
     });
     Route::prefix('staffs')->name('staff.')->group(function () {
         Route::get('', [StaffController::class, 'index'])->name('index');
         Route::get('table', [StaffController::class, 'table'])->name('table');
         Route::get('report', [StaffController::class, 'report'])->name('report');
-        Route::get('detail', [StaffController::class, 'detail'])->name('detail');
+        Route::get('detail/{id}', [StaffController::class, 'detail'])->name('detail');
     });
     Route::prefix('departments')->name('department.')->group(function () {
         Route::get('', [DepartmentController::class, 'index'])->name('index');
         Route::get('table', [DepartmentController::class, 'table'])->name('table');
-        Route::get('detail', [DepartmentController::class, 'detail'])->name('detail');
+        Route::get('detail/{id}', [DepartmentController::class, 'detail'])->name('detail');
     });
     Route::prefix('shifts')->name('shift.')->group(function () {
         Route::get('', [ShiftController::class, 'index'])->name('index');
         Route::get('table', [ShiftController::class, 'table'])->name('table');
-        Route::get('detail', [ShiftController::class, 'detail'])->name('detail');
+        Route::get('detail/{id}', [ShiftController::class, 'detail'])->name('detail');
     });
     Route::prefix('areas')->name('area.')->group(function () {
         Route::get('', [AreaController::class, 'index'])->name('index');
         Route::get('table', [AreaController::class, 'table'])->name('table');
-        Route::get('detail', [AreaController::class, 'detail'])->name('detail');
+        Route::get('detail/{id}', [AreaController::class, 'detail'])->name('detail');
     });
     Route::prefix('tables')->name('table.')->group(function () {
         Route::get('', [TableController::class, 'index'])->name('index');
         Route::get('table', [TableController::class, 'table'])->name('table');
         Route::get('report', [TableController::class, 'report'])->name('report');
-        Route::get('detail', [TableController::class, 'detail'])->name('detail');
+        Route::get('detail/{id}', [TableController::class, 'detail'])->name('detail');
     });
 
     // product
@@ -120,13 +119,13 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
         Route::get('', [PromotionController::class, 'index'])->name('index');
         Route::get('table', [PromotionController::class, 'table'])->name('table');
         Route::get('report', [PromotionController::class, 'report'])->name('report');
-        Route::get('detail', [PromotionController::class, 'detail'])->name('detail');
+        Route::get('detail/{id}', [PromotionController::class, 'detail'])->name('detail');
     });
     Route::prefix('coupons')->name('coupon.')->group(function () {
         Route::get('', [CouponController::class, 'index'])->name('index');
         Route::get('table', [CouponController::class, 'table'])->name('table');
         Route::get('report', [CouponController::class, 'report'])->name('report');
-        Route::get('detail', [CouponController::class, 'detail'])->name('detail');
+        Route::get('detail/{id}', [CouponController::class, 'detail'])->name('detail');
     });
     Route::prefix('customer_groups')->name('customer_group.')->group(function () {
         Route::get('', [CustomerGroupController::class, 'index'])->name('index');
@@ -136,7 +135,7 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
         Route::get('', [CustomerController::class, 'index'])->name('index');
         Route::get('table', [CustomerController::class, 'table'])->name('table');
         Route::get('report', [CustomerController::class, 'report'])->name('report');
-        Route::get('detail', [CustomerController::class, 'detail'])->name('detail');
+        Route::get('detail/{id}', [CustomerController::class, 'detail'])->name('detail');
     });
 
     // warehouse
@@ -170,7 +169,7 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
         Route::get('', [OrderController::class, 'index'])->name('index');
         Route::get('table', [OrderController::class, 'table'])->name('table');
         Route::get('report', [OrderController::class, 'report'])->name('report');
-        Route::get('detail', [OrderController::class, 'detail'])->name('detail');
+        Route::get('detail/{id}', [OrderController::class, 'detail'])->name('detail');
     });
     Route::prefix('reports')->name('report.')->group(function () {
         Route::get('', [ReportController::class, 'index'])->name('index');

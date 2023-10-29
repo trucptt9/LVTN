@@ -5,22 +5,24 @@
         <div class="d-flex flex-center flex-column flex-column-fluid pb-15 pb-lg-20">
             <!--begin::Form-->
             <form class="form w-100 fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate"
-                id="kt_password_reset_form" action="{{ route('forgot_password_post') }}" method="POST">
+                id="kt_password_reset_form" action="{{ route('license_active') }}" method="POST">
                 @csrf
                 <!--begin::Heading-->
                 <div class="text-center mb-10">
                     <!--begin::Title-->
-                    <h1 class="text-dark fw-bolder mb-3">Quên mật khẩu?</h1>
+                    <h1 class="text-dark fw-bolder mb-3">Kích hoạt license?</h1>
                     <!--end::Title-->
                     <!--begin::Link-->
-                    <div class="text-gray-500 fw-semibold fs-6">Gửi email của bạn để khôi phục lại mật khẩu</div>
+                    <div class="text-gray-500 fw-semibold fs-6">
+                        Kích hoạt license để sử dụng hệ thống
+                    </div>
                     <!--end::Link-->
                 </div>
                 <!--begin::Heading-->
                 <!--begin::Input group=-->
                 <div class="fv-row mb-8 fv-plugins-icon-container">
                     <!--begin::Email-->
-                    <input type="text" placeholder="Email" name="email" autocomplete="off"
+                    <input type="text" placeholder="Nhập license" name="license" autocomplete="off"
                         class="form-control bg-transparent">
                     <!--end::Email-->
                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
@@ -29,7 +31,7 @@
                 <div class="d-flex flex-wrap justify-content-center pb-lg-0">
                     <button type="button" id="kt_password_reset_submit" class="btn btn-primary me-4">
                         <!--begin::Indicator label-->
-                        <span class="indicator-label">Gửi</span>
+                        <span class="indicator-label">Kích hoạt</span>
                         <!--end::Indicator label-->
                         <!--begin::Indicator progress-->
                         <span class="indicator-progress">Please wait...

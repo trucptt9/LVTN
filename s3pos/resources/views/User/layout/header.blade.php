@@ -141,7 +141,7 @@
                         <!--end::Menu separator-->
                         <!--begin::Menu item-->
                         <div class="menu-item px-5">
-                            <a href="{{ route('profile.index') }}" class="menu-link px-5">
+                            <a href="{{ route('staff.detail', ['id' => $user_staff->id]) }}" class="menu-link px-5">
                                 <span class="menu-text">
                                     <i class="ki-outline ki-profile-circle fs-4"></i> Thông tin cá nhân
                                 </span>
