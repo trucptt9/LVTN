@@ -8,21 +8,21 @@ class StoreController extends Controller
 {
   public function index()
   {
-    return view('user.stores.index');
+    return view('user.store.index');
   }
 
   public function table()
   {
-    return view('user.stores.table');
+    return view('user.store.table');
   }
 
   public function detail()
   {
-    return view('user.stores.detail');
+    return view('user.store.detail');
   }
 
   public function report()
   {
-    return view('user.stores.report');
+    return view('user.store.report');
   }
 }
