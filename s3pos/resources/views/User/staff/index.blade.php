@@ -1,327 +1,1000 @@
-@extends('user.layout')
+@extends('User.layout.main')
 @section('style')
-    <!--begin::Vendor Stylesheets(used for this page only)-->
-    <link href="{{ asset('user/assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('user/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
-
-    <!--end::Vendor Stylesheets-->
+    <link href="user/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('content')
-    <!--begin::Toolbar-->
-    <div class="toolbar py-5 " id="kt_toolbar">
-        <!--begin::Container-->
-        <div id="kt_toolbar_container" class="container-xxl d-flex flex-stack flex-wrap">
-            <div class="page-title d-flex flex-column me-3">
-                <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-1">
-                    <h4 class="breadcrumb-item text-white opacity-75">
-                        <a href=".#" class="text-white text-hover-primary">Nhân viên</a>
-                    </h4>
-                    <h4 class="breadcrumb-item">
-                        <span class="bullet bg-white opacity-75 w-5px h-2px"></span>
-                    </h4>
-                    <h4 class="breadcrumb-item text-white opacity-75">Quản lý nhân viên</h4>
-                </ul>
+    <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
+        <!--begin::Post-->
+        <div class="content flex-row-fluid" id="kt_content">
+            <div class="d-flex justify-content-between py-5">
+                <div class="">
+                    <h1 class="d-flex text-white fw-bold my-1 fs-3">Quản lý nhân viên</h1>
+                    <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-1">
+                        <!--begin::Item-->
+                        <li class="breadcrumb-item text-white opacity-75">
+                            <a href="{{ route('index') }}" class="text-white text-hover-primary">
+                                Trang chủ
+                            </a>
+                        </li>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <li class="breadcrumb-item">
+                            <span class="bullet bg-white opacity-75 w-5px h-2px"></span>
+                        </li>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <li class="breadcrumb-item text-white opacity-75">
+                            Cửa hàng
+                        </li>
+                        <!--end::Item-->
+                    </ul>
+                </div>
+                <button class="btn btn-primary h-40px">
+                    Tạo mới
+                </button>
             </div>
-        </div>
-
-    </div>
-
-
-
-    <div class="d-flex flex-column flex-root">
-        <!--begin::Page-->
-        <div class="page d-flex flex-row flex-column-fluid">
-            <!--begin::Wrapper-->
-            <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
-                <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
-                    <!--begin::Post-->
-                    <div class="content flex-row-fluid" id="kt_content">
-
-                        <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
-                            <!--begin:::Tabs-->
-                            <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fw-semibold mb-n2">
-                                <!--begin:::Tab item-->
-                                <li class="nav-item">
-                                    <a class="nav-link text-active-primary pb-4 staffs_list active" data-bs-toggle="tab"
-                                        href="#staff_list">Danh sách nhân viên</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-active-primary pb-4 work_schedule" data-bs-toggle="tab"
-                                        href="#work_schedule">Thời khóa biểu nhân viên</a>
-                                </li>
-
-
-                                <li class="nav-item">
-                                    <a class="nav-link text-active-primary pb-4 shift_list" data-bs-toggle="tab"
-                                        href="#shift_list">Danh sách ca làm việc</a>
-                                </li>
-                                <!--end:::Tab item-->
-                            </ul>
-
-                            <div class="tab-content">
-                                <div class="tab-pane fade show active" id="staff_list" role="tab-panel">
-                                    <div class="d-flex flex-column gap-7 gap-lg-10">
-                                        <!--begin::Card Staff-->
-                                        <div class="card staff_list">
-                                            <div class="card">
-                                                <div class="report">
-                                                </div>
-                                                <!--begin::Card header-->
-                                                <div class="card-header border-0 pt-6">
-                                                    <!--begin::Card title-->
-                                                    <div class="card-title">
-                                                        <!--begin::Search-->
-                                                        <div class="d-flex align-items-center position-relative my-1">
-                                                            <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
-                                                                <span class="path1"></span>
-                                                                <span class="path2"></span>
-                                                            </i>
-                                                            <input type="text" data-kt-user-table-filter="search"
-                                                                class="form-control form-control-solid w-250px ps-13"
-                                                                placeholder="Tìm kiếm " />
-                                                        </div>
-                                                        <!--end::Search-->
-                                                    </div>
-                                                    <!--begin::Card title-->
-                                                    <!--begin::Card toolbar-->
-                                                    <div class="card-toolbar">
-                                                        <!--begin::Toolbar-->
-                                                        <div class="d-flex justify-content-end"
-                                                            data-kt-user-table-toolbar="base">
-                                                            <!--begin::Filter-->
-                                                            <button type="button" class="btn btn-light-primary me-3"
-                                                                data-kt-menu-trigger="click"
-                                                                data-kt-menu-placement="bottom-end">
-                                                                <i class="ki-duotone ki-filter fs-2">
-                                                                    <span class="path1"></span>
-                                                                    <span class="path2"></span>
-                                                                </i>Lọc</button>
-
-                                                            <!--end::Filter-->
-
-                                                            <!--begin::Add user-->
-                                                            <button type="button" class="btn btn-primary add_staff">
-                                                                <i class="ki-duotone ki-plus fs-2"></i>Thêm</button>
-                                                            <!--end::Add user-->
-                                                        </div>
-                                                        <!--end::Toolbar-->
-                                                        <!--begin::Group actions-->
-                                                        <div class="d-flex justify-content-end align-items-center d-none"
-                                                            data-kt-user-table-toolbar="selected">
-                                                            <div class="fw-bold me-5">
-                                                                <span class="me-2"
-                                                                    data-kt-user-table-select="selected_count"></span> Đã
-                                                                chọn
-                                                            </div>
-                                                            <button type="button" class="btn btn-danger"
-                                                                data-kt-user-table-select="delete_selected">Xóa</button>
-                                                        </div>
-                                                        <!--end::Group actions-->
-
-
-                                                    </div>
-                                                    <!--end::Card toolbar-->
-                                                </div>
-                                                <!--end::Card header-->
-
-                                                <!--begin::Card body-->
-                                                <div class="py-4 px-6">
-                                                    <table
-                                                        class="table staff_list_content align-middle table-row-dashed fs-6 gy-5"
-                                                        id="kt_table_staff">
-
-                                                    </table>
-                                                </div>
-                                                <!--end::Card body-->
-
-                                                {{-- add modal --}}
-                                                @include('user.staff.staff_modal')
-                                            </div>
-
-                                        </div>
-                                        <!--end::Card-->
-                                    </div>
-                                </div>
-
-                                <!--begin::Tab pane-->
-                                <div class="tab-pane fade" id="work_schedule" role="tab-panel">
-                                    <div class="d-flex flex-column gap-7 gap-lg-10">
-                                        <!--begin::Card-->
-                                        <div class="card">
-                                            <!--begin::Card header-->
-                                            @include('user.card_header')
-                                            <!--end::Card header-->
-                                            <!--begin::Card body-->
-                                            <div class="work_schedule_content py-4">
-
-                                            </div>
-                                            <!--end::Card body-->
-                                        </div>
-                                        <!--end::Card-->
-                                    </div>
-                                </div>
-
-
-                                <div class="tab-pane fade" id="shift_list" role="tab-panel">
-                                    <div class="d-flex flex-column gap-7 gap-lg-10">
-                                        <!--begin::Card-->
-                                        <div class="card staff_list">
-                                            <div class="card">
-
-                                                <!--begin::Card header-->
-                                                <div class="card-header border-0 pt-6">
-                                                    <!--begin::Card title-->
-                                                    <div class="card-title">
-                                                        <!--begin::Search-->
-                                                        <div class="d-flex align-items-center position-relative my-1">
-                                                            <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
-                                                                <span class="path1"></span>
-                                                                <span class="path2"></span>
-                                                            </i>
-                                                            <input type="text" data-kt-user-table-filter="search"
-                                                                class="form-control form-control-solid w-250px ps-13"
-                                                                placeholder="Tìm kiếm " />
-                                                        </div>
-                                                        <!--end::Search-->
-                                                    </div>
-                                                    <!--begin::Card title-->
-                                                    <!--begin::Card toolbar-->
-                                                    <div class="card-toolbar">
-                                                        <!--begin::Toolbar-->
-                                                        <div class="d-flex justify-content-end"
-                                                            data-kt-user-table-toolbar="base">
-                                                            <!--begin::Filter-->
-                                                            <button type="button" class="btn btn-light-primary me-3"
-                                                                data-kt-menu-trigger="click"
-                                                                data-kt-menu-placement="bottom-end">
-                                                                <i class="ki-duotone ki-filter fs-2">
-                                                                    <span class="path1"></span>
-                                                                    <span class="path2"></span>
-                                                                </i>Lọc</button>
-
-                                                            <!--end::Filter-->
-
-                                                            <!--begin::Add user-->
-                                                            <button type="button" class="btn btn-primary add_shift">
-                                                                <i class="ki-duotone ki-plus fs-2"></i>Thêm</button>
-                                                            <!--end::Add user-->
-                                                        </div>
-                                                    </div>
-                                                    <!--end::Card toolbar-->
-                                                </div>
-                                                <!--end::Card header-->
-
-                                                <!--begin::Card body-->
-                                                <div class="py-4 px-6">
-                                                    <table
-                                                        class="table shift_list_content align-middle table-row-dashed fs-6 gy-5"
-                                                        id="kt_table_shift">
-
-                                                    </table>
-                                                </div>
-                                                <!--end::Card body-->
-
-                                                {{-- add modal --}}
-                                                @include('user.staff.shift.modal_add')
-                                            </div>
-
-                                        </div>
-                                        <!--end::Card-->
-                                    </div>
-                                </div>
-                            </div>
+            @include('User.staff.report')
+            <!--begin::Products-->
+            <div class="card card-flush">
+                <!--begin::Card header-->
+                <div class="card-header align-items-center py-5 gap-2 gap-md-5">
+                    <!--begin::Card title-->
+                    <div class="card-title">
+                        <!--begin::Search-->
+                        <div class="d-flex align-items-center position-relative my-1">
+                            <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-4">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>
+                            <input type="text" data-kt-ecommerce-order-filter="search"
+                                class="form-control form-control-solid w-250px ps-12" placeholder="Search Order" />
+                        </div>
+                        <!--end::Search-->
+                    </div>
+                    <!--end::Card title-->
+                    <!--begin::Card toolbar-->
+                    <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
+                        <!--begin::Flatpickr-->
+                        <div class="w-250px">
+                            <input class="form-control form-control-solid rounded" placeholder="Pick date range"
+                                id="kt_ecommerce_sales_flatpickr" />
+                        </div>
+                        <!--end::Flatpickr-->
+                        <div class="w-100 mw-150px">
+                            <!--begin::Select2-->
+                            <select class="form-select form-select-solid" data-control="select2" data-hide-search="true"
+                                data-placeholder="Status" data-kt-ecommerce-order-filter="status">
+                                <option></option>
+                                <option value="all">All</option>
+                                <option value="Cancelled">Cancelled</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Denied">Denied</option>
+                                <option value="Expired">Expired</option>
+                            </select>
+                            <!--end::Select2-->
                         </div>
                     </div>
+                    <!--end::Card toolbar-->
                 </div>
+                <!--end::Card header-->
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+                    <!--begin::Table-->
+                    <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_sales_table">
+                        <thead>
+                            <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                                <th class="w-10px pe-2">
+                                    <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
+                                        <input class="form-check-input" type="checkbox" data-kt-check="true"
+                                            data-kt-check-target="#kt_ecommerce_sales_table .form-check-input"
+                                            value="1" />
+                                    </div>
+                                </th>
+                                <th class="min-w-100px">Order ID</th>
+                                <th class="min-w-175px">Customer</th>
+                                <th class="text-end min-w-70px">Status</th>
+                                <th class="text-end min-w-100px">Total</th>
+                                <th class="text-end min-w-100px">Date Added</th>
+                                <th class="text-end min-w-100px">Date Modified</th>
+                                <th class="text-end min-w-100px">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="fw-semibold text-gray-600">
+                            <tr>
+                                <td>
+                                    <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                        <input class="form-check-input" type="checkbox" value="1" />
+                                    </div>
+                                </td>
+                                <td data-kt-ecommerce-order-filter="order_id">
+                                    <a href="../../demo2/dist/apps/ecommerce/sales/details.html"
+                                        class="text-gray-800 text-hover-primary fw-bold">13359</a>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <!--begin:: Avatar -->
+                                        <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                            <a href="../../demo2/dist/apps/user-management/users/view.html">
+                                                <div class="symbol-label">
+                                                    <img src="user/assets/media/avatars/300-5.jpg" alt="Sean Bean"
+                                                        class="w-100" />
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <!--end::Avatar-->
+                                        <div class="ms-5">
+                                            <!--begin::Title-->
+                                            <a href="../../demo2/dist/apps/user-management/users/view.html"
+                                                class="text-gray-800 text-hover-primary fs-5 fw-bold">Sean Bean</a>
+                                            <!--end::Title-->
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-end pe-0" data-order="Completed">
+                                    <!--begin::Badges-->
+                                    <div class="badge badge-light-success">Completed</div>
+                                    <!--end::Badges-->
+                                </td>
+                                <td class="text-end pe-0">
+                                    <span class="fw-bold">$455.00</span>
+                                </td>
+                                <td class="text-end" data-order="2023-07-13">
+                                    <span class="fw-bold">13/07/2023</span>
+                                </td>
+                                <td class="text-end" data-order="2023-07-18">
+                                    <span class="fw-bold">18/07/2023</span>
+                                </td>
+                                <td class="text-end">
+                                    <a href="#"
+                                        class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
+                                        data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                        <i class="ki-duotone ki-down fs-5 ms-1"></i></a>
+                                    <!--begin::Menu-->
+                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
+                                        data-kt-menu="true">
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="../../demo2/dist/apps/ecommerce/sales/details.html"
+                                                class="menu-link px-3">View</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="../../demo2/dist/apps/ecommerce/sales/edit-order.html"
+                                                class="menu-link px-3">Edit</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link px-3"
+                                                data-kt-ecommerce-order-filter="delete_row">Delete</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                    </div>
+                                    <!--end::Menu-->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                        <input class="form-check-input" type="checkbox" value="1" />
+                                    </div>
+                                </td>
+                                <td data-kt-ecommerce-order-filter="order_id">
+                                    <a href="../../demo2/dist/apps/ecommerce/sales/details.html"
+                                        class="text-gray-800 text-hover-primary fw-bold">13360</a>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <!--begin:: Avatar -->
+                                        <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                            <a href="../../demo2/dist/apps/user-management/users/view.html">
+                                                <div class="symbol-label fs-3 bg-light-info text-info">A</div>
+                                            </a>
+                                        </div>
+                                        <!--end::Avatar-->
+                                        <div class="ms-5">
+                                            <!--begin::Title-->
+                                            <a href="../../demo2/dist/apps/user-management/users/view.html"
+                                                class="text-gray-800 text-hover-primary fs-5 fw-bold">Robert Doe</a>
+                                            <!--end::Title-->
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-end pe-0" data-order="Completed">
+                                    <!--begin::Badges-->
+                                    <div class="badge badge-light-success">Completed</div>
+                                    <!--end::Badges-->
+                                </td>
+                                <td class="text-end pe-0">
+                                    <span class="fw-bold">$179.00</span>
+                                </td>
+                                <td class="text-end" data-order="2023-07-10">
+                                    <span class="fw-bold">10/07/2023</span>
+                                </td>
+                                <td class="text-end" data-order="2023-07-17">
+                                    <span class="fw-bold">17/07/2023</span>
+                                </td>
+                                <td class="text-end">
+                                    <a href="#"
+                                        class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
+                                        data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                        <i class="ki-duotone ki-down fs-5 ms-1"></i></a>
+                                    <!--begin::Menu-->
+                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
+                                        data-kt-menu="true">
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="../../demo2/dist/apps/ecommerce/sales/details.html"
+                                                class="menu-link px-3">View</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="../../demo2/dist/apps/ecommerce/sales/edit-order.html"
+                                                class="menu-link px-3">Edit</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link px-3"
+                                                data-kt-ecommerce-order-filter="delete_row">Delete</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                    </div>
+                                    <!--end::Menu-->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                        <input class="form-check-input" type="checkbox" value="1" />
+                                    </div>
+                                </td>
+                                <td data-kt-ecommerce-order-filter="order_id">
+                                    <a href="../../demo2/dist/apps/ecommerce/sales/details.html"
+                                        class="text-gray-800 text-hover-primary fw-bold">13361</a>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <!--begin:: Avatar -->
+                                        <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                            <a href="../../demo2/dist/apps/user-management/users/view.html">
+                                                <div class="symbol-label">
+                                                    <img src="user/assets/media/avatars/300-25.jpg" alt="Brian Cox"
+                                                        class="w-100" />
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <!--end::Avatar-->
+                                        <div class="ms-5">
+                                            <!--begin::Title-->
+                                            <a href="../../demo2/dist/apps/user-management/users/view.html"
+                                                class="text-gray-800 text-hover-primary fs-5 fw-bold">Brian Cox</a>
+                                            <!--end::Title-->
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-end pe-0" data-order="Completed">
+                                    <!--begin::Badges-->
+                                    <div class="badge badge-light-success">Completed</div>
+                                    <!--end::Badges-->
+                                </td>
+                                <td class="text-end pe-0">
+                                    <span class="fw-bold">$117.00</span>
+                                </td>
+                                <td class="text-end" data-order="2023-07-12">
+                                    <span class="fw-bold">12/07/2023</span>
+                                </td>
+                                <td class="text-end" data-order="2023-07-16">
+                                    <span class="fw-bold">16/07/2023</span>
+                                </td>
+                                <td class="text-end">
+                                    <a href="#"
+                                        class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
+                                        data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                        <i class="ki-duotone ki-down fs-5 ms-1"></i></a>
+                                    <!--begin::Menu-->
+                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
+                                        data-kt-menu="true">
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="../../demo2/dist/apps/ecommerce/sales/details.html"
+                                                class="menu-link px-3">View</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="../../demo2/dist/apps/ecommerce/sales/edit-order.html"
+                                                class="menu-link px-3">Edit</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link px-3"
+                                                data-kt-ecommerce-order-filter="delete_row">Delete</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                    </div>
+                                    <!--end::Menu-->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                        <input class="form-check-input" type="checkbox" value="1" />
+                                    </div>
+                                </td>
+                                <td data-kt-ecommerce-order-filter="order_id">
+                                    <a href="../../demo2/dist/apps/ecommerce/sales/details.html"
+                                        class="text-gray-800 text-hover-primary fw-bold">13362</a>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <!--begin:: Avatar -->
+                                        <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                            <a href="../../demo2/dist/apps/user-management/users/view.html">
+                                                <div class="symbol-label">
+                                                    <img src="user/assets/media/avatars/300-25.jpg" alt="Brian Cox"
+                                                        class="w-100" />
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <!--end::Avatar-->
+                                        <div class="ms-5">
+                                            <!--begin::Title-->
+                                            <a href="../../demo2/dist/apps/user-management/users/view.html"
+                                                class="text-gray-800 text-hover-primary fs-5 fw-bold">Brian Cox</a>
+                                            <!--end::Title-->
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-end pe-0" data-order="Completed">
+                                    <!--begin::Badges-->
+                                    <div class="badge badge-light-success">Completed</div>
+                                    <!--end::Badges-->
+                                </td>
+                                <td class="text-end pe-0">
+                                    <span class="fw-bold">$490.00</span>
+                                </td>
+                                <td class="text-end" data-order="2023-07-13">
+                                    <span class="fw-bold">13/07/2023</span>
+                                </td>
+                                <td class="text-end" data-order="2023-07-15">
+                                    <span class="fw-bold">15/07/2023</span>
+                                </td>
+                                <td class="text-end">
+                                    <a href="#"
+                                        class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
+                                        data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                        <i class="ki-duotone ki-down fs-5 ms-1"></i></a>
+                                    <!--begin::Menu-->
+                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
+                                        data-kt-menu="true">
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="../../demo2/dist/apps/ecommerce/sales/details.html"
+                                                class="menu-link px-3">View</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="../../demo2/dist/apps/ecommerce/sales/edit-order.html"
+                                                class="menu-link px-3">Edit</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link px-3"
+                                                data-kt-ecommerce-order-filter="delete_row">Delete</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                    </div>
+                                    <!--end::Menu-->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                        <input class="form-check-input" type="checkbox" value="1" />
+                                    </div>
+                                </td>
+                                <td data-kt-ecommerce-order-filter="order_id">
+                                    <a href="../../demo2/dist/apps/ecommerce/sales/details.html"
+                                        class="text-gray-800 text-hover-primary fw-bold">13363</a>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <!--begin:: Avatar -->
+                                        <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                            <a href="../../demo2/dist/apps/user-management/users/view.html">
+                                                <div class="symbol-label">
+                                                    <img src="user/assets/media/avatars/300-5.jpg" alt="Sean Bean"
+                                                        class="w-100" />
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <!--end::Avatar-->
+                                        <div class="ms-5">
+                                            <!--begin::Title-->
+                                            <a href="../../demo2/dist/apps/user-management/users/view.html"
+                                                class="text-gray-800 text-hover-primary fs-5 fw-bold">Sean Bean</a>
+                                            <!--end::Title-->
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-end pe-0" data-order="Completed">
+                                    <!--begin::Badges-->
+                                    <div class="badge badge-light-success">Completed</div>
+                                    <!--end::Badges-->
+                                </td>
+                                <td class="text-end pe-0">
+                                    <span class="fw-bold">$301.00</span>
+                                </td>
+                                <td class="text-end" data-order="2023-07-13">
+                                    <span class="fw-bold">13/07/2023</span>
+                                </td>
+                                <td class="text-end" data-order="2023-07-14">
+                                    <span class="fw-bold">14/07/2023</span>
+                                </td>
+                                <td class="text-end">
+                                    <a href="#"
+                                        class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
+                                        data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                        <i class="ki-duotone ki-down fs-5 ms-1"></i></a>
+                                    <!--begin::Menu-->
+                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
+                                        data-kt-menu="true">
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="../../demo2/dist/apps/ecommerce/sales/details.html"
+                                                class="menu-link px-3">View</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="../../demo2/dist/apps/ecommerce/sales/edit-order.html"
+                                                class="menu-link px-3">Edit</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link px-3"
+                                                data-kt-ecommerce-order-filter="delete_row">Delete</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                    </div>
+                                    <!--end::Menu-->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                        <input class="form-check-input" type="checkbox" value="1" />
+                                    </div>
+                                </td>
+                                <td data-kt-ecommerce-order-filter="order_id">
+                                    <a href="../../demo2/dist/apps/ecommerce/sales/details.html"
+                                        class="text-gray-800 text-hover-primary fw-bold">13364</a>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <!--begin:: Avatar -->
+                                        <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                            <a href="../../demo2/dist/apps/user-management/users/view.html">
+                                                <div class="symbol-label fs-3 bg-light-warning text-warning">C</div>
+                                            </a>
+                                        </div>
+                                        <!--end::Avatar-->
+                                        <div class="ms-5">
+                                            <!--begin::Title-->
+                                            <a href="../../demo2/dist/apps/user-management/users/view.html"
+                                                class="text-gray-800 text-hover-primary fs-5 fw-bold">Mikaela Collins</a>
+                                            <!--end::Title-->
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-end pe-0" data-order="Completed">
+                                    <!--begin::Badges-->
+                                    <div class="badge badge-light-success">Completed</div>
+                                    <!--end::Badges-->
+                                </td>
+                                <td class="text-end pe-0">
+                                    <span class="fw-bold">$66.00</span>
+                                </td>
+                                <td class="text-end" data-order="2023-07-07">
+                                    <span class="fw-bold">07/07/2023</span>
+                                </td>
+                                <td class="text-end" data-order="2023-07-13">
+                                    <span class="fw-bold">13/07/2023</span>
+                                </td>
+                                <td class="text-end">
+                                    <a href="#"
+                                        class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
+                                        data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                        <i class="ki-duotone ki-down fs-5 ms-1"></i></a>
+                                    <!--begin::Menu-->
+                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
+                                        data-kt-menu="true">
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="../../demo2/dist/apps/ecommerce/sales/details.html"
+                                                class="menu-link px-3">View</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="../../demo2/dist/apps/ecommerce/sales/edit-order.html"
+                                                class="menu-link px-3">Edit</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link px-3"
+                                                data-kt-ecommerce-order-filter="delete_row">Delete</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                    </div>
+                                    <!--end::Menu-->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                        <input class="form-check-input" type="checkbox" value="1" />
+                                    </div>
+                                </td>
+                                <td data-kt-ecommerce-order-filter="order_id">
+                                    <a href="../../demo2/dist/apps/ecommerce/sales/details.html"
+                                        class="text-gray-800 text-hover-primary fw-bold">13365</a>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <!--begin:: Avatar -->
+                                        <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                            <a href="../../demo2/dist/apps/user-management/users/view.html">
+                                                <div class="symbol-label">
+                                                    <img src="user/assets/media/avatars/300-5.jpg" alt="Sean Bean"
+                                                        class="w-100" />
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <!--end::Avatar-->
+                                        <div class="ms-5">
+                                            <!--begin::Title-->
+                                            <a href="../../demo2/dist/apps/user-management/users/view.html"
+                                                class="text-gray-800 text-hover-primary fs-5 fw-bold">Sean Bean</a>
+                                            <!--end::Title-->
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-end pe-0" data-order="Completed">
+                                    <!--begin::Badges-->
+                                    <div class="badge badge-light-success">Completed</div>
+                                    <!--end::Badges-->
+                                </td>
+                                <td class="text-end pe-0">
+                                    <span class="fw-bold">$197.00</span>
+                                </td>
+                                <td class="text-end" data-order="2023-07-09">
+                                    <span class="fw-bold">09/07/2023</span>
+                                </td>
+                                <td class="text-end" data-order="2023-07-12">
+                                    <span class="fw-bold">12/07/2023</span>
+                                </td>
+                                <td class="text-end">
+                                    <a href="#"
+                                        class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
+                                        data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                        <i class="ki-duotone ki-down fs-5 ms-1"></i></a>
+                                    <!--begin::Menu-->
+                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
+                                        data-kt-menu="true">
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="../../demo2/dist/apps/ecommerce/sales/details.html"
+                                                class="menu-link px-3">View</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="../../demo2/dist/apps/ecommerce/sales/edit-order.html"
+                                                class="menu-link px-3">Edit</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link px-3"
+                                                data-kt-ecommerce-order-filter="delete_row">Delete</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                    </div>
+                                    <!--end::Menu-->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                        <input class="form-check-input" type="checkbox" value="1" />
+                                    </div>
+                                </td>
+                                <td data-kt-ecommerce-order-filter="order_id">
+                                    <a href="../../demo2/dist/apps/ecommerce/sales/details.html"
+                                        class="text-gray-800 text-hover-primary fw-bold">13366</a>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <!--begin:: Avatar -->
+                                        <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                            <a href="../../demo2/dist/apps/user-management/users/view.html">
+                                                <div class="symbol-label">
+                                                    <img src="user/assets/media/avatars/300-12.jpg" alt="Ana Crown"
+                                                        class="w-100" />
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <!--end::Avatar-->
+                                        <div class="ms-5">
+                                            <!--begin::Title-->
+                                            <a href="../../demo2/dist/apps/user-management/users/view.html"
+                                                class="text-gray-800 text-hover-primary fs-5 fw-bold">Ana Crown</a>
+                                            <!--end::Title-->
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-end pe-0" data-order="Processing">
+                                    <!--begin::Badges-->
+                                    <div class="badge badge-light-primary">Processing</div>
+                                    <!--end::Badges-->
+                                </td>
+                                <td class="text-end pe-0">
+                                    <span class="fw-bold">$35.00</span>
+                                </td>
+                                <td class="text-end" data-order="2023-07-07">
+                                    <span class="fw-bold">07/07/2023</span>
+                                </td>
+                                <td class="text-end" data-order="2023-07-11">
+                                    <span class="fw-bold">11/07/2023</span>
+                                </td>
+                                <td class="text-end">
+                                    <a href="#"
+                                        class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
+                                        data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                        <i class="ki-duotone ki-down fs-5 ms-1"></i></a>
+                                    <!--begin::Menu-->
+                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
+                                        data-kt-menu="true">
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="../../demo2/dist/apps/ecommerce/sales/details.html"
+                                                class="menu-link px-3">View</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="../../demo2/dist/apps/ecommerce/sales/edit-order.html"
+                                                class="menu-link px-3">Edit</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link px-3"
+                                                data-kt-ecommerce-order-filter="delete_row">Delete</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                    </div>
+                                    <!--end::Menu-->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                        <input class="form-check-input" type="checkbox" value="1" />
+                                    </div>
+                                </td>
+                                <td data-kt-ecommerce-order-filter="order_id">
+                                    <a href="../../demo2/dist/apps/ecommerce/sales/details.html"
+                                        class="text-gray-800 text-hover-primary fw-bold">13367</a>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <!--begin:: Avatar -->
+                                        <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                            <a href="../../demo2/dist/apps/user-management/users/view.html">
+                                                <div class="symbol-label">
+                                                    <img src="user/assets/media/avatars/300-21.jpg" alt="Ethan Wilder"
+                                                        class="w-100" />
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <!--end::Avatar-->
+                                        <div class="ms-5">
+                                            <!--begin::Title-->
+                                            <a href="../../demo2/dist/apps/user-management/users/view.html"
+                                                class="text-gray-800 text-hover-primary fs-5 fw-bold">Ethan Wilder</a>
+                                            <!--end::Title-->
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-end pe-0" data-order="Completed">
+                                    <!--begin::Badges-->
+                                    <div class="badge badge-light-success">Completed</div>
+                                    <!--end::Badges-->
+                                </td>
+                                <td class="text-end pe-0">
+                                    <span class="fw-bold">$408.00</span>
+                                </td>
+                                <td class="text-end" data-order="2023-07-06">
+                                    <span class="fw-bold">06/07/2023</span>
+                                </td>
+                                <td class="text-end" data-order="2023-07-10">
+                                    <span class="fw-bold">10/07/2023</span>
+                                </td>
+                                <td class="text-end">
+                                    <a href="#"
+                                        class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
+                                        data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                        <i class="ki-duotone ki-down fs-5 ms-1"></i></a>
+                                    <!--begin::Menu-->
+                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
+                                        data-kt-menu="true">
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="../../demo2/dist/apps/ecommerce/sales/details.html"
+                                                class="menu-link px-3">View</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="../../demo2/dist/apps/ecommerce/sales/edit-order.html"
+                                                class="menu-link px-3">Edit</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link px-3"
+                                                data-kt-ecommerce-order-filter="delete_row">Delete</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                    </div>
+                                    <!--end::Menu-->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                        <input class="form-check-input" type="checkbox" value="1" />
+                                    </div>
+                                </td>
+                                <td data-kt-ecommerce-order-filter="order_id">
+                                    <a href="../../demo2/dist/apps/ecommerce/sales/details.html"
+                                        class="text-gray-800 text-hover-primary fw-bold">13368</a>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <!--begin:: Avatar -->
+                                        <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                            <a href="../../demo2/dist/apps/user-management/users/view.html">
+                                                <div class="symbol-label">
+                                                    <img src="user/assets/media/avatars/300-9.jpg" alt="Francis Mitcham"
+                                                        class="w-100" />
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <!--end::Avatar-->
+                                        <div class="ms-5">
+                                            <!--begin::Title-->
+                                            <a href="../../demo2/dist/apps/user-management/users/view.html"
+                                                class="text-gray-800 text-hover-primary fs-5 fw-bold">Francis Mitcham</a>
+                                            <!--end::Title-->
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-end pe-0" data-order="Completed">
+                                    <!--begin::Badges-->
+                                    <div class="badge badge-light-success">Completed</div>
+                                    <!--end::Badges-->
+                                </td>
+                                <td class="text-end pe-0">
+                                    <span class="fw-bold">$173.00</span>
+                                </td>
+                                <td class="text-end" data-order="2023-07-03">
+                                    <span class="fw-bold">03/07/2023</span>
+                                </td>
+                                <td class="text-end" data-order="2023-07-09">
+                                    <span class="fw-bold">09/07/2023</span>
+                                </td>
+                                <td class="text-end">
+                                    <a href="#"
+                                        class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
+                                        data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                        <i class="ki-duotone ki-down fs-5 ms-1"></i></a>
+                                    <!--begin::Menu-->
+                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
+                                        data-kt-menu="true">
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="../../demo2/dist/apps/ecommerce/sales/details.html"
+                                                class="menu-link px-3">View</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="../../demo2/dist/apps/ecommerce/sales/edit-order.html"
+                                                class="menu-link px-3">Edit</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link px-3"
+                                                data-kt-ecommerce-order-filter="delete_row">Delete</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                    </div>
+                                    <!--end::Menu-->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                        <input class="form-check-input" type="checkbox" value="1" />
+                                    </div>
+                                </td>
+                                <td data-kt-ecommerce-order-filter="order_id">
+                                    <a href="../../demo2/dist/apps/ecommerce/sales/details.html"
+                                        class="text-gray-800 text-hover-primary fw-bold">13369</a>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <!--begin:: Avatar -->
+                                        <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                            <a href="../../demo2/dist/apps/user-management/users/view.html">
+                                                <div class="symbol-label">
+                                                    <img src="user/assets/media/avatars/300-12.jpg" alt="Ana Crown"
+                                                        class="w-100" />
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <!--end::Avatar-->
+                                        <div class="ms-5">
+                                            <!--begin::Title-->
+                                            <a href="../../demo2/dist/apps/user-management/users/view.html"
+                                                class="text-gray-800 text-hover-primary fs-5 fw-bold">Ana Crown</a>
+                                            <!--end::Title-->
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-end pe-0" data-order="Refunded">
+                                    <!--begin::Badges-->
+                                    <div class="badge badge-light-info">Refunded</div>
+                                    <!--end::Badges-->
+                                </td>
+                                <td class="text-end pe-0">
+                                    <span class="fw-bold">$392.00</span>
+                                </td>
+                                <td class="text-end" data-order="2023-07-03">
+                                    <span class="fw-bold">03/07/2023</span>
+                                </td>
+                                <td class="text-end" data-order="2023-07-08">
+                                    <span class="fw-bold">08/07/2023</span>
+                                </td>
+                                <td class="text-end">
+                                    <a href="#"
+                                        class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
+                                        data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                        <i class="ki-duotone ki-down fs-5 ms-1"></i></a>
+                                    <!--begin::Menu-->
+                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
+                                        data-kt-menu="true">
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="../../demo2/dist/apps/ecommerce/sales/details.html"
+                                                class="menu-link px-3">View</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="../../demo2/dist/apps/ecommerce/sales/edit-order.html"
+                                                class="menu-link px-3">Edit</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link px-3"
+                                                data-kt-ecommerce-order-filter="delete_row">Delete</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                    </div>
+                                    <!--end::Menu-->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                        <input class="form-check-input" type="checkbox" value="1" />
+                                    </div>
+                                </td>
+                                <td data-kt-ecommerce-order-filter="order_id">
+                                    <a href="../../demo2/dist/apps/ecommerce/sales/details.html"
+                                        class="text-gray-800 text-hover-primary fw-bold">13370</a>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <!--begin:: Avatar -->
+                                        <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                            <a href="../../demo2/dist/apps/user-management/users/view.html">
+                                                <div class="symbol-label fs-3 bg-light-danger text-danger">E</div>
+                                            </a>
+                                        </div>
+                                        <!--end::Avatar-->
+                                        <div class="ms-5">
+                                            <!--begin::Title-->
+                                            <a href="../../demo2/dist/apps/user-management/users/view.html"
+                                                class="text-gray-800 text-hover-primary fs-5 fw-bold">Emma Bold</a>
+                                            <!--end::Title-->
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-end pe-0" data-order="Completed">
+                                    <!--begin::Badges-->
+                                    <div class="badge badge-light-success">Completed</div>
+                                    <!--end::Badges-->
+                                </td>
+                                <td class="text-end pe-0">
+                                    <span class="fw-bold">$35.00</span>
+                                </td>
+                                <td class="text-end" data-order="2023-07-02">
+                                    <span class="fw-bold">02/07/2023</span>
+                                </td>
+                                <td class="text-end" data-order="2023-07-07">
+                                    <span class="fw-bold">07/07/2023</span>
+                                </td>
+                                <td class="text-end">
+                                    <a href="#"
+                                        class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
+                                        data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                        <i class="ki-duotone ki-down fs-5 ms-1"></i></a>
+                                    <!--begin::Menu-->
+                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
+                                        data-kt-menu="true">
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="../../demo2/dist/apps/ecommerce/sales/details.html"
+                                                class="menu-link px-3">View</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="../../demo2/dist/apps/ecommerce/sales/edit-order.html"
+                                                class="menu-link px-3">Edit</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                        <!--begin::Menu item-->
+                                        <div class="menu-item px-3">
+                                            <a href="#" class="menu-link px-3"
+                                                data-kt-ecommerce-order-filter="delete_row">Delete</a>
+                                        </div>
+                                        <!--end::Menu item-->
+                                    </div>
+                                    <!--end::Menu-->
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!--end::Table-->
+                </div>
+                <!--end::Card body-->
             </div>
+            <!--end::Products-->
         </div>
+        <!--end::Post-->
     </div>
 @endsection
 
 @section('script')
-    <script>
-        $(document).ready(function() {
-            //start load table staff
-            loadStaffTable();
-            $('#kt_table_staff').DataTable();
-
-            function loadStaffTable() {
-                $.get("{{ route('staff.table') }}", function(res) {
-                    $('.staff_list_content').html(res);
-
-                    loadStaffReport();
-                })
-            }
-
-            function loadStaffReport() {
-                $.get("{{ route('staff.report') }}", function(res) {
-                    $('.report').html(res);
-                })
-            }
-
-            function loadShift() {
-                $.get("{{ route('staff.shift_table') }}", function(res) {
-                    $('.shift_list_content').html(res);
-                })
-            }
-            $('.add_staff').on('click', function(e) {
-                e.preventDefault();
-                $('#modal_add_staff').trigger('reset')
-                $('#modal_add_staff').modal('show')
-            })
-
-            $('.shift_list').click(function(e) {
-                e.preventDefault();
-                alert(1)
-                loadShift();
-            })
-
-            //end loadtable staff
-
-            //checked cấp tài khoản
-            $(document).on('click', '#account_staff', function() {
-
-                if ($('#account_staff').is(':checked')) {
-                    $('.account_staff').removeAttr('hidden')
-                } else {
-                    $('.account_staff').attr('hidden', true)
-                }
-
-
-            })
-
-            $("#start_modal_add_schedule_datepicker").flatpickr({
-                enableTime: true,
-                noCalendar: true,
-                dateFormat: "H:i",
-            });
-            $("#end_modal_add_schedule_datepicker").flatpickr({
-                enableTime: true,
-                noCalendar: true,
-                dateFormat: "H:i",
-            });
-            $('.add_shift').on('click', function(e) {
-                e.preventDefault();
-                $('#modal_add_shift').trigger('reset')
-                $('#modal_add_shift').modal('show')
-            })
-
-        })
-    </script>
-
-    <script src="{{ asset('user/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
-    <script src="{{ asset('user/assets/plugins/custom/formrepeater/formrepeater.bundle.js') }}"></script>
-    <!--end::Vendors Javascript-->
-    <!--begin::Custom Javascript(used for this page only)-->
-    <script src="{{ asset('user/assets/js/custom/apps/ecommerce/catalog/save-category.js') }}"></script>
-    <script src="{{ asset('user/assets/js/widgets.bundle.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/widgets.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/apps/chat/chat.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/utilities/modals/upgrade-plan.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/utilities/modals/create-app.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/utilities/modals/users-search.js') }}"></script>
-
-
-    <!--end::Custom Javascript-->
+    <script src="user/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+    <script src="user/assets/js/custom/apps/ecommerce/sales/listing.js"></script>
+    <script src="user/assets/js/widgets.bundle.js"></script>
+    <script src="user/assets/js/custom/widgets.js"></script>
 @endsection
