@@ -35,7 +35,7 @@ return new class extends Migration
             $table->timestamps();
             $table->foreign('table_id')->references('id')->on('tables')->onDelete('cascade');
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
-            $table->foreign('portal_payment_id')->references('id')->on('portal_payments')->onDelete('cascade');
+            $table->foreign('portal_payment_id')->references('id')->on('port_payments')->onDelete('cascade');
             $table->foreign('sale_channel_id')->references('id')->on('sale_channels')->onDelete('cascade');
             $table->foreign('promotion_id')->references('id')->on('promotions')->onDelete('cascade');
             $table->foreign('staff_id')->references('id')->on('staffs')->onDelete('cascade');

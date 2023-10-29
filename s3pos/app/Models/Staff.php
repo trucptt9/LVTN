@@ -18,11 +18,10 @@ class Staff extends Authenticatable
     protected $fillable = [
         'code',
         'name',
-        'position',
+        'position_id',
         'email',
         'avatar',
         'phone',
-        'email',
         'password',
         'gender',
         'is_supper',
@@ -30,7 +29,8 @@ class Staff extends Authenticatable
         'address',
         'description',
         'department_id',
-        'store_id'
+        'brand_id',
+        'role_id',
     ];
 
     /**
@@ -49,9 +49,11 @@ class Staff extends Authenticatable
      */
     protected $casts = [
         'gender' => 'integer',
-        'is_supper' => 'integer',
-        'store_id' => 'integer',
+        'is_supper' => 'boolean',
+        'brand_id' => 'integer',
+        'role_id' => 'integer',
         'department_id' => 'integer',
+        'position_id' => 'integer',
         'status' => 'integer',
         'password' => 'hashed',
         'created_at' => 'datetime:Y-m-d H:i:s',
@@ -137,12 +139,20 @@ class Staff extends Authenticatable
         return $query->where('staffs.status', $status);
     }
 
-    public function scopeStoreId($query, $store_id)
+    public function scopeBrandId($query, $brand_id)
     {
-        if (is_array($store_id)) {
-            return $query->whereIn('staffs.store_id', $store_id);
+        if (is_array($brand_id)) {
+            return $query->whereIn('staffs.brand_id', $brand_id);
         }
-        return $query->where('staffs.store_id', $store_id);
+        return $query->where('staffs.brand_id', $brand_id);
+    }
+
+    public function scopeRoleId($query, $role_id)
+    {
+        if (is_array($role_id)) {
+            return $query->whereIn('staffs.role_id', $role_id);
+        }
+        return $query->where('staffs.role_id', $role_id);
     }
 
     public function scopeDepartmentId($query, $department_id)
@@ -151,6 +161,14 @@ class Staff extends Authenticatable
             return $query->whereIn('staffs.department_id', $department_id);
         }
         return $query->where('staffs.department_id', $department_id);
+    }
+
+    public function scopePositionId($query, $position_id)
+    {
+        if (is_array($position_id)) {
+            return $query->whereIn('staffs.position_id', $position_id);
+        }
+        return $query->where('staffs.position_id', $position_id);
     }
 
     public function scopeSearch($query, $search)
@@ -163,13 +181,23 @@ class Staff extends Authenticatable
         });
     }
 
-    public function store()
+    public function role()
     {
-        return $this->belongsTo(Store::class, 'store_id');
+        return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class, 'brand_id');
     }
 
     public function department()
     {
         return $this->belongsTo(Department::class, 'department_id');
+    }
+
+    public function position()
+    {
+        return $this->belongsTo(Position::class, 'position_id');
     }
 }

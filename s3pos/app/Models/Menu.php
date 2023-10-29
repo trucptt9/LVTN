@@ -63,7 +63,7 @@ class Menu extends Model
 
     public function menus()
     {
-        return $this->hasMany(Menu::class, 'parent_id', 'id');
+        return $this->hasMany(Menu::class, 'parent_id', 'id')->orderBy('numering', 'asc');
     }
 
     public static function getOrder($parent_id)

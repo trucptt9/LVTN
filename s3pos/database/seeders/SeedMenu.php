@@ -18,7 +18,8 @@ class SeedMenu extends Seeder
         // home
         Menu::create([
             'name' => 'Trang chủ',
-            'icon' => '<i class="fas fa-tachometer-alt"></i>'
+            'icon' => '<i class="fas fa-tachometer-alt"></i>',
+            'url' => route('index'),
         ]);
 
         // store
@@ -28,9 +29,21 @@ class SeedMenu extends Seeder
             'url' => route('store.index'),
         ]);
         Menu::create([
+            'name' => 'Danh sách cửa hàng',
+            'icon' => '<i class="fas fa-store"></i>',
+            'url' => route('store.index'),
+            'parent_id' => $store->id,
+        ]);
+        Menu::create([
             'name' => 'Danh sách nhân viên',
             'icon' => '<i class="fas fa-user-friends"></i>',
             'url' => route('staff.index'),
+            'parent_id' => $store->id,
+        ]);
+        Menu::create([
+            'name' => 'Danh sách quyền',
+            'icon' => '<i class="fas fa-pencil-ruler"></i>',
+            'url' => route('role.index'),
             'parent_id' => $store->id,
         ]);
         Menu::create([
@@ -42,7 +55,7 @@ class SeedMenu extends Seeder
         Menu::create([
             'name' => 'Ca làm việc',
             'icon' => '<i class="fas fa-calendar-alt"></i>',
-            'url' => route('staff.index'),
+            'url' => route('shift.index'),
             'parent_id' => $store->id,
         ]);
         Menu::create([
@@ -127,6 +140,12 @@ class SeedMenu extends Seeder
             'url' => route('warehouse.index'),
         ]);
         Menu::create([
+            'name' => 'Kho hàng',
+            'icon' => '<i class="fas fa-warehouse"></i>',
+            'url' => route('warehouse.index'),
+            'parent_id' => $warehouse->id,
+        ]);
+        Menu::create([
             'name' => 'Nhập hàng',
             'icon' => '<i class="fas fa-file-download"></i>',
             'url' => route('import.index'),
@@ -147,7 +166,7 @@ class SeedMenu extends Seeder
         Menu::create([
             'name' => 'Nhà cung cấp',
             'icon' => '<i class="fas fa-people-arrows"></i>',
-            'url' => route('order.index'),
+            'url' => route('supplier.index'),
             'parent_id' => $warehouse->id,
         ]);
         Menu::create([

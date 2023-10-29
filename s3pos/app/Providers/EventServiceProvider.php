@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\GenerateDataBrand;
+use App\Events\GenerateDataStore;
+use App\Listeners\GenerateDataBrandListen;
+use App\Listeners\GenerateDataStoreListen;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -17,6 +21,12 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+        ],
+        GenerateDataStore::class => [
+            GenerateDataStoreListen::class,
+        ],
+        GenerateDataBrand::class => [
+            GenerateDataBrandListen::class,
         ],
     ];
 

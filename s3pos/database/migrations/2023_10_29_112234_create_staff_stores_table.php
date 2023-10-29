@@ -11,18 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('shifts', function (Blueprint $table) {
+        Schema::create('staff_stores', function (Blueprint $table) {
             $table->id()->index();
             $table->unsignedBigInteger('store_id')->index();
-            $table->string('code')->unique()->index();
-            $table->string('name');
-            $table->time('start');
-            $table->time('end')->nullable();
-            $table->integer('salary')->nullable()->default(0);
+            $table->unsignedBigInteger('staff_id')->index();
+            $table->unsignedBigInteger('position_id')->index();
             $table->boolean('status')->nullable()->default(false);
-            $table->string('description')->nullable();
             $table->timestamps();
             $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade');
+            $table->foreign('staff_id')->references('id')->on('staffs')->onDelete('cascade');
+            $table->foreign('position_id')->references('id')->on('positions')->onDelete('cascade');
         });
     }
 
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('shifts');
+        Schema::dropIfExists('staff_stores');
     }
 };

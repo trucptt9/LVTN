@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('departments', function (Blueprint $table) {
+        Schema::create('module_groups', function (Blueprint $table) {
             $table->id()->index();
-            $table->unsignedBigInteger('brand_id')->index();
             $table->string('code')->unique();
             $table->string('name');
-            $table->boolean('status')->nullable()->default(false);
-            $table->string('description');
+            $table->string('icon')->nullable();
+            $table->integer('numering')->nullable()->default(0);
+            $table->boolean('status')->nullable()->default(true);
             $table->timestamps();
-            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
         });
     }
 
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('departments');
+        Schema::dropIfExists('module_groups');
     }
 };

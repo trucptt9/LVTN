@@ -2,6 +2,7 @@
 
 use App\Models\Settings;
 use App\Models\StaffHistory;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 // color
@@ -152,5 +153,15 @@ if (!function_exists('get_mail_from_setting')) {
             }
         }
         return [$to, $cc];
+    }
+}
+if (!function_exists('showLog')) {
+    function showLog(\Throwable $th)
+    {
+        Log::debug([
+            'message' => $th->getMessage(),
+            'file' => $th->getFile(),
+            'line' => $th->getLine()
+        ]);
     }
 }
