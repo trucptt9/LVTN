@@ -17,8 +17,6 @@ class BillService extends Model
         'discount_type',
         'sub_total',
         'total',
-        'day_end',
-        'day_start',
         'description',
         'status_payment',
         'status'
@@ -34,8 +32,6 @@ class BillService extends Model
         'total' => 'integer',
         'status_payment' => 'integer',
         'status' => 'integer',
-        'day_end' => 'date:Y-m-d',
-        'day_start' => 'date:Y-m-d',
     ];
 
     public static function boot()

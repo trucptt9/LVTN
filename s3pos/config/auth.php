@@ -42,7 +42,8 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
-        ], 'admin' => [
+        ],
+        'admin' => [
             'driver' => 'session',
             'provider' => 'admins',
         ],
@@ -69,7 +70,8 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => Staff::class,
-        ], 'admins' => [
+        ],
+        'admins' => [
             'driver' => 'eloquent',
             'model' => Admin::class,
         ],

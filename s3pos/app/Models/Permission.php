@@ -13,7 +13,7 @@ class Permission extends Model
     protected $fillable = [
         'role_id',
         'module_id',
-        'status',
+        'actions',
     ];
 
     protected $hidden = [];
@@ -21,7 +21,6 @@ class Permission extends Model
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
-        'status' => 'boolean',
         'role_id' => 'integer',
         'module_id' => 'integer',
     ];
@@ -30,7 +29,6 @@ class Permission extends Model
     {
         parent::boot();
         self::creating(function ($model) {
-            $model->status = $model->status ?? false;
         });
         self::created(function ($model) {
         });
@@ -48,13 +46,5 @@ class Permission extends Model
     public function module()
     {
         return $this->belongsTo(Module::class, 'module_id');
-    }
-
-    public function scopeOfStatus($query, $status)
-    {
-        if (is_array($status)) {
-            return $query->whereIn('permissions.status', $status);
-        }
-        return $query->where('permissions.status', $status);
     }
 }

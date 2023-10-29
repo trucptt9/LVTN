@@ -18,7 +18,6 @@ use App\Http\Controllers\User\MaterialController;
 use App\Http\Controllers\User\PromotionController;
 use App\Http\Controllers\User\UnitController;
 use App\Http\Controllers\User\ProductController;
-use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\ReportController;
 use App\Http\Controllers\User\SettingController;
 use App\Http\Controllers\User\ShiftController;

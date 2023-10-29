@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id()->index();
             $table->unsignedBigInteger('role_id')->index();
             $table->unsignedBigInteger('module_id')->index();
-            $table->boolean('status')->nullable()->default(false);
+            $table->json('actions')->nullable();
             $table->timestamps();
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
             $table->foreign('module_id')->references('id')->on('modules')->onDelete('cascade');
