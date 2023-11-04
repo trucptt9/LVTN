@@ -43,8 +43,8 @@ class CustomerHistory extends Model
         });
     }
 
-    const TYPE_ADD = 1;
-    const TYPE_SUB = 2;
+    const TYPE_ADD = 'add';
+    const TYPE_SUB = 'sub';
 
     public static function get_type($type = '')
     {

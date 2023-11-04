@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('url')->nullable();
             $table->string('icon')->nullable();
-            $table->boolean('status')->nullable()->default(true);
+            $table->enum('status', ['active', 'blocked'])->index()->nullable()->default('blocked');
             $table->integer('numering')->nullable()->default(0);
             $table->timestamps();
             $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade');

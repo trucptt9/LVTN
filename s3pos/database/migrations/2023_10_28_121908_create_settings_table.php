@@ -17,12 +17,12 @@ return new class extends Migration
             $table->string('code');
             $table->string('name');
             $table->string('description')->nullable();
-            $table->integer('type')->nullable()->default(0);
+            $table->enum('type', ['text', 'file', 'select', 'radio'])->index()->nullable()->default('text');
             $table->string('value');
             $table->string('data')->nullable();
             $table->integer('numering')->nullable()->default(0);
             $table->integer('group_id')->index();
-            $table->boolean('status')->nullable()->default(true);
+            $table->enum('status', ['active', 'blocked'])->index()->nullable()->default('blocked');
             $table->timestamps();
             $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade');
         });

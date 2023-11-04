@@ -26,12 +26,12 @@ return new class extends Migration
             $table->integer('vat');
             $table->integer('vat_total')->nullable()->default(0);
             $table->integer('discount')->nullable()->default(0);
-            $table->integer('discount_type')->nullable()->default(1);
+            $table->enum('discount_type', ['vnd', 'percent'])->nullable()->default('percent');
             $table->float('discount_total')->nullable()->default(0);
             $table->integer('sub_total')->nullable()->default(0);
             $table->integer('total')->nullable()->default(0);
             $table->string('description')->nullable();
-            $table->integer('status')->nullable()->default(1);
+            $table->enum('status', ['tmp', 'finish', 'destroy'])->index()->nullable()->default('tmp');
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade');

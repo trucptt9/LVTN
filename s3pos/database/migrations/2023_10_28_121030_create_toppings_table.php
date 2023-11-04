@@ -19,8 +19,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->integer('price')->nullable()->default(0);
             $table->integer('cost')->nullable()->default(0);
-            $table->boolean('is_menu')->nullable();
-            $table->boolean('status')->nullable()->default(false);
+            $table->enum('status', ['active', 'blocked'])->index()->nullable()->default('blocked');
             $table->timestamps();
             $table->foreign('group_id')->references('id')->on('topping_groups')->onDelete('cascade');
         });

@@ -12,7 +12,7 @@ class Store extends Model
 
     protected $fillable = [
         'brand_id',
-        'type_id',
+        'business_type_id',
         'code',
         'name',
         'phone',
@@ -25,7 +25,7 @@ class Store extends Model
 
     protected $casts = [
         'brand_id' => 'integer',
-        'type_id' => 'integer',
+        'business_type_id' => 'integer',
         'status' => 'integer',
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
@@ -46,6 +46,18 @@ class Store extends Model
         });
     }
 
+    const STATUS_ACTIVE = 'active';
+    const STATUS_BLOCKED = 'blocked';
+
+    public static function get_status($status = '')
+    {
+        $types = [
+            self::STATUS_ACTIVE => ['Đang kích hoạt', 'success', COLOR_SUCCESS],
+            self::STATUS_BLOCKED => ['Tạm ngưng', 'danger', COLOR_DANGER],
+        ];
+        return $status == '' ? $types : $types["$status"];
+    }
+
     public function scopeOfCode($query, $code)
     {
         return $query->where('stores.code', $code);
@@ -61,18 +73,13 @@ class Store extends Model
         return $query->where('stores.brand_id', $brand_id);
     }
 
-    public function scopeTypeId($query, $type_id)
+    public function scopeBusinessTypeId($query, $business_type_id)
     {
-        return $query->where('stores.type_id', $type_id);
+        return $query->where('stores.business_type_id', $business_type_id);
     }
 
-    public function brand()
+    public function businessType()
     {
-        return $this->belongsTo(Brand::class, 'brand_id');
-    }
-
-    public function type()
-    {
-        return $this->belongsTo(StoreType::class, 'type_id');
+        return $this->belongsTo(BusinessType::class, 'business_type_id');
     }
 }

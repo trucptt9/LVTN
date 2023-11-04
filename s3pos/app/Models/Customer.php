@@ -11,7 +11,7 @@ class Customer extends Model
     protected $table = 'customers';
 
     protected $fillable = [
-        'brand_id',
+        'store_id',
         'group_id',
         'code',
         'name',
@@ -29,7 +29,7 @@ class Customer extends Model
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
         'group_id' => 'integer',
-        'brand_id' => 'integer',
+        'store_id' => 'integer',
         'point_current' => 'integer',
         'status' => 'boolean'
     ];
@@ -50,14 +50,26 @@ class Customer extends Model
         });
     }
 
+    const STATUS_ACTIVE = 'active';
+    const STATUS_BLOCKED = 'blocked';
+
+    public static function get_status($status = '')
+    {
+        $types = [
+            self::STATUS_ACTIVE => ['Đang kích hoạt', 'success', COLOR_SUCCESS],
+            self::STATUS_BLOCKED => ['Tạm ngưng', 'danger', COLOR_DANGER],
+        ];
+        return $status == '' ? $types : $types["$status"];
+    }
+
     public function group()
     {
         return $this->belongsTo(CustomerGroup::class, 'group_id');
     }
 
-    public function brand()
+    public function store()
     {
-        return $this->belongsTo(Brand::class, 'brand_id');
+        return $this->belongsTo(Store::class, 'store_id');
     }
 
     public function scopeOfCode($query, $code)
@@ -65,12 +77,12 @@ class Customer extends Model
         return $query->where('customers.code', $code);
     }
 
-    public function scopeBrandId($query, $brand_id)
+    public function scopeStoreId($query, $store_id)
     {
-        if (is_array($brand_id)) {
-            return $query->whereIn('customers.brand_id', $brand_id);
+        if (is_array($store_id)) {
+            return $query->whereIn('customers.store_id', $store_id);
         }
-        return $query->where('customers.brand_id', $brand_id);
+        return $query->where('customers.store_id', $store_id);
     }
 
     public function scopeGroupId($query, $group_id)

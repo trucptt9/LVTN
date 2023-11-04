@@ -11,7 +11,7 @@ class Position extends Model
     protected $table = 'positions';
 
     protected $fillable = [
-        'brand_id',
+        'store_id',
         'code',
         'name',
         'status',
@@ -24,7 +24,7 @@ class Position extends Model
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
         'status' => 'boolean',
-        'brand_id' => 'integer',
+        'store_id' => 'integer',
     ];
 
     public static function boot()
@@ -42,14 +42,14 @@ class Position extends Model
         });
     }
 
-    const STATUS_ACTIVE = 1;
-    const STATUS_SUSPEND = 2;
+    const STATUS_ACTIVE = 'active';
+    const STATUS_BLOCKED = 'blocked';
 
     public static function get_status($status = '')
     {
         $types = [
-            self::STATUS_ACTIVE => ['Đang hoạt động', 'success', COLOR_SUCCESS],
-            self::STATUS_SUSPEND => ['Tạm ngưng', 'light', COLOR_LIGHT],
+            self::STATUS_ACTIVE => ['Đang kích hoạt', 'success', COLOR_SUCCESS],
+            self::STATUS_BLOCKED => ['Tạm ngưng', 'danger', COLOR_DANGER],
         ];
         return $status == '' ? $types : $types["$status"];
     }
@@ -59,9 +59,14 @@ class Position extends Model
         return $this->hasMany(Staff::class, 'department_id', 'id');
     }
 
-    public function brand()
+    public function store()
     {
-        return $this->belongsTo(Brand::class, 'brand_id');
+        return $this->belongsTo(Store::class, 'store_id');
+    }
+
+    public function scopeStoreId($query, $store_id)
+    {
+        return $query->where('positions.store_id', $store_id);
     }
 
     public function scopeOfCode($query, $code)

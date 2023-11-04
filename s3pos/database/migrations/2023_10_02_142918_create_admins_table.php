@@ -20,10 +20,10 @@ return new class extends Migration
             $table->string('email')->unique()->index();
             $table->string('password');
             $table->integer('gender')->nullable()->default(3);
-            $table->boolean('is_supper')->nullable()->default(false);
-            $table->boolean('is_root')->nullable()->default(false);
+            $table->enum('is_supper', ['true', 'false'])->index()->nullable()->default('false');
+            $table->enum('is_root', ['true', 'false'])->index()->nullable()->default('false');
             $table->timestamp('last_login')->nullable();
-            $table->integer('status')->nullable()->default(1);
+            $table->enum('status', ['active', 'blocked'])->index()->nullable()->default('blocked');
             $table->timestamps();
         });
     }

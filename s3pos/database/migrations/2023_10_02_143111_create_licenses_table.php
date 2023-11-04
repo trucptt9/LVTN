@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamp('date_start');
             $table->timestamp('date_end')->nullable();
             $table->integer('total_amount')->nullable()->default(0);
-            $table->integer('status')->nullable()->default(1);
+            $table->enum('status', ['un_active', 'active', 'blocked'])->index()->nullable()->default('un_active');
             $table->string('note')->nullable();
             $table->timestamps();
             $table->softDeletes();

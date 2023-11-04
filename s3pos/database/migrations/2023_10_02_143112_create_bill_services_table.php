@@ -16,12 +16,12 @@ return new class extends Migration
             $table->unsignedBigInteger('license_id')->index();
             $table->string('code')->unique();
             $table->integer('discount')->nullable()->default(0);
-            $table->integer('discount_type')->nullable()->default(1);
+            $table->enum('discount_type', ['vnd', 'percent'])->nullable()->default('percent');
             $table->integer('sub_total')->nullable()->default(0);
             $table->integer('total')->nullable()->default(0);
             $table->string('description')->nullable();
-            $table->integer('status_payment')->nullable()->default(1);
-            $table->integer('status')->nullable()->default(1);
+            $table->enum('status_payment', ['paid', 'un_paid'])->index()->nullable()->default('un_paid');
+            $table->enum('status', ['tmp', 'finish'])->index()->nullable()->default('tmp');
             $table->timestamps();
             $table->foreign('license_id')->references('id')->on('licenses')->onDelete('cascade');
         });

@@ -71,8 +71,8 @@ class Order extends Model
         self::deleted(function ($model) {
         });
     }
-    const TYPE_VND = 1;
-    const TYPE_PERCENT = 2;
+    const TYPE_VND = 'vnd';
+    const TYPE_PERCENT = 'percent';
 
     public static function get_type($type = '')
     {
@@ -83,9 +83,9 @@ class Order extends Model
         return $type == '' ? $types : $types["$type"];
     }
 
-    const STATUS_TMP = 1;
-    const STATUS_FINISH = 2;
-    const STATUS_DESTROY = 3;
+    const STATUS_TMP = 'tmp';
+    const STATUS_FINISH = 'finish';
+    const STATUS_DESTROY = 'desctroy';
 
     public static function get_status($status = '')
     {

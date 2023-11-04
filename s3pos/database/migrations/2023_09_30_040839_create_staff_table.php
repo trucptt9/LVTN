@@ -23,9 +23,9 @@ return new class extends Migration
             $table->string('password')->nullable();
             $table->string('address')->nullable();
             $table->string('avatar')->nullable();
-            $table->integer('gender')->nullable()->default(1);
-            $table->boolean('is_supper')->nullable()->default(false);
-            $table->integer('status')->index()->nullable()->default(1);
+            $table->enum('gender', ['male', 'female', 'other'])->nullable()->default('other');
+            $table->enum('is_supper', ['true', 'false'])->nullable()->default('false');
+            $table->enum('status', ['active', 'blocked', 'un_active'])->index()->nullable()->default('un_active');
             $table->string('description')->nullable();
             $table->timestamp('last_login')->nullable();
             $table->timestamps();

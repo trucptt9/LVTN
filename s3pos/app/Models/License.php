@@ -56,9 +56,9 @@ class License extends Model
         });
     }
 
-    const STATUS_UN_ACTIVE = 1;
-    const STATUS_ACTIVE = 2;
-    const STATUS_SUSPEND = 3;
+    const STATUS_UN_ACTIVE = 'un_active';
+    const STATUS_ACTIVE = 'active';
+    const STATUS_SUSPEND = 'blocked';
 
     public static function get_status($status = '')
     {

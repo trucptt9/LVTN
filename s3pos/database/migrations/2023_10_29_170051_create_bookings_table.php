@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('note')->nullable();
             $table->timestamp('date_start')->nullable();
-            $table->integer('status')->nullable()->default(1);
+            $table->enum('status', ['tmp', 'finish', 'destroy'])->index()->nullable()->default('tmp');
             $table->json('items')->nullable();
             $table->timestamps();
             $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade');

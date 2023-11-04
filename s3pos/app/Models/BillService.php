@@ -53,8 +53,8 @@ class BillService extends Model
         });
     }
 
-    const STATUS_TMP = 1;
-    const STATUS_FINISH = 2;
+    const STATUS_TMP = 'tmp';
+    const STATUS_FINISH = 'finish';
 
     public static function get_status($status = '')
     {
@@ -65,8 +65,8 @@ class BillService extends Model
         return $status == '' ? $types : $types["$status"];
     }
 
-    const UN_PAID = 1;
-    const PAID = 2;
+    const UN_PAID = 'un_paid';
+    const PAID = 'paid';
 
     public static function get_status_payment($status = '')
     {
@@ -77,8 +77,8 @@ class BillService extends Model
         return $status == '' ? $types : $types["$status"];
     }
 
-    const TYPE_VND = 1;
-    const TYPE_PERCENT = 2;
+    const TYPE_VND = 'vnd';
+    const TYPE_PERCENT = 'percent';
 
     public static function get_type($type = '')
     {

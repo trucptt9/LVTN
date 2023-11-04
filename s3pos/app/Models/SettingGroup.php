@@ -43,6 +43,18 @@ class SettingGroup extends Model
         });
     }
 
+    const STATUS_ACTIVE = 'active';
+    const STATUS_BLOCKED = 'blocked';
+
+    public static function get_status($status = '')
+    {
+        $types = [
+            self::STATUS_ACTIVE => ['Đang kích hoạt', 'success', COLOR_SUCCESS],
+            self::STATUS_BLOCKED => ['Tạm ngưng', 'danger', COLOR_DANGER],
+        ];
+        return $status == '' ? $types : $types["$status"];
+    }
+
     public function scopeOfCode($query, $code)
     {
         return $query->where('setting_groups.code', $code);

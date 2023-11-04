@@ -16,8 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('store_id')->index();
             $table->string('code');
             $table->string('name');
-            $table->boolean('default')->nullable()->default(false);
-            $table->boolean('status')->nullable()->default(false);
+            $table->enum('default', ['true', 'false'])->nullable()->default('false');
+            $table->enum('status', ['active', 'blocked'])->index()->nullable()->default('blocked');
             $table->string('description')->nullable();
             $table->timestamps();
             $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade');

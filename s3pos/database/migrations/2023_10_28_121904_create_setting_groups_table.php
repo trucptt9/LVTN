@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->integer('numering')->nullable()->default(0);
             $table->string('icon')->nullable();
-            $table->boolean('status')->nullable()->default(true);
+            $table->enum('status', ['active', 'blocked'])->index()->nullable()->default('blocked');
             $table->timestamps();
         });
     }

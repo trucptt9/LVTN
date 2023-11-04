@@ -29,8 +29,7 @@ class Staff extends Authenticatable
         'address',
         'description',
         'department_id',
-        'brand_id',
-        'role_id',
+        'store_id',
         'last_login'
     ];
 
@@ -52,8 +51,7 @@ class Staff extends Authenticatable
     protected $casts = [
         'gender' => 'integer',
         'is_supper' => 'boolean',
-        'brand_id' => 'integer',
-        'role_id' => 'integer',
+        'store_id' => 'integer',
         'department_id' => 'integer',
         'position_id' => 'integer',
         'status' => 'integer',
@@ -79,9 +77,9 @@ class Staff extends Authenticatable
         });
     }
 
-    const GENDER_MALE = 1;
-    const GENDER_FEMALE = 2;
-    const GENDER_OTHER = 3;
+    const GENDER_MALE = 'male';
+    const GENDER_FEMALE = 'female';
+    const GENDER_OTHER = 'other';
 
     public static function get_gender($gender = '')
     {
@@ -93,12 +91,12 @@ class Staff extends Authenticatable
         return $gender == '' ? $types : $types["$gender"];
     }
 
-    const IS_SUPPER = 1;
-    const NOT_SUPPER = 2;
+    const IS_SUPPER = 'true';
+    const NOT_SUPPER = 'false';
 
-    const STATUS_UN_ACTIVE = 1;
-    const STATUS_ACTIVE = 2;
-    const STATUS_SUSPEND = 3;
+    const STATUS_UN_ACTIVE = 'un_active';
+    const STATUS_ACTIVE = 'active';
+    const STATUS_SUSPEND = 'blocked';
 
     public static function get_status($status = '')
     {
@@ -141,20 +139,12 @@ class Staff extends Authenticatable
         return $query->where('staffs.status', $status);
     }
 
-    public function scopeBrandId($query, $brand_id)
+    public function scopeStoreId($query, $store_id)
     {
-        if (is_array($brand_id)) {
-            return $query->whereIn('staffs.brand_id', $brand_id);
+        if (is_array($store_id)) {
+            return $query->whereIn('staffs.store_id', $store_id);
         }
-        return $query->where('staffs.brand_id', $brand_id);
-    }
-
-    public function scopeRoleId($query, $role_id)
-    {
-        if (is_array($role_id)) {
-            return $query->whereIn('staffs.role_id', $role_id);
-        }
-        return $query->where('staffs.role_id', $role_id);
+        return $query->where('staffs.store_id', $store_id);
     }
 
     public function scopeDepartmentId($query, $department_id)
@@ -183,14 +173,9 @@ class Staff extends Authenticatable
         });
     }
 
-    public function role()
+    public function store()
     {
-        return $this->belongsTo(Role::class, 'role_id');
-    }
-
-    public function brand()
-    {
-        return $this->belongsTo(Brand::class, 'brand_id');
+        return $this->belongsTo(Store::class, 'store_id');
     }
 
     public function department()

@@ -51,9 +51,9 @@ class Booking extends Model
         });
     }
 
-    const STATUS_TMP = 1;
-    const STATUS_FINISH = 2;
-    const STATUS_DESTROY = 3;
+    const STATUS_TMP = 'tmp';
+    const STATUS_FINISH = 'finish';
+    const STATUS_DESTROY = 'destroy';
 
     public static function get_status($status = '')
     {

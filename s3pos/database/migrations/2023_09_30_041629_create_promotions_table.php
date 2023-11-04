@@ -19,9 +19,9 @@ return new class extends Migration
             $table->date('start');
             $table->date('end')->nullable();
             $table->integer('value')->nullable()->default(0);
-            $table->integer('type_value')->nullable()->default(1);
+            $table->enum('type_value', ['vnd', 'percent'])->nullable()->default('percent');
             $table->integer('total_order');
-            $table->integer('status')->nullable()->default(1);
+            $table->enum('status', ['active', 'blocked'])->index()->nullable()->default('blocked');
             $table->string('description')->nullable();
             $table->timestamps();
             $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade');

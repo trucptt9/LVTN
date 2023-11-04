@@ -51,10 +51,10 @@ class Settings extends Model
         });
     }
 
-    const TYPE_TEXT = 0;
-    const TYPE_FILE = 1;
-    const TYPE_SELECT = 2;
-    const TYPE_RADIO = 3;
+    const TYPE_TEXT = 'text';
+    const TYPE_FILE = 'file';
+    const TYPE_SELECT = 'select';
+    const TYPE_RADIO = 'radio';
 
     public function scopeOfCode($query, $code)
     {

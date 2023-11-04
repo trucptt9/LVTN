@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone');
             $table->string('address');
-            $table->boolean('status')->index()->nullable()->default(false);
+            $table->enum('status', ['active', 'blocked'])->index()->nullable()->default('blocked');
             $table->string('description')->nullable();
             $table->timestamps();
             $table->foreign('business_type_id')->references('id')->on('business_types')->onDelete('cascade');

@@ -20,8 +20,7 @@ return new class extends Migration
             $table->float('price')->nullable()->default(1);
             $table->float('cost')->nullable()->default(0);
             $table->string('description')->nullable();
-            $table->boolean('is_menu')->nullable()->default(false);
-            $table->boolean('status')->nullable()->default(false);
+            $table->enum('status', ['active', 'blocked'])->index()->nullable()->default('blocked');
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('category_products')->onDelete('cascade');
         });

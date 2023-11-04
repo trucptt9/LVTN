@@ -72,9 +72,9 @@ class Admin extends Authenticatable
         });
     }
 
-    const GENDER_MALE = 1;
-    const GENDER_FEMALE = 2;
-    const GENDER_OTHER = 3;
+    const GENDER_MALE = 'male';
+    const GENDER_FEMALE = 'female';
+    const GENDER_OTHER = 'other';
 
     public static function get_gender($gender = '')
     {
@@ -86,15 +86,15 @@ class Admin extends Authenticatable
         return $gender == '' ? $types : $types["$gender"];
     }
 
-    const IS_SUPPER = 1;
-    const NOT_SUPPER = 2;
+    const IS_SUPPER = 'true';
+    const NOT_SUPPER = 'false';
 
-    const ROOT = 1;
-    const NOT_ROOT = 2;
+    const ROOT = 'true';
+    const NOT_ROOT = 'false';
 
-    const STATUS_UN_ACTIVE = 1;
-    const STATUS_ACTIVE = 2;
-    const STATUS_SUSPEND = 3;
+    const STATUS_UN_ACTIVE = 'un_active';
+    const STATUS_ACTIVE = 'active';
+    const STATUS_SUSPEND = 'blocked';
 
     public static function get_status($status = '')
     {

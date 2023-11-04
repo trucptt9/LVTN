@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id()->index();
             $table->string('code')->unique()->index();
             $table->unsignedBigInteger('customer_id')->index();
-            $table->integer('type')->index()->nullable()->default(1);
+            $table->enum('type', ['add', 'sub'])->nullable()->default('add');
             $table->integer('point')->nullable()->default(0);
             $table->string('note')->nullable();
+            $table->enum('status', ['success', 'failed', 'tmp'])->index()->nullable()->default('tmp');
             $table->timestamps();
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
         });
