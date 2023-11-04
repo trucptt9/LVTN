@@ -14,6 +14,10 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(SeedSettingGroup::class);
         $this->call(SeedBusinessType::class);
+        $this->call(SeedAdmin::class);
+        $this->call(SeedAdminMenu::class);
+        $this->call(SeedMenu::class);
+        $this->call(SeedModule::class);
         $this->call(SeedBrand::class);
     }
 }

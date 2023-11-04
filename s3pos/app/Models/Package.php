@@ -5,20 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BusinessType extends Model
+class Package extends Model
 {
     use HasFactory;
-    protected $table = 'business_types';
+    protected $table = 'packages';
 
     protected $fillable = [
         'code',
         'name',
+        'amount',
+        'modules',
+        'max_user',
         'status'
     ];
 
     protected $hidden = [];
 
     protected $casts = [
+        'max_user' => 'integer',
+        'amount' => 'integer',
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
@@ -52,27 +57,22 @@ class BusinessType extends Model
 
     public function scopeOfCode($query, $code)
     {
-        return $query->where('business_types.code', $code);
+        return $query->where('packages.code', $code);
     }
 
     public function scopeOfStatus($query, $status)
     {
         if (is_array($status)) {
-            return $query->whereIn('business_types.status', $status);
+            return $query->whereIn('packages.status', $status);
         }
-        return $query->where('business_types.status', $status);
+        return $query->where('packages.status', $status);
     }
 
     public function scopeSearch($query, $search)
     {
         return $query->where(function ($query) use ($search) {
-            $query->where('business_types.code', 'LIKE', "%$search%")
-                ->orWhere('business_types.name', 'LIKE', "%$search%");
+            $query->where('packages.code', 'LIKE', "%$search%")
+                ->orWhere('packages.name', 'LIKE', "%$search%");
         });
-    }
-
-    public function stores()
-    {
-        return $this->hasMany(Store::class, 'business_type_id', 'id');
     }
 }

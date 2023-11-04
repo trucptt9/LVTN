@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('stores', function (Blueprint $table) {
+        Schema::create('packages', function (Blueprint $table) {
             $table->id()->index();
-            $table->unsignedBigInteger('business_type_id')->index();
-            $table->string('code')->index()->unique();
+            $table->string('code')->unique();
             $table->string('name');
-            $table->string('phone');
-            $table->string('address');
-            $table->enum('status', ['un_active', 'active', 'blocked'])->index()->nullable()->default('blocked');
-            $table->string('description')->nullable();
+            $table->integer('amount')->nullable()->default(0);
+            $table->json('modules')->nullable();
+            $table->integer('max_user')->nullable();
+            $table->enum('status', ['active', 'blocked'])->index()->nullable()->default('active');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('stores');
+        Schema::dropIfExists('packages');
     }
 };

@@ -3,21 +3,57 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
+use App\Models\AdminHistory;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Http\Response as ResHTTP;
 
 class AdminHistoryController extends Controller
 {
+    protected $limit_default;
+
+    public function __construct()
+    {
+        $this->limit_default = 10;
+    }
+
     public function index()
     {
-        return view('admin.admin_history.index');
+        $data = [
+            'admins' => Admin::all(),
+        ];
+        return view('Admin.admin_history.index', compact('data'));
     }
 
-    public function table()
+    public function list()
     {
-        return view('admin.admin_history.table');
+        try {
+            $limit = request('limit', $this->limit_default);
+            $search = request('search', '');
+            $admin_id = request('admin_id', '');
+
+            $list = AdminHistory::query();
+            $list = $search != '' ? $list->search($search) : $list;
+            $list = $admin_id != '' ? $list->adminId($admin_id) : $list;
+
+            $list = $list->latest()->paginate($limit);
+            return Response::json([
+                'status' => ResHTTP::HTTP_OK,
+                'data' => view('Admin.admin_history.table', compact('list'))->render(),
+                'total' => $list->total(),
+            ]);
+        } catch (\Throwable $th) {
+            showLog($th);
+            return Response::json([
+                'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
+                'data' => '',
+            ]);
+        }
     }
 
-    public function detail()
+    public function detail($id)
     {
-        return view('admin.admin_history.detail');
+        $admin_history = AdminHistory::with('admin')->findOrFail($id);
+        return view('Admin.admin_history.detail', compact('admin_history'));
     }
 }

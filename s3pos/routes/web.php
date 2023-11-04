@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\User\CardMemberController;
-use App\Http\Controllers\User\RoleController;
 use App\Http\Controllers\User\DepartmentController;
 use App\Http\Controllers\User\AreaController;
 use App\Http\Controllers\User\AuthController;
+use App\Http\Controllers\User\BookingController;
 use App\Http\Controllers\User\CouponController;
 use App\Http\Controllers\User\OrderController;
 use App\Http\Controllers\User\StoreController;
@@ -16,6 +16,7 @@ use App\Http\Controllers\User\ExportController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\ImportController;
 use App\Http\Controllers\User\MaterialController;
+use App\Http\Controllers\User\PositionController;
 use App\Http\Controllers\User\PromotionController;
 use App\Http\Controllers\User\UnitController;
 use App\Http\Controllers\User\ProductController;
@@ -55,11 +56,6 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
     Route::get('', [HomeController::class, 'index'])->name('index');
 
     // store
-    Route::prefix('roles')->name('role.')->group(function () {
-        Route::get('', [RoleController::class, 'index'])->name('index');
-        Route::get('table', [RoleController::class, 'table'])->name('table');
-        Route::get('detail/{id}', [RoleController::class, 'detail'])->name('detail');
-    });
     Route::prefix('stores')->name('store.')->group(function () {
         Route::get('', [StoreController::class, 'index'])->name('index');
         Route::get('table', [StoreController::class, 'table'])->name('table');
@@ -76,6 +72,11 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
         Route::get('', [DepartmentController::class, 'index'])->name('index');
         Route::get('table', [DepartmentController::class, 'table'])->name('table');
         Route::get('detail/{id}', [DepartmentController::class, 'detail'])->name('detail');
+    });
+    Route::prefix('position')->name('position.')->group(function () {
+        Route::get('', [PositionController::class, 'index'])->name('index');
+        Route::get('table', [PositionController::class, 'table'])->name('table');
+        Route::get('detail/{id}', [PositionController::class, 'detail'])->name('detail');
     });
     Route::prefix('shifts')->name('shift.')->group(function () {
         Route::get('', [ShiftController::class, 'index'])->name('index');
@@ -142,6 +143,12 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
         Route::get('table', [CardMemberController::class, 'table'])->name('table');
         Route::get('report', [CardMemberController::class, 'report'])->name('report');
         Route::get('detail/{id}', [CardMemberController::class, 'detail'])->name('detail');
+    });
+    Route::prefix('booking')->name('booking.')->group(function () {
+        Route::get('', [BookingController::class, 'index'])->name('index');
+        Route::get('table', [BookingController::class, 'table'])->name('table');
+        Route::get('report', [BookingController::class, 'report'])->name('report');
+        Route::get('detail/{id}', [BookingController::class, 'detail'])->name('detail');
     });
 
     // warehouse

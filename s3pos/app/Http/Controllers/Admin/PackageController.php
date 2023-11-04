@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Store;
+use App\Models\Package;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Response as ResHTTP;
 use Illuminate\Support\Facades\DB;
 
-class StoreController extends Controller
+class PackageController extends Controller
 {
     protected $limit_default;
 
@@ -20,9 +20,9 @@ class StoreController extends Controller
     public function index()
     {
         $data = [
-            'status' => Store::get_status(),
+            'status' => Package::get_status(),
         ];
-        return view('Admin.store.index', compact('data'));
+        return view('Admin.package.index', compact('data'));
     }
 
     public function table()
@@ -31,17 +31,15 @@ class StoreController extends Controller
             $limit = request('limit', $this->limit_default);
             $status = request('status', '');
             $search = request('search', '');
-            $business_type_id = request('business_type_id', '');
 
-            $list = Store::with('businessType');
+            $list = Package::query();
             $list = $status != '' ? $list->ofStatus($status) : $list;
             $list = $search != '' ? $list->search($search) : $list;
-            $list = $business_type_id != '' ? $list->businessTypeId($business_type_id) : $list;
 
             $list = $list->latest()->paginate($limit);
             return Response::json([
                 'status' => ResHTTP::HTTP_OK,
-                'data' => view('Admin.store.table', compact('list'))->render(),
+                'data' => view('Admin.package.table', compact('list'))->render(),
                 'total' => $list->total(),
             ]);
         } catch (\Throwable $th) {
@@ -55,8 +53,8 @@ class StoreController extends Controller
 
     public function detail($id)
     {
-        $store = Store::with('businessType')->findOrFail($id);
-        return view('Admin.store.detail', compact('store'));
+        $package = Package::findOrFail($id);
+        return view('Admin.package.detail', compact('package'));
     }
 
     public function insert()
@@ -64,7 +62,7 @@ class StoreController extends Controller
         try {
             DB::beginTransaction();
             $data = request()->all();
-            Store::create($data);
+            Package::create($data);
             DB::commit();
             return Response::json([
                 'status' => ResHTTP::HTTP_OK,
@@ -88,8 +86,8 @@ class StoreController extends Controller
             DB::beginTransaction();
             $id = request()->get('id', '');
             $data = request()->all();
-            $store = Store::find($id);
-            $store->update($data);
+            $package = Package::find($id);
+            $package->update($data);
             DB::commit();
             return Response::json([
                 'status' => ResHTTP::HTTP_OK,
@@ -112,9 +110,9 @@ class StoreController extends Controller
         try {
             DB::beginTransaction();
             $id = request()->get('id', '');
-            $store = Store::ofStatus(Store::STATUS_UN_ACTIVE)->find($id);
-            if ($store) {
-                $store->delete();
+            $package = Package::find($id);
+            if ($package) {
+                $package->delete();
                 DB::commit();
                 return Response::json([
                     'status' => ResHTTP::HTTP_OK,

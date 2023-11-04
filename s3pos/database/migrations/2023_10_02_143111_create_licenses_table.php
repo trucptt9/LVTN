@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('licenses', function (Blueprint $table) {
             $table->id()->index();
-            $table->unsignedBigInteger('store_id')->index();
+            $table->unsignedBigInteger('store_id')->index()->nullable();
+            $table->unsignedBigInteger('package_id')->index();
             $table->string('key')->unique()->index();
             $table->integer('total_month')->nullable()->default(1);
             $table->timestamp('date_start');
@@ -24,6 +25,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade');
+            $table->foreign('package_id')->references('id')->on('packages')->onDelete('cascade');
         });
     }
 

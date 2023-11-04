@@ -12,7 +12,7 @@ class Menu extends Model
     protected $table = 'menus';
 
     protected $fillable = [
-        'store_id',
+        'code',
         'parent_id',
         'name',
         'url',
@@ -67,19 +67,14 @@ class Menu extends Model
         return $query->where('menus.status', $status);
     }
 
-    public function scopeStoreId($query, $store_id)
+    public function scopeOfCode($query, $code)
     {
-        return $query->where('menus.store_id', $store_id);
+        return $query->where('menus.code', $code);
     }
 
     public function scopeParentId($query, $parent_id)
     {
         return $query->where('menus.parent_id', $parent_id);
-    }
-
-    public function store()
-    {
-        return $this->belongsTo(Store::class, 'store_id');
     }
 
     public function parent()

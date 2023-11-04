@@ -2,6 +2,8 @@
 
 namespace App\Http\ViewComposers;
 
+use App\Models\AdminMenu;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 
 class AdminComposer
@@ -25,8 +27,14 @@ class AdminComposer
      */
     public function compose(View $view)
     {
-
-        $data = [];
-        $view->with('data_menu_admin', $data);
+        $key = 'admin-menu';
+        if (Cache::has($key)) {
+            $menus = Cache::get($key);
+        } else {
+            $menus = Cache::rememberForever($key, function () {
+                return AdminMenu::with('menus')->parentId(0)->orderBy('numering', 'asc')->get();
+            });
+        }
+        $view->with('admin_menu', $menus);
     }
 }

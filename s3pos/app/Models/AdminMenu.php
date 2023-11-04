@@ -4,26 +4,28 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
-class Store extends Model
+class AdminMenu extends Model
 {
     use HasFactory;
-    protected $table = 'stores';
+    protected $table = 'admin_menus';
 
     protected $fillable = [
-        'business_type_id',
         'code',
+        'parent_id',
         'name',
-        'phone',
-        'address',
+        'url',
         'status',
-        'description',
+        'icon',
+        'numering'
     ];
 
     protected $hidden = [];
 
     protected $casts = [
-        'business_type_id' => 'integer',
+        'parent_id' => 'integer',
+        'numering' => 'integer',
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
@@ -32,18 +34,22 @@ class Store extends Model
     {
         parent::boot();
         self::creating(function ($model) {
+            $parent_id = $model->parent_id ?? 0;
             $model->status = $model->status ?? self::STATUS_ACTIVE;
-            $model->code = $model->code ?? generateRandomString();
+            $model->parent_id = $parent_id;
+            $model->numering = $model->numering ?? self::getOrder($parent_id);
         });
         self::created(function ($model) {
+            Cache::forget('admin-menu');
         });
         self::updated(function ($model) {
+            Cache::forget('admin-menu');
         });
         self::deleted(function ($model) {
+            Cache::forget('admin-menu');
         });
     }
 
-    const STATUS_UN_ACTIVE = 'un_active';
     const STATUS_ACTIVE = 'active';
     const STATUS_BLOCKED = 'blocked';
 
@@ -56,28 +62,34 @@ class Store extends Model
         return $status == '' ? $types : $types["$status"];
     }
 
-    public function scopeOfCode($query, $code)
-    {
-        return $query->where('stores.code', $code);
-    }
-
     public function scopeOfStatus($query, $status)
     {
-        return $query->where('stores.status', $status);
+        return $query->where('admin_menus.status', $status);
     }
 
-    public function scopeBusinessTypeId($query, $business_type_id)
+    public function scopeOfCode($query, $code)
     {
-        return $query->where('stores.business_type_id', $business_type_id);
+        return $query->where('admin_menus.code', $code);
     }
 
-    public function businessType()
+    public function scopeParentId($query, $parent_id)
     {
-        return $this->belongsTo(BusinessType::class, 'business_type_id');
+        return $query->where('admin_menus.parent_id', $parent_id);
     }
 
-    public function license()
+    public function parent()
     {
-        return $this->hasOne(License::class, 'store_id', 'id')->ofStatus(License::STATUS_ACTIVE);
+        return $this->belongsTo(AdminMenu::class, 'parent_id');
+    }
+
+    public function menus()
+    {
+        return $this->hasMany(AdminMenu::class, 'parent_id', 'id')->orderBy('numering', 'asc');
+    }
+
+    public static function getOrder($parent_id)
+    {
+        $max = AdminMenu::parentId($parent_id)->max('numering') ?? 0;
+        return $max + 1;
     }
 }

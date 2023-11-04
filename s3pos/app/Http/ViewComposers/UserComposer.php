@@ -39,8 +39,8 @@ class UserComposer
             if (Cache::has($key)) {
                 $menus = Cache::get($key);
             } else {
-                $menus = Cache::rememberForever($key, function () use ($store) {
-                    return Menu::with('menus')->storeId($store->id)->parentId(0)->orderBy('numering', 'asc')->get();
+                $menus = Cache::rememberForever($key, function () {
+                    return Menu::with('menus')->parentId(0)->orderBy('numering', 'asc')->get();
                 });
             }
             $view->with('user_menu', $menus);

@@ -13,6 +13,7 @@ class License extends Model
 
     protected $fillable = [
         'store_id',
+        'package_id',
         'key',
         'total_month',
         'date_start',
@@ -27,9 +28,10 @@ class License extends Model
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
-        'store_id' => 'boolean',
-        'total_month' => 'boolean',
-        'total_amount' => 'boolean',
+        'store_id' => 'integer',
+        'total_month' => 'integer',
+        'total_amount' => 'integer',
+        'package_id' => 'integer',
         'date_start' => 'datetime:Y-m-d H:i:s',
         'date_end' => 'datetime:Y-m-d H:i:s',
     ];
@@ -74,6 +76,16 @@ class License extends Model
         return $this->belongsTo(Store::class, 'store_id');
     }
 
+    public function package()
+    {
+        return $this->belongsTo(Package::class, 'package_id');
+    }
+
+    public function payment()
+    {
+        return $this->hasOne(BillService::class, 'license_id', 'id');
+    }
+
     public function scopeOfKey($query, $key)
     {
         return $query->where('licenses.key', $key);
@@ -98,6 +110,14 @@ class License extends Model
             return $query->whereIn('licenses.store_id', $store_id);
         }
         return $query->where('licenses.store_id', $store_id);
+    }
+
+    public function scopePackageId($query, $package_id)
+    {
+        if (is_array($package_id)) {
+            return $query->whereIn('licenses.package_id', $package_id);
+        }
+        return $query->where('licenses.package_id', $package_id);
     }
 
     public function scopeSearch($query, $search)

@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id()->index();
             $table->string('code')->unique();
             $table->string('name');
-            $table->string('avatar');
-            $table->string('phone');
+            $table->string('avatar')->nullable();
+            $table->string('phone')->nullable();
             $table->string('email')->unique()->index();
             $table->string('password');
-            $table->integer('gender')->nullable()->default(3);
+            $table->enum('gender', ['male', 'female', 'other'])->nullable()->default('other');
             $table->enum('is_supper', ['true', 'false'])->index()->nullable()->default('false');
             $table->enum('is_root', ['true', 'false'])->index()->nullable()->default('false');
             $table->timestamp('last_login')->nullable();

@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BusinessType extends Model
+class Module extends Model
 {
     use HasFactory;
-    protected $table = 'business_types';
+    protected $table = 'modules';
 
     protected $fillable = [
         'code',
@@ -52,27 +52,22 @@ class BusinessType extends Model
 
     public function scopeOfCode($query, $code)
     {
-        return $query->where('business_types.code', $code);
+        return $query->where('modules.code', $code);
     }
 
     public function scopeOfStatus($query, $status)
     {
         if (is_array($status)) {
-            return $query->whereIn('business_types.status', $status);
+            return $query->whereIn('modules.status', $status);
         }
-        return $query->where('business_types.status', $status);
+        return $query->where('modules.status', $status);
     }
 
     public function scopeSearch($query, $search)
     {
         return $query->where(function ($query) use ($search) {
-            $query->where('business_types.code', 'LIKE', "%$search%")
-                ->orWhere('business_types.name', 'LIKE', "%$search%");
+            $query->where('modules.code', 'LIKE', "%$search%")
+                ->orWhere('modules.name', 'LIKE', "%$search%");
         });
-    }
-
-    public function stores()
-    {
-        return $this->hasMany(Store::class, 'business_type_id', 'id');
     }
 }
