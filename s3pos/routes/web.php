@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\User\CardMemberController;
 use App\Http\Controllers\User\RoleController;
 use App\Http\Controllers\User\DepartmentController;
 use App\Http\Controllers\User\AreaController;
@@ -135,6 +136,12 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
         Route::get('table', [CustomerController::class, 'table'])->name('table');
         Route::get('report', [CustomerController::class, 'report'])->name('report');
         Route::get('detail/{id}', [CustomerController::class, 'detail'])->name('detail');
+    });
+    Route::prefix('card_member')->name('card_member.')->group(function () {
+        Route::get('', [CardMemberController::class, 'index'])->name('index');
+        Route::get('table', [CardMemberController::class, 'table'])->name('table');
+        Route::get('report', [CardMemberController::class, 'report'])->name('report');
+        Route::get('detail/{id}', [CardMemberController::class, 'detail'])->name('detail');
     });
 
     // warehouse

@@ -146,6 +146,13 @@ class CreateStoreMenuListen
                 'url' => route('customer.index'),
                 'parent_id' => $promotion->id,
             ]);
+            Menu::create([
+                'store_id' => $store_id,
+                'name' => 'Thẻ thành viên',
+                'icon' => '<i class="far fa-address-card"></i>',
+                'url' => route('card_member.index'),
+                'parent_id' => $promotion->id,
+            ]);
 
             // warehouse
             $warehouse = Menu::create([
