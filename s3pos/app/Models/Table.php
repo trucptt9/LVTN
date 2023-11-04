@@ -12,7 +12,6 @@ class Table extends Model
 
     protected $fillable = [
         'area_id',
-        'type_id',
         'code',
         'name',
         'status',
@@ -22,9 +21,7 @@ class Table extends Model
     protected $hidden = [];
 
     protected $casts = [
-        'status' => 'boolean',
         'area_id' => 'integer',
-        'type_id' => 'integer',
         'seat' => 'integer',
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
@@ -34,7 +31,7 @@ class Table extends Model
     {
         parent::boot();
         self::creating(function ($model) {
-            $model->status = $model->status ?? true;
+            $model->status = $model->status ?? self::STATUS_ACTIVE;
             $model->code = $model->code ?? generateRandomString();
             $model->seat = $model->seat ?? 1;
         });
@@ -73,18 +70,8 @@ class Table extends Model
         return $query->where('tables.area_id', $area_id);
     }
 
-    public function scopeTypeId($query, $type_id)
-    {
-        return $query->where('tables.type_id', $type_id);
-    }
-
     public function area()
     {
         return $this->belongsTo(Area::class, 'area_id');
-    }
-
-    public function type()
-    {
-        return $this->belongsTo(TableType::class, 'type_id');
     }
 }

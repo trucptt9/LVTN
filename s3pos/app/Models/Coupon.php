@@ -25,7 +25,6 @@ class Coupon extends Model
     protected $hidden = [];
 
     protected $casts = [
-        'status' => 'boolean',
         'store_id' => 'integer',
         'value' => 'integer',
         'start' => 'date:Y-m-d',
@@ -38,7 +37,7 @@ class Coupon extends Model
     {
         parent::boot();
         self::creating(function ($model) {
-            $model->status = $model->status ?? false;
+            $model->status = $model->status ?? self::STATUS_BLOCKED;
             $model->code = $model->code ?? generateRandomString();
             $model->value = $model->value ?? 0;
             $model->type_value = $model->type_value ?? self::TYPE_PERCENT;

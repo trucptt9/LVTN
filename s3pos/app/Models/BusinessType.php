@@ -21,14 +21,13 @@ class BusinessType extends Model
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
-        'status' => 'boolean',
     ];
 
     public static function boot()
     {
         parent::boot();
         self::creating(function ($model) {
-            $model->status = $model->status ?? true;
+            $model->status = $model->status ?? self::STATUS_ACTIVE;
             $model->code = $model->code ?? generateRandomString();
         });
         self::created(function ($model) {
@@ -49,11 +48,6 @@ class BusinessType extends Model
             self::STATUS_BLOCKED => ['Tạm ngưng', 'danger', COLOR_DANGER],
         ];
         return $status == '' ? $types : $types["$status"];
-    }
-
-    public function brand()
-    {
-        return $this->hasMany(Brand::class, 'id', 'type_id');
     }
 
     public function scopeOfCode($query, $code)

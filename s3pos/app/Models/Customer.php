@@ -31,14 +31,13 @@ class Customer extends Model
         'group_id' => 'integer',
         'store_id' => 'integer',
         'point_current' => 'integer',
-        'status' => 'boolean'
     ];
 
     public static function boot()
     {
         parent::boot();
         self::creating(function ($model) {
-            $model->status = $model->status ?? true;
+            $model->status = $model->status ?? self::STATUS_ACTIVE;
             $model->code = $model->code ?? generateRandomString();
             $model->point_current = $model->point_current ?? 0;
         });

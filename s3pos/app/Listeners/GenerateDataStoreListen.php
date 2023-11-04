@@ -5,19 +5,21 @@ namespace App\Listeners;
 use App\Events\GenerateDataStore;
 use App\Models\Area;
 use App\Models\CategoryProduct;
+use App\Models\CustomerGroup;
+use App\Models\Department;
 use App\Models\MethodPayment;
-use App\Models\PortPayment;
+use App\Models\Position;
 use App\Models\Product;
-use App\Models\SaleChanel;
 use App\Models\SaleSource;
 use App\Models\Settings;
+use App\Models\Staff;
 use App\Models\Table;
-use App\Models\TableType;
 use App\Models\ToppingGroup;
 use App\Models\Toppings;
 use App\Models\Warehouse;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Hash;
 
 class GenerateDataStoreListen
 {
@@ -37,13 +39,38 @@ class GenerateDataStoreListen
         try {
             $faker = \Faker\Factory::create();
             $store_id = $event->store->id;
-            // area
-            $area = Area::create([
+            // position
+            $position = Position::create([
+                'store_id' => $store_id,
+                'name' => 'Kỹ thuật'
+            ]);
+            // department
+            $department = Department::create([
+                'store_id' => $store_id,
+                'name' => 'Kỹ thuật'
+            ]);
+            // staff
+            Staff::create([
+                'name' => $faker->name(),
+                'email' => $faker->email(),
+                'phone' => $faker->phoneNumber(),
+                'password' => Hash::make('123456'),
+                'is_supper' => 'true',
+                'status' => Staff::STATUS_ACTIVE,
+                'address' => $faker->address(),
+                'department_id' => $department->id,
+                'position_id' => $position->id,
+                'store_id' => $store_id,
+            ]);
+            // customer group
+            CustomerGroup::create([
                 'store_id' => $store_id,
                 'name' => 'Mặc định',
+                'default' => 'true',
             ]);
-            // type
-            $type = TableType::create([
+
+            // area
+            $area = Area::create([
                 'store_id' => $store_id,
                 'name' => 'Mặc định',
             ]);
@@ -51,7 +78,6 @@ class GenerateDataStoreListen
             for ($i = 0; $i < 5; $i++) {
                 Table::create([
                     'area_id' => $area->id,
-                    'type_id' => $type->id,
                     'name' => $i,
                 ]);
             }
@@ -87,45 +113,25 @@ class GenerateDataStoreListen
             MethodPayment::create([
                 'store_id' => $store_id,
                 'name' => 'Tiền mặt',
-                'default' => true,
+                'default' => 'true',
             ]);
-            $method_payment = MethodPayment::create([
+            MethodPayment::create([
                 'store_id' => $store_id,
                 'name' => 'Chuyển khoản',
-            ]);
-            // port payment
-            PortPayment::create([
-                'method_id' => $method_payment->id,
-                'name' => 'Momo',
-                'default' => true
-            ]);
-            PortPayment::create([
-                'method_id' => $method_payment->id,
-                'name' => 'VNPay'
             ]);
             // sale source
             SaleSource::create([
                 'store_id' => $store_id,
                 'name' => 'Tại quầy',
-                'default' => true,
+                'default' => 'true',
             ]);
             SaleSource::create([
                 'store_id' => $store_id,
                 'name' => 'Mang đi',
             ]);
-            $sale_source = SaleSource::create([
+            SaleSource::create([
                 'store_id' => $store_id,
                 'name' => 'Giao hàng',
-            ]);
-            // sale channel
-            SaleChanel::create([
-                'source_id' => $sale_source->id,
-                'name' => 'Grab',
-                'default' => true
-            ]);
-            SaleChanel::create([
-                'source_id' => $sale_source->id,
-                'name' => 'Now',
             ]);
             // warehouse
             Warehouse::create([

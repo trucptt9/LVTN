@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\CreateStoreMenu;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,7 +12,6 @@ class Store extends Model
     protected $table = 'stores';
 
     protected $fillable = [
-        'brand_id',
         'business_type_id',
         'code',
         'name',
@@ -24,9 +24,7 @@ class Store extends Model
     protected $hidden = [];
 
     protected $casts = [
-        'brand_id' => 'integer',
         'business_type_id' => 'integer',
-        'status' => 'integer',
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
@@ -35,10 +33,11 @@ class Store extends Model
     {
         parent::boot();
         self::creating(function ($model) {
-            $model->status = $model->status ?? true;
+            $model->status = $model->status ?? self::STATUS_ACTIVE;
             $model->code = $model->code ?? generateRandomString();
         });
         self::created(function ($model) {
+            event(new CreateStoreMenu($model->id));
         });
         self::updated(function ($model) {
         });
@@ -66,11 +65,6 @@ class Store extends Model
     public function scopeOfStatus($query, $status)
     {
         return $query->where('stores.status', $status);
-    }
-
-    public function scopeBrandId($query, $brand_id)
-    {
-        return $query->where('stores.brand_id', $brand_id);
     }
 
     public function scopeBusinessTypeId($query, $business_type_id)

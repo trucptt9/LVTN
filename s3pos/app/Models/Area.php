@@ -24,7 +24,6 @@ class Area extends Model
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
-        'status' => 'boolean',
         'capacity' => 'integer',
         'priority' => 'integer',
         'store_id' => 'integer',

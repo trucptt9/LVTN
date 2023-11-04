@@ -24,7 +24,6 @@ class Menu extends Model
     protected $hidden = [];
 
     protected $casts = [
-        'status' => 'boolean',
         'parent_id' => 'integer',
         'numering' => 'integer',
         'created_at' => 'datetime:Y-m-d H:i:s',
@@ -36,7 +35,7 @@ class Menu extends Model
         parent::boot();
         self::creating(function ($model) {
             $parent_id = $model->parent_id ?? 0;
-            $model->status = $model->status ?? true;
+            $model->status = $model->status ?? self::STATUS_ACTIVE;
             $model->parent_id = $parent_id;
             $model->numering = $model->numering ?? self::getOrder($parent_id);
         });

@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\Events\GenerateDataBrand;
+use App\Events\CreateStoreMenu;
 use App\Events\GenerateDataStore;
 use App\Events\StaffLogin;
-use App\Listeners\GenerateDataBrandListen;
+use App\Listeners\CreateStoreMenuListen;
 use App\Listeners\GenerateDataStoreListen;
 use App\Listeners\StaffLoginListen;
 use Illuminate\Auth\Events\Registered;
@@ -27,11 +27,11 @@ class EventServiceProvider extends ServiceProvider
         GenerateDataStore::class => [
             GenerateDataStoreListen::class,
         ],
-        GenerateDataBrand::class => [
-            GenerateDataBrandListen::class,
-        ],
         StaffLogin::class => [
             StaffLoginListen::class,
+        ],
+        CreateStoreMenu::class => [
+            CreateStoreMenuListen::class,
         ],
     ];
 

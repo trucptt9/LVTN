@@ -2,8 +2,8 @@
 
 namespace App\Http\ViewComposers;
 
-use App\Models\Brand;
 use App\Models\Menu;
+use App\Models\Store;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 
@@ -28,19 +28,22 @@ class UserComposer
      */
     public function compose(View $view)
     {
-        $key = 'user-menu';
-        if (Cache::has($key)) {
-            $menus = Cache::get($key);
-        } else {
-            $menus = Cache::rememberForever($key, function () {
-                return Menu::with('menus')->parentId(0)->orderBy('numering', 'asc')->get();
-            });
-        }
-        $view->with('user_menu', $menus);
+        if (auth()->check()) {
+            $staff = auth()->user();
+            $view->with('user_staff', $staff);
 
-        $staff = auth()->check() ? auth()->user() : null;
-        $brand = $staff ? Brand::find($staff->brand_id) : null;
-        $view->with('user_brand', $brand);
-        $view->with('user_staff', $staff);
+            $store = Store::find($staff->store_id);
+            $view->with('user_store', $store);
+
+            $key = 'user-menu';
+            if (Cache::has($key)) {
+                $menus = Cache::get($key);
+            } else {
+                $menus = Cache::rememberForever($key, function () use ($store) {
+                    return Menu::with('menus')->storeId($store->id)->parentId(0)->orderBy('numering', 'asc')->get();
+                });
+            }
+            $view->with('user_menu', $menus);
+        }
     }
 }

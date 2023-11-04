@@ -14,8 +14,8 @@ class Order extends Model
         'code',
         'table_id',
         'customer_id',
-        'portal_payment_id',
-        'sale_channel_id',
+        'method_payment_id',
+        'sale_source_id',
         'promotion_id',
         'staff_id',
         'store_id',
@@ -37,11 +37,10 @@ class Order extends Model
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
-        'status' => 'integer',
         'table_id' => 'integer',
         'customer_id' => 'integer',
-        'portal_payment_id' => 'integer',
-        'sale_channel_id' => 'integer',
+        'method_payment_id' => 'integer',
+        'sale_source_id' => 'integer',
         'promotion_id' => 'integer',
         'staff_id' => 'integer',
         'store_id' => 'integer',
@@ -107,14 +106,14 @@ class Order extends Model
         return $this->belongsTo(Customer::class, 'customer_id');
     }
 
-    public function portalPayment()
+    public function methodPayment()
     {
-        return $this->belongsTo(PortPayment::class, 'portal_payment_id');
+        return $this->belongsTo(MethodPayment::class, 'method_payment_id');
     }
 
-    public function saleChannel()
+    public function saleSource()
     {
-        return $this->belongsTo(SaleChanel::class, 'sale_channel_id');
+        return $this->belongsTo(SaleSource::class, 'sale_source_id');
     }
 
     public function promotion()
@@ -155,14 +154,14 @@ class Order extends Model
         return $query->where('orders.customer_id', $customer_id);
     }
 
-    public function scopePortalPaymentId($query, $portal_payment_id)
+    public function scopePortalPaymentId($query, $method_payment_id)
     {
-        return $query->where('orders.portal_payment_id', $portal_payment_id);
+        return $query->where('orders.method_payment_id', $method_payment_id);
     }
 
-    public function scopeSaleChannelId($query, $sale_channel_id)
+    public function scopeSaleChannelId($query, $sale_source_id)
     {
-        return $query->where('orders.sale_channel_id', $sale_channel_id);
+        return $query->where('orders.sale_source_id', $sale_source_id);
     }
 
     public function scopePromotionId($query, $promotion_id)

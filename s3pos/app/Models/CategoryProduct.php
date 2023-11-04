@@ -24,7 +24,6 @@ class CategoryProduct extends Model
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
-        'status' => 'boolean',
         'store_id' => 'integer'
     ];
 
@@ -32,7 +31,7 @@ class CategoryProduct extends Model
     {
         parent::boot();
         self::creating(function ($model) {
-            $model->status = $model->status ?? true;
+            $model->status = $model->status ?? self::STATUS_ACTIVE;
             $model->code = $model->code ?? generateRandomString();
         });
         self::created(function ($model) {

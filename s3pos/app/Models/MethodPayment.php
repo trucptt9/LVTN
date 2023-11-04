@@ -24,17 +24,15 @@ class MethodPayment extends Model
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
-        'status' => 'boolean',
         'store_id' => 'integer',
-        'default' => 'boolean'
     ];
 
     public static function boot()
     {
         parent::boot();
         self::creating(function ($model) {
-            $model->default = $model->default ?? false;
-            $model->status = $model->status ?? true;
+            $model->default = $model->default ?? 'false';
+            $model->status = $model->status ?? self::STATUS_ACTIVE;
             $model->code = $model->code ?? generateRandomString();
         });
         self::created(function ($model) {

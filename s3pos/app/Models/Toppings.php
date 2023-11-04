@@ -18,17 +18,14 @@ class Toppings extends Model
         'image',
         'price',
         'cost',
-        'is_menu'
     ];
 
     protected $hidden = [];
 
     protected $casts = [
-        'status' => 'boolean',
         'group_id' => 'integer',
         'price' => 'integer',
         'cost' => 'integer',
-        'is_menu' => 'boolean',
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
@@ -37,11 +34,10 @@ class Toppings extends Model
     {
         parent::boot();
         self::creating(function ($model) {
-            $model->status = $model->status ?? true;
+            $model->status = $model->status ?? self::STATUS_ACTIVE;
             $model->code = $model->code ?? generateRandomString();
             $model->price = $model->price ?? 0;
             $model->cost = $model->cost ?? 0;
-            $model->is_menu = $model->is_menu ?? true;
         });
         self::created(function ($model) {
         });
@@ -76,11 +72,6 @@ class Toppings extends Model
     public function scopeGroupId($query, $group_id)
     {
         return $query->where('toppings.group_id', $group_id);
-    }
-
-    public function scopeIsMenu($query, $is_menu)
-    {
-        return $query->where('toppings.is_menu', $is_menu);
     }
 
     public function group()

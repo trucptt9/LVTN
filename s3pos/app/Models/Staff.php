@@ -49,12 +49,9 @@ class Staff extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'gender' => 'integer',
-        'is_supper' => 'boolean',
         'store_id' => 'integer',
         'department_id' => 'integer',
         'position_id' => 'integer',
-        'status' => 'integer',
         'password' => 'hashed',
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',

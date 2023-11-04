@@ -10,17 +10,17 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class GenerateDataBrand
+class CreateStoreMenu
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    public $brand;
+    public $store_id;
 
     /**
      * Create a new event instance.
      */
-    public function __construct($brand)
+    public function __construct($store_id)
     {
-        $this->brand = $brand;
+        $this->store_id = $store_id;
     }
 
     /**

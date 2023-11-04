@@ -21,7 +21,6 @@ class SettingGroup extends Model
     protected $hidden = [];
 
     protected $casts = [
-        'status' => 'boolean',
         'numering' => 'integer',
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
@@ -31,7 +30,7 @@ class SettingGroup extends Model
     {
         parent::boot();
         self::creating(function ($model) {
-            $model->status = $model->status ?? true;
+            $model->status = $model->status ?? self::STATUS_ACTIVE;
             $model->code = $model->code ?? generateRandomString();
             $model->numering = $model->numering ?? self::getOrder();
         });

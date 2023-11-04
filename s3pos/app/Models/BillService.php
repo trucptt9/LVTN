@@ -30,8 +30,6 @@ class BillService extends Model
         'license_id' => 'integer',
         'sub_total' => 'integer',
         'total' => 'integer',
-        'status_payment' => 'integer',
-        'status' => 'integer',
     ];
 
     public static function boot()

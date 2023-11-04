@@ -28,7 +28,6 @@ class Settings extends Model
     protected $casts = [
         'group_id' => 'integer',
         'numering' => 'integer',
-        'status' => 'boolean',
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
@@ -37,7 +36,7 @@ class Settings extends Model
     {
         parent::boot();
         self::creating(function ($model) {
-            $model->status = $model->status ?? true;
+            $model->status = $model->status ?? 'active';
             $model->code = $model->code ?? generateRandomString();
             $model->type = $model->type ?? self::TYPE_TEXT;
             $model->value = $model->value ?? '';

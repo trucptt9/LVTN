@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id()->index();
             $table->string('code')->unique();
             $table->string('name');
-            $table->boolean('status')->nullable()->default(false);
+            $table->enum('status', ['active', 'blocked'])->index()->nullable()->default('blocked');
             $table->timestamps();
         });
     }
