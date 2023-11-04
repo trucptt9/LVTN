@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('code')->unique()->index();
             $table->unsignedBigInteger('table_id')->index();
             $table->unsignedBigInteger('customer_id')->index();
-            $table->unsignedBigInteger('portal_payment_id')->index();
-            $table->unsignedBigInteger('sale_channel_id')->index();
+            $table->unsignedBigInteger('method_payment_id')->index();
+            $table->unsignedBigInteger('sale_source_id')->index();
             $table->unsignedBigInteger('promotion_id')->index();
             $table->unsignedBigInteger('staff_id')->index();
             $table->unsignedBigInteger('store_id')->index();
@@ -34,12 +34,6 @@ return new class extends Migration
             $table->integer('status')->nullable()->default(1);
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('table_id')->references('id')->on('tables')->onDelete('cascade');
-            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
-            $table->foreign('portal_payment_id')->references('id')->on('port_payments')->onDelete('cascade');
-            $table->foreign('sale_channel_id')->references('id')->on('sale_channels')->onDelete('cascade');
-            $table->foreign('promotion_id')->references('id')->on('promotions')->onDelete('cascade');
-            $table->foreign('staff_id')->references('id')->on('staffs')->onDelete('cascade');
             $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade');
         });
     }

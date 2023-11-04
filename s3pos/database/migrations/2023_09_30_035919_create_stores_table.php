@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('stores', function (Blueprint $table) {
             $table->id()->index();
-            $table->unsignedBigInteger('brand_id')->index();
-            $table->unsignedBigInteger('type_id')->index();
+            $table->unsignedBigInteger('business_type_id')->index();
             $table->string('code')->index()->unique();
             $table->string('name');
             $table->string('phone');
@@ -22,8 +21,7 @@ return new class extends Migration
             $table->boolean('status')->index()->nullable()->default(false);
             $table->string('description')->nullable();
             $table->timestamps();
-            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
-            $table->foreign('type_id')->references('id')->on('store_types')->onDelete('cascade');
+            $table->foreign('business_type_id')->references('id')->on('business_types')->onDelete('cascade');
         });
     }
 

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id()->index();
-            $table->unsignedBigInteger('brand_id')->index();
-            $table->unsignedBigInteger('group_id')->index();
+            $table->unsignedBigInteger('store_id')->index();
+            $table->unsignedBigInteger('group_id')->index()->nullable();
             $table->string('code')->unique()->index();
             $table->string('name');
             $table->string('phone');
@@ -24,8 +24,7 @@ return new class extends Migration
             $table->boolean('status')->nullable()->default(false);
             $table->string('description')->nullable();
             $table->timestamps();
-            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
-            $table->foreign('group_id')->references('id')->on('customer_groups')->onDelete('cascade');
+            $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade');
         });
     }
 

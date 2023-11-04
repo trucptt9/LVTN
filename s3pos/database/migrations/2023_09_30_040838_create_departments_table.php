@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('departments', function (Blueprint $table) {
             $table->id()->index();
-            $table->unsignedBigInteger('brand_id')->index();
+            $table->unsignedBigInteger('store_id')->index();
             $table->string('code')->unique();
             $table->string('name');
             $table->boolean('status')->nullable()->default(false);
             $table->string('description')->nullable();
             $table->timestamps();
-            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
+            $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade');
         });
     }
 

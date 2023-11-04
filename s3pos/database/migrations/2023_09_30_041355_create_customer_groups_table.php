@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('customer_groups', function (Blueprint $table) {
             $table->id()->index();
-            $table->unsignedBigInteger('brand_id')->index();
+            $table->unsignedBigInteger('store_id')->index();
             $table->string('code');
             $table->string('name');
             $table->boolean('default')->nullable()->default(false);
             $table->boolean('status')->nullable()->default(false);
             $table->string('description')->nullable();
             $table->timestamps();
-            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
+            $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade');
         });
     }
 
