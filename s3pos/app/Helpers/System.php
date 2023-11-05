@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\AdminMenu;
 use App\Models\Settings;
 use App\Models\StaffHistory;
 use Illuminate\Support\Facades\Log;
@@ -163,5 +164,70 @@ if (!function_exists('showLog')) {
             'file' => $th->getFile(),
             'line' => $th->getLine()
         ]);
+    }
+}
+if (!function_exists('renderSubMenu')) {
+    // generate code
+    function renderSubMenu($value, $currentUrl = '/')
+    {
+        $subMenu = '';
+        $status_active = '';
+        foreach ($value as $menu) {
+            $subSubMenu = '';
+            $hasSub = count($menu->menus) > 0 ? 'has-sub' : '';
+            $menuUrl = $menu->url ?? '';
+            $menuCaret = (!empty($hasSub)) ? '<span class="menu-caret"><b class="caret"></b></span>' : '';
+            $menuText = $menu->name ? '<span class="menu-text">' . $menu->name . '</span>' : '';
+
+            if (!empty($hasSub)) {
+                $subSubMenu .= '<div class="menu-submenu">';
+                $subSubMenu .= renderSubMenu($menu->menus, $currentUrl);
+                $subSubMenu .= '</div>';
+            }
+            $active = ($currentUrl == $menuUrl) ? 'active' : '';
+            if ($status_active == '') {
+                $status_active = $active;
+            }
+            $subMenu .= '
+                        <div class="menu-item ' . $hasSub . ' ' . $active . '">
+                            <a href="' . $menuUrl . '" class="menu-link">' . $menuText . $menuCaret . '</a>
+                            ' . $subSubMenu . '
+                        </div>
+                    ';
+        }
+        return [$subMenu, $status_active];
+    }
+}
+
+if (!function_exists('renderAdminMenu')) {
+    function renderAdminMenu($currentUrl = '')
+    {
+        $menus = AdminMenu::with('menus')->ofStatus(AdminMenu::STATUS_ACTIVE)->parentId(0)->get();
+        foreach ($menus as $menu) {
+            $hasSub = (count($menu->menus) > 0) ? 'has-sub' : '';
+            $menuUrl = (!empty($menu->url)) ? $menu->url : '';
+            $menuIcon = (!empty($menu->icon)) ? '<span class="menu-icon">' . $menu->icon . '</span>' : '';
+            $menuText = (!empty($menu->name)) ? '<span class="menu-text">' . $menu->name . '</span>' : '';
+            $menuCaret = (!empty($hasSub)) ? '<span class="menu-caret"><b class="caret"></b></span>' : '';
+            $menuSubMenu = '';
+
+            if (!is_null($menu->menus)) {
+                $menuSubMenu .= '<div class="menu-submenu">';
+                $subMenu = renderSubMenu($menu->menus, $currentUrl);
+                $menuSubMenu .= $subMenu[0];
+                $menuSubMenu .= '</div>';
+            }
+            $active = ((!empty($menu->url) && $currentUrl == $menu->url) || $subMenu[1] == 'active') ? 'active' : '';
+            echo '
+                        <div class="menu-item ' . $hasSub . ' ' . $active . '">
+                            <a href="' . $menuUrl . '" class="menu-link ' . $active . '">
+                                ' . $menuIcon . '
+                                ' . $menuText . '
+                                ' . $menuCaret . '
+                            </a>
+                            ' . $menuSubMenu . '
+                        </div>
+                    ';
+        }
     }
 }

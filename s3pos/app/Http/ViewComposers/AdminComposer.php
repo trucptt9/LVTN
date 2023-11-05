@@ -27,14 +27,19 @@ class AdminComposer
      */
     public function compose(View $view)
     {
-        $key = 'admin-menu';
-        if (Cache::has($key)) {
-            $menus = Cache::get($key);
-        } else {
-            $menus = Cache::rememberForever($key, function () {
-                return AdminMenu::with('menus')->parentId(0)->orderBy('numering', 'asc')->get();
-            });
+        if (auth('admin')->check()) {
+            $admin = auth()->user();
+            $view->with('admin_staff', $admin);
+
+            $key = 'admin-menu';
+            if (Cache::has($key)) {
+                $menus = Cache::get($key);
+            } else {
+                $menus = Cache::rememberForever($key, function () {
+                    return AdminMenu::with('menus')->parentId(0)->orderBy('numering', 'asc')->get();
+                });
+            }
+            $view->with('admin_menu', $menus);
         }
-        $view->with('admin_menu', $menus);
     }
 }
