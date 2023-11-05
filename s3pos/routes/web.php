@@ -20,6 +20,7 @@ use App\Http\Controllers\User\PositionController;
 use App\Http\Controllers\User\PromotionController;
 use App\Http\Controllers\User\UnitController;
 use App\Http\Controllers\User\ProductController;
+use App\Http\Controllers\User\CategoryProductController;
 use App\Http\Controllers\User\ReportController;
 use App\Http\Controllers\User\SettingController;
 use App\Http\Controllers\User\ShiftController;
@@ -70,8 +71,11 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
     });
     Route::prefix('departments')->name('department.')->group(function () {
         Route::get('', [DepartmentController::class, 'index'])->name('index');
-        Route::get('table', [DepartmentController::class, 'table'])->name('table');
+        Route::get('list', [DepartmentController::class, 'list'])->name('list');
         Route::get('detail/{id}', [DepartmentController::class, 'detail'])->name('detail');
+        Route::post('insert', [DepartmentController::class, 'insert'])->name('insert');
+        Route::post('update', [DepartmentController::class, 'update'])->name('update');
+        Route::get('delete', [DepartmentController::class, 'delete'])->name('delete');
     });
     Route::prefix('position')->name('position.')->group(function () {
         Route::get('', [PositionController::class, 'index'])->name('index');
@@ -80,39 +84,63 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
     });
     Route::prefix('shifts')->name('shift.')->group(function () {
         Route::get('', [ShiftController::class, 'index'])->name('index');
-        Route::get('table', [ShiftController::class, 'table'])->name('table');
         Route::get('detail/{id}', [ShiftController::class, 'detail'])->name('detail');
+        Route::get('list', [ShiftController::class, 'list'])->name('list');
+        Route::post('insert', [ShiftController::class, 'insert'])->name('insert');
+        Route::post('update', [ShiftController::class, 'update'])->name('update');
+        Route::get('delete', [ShiftController::class, 'delete'])->name('delete');
     });
     Route::prefix('areas')->name('area.')->group(function () {
         Route::get('', [AreaController::class, 'index'])->name('index');
-        Route::get('table', [AreaController::class, 'table'])->name('table');
+        Route::get('list', [AreaController::class, 'list'])->name('list');
         Route::get('detail/{id}', [AreaController::class, 'detail'])->name('detail');
+        Route::post('insert', [AreaController::class, 'insert'])->name('insert');
+        Route::post('update', [AreaController::class, 'update'])->name('update');
+        Route::get('delete', [AreaController::class, 'delete'])->name('delete');
     });
     Route::prefix('tables')->name('table.')->group(function () {
         Route::get('', [TableController::class, 'index'])->name('index');
-        Route::get('table', [TableController::class, 'table'])->name('table');
         Route::get('report', [TableController::class, 'report'])->name('report');
+        Route::get('list', [TableController::class, 'list'])->name('list');
         Route::get('detail/{id}', [TableController::class, 'detail'])->name('detail');
+        Route::post('insert', [TableController::class, 'insert'])->name('insert');
+        Route::post('update', [TableController::class, 'update'])->name('update');
+        Route::get('delete', [TableController::class, 'delete'])->name('delete');
     });
 
     // product
     Route::prefix('product_categories')->name('product_category.')->group(function () {
-        Route::get('', [ProductController::class, 'index'])->name('index');
-        Route::get('table', [ProductController::class, 'table'])->name('table');
+        Route::get('', [CategoryProductController::class, 'index'])->name('index');
+        Route::get('list', [CategoryProductController::class, 'list'])->name('list');
+        Route::get('detail/{id}', [CategoryProductController::class, 'detail'])->name('detail');
+        Route::post('insert', [CategoryProductController::class, 'insert'])->name('insert');
+        Route::post('update', [CategoryProductController::class, 'update'])->name('update');
+        Route::get('delete', [CategoryProductController::class, 'delete'])->name('delete');
     });
     Route::prefix('products')->name('product.')->group(function () {
         Route::get('', [ProductController::class, 'index'])->name('index');
+        Route::get('list', [ProductController::class, 'list'])->name('list');
         Route::get('add', [ProductController::class, 'add'])->name('add');
-        Route::get('table', [ProductController::class, 'table'])->name('table');
+        Route::get('detail/{id}', [ProductController::class, 'detail'])->name('detail');
+        Route::post('insert', [ProductController::class, 'insert'])->name('insert');
+        Route::post('update', [ProductController::class, 'update'])->name('update');
+        Route::get('delete', [ProductController::class, 'delete'])->name('delete');
     });
     Route::prefix('topping_categories')->name('topping_category.')->group(function () {
         Route::get('', [ToppingCategoryController::class, 'index'])->name('index');
-        Route::get('table', [ToppingCategoryController::class, 'table'])->name('table');
+        Route::get('list', [ToppingCategoryController::class, 'list'])->name('list');
+        Route::get('detail/{id}', [ToppingCategoryController::class, 'detail'])->name('detail');
+        Route::post('insert', [ToppingCategoryController::class, 'insert'])->name('insert');
+        Route::post('update', [ToppingCategoryController::class, 'update'])->name('update');
+        Route::get('delete', [ToppingCategoryController::class, 'delete'])->name('delete');
     });
     Route::prefix('toppings')->name('topping.')->group(function () {
         Route::get('', [ToppingController::class, 'index'])->name('index');
-        Route::get('add', [ToppingController::class, 'add'])->name('add');
-        Route::get('table', [ToppingController::class, 'table'])->name('table');
+        Route::get('list', [ToppingController::class, 'list'])->name('list');
+        Route::get('detail/{id}', [ToppingController::class, 'detail'])->name('detail');
+        Route::post('insert', [ToppingController::class, 'insert'])->name('insert');
+        Route::post('update', [ToppingController::class, 'update'])->name('update');
+        Route::get('delete', [ToppingController::class, 'delete'])->name('delete');
     });
 
     // promotion

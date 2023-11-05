@@ -49,6 +49,10 @@ if (!defined('ARRAY_COLORS')) {
         '#0d6efd', '#dc3545', '#198754', '#0dcaf0', '#6c757d', '#f8f9fa', '#212529', '#ffc107'
     ]);
 }
+function formatNumber($number){
+        return number_format($number,0,',',',') ;
+}
+
 if (!function_exists('generateRandomString')) {
     // generate code
     function generateRandomString($length = 10,  $is_number = false)
@@ -165,6 +169,7 @@ if (!function_exists('showLog')) {
             'line' => $th->getLine()
         ]);
     }
+
 }
 if (!function_exists('renderSubMenu')) {
     // generate code

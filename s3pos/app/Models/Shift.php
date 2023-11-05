@@ -26,8 +26,8 @@ class Shift extends Model
     protected $casts = [
         'store_id' => 'integer',
         'salary' => 'integer',
-        'start' => 'datetime:Y-m-d H:i:s',
-        'end' => 'datetime:Y-m-d H:i:s',
+        'start' => 'datetime:H:i',
+        'end' => 'datetime:H:i',
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];

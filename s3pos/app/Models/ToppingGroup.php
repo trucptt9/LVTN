@@ -67,6 +67,13 @@ class ToppingGroup extends Model
     {
         return $query->where('topping_groups.store_id', $store_id);
     }
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($query) use ($search) {
+            $query->where('products.code', 'LIKE', "%$search%")
+                ->orWhere('products.name', 'LIKE', "%$search%");
+        });
+    }
 
     public function store()
     {

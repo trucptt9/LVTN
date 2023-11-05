@@ -12,6 +12,7 @@ class Table extends Model
 
     protected $fillable = [
         'area_id',
+        'store_id',
         'code',
         'name',
         'status',
@@ -54,7 +55,7 @@ class Table extends Model
         ];
         return $status == '' ? $types : $types["$status"];
     }
-
+   
     public function scopeOfCode($query, $code)
     {
         return $query->where('tables.code', $code);
@@ -63,6 +64,20 @@ class Table extends Model
     public function scopeOfStatus($query, $status)
     {
         return $query->where('tables.status', $status);
+    }
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($query) use ($search) {
+            $query->where('tables.code', 'LIKE', "%$search%")
+                ->orWhere('tables.name', 'LIKE', "%$search%");
+        });
+    }
+    public function scopeStoreId($query, $store_id)
+    {
+        if (is_array($store_id)) {
+            return $query->whereIn('tables.store_id', $store_id);
+        }
+        return $query->where('tables.store_id', $store_id);
     }
 
     public function scopeAreaId($query, $area_id)

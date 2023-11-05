@@ -71,6 +71,9 @@ class Toppings extends Model
 
     public function scopeGroupId($query, $group_id)
     {
+        if (is_array($group_id)) {
+            return $query->whereIn('toppings.group_id', $group_id);
+        }
         return $query->where('toppings.group_id', $group_id);
     }
 

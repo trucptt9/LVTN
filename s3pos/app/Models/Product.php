@@ -64,17 +64,33 @@ class Product extends Model
     {
         return $query->where('products.code', $code);
     }
-
+    public function scopeSearch($query, $search)
+    {
+        return $query->where(function ($query) use ($search) {
+            $query->where('products.code', 'LIKE', "%$search%")
+                ->orWhere('products.name', 'LIKE', "%$search%");
+        });
+    }
     public function scopeOfStatus($query, $status)
     {
         return $query->where('products.status', $status);
     }
 
-    public function scopeStoreId($query, $category_id)
+    public function scopeStoreId($query, $store_id)
     {
-        return $query->where('products.category_id', $category_id);
+        if (is_array($store_id)) {
+            return $query->whereIn('products.store_id', $store_id);
+        }
+        return $query->where('products.store_id', $store_id);
     }
 
+    public function scopeCategoryId($query, $category_id)
+    {
+        if (is_array($category_id)) {
+            return $query->whereIn('products.category_id', $category_id);
+        }
+        return $query->where('products.category_id', $category_id);
+    }
     public function category()
     {
         return $this->belongsTo(CategoryProduct::class, 'category_id');

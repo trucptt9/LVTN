@@ -23,6 +23,7 @@ return new class extends Migration
             $table->enum('status', ['active', 'blocked'])->index()->nullable()->default('blocked');
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('category_products')->onDelete('cascade');
+           
         });
     }
 

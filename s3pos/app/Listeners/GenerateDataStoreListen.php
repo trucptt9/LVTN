@@ -78,6 +78,7 @@ class GenerateDataStoreListen
             for ($i = 0; $i < 5; $i++) {
                 Table::create([
                     'area_id' => $area->id,
+                    
                     'name' => $i,
                 ]);
             }
@@ -92,7 +93,8 @@ class GenerateDataStoreListen
                     'category_id' => $category->id,
                     'name' => 'Cà phê ' . $i,
                     'price' => 10000 + $i * 1000,
-                    'cost' => 5000
+                    'cost' => 5000,
+                    
                 ]);
             }
             // topping group

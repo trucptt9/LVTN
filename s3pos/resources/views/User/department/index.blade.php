@@ -1,7 +1,7 @@
-@extends('user.layout')
+@extends('User.layout.main')
 @section('style')
     <!--begin::Vendor Stylesheets(used for this page only)-->
-    <link href="{{asset('user/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" ')}}"/>
+    <link href="{{ asset('user/assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
     <!--end::Vendor Stylesheets-->
 @endsection
 @section('content')
@@ -9,33 +9,52 @@
     <div class="toolbar py-5 " id="kt_toolbar">
         <!--begin::Container-->
         <div id="kt_toolbar_container" class="container-xxl d-flex flex-stack flex-wrap">
-            <!--begin::Page title-->
+
             <div class="page-title d-flex flex-column me-3">
 
                 <!--begin::Breadcrumb-->
                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-1">
                     <!--begin::Item-->
-                    <h6 class="breadcrumb-item text-white opacity-75">
-                        <a href=".#" class="text-white text-hover-primary">Nhân viên</a>
-                    </h6>
+                    <h5 class="breadcrumb-item text-white opacity-75">
+                        <a href=".#" class="text-white text-hover-primary">Cửa hàng</a>
+                    </h5>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <h6 class="breadcrumb-item">
+                    <h5 class="breadcrumb-item">
                         <span class="bullet bg-white opacity-75 w-5px h-2px"></span>
-                    </h6>
+                    </h5>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <h6 class="breadcrumb-item text-white opacity-75">Danh sách phòng ban</h6>
+                    <h5 class="breadcrumb-item text-white opacity-75">Quản lý phòng ban</h5>
                     <!--end::Item-->
 
 
                 </ul>
                 <!--end::Breadcrumb-->
             </div>
-            <!--end::Page title-->
+            <div class="d-flex align-items-center py-3 py-md-1">
+                <!--begin::Wrapper-->
+                <form action="" id="form-filter">
 
+
+                    <div class="me-4 row">
+                        <!--begin::Search-->
+                        <input type="text" data-kt-user-table-filter="search" name="search"
+                            class="form-control col form-control-solid w-250px ps-13 mx-3" placeholder="Nhập nội dung cần tìm ... " />
+                        <!--end::Search-->
+                        <select class="form-select col filter-status form-filter select-picker" name="status">
+                            <option selected value="">Trạng thái </option>
+                            @foreach ($data['status'] as $key => $item)
+                                <option value="{{ $key }}">{{ $item[0] }}</option>
+                            @endforeach
+
+
+                        </select>
+                    </div>
+                </form>
+            </div>
         </div>
-        <!--end::Container-->
+
     </div>
     <!--end::Toolbar-->
 
@@ -48,207 +67,13 @@
             <!--begin::Wrapper-->
             <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
 
-
                 <!--begin::Container-->
                 <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
                     <!--begin::Post-->
                     <div class="content flex-row-fluid" id="kt_content">
-                        <!--begin::Card-->
-                        <div class="card">
-                            <!--begin::Card header-->
-                            <div class="card-header border-0 pt-6">
-                                <!--begin::Card title-->
-                                <div class="card-title">
-                                    <!--begin::Search-->
-                                    <div class="d-flex align-items-center position-relative my-1">
-                                        <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
-                                            <span class="path1"></span>
-                                            <span class="path2"></span>
-                                        </i>
-                                        <input type="text" data-kt-user-table-filter="search"
-                                            class="form-control form-control-solid w-250px ps-13" placeholder="Tìm kiếm " />
-                                    </div>
-                                    <!--end::Search-->
-                                </div>
-                                <!--begin::Card title-->
-                                <!--begin::Card toolbar-->
-                                <div class="card-toolbar">
-                                    <!--begin::Toolbar-->
-                                    <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-                                        <!--begin::Filter-->
-                                        <button type="button" class="btn btn-light-primary me-3"
-                                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                                            <i class="ki-duotone ki-filter fs-2">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>Lọc</button>
-                                        <!--begin::Menu 1-->
-                                        <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
-                                            <!--begin::Header-->
-                                            <div class="px-7 py-5">
-                                                <div class="fs-5 text-dark fw-bold">Filter Options</div>
-                                            </div>
-                                            <!--end::Header-->
-                                            <!--begin::Separator-->
-                                            <div class="separator border-gray-200"></div>
-                                            <!--end::Separator-->
-                                            <!--begin::Content-->
-                                            <div class="px-7 py-5" data-kt-user-table-filter="form">
-                                                <!--begin::Input group-->
-                                                <div class="mb-10">
-                                                    <label class="form-label fs-6 fw-semibold">Role:</label>
-                                                    <select class="form-select form-select-solid fw-bold"
-                                                        data-kt-select2="true" data-placeholder="Select option"
-                                                        data-allow-clear="true" data-kt-user-table-filter="role"
-                                                        data-hide-search="true">
-                                                        <option></option>
-                                                        <option value="Administrator">Administrator</option>
-                                                        <option value="Analyst">Analyst</option>
-                                                        <option value="Developer">Developer</option>
-                                                        <option value="Support">Support</option>
-                                                        <option value="Trial">Trial</option>
-                                                    </select>
-                                                </div>
-                                                <!--end::Input group-->
-                                                <!--begin::Input group-->
-                                                <div class="mb-10">
-                                                    <label class="form-label fs-6 fw-semibold">Two Step
-                                                        Verification:</label>
-                                                    <select class="form-select form-select-solid fw-bold"
-                                                        data-kt-select2="true" data-placeholder="Select option"
-                                                        data-allow-clear="true" data-kt-user-table-filter="two-step"
-                                                        data-hide-search="true">
-                                                        <option></option>
-                                                        <option value="Enabled">Enabled</option>
-                                                    </select>
-                                                </div>
-                                                <!--end::Input group-->
-                                                <!--begin::Actions-->
-                                                <div class="d-flex justify-content-end">
-                                                    <button type="reset"
-                                                        class="btn btn-light btn-active-light-primary fw-semibold me-2 px-6"
-                                                        data-kt-menu-dismiss="true"
-                                                        data-kt-user-table-filter="reset">Reset</button>
-                                                    <button type="submit" class="btn btn-primary fw-semibold px-6"
-                                                        data-kt-menu-dismiss="true"
-                                                        data-kt-user-table-filter="filter">Apply</button>
-                                                </div>
-                                                <!--end::Actions-->
-                                            </div>
-                                            <!--end::Content-->
-                                        </div>
-                                        <!--end::Menu 1-->
-                                        <!--end::Filter-->
-
-                                        <!--begin::Add user-->
-                                        <button type="button" class="btn btn-primary btn-add" data-bs-toggle="modal"
-                                           >
-                                            <i class="ki-duotone ki-plus fs-2"></i>Thêm</button>
-                                        <!--end::Add user-->
-                                    </div>
-                                    <!--end::Toolbar-->
-                                    <!--begin::Group actions-->
-                                    <div class="d-flex justify-content-end align-items-center d-none"
-                                        data-kt-user-table-toolbar="selected">
-                                        <div class="fw-bold me-5">
-                                            <span class="me-2" data-kt-user-table-select="selected_count"></span> Đã chọn
-                                        </div>
-                                        <button type="button" class="btn btn-danger"
-                                            data-kt-user-table-select="delete_selected">Xóa</button>
-                                    </div>
-                                    <!--end::Group actions-->
-                                    <!--begin::Modal - Adjust Balance-->
-                                    <div class="modal fade" id="kt_modal_export_users" tabindex="-1" aria-hidden="true">
-                                        <!--begin::Modal dialog-->
-                                        <div class="modal-dialog modal-dialog-centered mw-650px">
-                                            <!--begin::Modal content-->
-                                            <div class="modal-content">
-
-                                                <!--begin::Modal body-->
-                                                <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
-                                                    <!--begin::Form-->
-                                                    <form id="kt_modal_export_users_form" class="form" action="#">
-                                                        <!--begin::Input group-->
-                                                        <div class="fv-row mb-10">
-                                                            <!--begin::Label-->
-                                                            <label class="fs-6 fw-semibold form-label mb-2">Select
-                                                                Roles:</label>
-                                                            <!--end::Label-->
-                                                            <!--begin::Input-->
-                                                            <select name="role" data-control="select2"
-                                                                data-placeholder="Select a role" data-hide-search="true"
-                                                                class="form-select form-select-solid fw-bold">
-                                                                <option></option>
-                                                                <option value="Administrator">Administrator</option>
-                                                                <option value="Analyst">Analyst</option>
-                                                                <option value="Developer">Developer</option>
-                                                                <option value="Support">Support</option>
-                                                                <option value="Trial">Trial</option>
-                                                            </select>
-                                                            <!--end::Input-->
-                                                        </div>
-                                                        <!--end::Input group-->
-                                                        <!--begin::Input group-->
-                                                        <div class="fv-row mb-10">
-                                                            <!--begin::Label-->
-                                                            <label class="required fs-6 fw-semibold form-label mb-2">Select
-                                                                Export Format:</label>
-                                                            <!--end::Label-->
-                                                            <!--begin::Input-->
-                                                            <select name="format" data-control="select2"
-                                                                data-placeholder="Select a format" data-hide-search="true"
-                                                                class="form-select form-select-solid fw-bold">
-                                                                <option></option>
-                                                                <option value="excel">Excel</option>
-                                                                <option value="pdf">PDF</option>
-                                                                <option value="cvs">CVS</option>
-                                                                <option value="zip">ZIP</option>
-                                                            </select>
-                                                            <!--end::Input-->
-                                                        </div>
-                                                        <!--end::Input group-->
-                                                        <!--begin::Actions-->
-                                                        <div class="text-center">
-                                                            <button type="reset" class="btn btn-light me-3"
-                                                                data-kt-users-modal-action="cancel">Discard</button>
-                                                            <button type="submit" class="btn btn-primary"
-                                                                data-kt-users-modal-action="submit">
-                                                                <span class="indicator-label">Submit</span>
-                                                                <span class="indicator-progress">Please wait...
-                                                                    <span
-                                                                        class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                                                            </button>
-                                                        </div>
-                                                        <!--end::Actions-->
-                                                    </form>
-                                                    <!--end::Form-->
-                                                </div>
-                                                <!--end::Modal body-->
-                                            </div>
-                                            <!--end::Modal content-->
-                                        </div>
-                                        <!--end::Modal dialog-->
-                                    </div>
-                                    <!--end::Modal - New Card-->
-                                    @include('user.department.modal_add')
-                                </div>
-                                <!--end::Card toolbar-->
-                            </div>
-                            <!--end::Card header-->
-                            <!--begin::Card body-->
-                            <div class="  card-body py-4">
-                                <table class="table department_table align-middle table-row-dashed fs-6 gy-5" id="kt_table_department">
-    
-                                </table>
-                            </div>
-                            <!--end::Card body-->
-                        </div>
-                        <!--end::Card-->
+                        @include('user.department.content')
                     </div>
-                    <!--end::Post-->
                 </div>
-                <!--end::Container-->
-
             </div>
             <!--end::Wrapper-->
         </div>
@@ -265,42 +90,96 @@
 
 @section('script')
     <script>
-        $(document).ready(function() {
-            loadData();
+        const routeList = "{{ route('department.list') }}";
+        filterTable();
 
-            function loadData() {
-                $.get("{{ route('departments.table') }}", function(res) {
-                    $('.department_table').html(res);
-                    $('#kt_table_department').DataTable();
-                })
-            }
-            $('.btn-add').click(function(e){
-                e.preventDefault();
-                $('#modal_add_deparment').trigger('reset');
-                $('#modal_add_deparment').modal('show');
-            })
-            $('.btn-close').click(function(e){
-                e.preventDefault();
-                $('#modal_add_deparment').trigger('reset');
-                $('#modal_add_deparment').modal('hide');
-            })
-            $('.btn-close').click(function(e){
-                e.preventDefault();
-                $('#modal_add_deparment').trigger('reset');
-                $('#modal_add_deparment').modal('hide');
-            })
+        function filterTable() {
+            loadTable(routeList);
+        };
+
+        $('.btn-add').click(function(e) {
+            e.preventDefault();
+            $('#modal-add').trigger('reset');
+            $('#modal-add').modal('show');
         })
+        $('.btn-close').click(function(e) {
+            e.preventDefault();
+            $('#modal-add').trigger('reset');
+            $('#modal-add').modal('hide');
+        })
+        $('.btn-cancle').click(function(e) {
+            e.preventDefault();
+            $('#modal-add').trigger('reset');
+            $('#modal-add').modal('hide');
+        })
+        const form_create = $('form#form-create');
+        if (form_create) {
+            const action = form_create.attr('action');
+            form_create.submit(function(e) {
+                e.preventDefault();
+                $('.btn-create').html(`<span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                             <span role="status">Loading...</span>`);
+                const data = new FormData($(this)[0]);
+                $.ajax({
+                    url: action,
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    type: 'POST',
+                    success: function(rs) {
+                        $('.btn-create').html(`<i class="fas fa-plus"></i> Tạo mới`);
+                        $('button[type=submit]').removeAttr('disabled');
+                        if (rs.status == 200) {
+                            form_create[0].reset();
+                            loadTable();
+                            if (rs?.uri) {
+                                location.href = rs?.uri;
+                            }
+                            $('.btn-close').click();
+                        }
+                        Toast.fire({
+                            icon: rs?.type,
+                            title: rs.message
+                        });
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        $('.btn-create').html(`<i class="fas fa-plus"></i> Tạo mới`);
+                        $('button[type=submit]').removeAttr('disabled');
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Tạo mới lỗi'
+                        });
+                    }
+                });
+            });
+        }
+
+        function confirmDelete(id) {
+            deleteData(id, "{{ route('department.delete') }}");
+        }
+
+        function changeStatus(id) {
+            $.post("{{ route('department.update') }}", {
+                id
+            }, function(rs) {
+                Toast.fire({
+                    icon: rs?.type,
+                    title: rs.message
+                });
+            });
+        }
     </script>
     <!--begin::Custom Javascript(used for this page only)-->
     <script src=""></script>
-    <script src="{{asset('user/assets/js/custom/apps/user-management/users/list/table.js')}}"></script>
-    <script src="{{asset('user/assets/js/custom/apps/user-management/users/list/export-users.js')}}"></script>
-    <script src="{{asset('user/assets/js/custom/apps/user-management/users/list/add.js')}}"></script>
-    <script src="{{asset('user/assets/js/widgets.bundle.js')}}"></script>
-    <script src="{{asset('user/assets/js/custom/widgets.js')}}"></script>
-    <script src="{{asset('user/assets/js/custom/apps/chat/chat.js')}}"></script>
-    <script src="{{asset('user/assets/js/custom/utilities/modals/upgrade-plan.js')}}"></script>
-    <script src="{{asset('user/assets/js/custom/utilities/modals/create-app.js')}}"></script>
-    <script src="{{asset('user/assets/js/custom/utilities/modals/users-search.js')}}"></script>
+    <script type="text/javascript" src="lib.js"></script>
+    <script src="{{ asset('user/assets/js/custom/apps/user-management/users/list/table.js') }}"></script>
+    <script src="{{ asset('user/assets/js/custom/apps/user-management/users/list/export-users.js') }}"></script>
+    <script src="{{ asset('user/assets/js/custom/apps/user-management/users/list/add.js') }}"></script>
+    <script src="{{ asset('user/assets/js/widgets.bundle.js') }}"></script>
+    <script src="{{ asset('user/assets/js/custom/widgets.js') }}"></script>
+    {{-- <script src="{{ asset('user/assets/js/custom/apps/chat/chat.js')}}"></script> --}}
+    <script src="{{ asset('user/assets/js/custom/utilities/modals/upgrade-plan.js') }}"></script>
+    <script src="{{ asset('user/assets/js/custom/utilities/modals/create-app.js') }}"></script>
+    <script src="{{ asset('user/assets/js/custom/utilities/modals/users-search.js') }}"></script>
     <!--end::Custom Javascript-->
 @endsection

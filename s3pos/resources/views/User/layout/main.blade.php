@@ -14,8 +14,10 @@
     <!--end::Fonts-->
     @yield('style')
     <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
+    <link href="{{ asset('user/assets/plugins/select-picker/dist/picker.min.css') }}" rel="stylesheet">
     <link href="{{ asset('user/assets/plugins/global/plugins.bundle.css') }} " rel="stylesheet" type="text/css" />
     <link href="{{ asset('user/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+   
     <!--end::Global Stylesheets Bundle-->
     <style>
         .row-header {
@@ -94,9 +96,12 @@
         var hostUrl = "user/assets/";
     </script>
     <!--begin::Global Javascript Bundle(mandatory for all pages)-->
+    <script src="{{ asset('user/assets/plugins/select-picker/dist/picker.min.js') }}"></script>
     <script src="{{ asset('user/assets/plugins/global/plugins.bundle.js') }}"></script>
     <script src="{{ asset('user/assets/js/scripts.bundle.js') }}"></script>
+   
     <script>
+        let page = 1;
         $.ajaxSetup({
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -151,7 +156,76 @@
             $(btn).parent().find('span.key-hide').toggle();
             $(btn).parent().find('span.key-show').toggle();
         }
+
+        function showSpinner(elementClass) {
+            var html =
+                '<div class="text-center sniper-content"> <div class="spinner-border" role="status"> <span class="sr-only">Loading...</span> </div> </div>';
+            $(elementClass).append(html);
+        }
+
+        function hideSniper(elementClass) {
+            $(elementClass).closest(".card-body").find(".sniper-content").remove();
+        }
+
+        function loadTable(
+            uri = "",
+            tableElement = "#load-table",
+            formElement = "#form-filter",
+            otherFunction
+        ) {
+            uri = uri != "" ? uri : routeList;
+            showSpinner(".table-loading");
+            var data = $(formElement).serialize();
+            console.log(data)
+            const url = uri + "?page=" + page + "&" + data;
+            console.log(url)
+            $.get(url, function(rs) {
+                console.log(status)
+                hideSniper(".table-loading");
+                $("button[type=submit]").removeAttr("disabled");
+                $(".btn-reload").html('<i class="fas fa-sync"></i>');
+                if (rs.status == 200) {
+                    $(tableElement).html(rs.data);
+                    $('.total-item').html(`(${rs?.total})`);
+                    if (otherFunction) {
+                        otherFunction(rs);
+                    }
+                    const tooltipTriggerList = document.querySelectorAll(
+                        '[data-bs-toggle="tooltip"]'
+                    );
+                    const tooltipList = [...tooltipTriggerList].map(
+                        (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
+                    );
+                } else {
+                    Toast.fire({
+                        icon: 'error',
+                        title: rs.message
+                    });
+                }
+            });
+        }
+
+
+
+        function deleteData(id, url, title = 'Xác nhận xóa dữ liệu này?') {
+            if (confirm(title)) {
+                showSpinner('.table-loading');
+                $.get(url, {
+                    id: id
+                }, function(rs) {
+                    hideSniper('.table-loading');
+                    if (rs.status == 200) {
+                        loadTable();
+                    }
+                    Toast.fire({
+                        icon: rs?.type,
+                        title: rs.message
+                    });
+                });
+            }
+        }
     </script>
+    @stack('js')
     <!--end::Global Javascript Bundle-->
     @yield('script')
     <!--end::Javascript-->
