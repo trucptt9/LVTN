@@ -32,6 +32,7 @@ class SeedAdminMenu extends Seeder
             'code' => 'admin',
             'name' => 'Quản trị viên',
             'icon' => '<i class="fas fa-user-shield fs-4 pe-2"></i>',
+
             'url' => route('admin.admin.index'),
             'parent_id' => $admin->id,
         ]);
@@ -39,6 +40,7 @@ class SeedAdminMenu extends Seeder
             'code' => 'admin_history',
             'name' => 'Nhật ký',
             'icon' => '<i class="fas fa-history fs-4 pe-2"></i>',
+
             'url' => route('admin.admin_history.index'),
             'parent_id' => $admin->id,
         ]);
@@ -53,6 +55,7 @@ class SeedAdminMenu extends Seeder
             'code' => 'area',
             'name' => 'Quản lý cửa hàng',
             'icon' => '<i class="fas fa-store fs-4 pe-2"></i>',
+
             'url' => route('admin.store.index'),
             'parent_id' => $store->id,
         ]);
@@ -73,14 +76,18 @@ class SeedAdminMenu extends Seeder
         AdminMenu::create([
             'code' => 'package',
             'name' => 'Gói dịch vụ',
+
             'icon' => '<i class="fas fa-box fs-4 pe-2"></i>',
+
             'url' => route('admin.package.index'),
             'parent_id' => $license->id,
         ]);
         AdminMenu::create([
             'code' => 'module',
             'name' => 'Quản lý module',
+
             'icon' => '<i class="fas fa-window-restore fs-4 pe-2"></i>',
+
             'url' => route('admin.module.index'),
             'parent_id' => $license->id,
         ]);
@@ -88,6 +95,7 @@ class SeedAdminMenu extends Seeder
             'code' => 'license',
             'name' => 'Quản lý license',
             'icon' => '<i class="fas fa-key fs-4 pe-2"></i>',
+
             'url' => route('admin.license.index'),
             'parent_id' => $license->id,
         ]);
@@ -97,6 +105,7 @@ class SeedAdminMenu extends Seeder
             'code' => 'setting',
             'name' => 'Cài đặt',
             'icon' => '<i class="fas fa-tools fs-4 pe-2"></i>',
+
             'url' => route('admin.setting.index'),
         ]);
     }
