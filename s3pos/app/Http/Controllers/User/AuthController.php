@@ -8,6 +8,7 @@ use App\Models\Staff;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -43,12 +44,16 @@ class AuthController extends Controller
             }
             StaffLogin::dispatch($staff);
             DB::commit();
+            // return 1;
             return redirect()->route('index')->with('success', 'Đăng nhập thành công');
         } catch (\Throwable $th) {
             DB::rollBack();
+           
             showLog($th);
             return redirect()->back()->with('error', 'Đăng nhập thất bại!');
         }
+
+
     }
 
     public function forgot_password()

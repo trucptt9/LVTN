@@ -44,7 +44,7 @@
                            <!--begin::Input group-->
                            <div class="fv-row mb-7">
                                <!--begin::Label-->
-                               <label class=" fw-semibold fs-6 mb-2">Mã phòng ban</label>
+                               <label class=" fw-semibold fs-6 mb-2">Mã</label>
                                <!--end::Label-->
                                <!--begin::Input-->
                                <input type="text" name="code" class="form-control form-control-solid mb-3 mb-lg-0"
@@ -71,13 +71,13 @@
                                    thái</label>
                                <!--end::Label-->
                                <select class="form-select w-50" aria-label="Select example" name="status">
-                                <option selected value="">Trạng thái </option>
-                                @foreach ($data['status'] as $key => $item)
-                                    <option value="{{ $key }}">{{ $item[0] }}</option>
-                                @endforeach
+                                   <option selected value="">Trạng thái </option>
+                                   @foreach ($data['status'] as $key => $item)
+                                       <option value="{{ $key }}">{{ $item[0] }}</option>
+                                   @endforeach
 
 
-                            </select>
+                               </select>
                            </div>
                        </div>
                        <!--end::Scroll-->
@@ -86,7 +86,7 @@
                            <button type="reset" class="btn btn-light me-3 btn-cancle"
                                data-kt-users-modal-action="cancel">Hủy</button>
                            <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
-                               <span class="indicator-label">Tạo mới</span>
+                               <span class="indicator-label">Thêm</span>
                                <span class="indicator-progress">Please wait...
                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                            </button>

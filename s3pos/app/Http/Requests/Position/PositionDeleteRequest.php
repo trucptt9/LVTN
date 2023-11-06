@@ -23,7 +23,7 @@ class PositionDeleteRequest extends FormRequest
     {
         return [
             //
-            'id' => 'required|exists:shifts,id'
+            'id' => 'required|exists:positions,id'
         ];
     }
 }

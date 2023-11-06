@@ -51,7 +51,7 @@ Route::post('reset', [AuthController::class, 'reset_post'])->name('reset_post');
 Route::get('license', [AuthController::class, 'license'])->name('license');
 Route::post('license', [AuthController::class, 'license_active'])->name('license_active');
 
-Route::middleware(['auth', 'checkStaff'])->group(function () {
+Route::middleware(['auth','checkStaff'])->group(function () {
     Route::get('logout', [HomeController::class, 'logout'])->name('logout');
     // home
     Route::get('', [HomeController::class, 'index'])->name('index');
@@ -79,8 +79,11 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
     });
     Route::prefix('position')->name('position.')->group(function () {
         Route::get('', [PositionController::class, 'index'])->name('index');
-        Route::get('table', [PositionController::class, 'table'])->name('table');
+        Route::get('list', [PositionController::class, 'list'])->name('list');
         Route::get('detail/{id}', [PositionController::class, 'detail'])->name('detail');
+        Route::post('insert', [PositionController::class, 'insert'])->name('insert');
+        Route::post('update', [PositionController::class, 'update'])->name('update');
+        Route::get('delete', [PositionController::class, 'delete'])->name('delete');
     });
     Route::prefix('shifts')->name('shift.')->group(function () {
         Route::get('', [ShiftController::class, 'index'])->name('index');
@@ -146,25 +149,35 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
     // promotion
     Route::prefix('promotions')->name('promotion.')->group(function () {
         Route::get('', [PromotionController::class, 'index'])->name('index');
-        Route::get('table', [PromotionController::class, 'table'])->name('table');
-        Route::get('report', [PromotionController::class, 'report'])->name('report');
+        Route::get('list', [PromotionController::class, 'list'])->name('list');
         Route::get('detail/{id}', [PromotionController::class, 'detail'])->name('detail');
+        Route::post('insert', [PromotionController::class, 'insert'])->name('insert');
+        Route::post('update', [PromotionController::class, 'update'])->name('update');
+        Route::get('delete', [PromotionController::class, 'delete'])->name('delete');
     });
     Route::prefix('coupons')->name('coupon.')->group(function () {
         Route::get('', [CouponController::class, 'index'])->name('index');
-        Route::get('table', [CouponController::class, 'table'])->name('table');
-        Route::get('report', [CouponController::class, 'report'])->name('report');
+        Route::get('list', [CouponController::class, 'list'])->name('list');
         Route::get('detail/{id}', [CouponController::class, 'detail'])->name('detail');
+        Route::post('insert', [CouponController::class, 'insert'])->name('insert');
+        Route::post('update', [CouponController::class, 'update'])->name('update');
+        Route::get('delete', [CouponController::class, 'delete'])->name('delete');
     });
     Route::prefix('customer_groups')->name('customer_group.')->group(function () {
         Route::get('', [CustomerGroupController::class, 'index'])->name('index');
-        Route::get('table', [CustomerGroupController::class, 'table'])->name('table');
+        Route::get('list', [CustomerGroupController::class, 'list'])->name('list');
+        Route::get('detail/{id}', [CustomerGroupController::class, 'detail'])->name('detail');
+        Route::post('insert', [CustomerGroupController::class, 'insert'])->name('insert');
+        Route::post('update', [CustomerGroupController::class, 'update'])->name('update');
+        Route::get('delete', [CustomerGroupController::class, 'delete'])->name('delete');
     });
     Route::prefix('customers')->name('customer.')->group(function () {
         Route::get('', [CustomerController::class, 'index'])->name('index');
-        Route::get('table', [CustomerController::class, 'table'])->name('table');
-        Route::get('report', [CustomerController::class, 'report'])->name('report');
+        Route::get('list', [CustomerController::class, 'list'])->name('list');
         Route::get('detail/{id}', [CustomerController::class, 'detail'])->name('detail');
+        Route::post('insert', [CustomerController::class, 'insert'])->name('insert');
+        Route::post('update', [CustomerController::class, 'update'])->name('update');
+        Route::get('delete', [CustomerController::class, 'delete'])->name('delete');
     });
     Route::prefix('card_member')->name('card_member.')->group(function () {
         Route::get('', [CardMemberController::class, 'index'])->name('index');

@@ -33,7 +33,11 @@ class ProductController extends Controller
     }
     public function add()
     {
-        return view('User.product.add');
+        $data = [
+            'status' => Product::get_status(),
+            'category'=> CategoryProduct::storeId($this->store_id)->get(),
+        ];
+        return view('User.product.add', compact('data'));
     }
 
     public function list()
@@ -106,17 +110,30 @@ class ProductController extends Controller
     public function update(ProductUpdateRequest $request)
     {
         try {
+            \DB::beginTransaction();
             $id = $request->get('id', '');
-            $topping_group = Product::storeId($this->store_id)->whereId($id)->first();
-            $topping_group->status = $topping_group->status == Product::STATUS_ACTIVE ? Product::STATUS_BLOCKED : Product::STATUS_ACTIVE;
-            $topping_group->save();
-            return Response::json([
-                'status' => ResHTTP::HTTP_OK,
-                'message' => 'Cập nhật thành công',
-                'type' => 'success'
-            ]);
+            $type = request('type', 'one');
+            $product = Product::whereId($id)->first();
+            if ($type == 'all') {
+                $data = $request->all();
+                $data['status'] = $product->status == Product::STATUS_ACTIVE ? Product::STATUS_BLOCKED : Product::STATUS_ACTIVE;
+                $product->update($data);
+            } else {
+                $product->status = $product->status == Product::STATUS_ACTIVE ? Product::STATUS_BLOCKED : Product::STATUS_ACTIVE;
+                $product->save();
+            }
+            \DB::commit();
+            if (request()->ajax()) {
+                return Response::json([
+                    'status' => ResHTTP::HTTP_OK,
+                    'message' => 'Cập nhật thành công',
+                    'type' => 'success'
+                ]);
+            }
+            return redirect()->back()->with('success', 'Cập nhật thành công');
         } catch (\Throwable $th) {
             showLog($th);
+            \DB::rollBack();
             return Response::json([
                 'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
                 'message' => 'Lỗi cập nhật',
@@ -129,8 +146,8 @@ class ProductController extends Controller
     {
         try {
             $id = $request->get('id', '');
-            $topping_group = Product::storeId($this->store_id)->whereId($id)->first();
-            $topping_group->delete();
+            $product = Product::whereId($id)->first();
+            $product->delete();
             return Response::json([
                 'status' => ResHTTP::HTTP_OK,
                 'message' => 'Xóa dữ liệu thành công',

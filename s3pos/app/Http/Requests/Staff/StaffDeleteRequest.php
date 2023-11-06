@@ -11,7 +11,7 @@ class StaffDeleteRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,6 +23,7 @@ class StaffDeleteRequest extends FormRequest
     {
         return [
             //
+            'id' => 'required|exists:staffs,id'
         ];
     }
 }

@@ -46,7 +46,7 @@
                         </div>
 
                         <!--end::Search-->
-                        <div class="col me-2 w-150px">
+                        <div class="col me-2 w-170px">
                             <select name="status" class="form-select filter-status form-filter select-picker">
                                 <option value="" selected>-- Trạng thái --</option>
                                 @foreach ($data['status'] as $key => $item)

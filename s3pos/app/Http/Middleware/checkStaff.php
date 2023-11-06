@@ -18,17 +18,23 @@ class checkStaff
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->check()) {
-            $staff = Staff::whereHas('store', function ($q) {
-                $q->ofStatus(Store::STATUS_ACTIVE)->whereHas('license', function ($q1) {
-                    $q1->where('date_start', '<=', now())->where('date_end', '>=', now());
-                });
-            })->ofStatus(Staff::STATUS_ACTIVE)->find(auth()->user()->id);
-            if ($staff) {
-                return $next($request);
-            }
-            Auth::logout();
+        // if (auth()->check()) {
+        // $staff = Staff::whereHas('store', function ($q) {
+        //     $q->ofStatus(Store::STATUS_ACTIVE)->whereHas('license', function ($q1) {
+        //         $q1->where('date_start', '<=', now())->where('date_end', '>=', now());
+        //     });
+        // })->ofStatus(Staff::STATUS_ACTIVE)->find(auth()->user()->id);
+
+
+        // Auth::logout();
+        // }
+
+        $staff = Staff::with('store')->find(auth()->user()->id);
+       
+        if($staff && $staff->status == Staff::STATUS_ACTIVE ){
+            return  $next($request);
         }
+
         return redirect()->route('login');
     }
 }

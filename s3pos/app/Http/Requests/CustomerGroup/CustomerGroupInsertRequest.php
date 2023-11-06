@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Position;
+namespace App\Http\Requests\CustomerGroup;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PositionUpdateRequest extends FormRequest
+class CustomerGroupInsertRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,8 @@ class PositionUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
-            'id' => 'required|exists:positions,id'
+            'name' => 'required',
+           
         ];
     }
 }

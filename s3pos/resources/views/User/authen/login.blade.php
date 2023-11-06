@@ -4,7 +4,7 @@
         <!--begin::Wrapper-->
         <div class="d-flex flex-center flex-column flex-column-fluid pb-15 pb-lg-20">
             <!--begin::Form-->
-            <form class="form w-100" novalidate="novalidate" action="{{ route('login_post') }}" method="POST">
+            <form class="form w-100" action="{{ route('login_post') }}" method="POST">
                 @csrf
                 <!--begin::Heading-->
                 <div class="text-center mb-10">
@@ -47,7 +47,7 @@
                 <!--end::Wrapper-->
                 <!--begin::Submit button-->
                 <div class="d-grid mb-10">
-                    <button type="submit" id="kt_sign_in_submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary">
                         <!--begin::Indicator label-->
                         <span class="indicator-label">Đăng nhập</span>
                         <!--end::Indicator label-->

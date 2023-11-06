@@ -89,7 +89,7 @@
                                         <span class="path2"></span>
                                     </i>
                                     <!--begin::Inputs-->
-                                    <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+                                    <input type="file" name="image" accept=".png, .jpg, .jpeg" />
                                     <input type="hidden" name="avatar_remove" />
                                     <!--end::Inputs-->
                                 </label>
@@ -127,35 +127,25 @@
                             <div class="card-title">
                                 <h2>Trạng thái</h2>
                             </div>
-                            <!--end::Card title-->
-                            <!--begin::Card toolbar-->
-                            <div class="card-toolbar">
-                                <div class="rounded-circle bg-success w-15px h-15px" id="kt_ecommerce_add_product_status">
-                                </div>
-                            </div>
-                            <!--begin::Card toolbar-->
+                          -->
                         </div>
                         <!--end::Card header-->
                         <!--begin::Card body-->
                         <div class="card-body pt-0">
                             <!--begin::Select2-->
                             <select class="form-select mb-2" data-control="select2" data-hide-search="true"
-                                data-placeholder="Chọn danh mục" id="kt_ecommerce_add_product_status_select">
-                                <option></option>
-                                <option value="published" selected="selected">Hiển thị</option>
-                                <option value="draft">Ẩn</option>
+                                name="status">
+                                <option value="" selected>Chọn trạng thái</option>
+                                @foreach ($data['status'] as $key=> $item )
+                                <option value="{{ $key }}" selected="selected">{{ $item[0] }}</option>
+                                @endforeach
+                               
+                               
 
                             </select>
                             <!--end::Select2-->
 
-                            <!--begin::Datepicker-->
-                            <div class="d-none mt-10">
-                                <label for="kt_ecommerce_add_product_status_datepicker" class="form-label">Select publishing
-                                    date and time</label>
-                                <input class="form-control" id="kt_ecommerce_add_product_status_datepicker"
-                                    placeholder="Pick date & time" />
-                            </div>
-                            <!--end::Datepicker-->
+                          
                         </div>
                         <!--end::Card body-->
                     </div>
@@ -178,21 +168,17 @@
                             <label class="form-label">Danh mục món</label>
                             <!--end::Label-->
                             <!--begin::Select2-->
-                            <select class="form-select mb-2" data-control="select2" data-placeholder="Chọn danh mục"
-                                data-allow-clear="true" multiple="multiple">
-                                <option></option>
-                                <option value="Computers">Cà phê</option>
-                                <option value="Watches">Trà sữa</option>
+                            <select class="form-select mb-2" data-control="select2"
+                                data-allow-clear="true"  name="category_id">
+                                <option value="" selected>Chọn danh mục</option>
+                                @foreach ($data['category'] as $item )
+                                
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
+                                
 
                             </select>
-                            <!--end::Select2-->
-
-                            <!--end::Input group-->
-                            <!--begin::Button-->
-                            <a href="#" class="btn btn-light-primary btn-sm mb-10">
-                                <i class="ki-duotone ki-plus fs-2"></i>Tạo danh mục mới</a>
-                            <!--end::Button-->
-
+                          
 
                         </div>
                         <!--end::Card body-->
@@ -242,7 +228,7 @@
                                                 <!--begin::Label-->
                                                 <label class="required form-label">Tên món</label>
                                                 <!--end::Label-->
-                                                <input type="text" class="form-control mb-2" value=""
+                                                <input type="text" class="form-control mb-2" value="" name="name"
                                                     placeholder="Tên món" />
 
                                             </div>
@@ -253,7 +239,7 @@
                                                 <label class="form-label">Mã món</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
-                                                <input type="text" class="form-control mb-2" value=""
+                                                <input type="text" class="form-control mb-2" value="" name="code"
                                                     placeholder="Để trống mã tự sinh" />
                                                 <!--end::Input-->
 
@@ -266,7 +252,7 @@
                                             <label class="form-label">Mô tả</label>
                                             <!--end::Label-->
                                             <!--begin::Editor-->
-                                            <textarea name="" class="form-control" id="" rows="3" placeholder="Nhập nội dung mô tả"></textarea>
+                                            <textarea name="description" class="form-control" id="" rows="3" placeholder="Nhập nội dung mô tả"></textarea>
                                             <!--end::Editor-->
 
                                         </div>
@@ -303,7 +289,7 @@
                                                 <label class="required form-label">Giá bán</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
-                                                <input type="text" name="price" class="form-control mb-2"
+                                                <input type="text" name="cost" class="form-control mb-2"
                                                     placeholder="Giá bán" value="" />
                                                 <!--end::Input-->
                                             </div>
@@ -317,45 +303,7 @@
                                     <!--end::Card header-->
                                 </div>
                                 <!--end::Pricing-->
-                                <div class="card card-flush py-4">
-                                    <!--begin::Card header-->
-                                    <div class="card-header">
-                                        <div class="card-title">
-                                            <h2>Đơn vị</h2>
-                                        </div>
-                                    </div>
-                                    <!--end::Card header-->
-                                    <!--begin::Card body-->
-                                    <div class="card-body pt-0">
-                                        <!--begin::Input group-->
-                                        <div class="mb-10 fv-row row">
-                                            <div class="col">
-                                                <!--begin::Label-->
-                                                <label class="required form-label">Đơn vị</label>
-                                                <!--end::Label-->
-                                                <select class="form-select mb-2 w-50" data-control="select2"
-                                                    data-placeholder="Chọn đơn vị" data-allow-clear="true"
-                                                    multiple="multiple">
-                                                    <option></option>
-                                                    <option value="Computers">Ly</option>
-                                                    <option value="Watches">phần</option>
-
-                                                </select>
-                                                <!--begin::Button-->
-                                                <button class="btn btn-light-primary btn-sm mb-10 add_unit">
-                                                    <i class="ki-duotone ki-plus fs-2"></i>Thêm đơn vị</button>
-                                                <!--end::Button-->
-                                            </div>
-
-
-                                        </div>
-                                        <!--end::Input group-->
-
-
-
-                                    </div>
-                                    <!--end::Card header-->
-                                </div>
+                               
                             </div>
                         </div>
                         <!--end::Tab pane-->
@@ -382,13 +330,11 @@
 
                             </div>
                         </div>
-                        @include('user.product.unit.modal_add')
+                      
 
                         <!--end::Tab pane-->
                     </div>
-
-                </div>
-                <!--begin::Actions-->
+                       <!--begin::Actions-->
                 <div class="text-center pt-10">
                     <button type="reset" class="btn btn-light me-3 btn-cancle"
                         data-kt-users-modal-action="cancel">Hủy</button>
@@ -399,6 +345,9 @@
                     </button>
                 </div>
                 <!--end::Actions-->
+
+                </div>
+             
                 <!--end::Main column-->
             </form>
             <!--end::Form-->
@@ -409,26 +358,7 @@
 
 @section('script')
     <script>
-        $(document).ready(function() {
-
-            $('.add_unit').click(function(e) {
-                e.preventDefault();
-                $('#modal_add_unit').trigger('reset');
-                $('#modal_add_unit').modal('show');
-            })
-            $('.btn-close').click(function(e) {
-                e.preventDefault();
-                $('#modal_add_unit').trigger('reset');
-                $('#modal_add_unit').modal('hide');
-            })
-            $('.btn-cancle').click(function(e) {
-                e.preventDefault();
-                $('#modal_add_unit').trigger('reset');
-                $('#modal_add_unit').modal('hide');
-            })
-
-
-        })
+        
         const form_create = $('form#form-create');
         if (form_create) {
             const action = form_create.attr('action');

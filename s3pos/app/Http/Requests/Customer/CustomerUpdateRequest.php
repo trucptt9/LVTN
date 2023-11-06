@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Position;
+namespace App\Http\Requests\Customer;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PositionUpdateRequest extends FormRequest
+class CustomerUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +23,7 @@ class PositionUpdateRequest extends FormRequest
     {
         return [
             //
-            'id' => 'required|exists:positions,id'
+            'id' => 'required|exists:customers,id'
         ];
     }
 }

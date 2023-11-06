@@ -17,7 +17,7 @@
     <link href="{{ asset('user/assets/plugins/select-picker/dist/picker.min.css') }}" rel="stylesheet">
     <link href="{{ asset('user/assets/plugins/global/plugins.bundle.css') }} " rel="stylesheet" type="text/css" />
     <link href="{{ asset('user/assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
-   
+
     <!--end::Global Stylesheets Bundle-->
     <style>
         .row-header {
@@ -99,7 +99,7 @@
     <script src="{{ asset('user/assets/plugins/select-picker/dist/picker.min.js') }}"></script>
     <script src="{{ asset('user/assets/plugins/global/plugins.bundle.js') }}"></script>
     <script src="{{ asset('user/assets/js/scripts.bundle.js') }}"></script>
-   
+
     <script>
         let page = 1;
         $.ajaxSetup({
@@ -205,7 +205,90 @@
             });
         }
 
+        const form_create = $('form#form-create');
+        if (form_create) {
+            const action = form_create.attr('action');
+            form_create.submit(function(e) {
+                e.preventDefault();
+                $('.btn-create').html(`<span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                <span role="status">Loading...</span>`);
+                const data = new FormData($(this)[0]);
+                $.ajax({
+                    url: action,
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    type: 'POST',
+                    success: function(rs) {
+                        $('.btn-create').html(`<i class="fas fa-plus"></i> Tạo mới`);
+                        $('button[type=submit]').removeAttr('disabled');
+                        if (rs.status == 200) {
+                            form_create[0].reset();
+                            loadTable();
+                            if (rs?.uri) {
+                                location.href = rs?.uri;
+                            }
+                            $('.btn-close').click();
+                        }
+                        Toast.fire({
+                            icon: rs?.type,
+                            title: rs.message
+                        });
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        $('.btn-create').html(`<i class="fas fa-plus"></i> Tạo mới`);
+                        $('button[type=submit]').removeAttr('disabled');
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Tạo mới lỗi'
+                        });
+                    }
+                });
+            });
+        }
+        const form_update = $('form#form-update');
+        if (form_update) {
+            const action = form_update.attr('action');
+            form_update.submit(function(e) {
+                e.preventDefault();
+                $('.btn-create').html(`<span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                <span role="status">Loading...</span>`);
+                const data = new FormData($(this)[0]);
+                $.ajax({
+                    url: action,
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    type: 'POST',
+                    success: function(rs) {
+                        $('.btn-create').html(`<span class="indicator-label">Cập nhật </span>`);
+                        $('button[type=submit]').removeAttr('disabled');
+                        if (rs.status == 200) {
+                            form_update[0].reset();
+                            loadTable();
+                            if (rs?.uri) {
+                                location.href = rs?.uri;
+                            }
+                           
+                            $('.close-btn').click();
 
+                        }
+                        Toast.fire({
+                            icon: rs?.type,
+                            title: rs.message
+                        });
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                      
+                        $('button[type=submit]').removeAttr('disabled');
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Tạo mới lỗi'
+                        });
+                    }
+                });
+            });
+        }
 
         function deleteData(id, url, title = 'Xác nhận xóa dữ liệu này?') {
             if (confirm(title)) {

@@ -23,7 +23,7 @@ class PositionInsertRequest extends FormRequest
     {
         return [
             //
-            
+            'name' => 'required'
         ];
     }
 }

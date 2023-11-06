@@ -22,13 +22,13 @@
                 {{ $item->name }}
             </td>
             <td class="text-center">
-                {{ $item->price }}
+                {{number_format($item->price, 0, ',', '.') . "đ" }}
             </td>
             <td class="text-center">
-                {{ $item->cost }}
+                {{number_format($item->cost, 0, ',', '.') . "đ" }}
             </td>
             <td class="text-center">
-                {{ $item->name }}
+                {{ $item->group->name }}
             </td>
 
             <td class="text-center">

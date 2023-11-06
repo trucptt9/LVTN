@@ -49,7 +49,7 @@ class GenerateDataStoreListen
                 'store_id' => $store_id,
                 'name' => 'Kỹ thuật'
             ]);
-            // staff
+            // staff 
             Staff::create([
                 'name' => $faker->name(),
                 'email' => $faker->email(),

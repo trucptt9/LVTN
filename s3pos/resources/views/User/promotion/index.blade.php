@@ -1,4 +1,4 @@
-@extends('user.layout')
+@extends('User.layout.main')
 @section('style')
     <!--begin::Vendor Stylesheets(used for this page only)-->
     <link href="{{ asset('user/assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
@@ -10,15 +10,55 @@
 @section('content')
     <!--begin::Toolbar-->
     <div class="toolbar py-5 " id="kt_toolbar">
-        <!--begin::Container-->
         <div id="kt_toolbar_container" class="container-xxl d-flex flex-stack flex-wrap">
+
             <div class="page-title d-flex flex-column me-3">
+
+                <!--begin::Breadcrumb-->
                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-1">
-                    <h4 class="breadcrumb-item text-white opacity-75">
-                        <a href=".#" class="text-white text-hover-primary">Chương trình khuyến mãi</a>
-                    </h4>
+                    <!--begin::Item-->
+                    <h5 class="breadcrumb-item text-white opacity-75">
+                        <a href=".#" class="text-white text-hover-primary">Sản phẩm</a>
+                    </h5>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <h5 class="breadcrumb-item">
+                        <span class="bullet bg-white opacity-75 w-5px h-2px"></span>
+                    </h5>
+                    <!--end::Item-->
+                    <!--begin::Item-->
+                    <h5 class="breadcrumb-item text-white opacity-75">Quản lý sản phẩm</h5>
+                    <!--end::Item-->
+
 
                 </ul>
+                <!--end::Breadcrumb-->
+            </div>
+            <div class="d-flex align-items-center py-3 py-md-1">
+                <!--begin::Wrapper-->
+                <form action="" id="form-filter">
+
+
+                    <div class="me-4 row">
+                        <!--begin::Search-->
+                        <div class="col">
+                            <input type="text" data-kt-user-table-filter="search" name="search"
+                                class="form-control col form-control-solid w-250px ps-13 mx-3"
+                                placeholder="Nhập nội dung cần tìm ... " />
+                        </div>
+
+                        <!--end::Search-->
+                        <div class="col me-2 w-170px">
+                            <select name="status" class="form-select filter-status form-filter select-picker">
+                                <option value="" selected>-- Trạng thái --</option>
+                                @foreach ($data['status'] as $key => $item)
+                                    <option value="{{ $key }}">{{ $item[0] }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                    </div>
+                </form>
             </div>
         </div>
 
@@ -31,106 +71,18 @@
         <div class="page d-flex flex-row flex-column-fluid">
             <!--begin::Wrapper-->
             <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+
+                <!--begin::Container-->
                 <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
                     <!--begin::Post-->
                     <div class="content flex-row-fluid" id="kt_content">
-
-                        <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
-
-
-
-
-                            <div class="tab-pane fade show active" id="customer_list" role="tab-panel">
-                                <div class="d-flex flex-column gap-7 gap-lg-10">
-                                    <!--begin::Card Staff-->
-                                    <div class="card customer_list">
-                                        <div class="card">
-
-                                            <!--begin::Card header-->
-                                            <div class="card-header border-0 pt-6">
-                                                <!--begin::Card title-->
-                                                <div class="card-title">
-                                                    <!--begin::Search-->
-                                                    <div class="d-flex align-items-center position-relative my-1">
-                                                        <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
-                                                            <span class="path1"></span>
-                                                            <span class="path2"></span>
-                                                        </i>
-                                                        <input type="text" data-kt-user-table-filter="search"
-                                                            class="form-control form-control-solid w-250px ps-13"
-                                                            placeholder="Tìm kiếm " />
-                                                    </div>
-                                                    <!--end::Search-->
-                                                </div>
-                                                <!--begin::Card title-->
-                                                <!--begin::Card toolbar-->
-                                                <div class="card-toolbar">
-                                                    <!--begin::Toolbar-->
-                                                    <div class="d-flex justify-content-end"
-                                                        data-kt-user-table-toolbar="base">
-                                                        <!--begin::Filter-->
-                                                        <button type="button" class="btn btn-light-primary me-3"
-                                                            data-kt-menu-trigger="click"
-                                                            data-kt-menu-placement="bottom-end">
-                                                            <i class="ki-duotone ki-filter fs-2">
-                                                                <span class="path1"></span>
-                                                                <span class="path2"></span>
-                                                            </i>Lọc</button>
-
-                                                        <!--end::Filter-->
-
-                                                        <!--begin::Add user-->
-                                                        <button type="button" class="btn btn-primary customer_add">
-                                                            <i class="ki-duotone ki-plus fs-2"></i>Thêm</button>
-                                                        <!--end::Add user-->
-                                                    </div>
-                                                    <!--end::Toolbar-->
-                                                    <!--begin::Group actions-->
-                                                    <div class="d-flex justify-content-end align-items-center d-none"
-                                                        data-kt-user-table-toolbar="selected">
-                                                        <div class="fw-bold me-5">
-                                                            <span class="me-2"
-                                                                data-kt-user-table-select="selected_count"></span> Đã
-                                                            chọn
-                                                        </div>
-                                                        <button type="button" class="btn btn-danger"
-                                                            data-kt-user-table-select="delete_selected">Xóa</button>
-                                                    </div>
-                                                    <!--end::Group actions-->
-
-
-                                                </div>
-                                                <!--end::Card toolbar-->
-                                            </div>
-                                            <!--end::Card header-->
-
-                                            <!--begin::Card body-->
-                                            <div class=" py-4">
-                                                <table
-                                                    class="table promotion_list_content align-middle table-row-dashed fs-6 gy-5"
-                                                    id="kt_table_promotion">
-
-                                                </table>
-                                            </div>
-                                            <!--end::Card body-->
-
-                                            {{-- add modal --}}
-                                            @include('user.promotion.modal_add')
-                                        </div>
-
-                                    </div>
-                                    <!--end::Card-->
-                                </div>
-                            </div>
-
-
-
-
-                        </div>
+                        @include('User.promotion.content')
                     </div>
                 </div>
             </div>
+            <!--end::Wrapper-->
         </div>
+        <!--end::Page-->
     </div>
 @endsection
 
@@ -144,31 +96,96 @@
                 dateFormat: 'd/m/Y'
             });
 
-            //start load table staff
-            loadCustomerTable();
-
-            function loadCustomerTable() {
-                $.get("{{ route('promotion.table') }}", function(res) {
-                    $('.promotion_list_content').html(res);
-                    $('#kt_table_promotion').DataTable();
-
-                })
-            }
-
-            $('.customer_add').on('click', function(e) {
-                e.preventDefault();
-
-                $('#modal_add_customer').trigger('reset')
-                $('#modal_add_customer').modal('show')
-            })
-
-
-            //end loadtable staff
-
-
-
 
         })
+        const routeList = "{{ route('promotion.list') }}";
+        filterTable();
+
+        function filterTable() {
+            loadTable(routeList);
+        };
+        $('#start-datepicker').flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+        });
+        $('#end-datepicker').flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+        });
+
+        $('.btn-add').click(function(e) {
+            e.preventDefault();
+            $('#modal-add').trigger('reset');
+            $('#modal-add').modal('show');
+        })
+        $('.btn-close').click(function(e) {
+            e.preventDefault();
+            $('#modal-add').trigger('reset');
+            $('#modal-add').modal('hide');
+        })
+        $('.btn-cancle').click(function(e) {
+            e.preventDefault();
+            $('#modal-add').trigger('reset');
+            $('#modal-add').modal('hide');
+        })
+        const form_create = $('form#form-create');
+        if (form_create) {
+            const action = form_create.attr('action');
+            form_create.submit(function(e) {
+                e.preventDefault();
+                $('.btn-create').html(`<span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                             <span role="status">Loading...</span>`);
+                const data = new FormData($(this)[0]);
+                $.ajax({
+                    url: action,
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    type: 'POST',
+                    success: function(rs) {
+                        $('.btn-create').html(`<i class="fas fa-plus"></i> Tạo mới`);
+                        $('button[type=submit]').removeAttr('disabled');
+                        if (rs.status == 200) {
+                            form_create[0].reset();
+                            loadTable();
+                            if (rs?.uri) {
+                                location.href = rs?.uri;
+                            }
+                            $('.btn-close').click();
+                        }
+                        Toast.fire({
+                            icon: rs?.type,
+                            title: rs.message
+                        });
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        $('.btn-create').html(`<i class="fas fa-plus"></i> Tạo mới`);
+                        $('button[type=submit]').removeAttr('disabled');
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Tạo mới lỗi'
+                        });
+                    }
+                });
+            });
+        }
+
+        function confirmDelete(id) {
+            deleteData(id, "{{ route('promotion.delete') }}");
+        }
+
+        function changeStatus(id) {
+            $.post("{{ route('promotion.update') }}", {
+                id
+            }, function(rs) {
+                Toast.fire({
+                    icon: rs?.type,
+                    title: rs.message
+                });
+            });
+        }
     </script>
 
     <script src="{{ asset('user/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>

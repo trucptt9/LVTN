@@ -74,8 +74,8 @@
     <!--end::Main-->
     <!--begin::Javascript-->
     <!--begin::Global Javascript Bundle(mandatory for all pages)-->
-    <script src="user/assets/plugins/global/plugins.bundle.js"></script>
-    <script src="user/assets/js/scripts.bundle.js"></script>
+    <script src="{{ asset('user/assets/plugins/global/plugins.bundle.js') }}"></script>
+    <script src=" {{ asset('user/assets/js/scripts.bundle.js') }} "></script>
     <script>
         $.ajaxSetup({
             headers: {
@@ -91,8 +91,9 @@
 
         $(document).ready(function() {
             $("body").on("contextmenu", function(e) {
-                return false;
+                return true;
             });
+           
         });
     </script>
     <!--end::Global Javascript Bundle-->
