@@ -6,7 +6,9 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\BusinessTypeController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\LicenseController;
+use App\Http\Controllers\Admin\ModuleController;
 use App\Http\Controllers\Admin\PackageController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\StoreController;
 use Illuminate\Support\Facades\Route;
 
@@ -61,6 +63,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('table', [PackageController::class, 'table'])->name('table');
             Route::get('detail/{id}', [PackageController::class, 'detail'])->name('detail');
         });
+        Route::prefix('module')->name('module.')->group(function () {
+            Route::get('', [ModuleController::class, 'index'])->name('index');
+            Route::get('table', [ModuleController::class, 'table'])->name('table');
+            Route::get('detail/{id}', [ModuleController::class, 'detail'])->name('detail');
+        });
         Route::prefix('license')->name('license.')->group(function () {
             Route::get('', [LicenseController::class, 'index'])->name('index');
             Route::get('table', [LicenseController::class, 'table'])->name('table');
@@ -83,6 +90,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::post('insert', [AdminController::class, 'insert'])->name('insert');
             Route::post('update', [AdminController::class, 'update'])->name('update');
             Route::post('delete', [AdminController::class, 'delete'])->name('delete');
+        });
+        Route::prefix('setting')->name('setting.')->group(function () {
+            Route::get('', [SettingController::class, 'index'])->name('index');
+            Route::post('update', [SettingController::class, 'update'])->name('update');
         });
     });
 });
