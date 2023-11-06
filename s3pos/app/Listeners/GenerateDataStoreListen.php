@@ -7,6 +7,7 @@ use App\Models\Area;
 use App\Models\CategoryProduct;
 use App\Models\CustomerGroup;
 use App\Models\Department;
+use App\Models\License;
 use App\Models\MethodPayment;
 use App\Models\Position;
 use App\Models\Product;
@@ -39,6 +40,7 @@ class GenerateDataStoreListen
         try {
             $faker = \Faker\Factory::create();
             $store_id = $event->store->id;
+
             // position
             $position = Position::create([
                 'store_id' => $store_id,
@@ -78,7 +80,7 @@ class GenerateDataStoreListen
             for ($i = 0; $i < 5; $i++) {
                 Table::create([
                     'area_id' => $area->id,
-                    
+
                     'name' => $i,
                 ]);
             }
@@ -94,7 +96,7 @@ class GenerateDataStoreListen
                     'name' => 'Cà phê ' . $i,
                     'price' => 10000 + $i * 1000,
                     'cost' => 5000,
-                    
+
                 ]);
             }
             // topping group

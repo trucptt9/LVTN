@@ -4,7 +4,7 @@
 
 <head>
     <base href="{{ route('index') }}" />
-    <title>TTPOS</title>
+    <title>{{ env('COPYRIGHT') }}</title>
     <meta charset="utf-8" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="{{ asset('user/assets/media/logos/favicon.ico') }}" />
@@ -33,10 +33,6 @@
         <style>
             body {
                 background-image: url('user/assets/media/auth/bg10.jpeg');
-            }
-
-            [data-bs-theme="dark"] body {
-                background-image: url('user/assets/media/auth/bg10-dark.jpeg');
             }
         </style>
         <!--end::Page bg image-->
@@ -76,26 +72,7 @@
     <!--begin::Global Javascript Bundle(mandatory for all pages)-->
     <script src="{{ asset('user/assets/plugins/global/plugins.bundle.js') }}"></script>
     <script src=" {{ asset('user/assets/js/scripts.bundle.js') }} "></script>
-    <script>
-        $.ajaxSetup({
-            headers: {
-                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-            },
-        });
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-        })
-
-        $(document).ready(function() {
-            $("body").on("contextmenu", function(e) {
-                return true;
-            });
-           
-        });
-    </script>
+    <script src=" {{ asset('user/assets/js/custom.js') }} "></script>
     <!--end::Global Javascript Bundle-->
     <!--begin::Custom Javascript(used for this page only)-->
     @yield('script')
