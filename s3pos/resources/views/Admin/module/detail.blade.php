@@ -2,7 +2,7 @@
 @section('title', 'Chi tiết module')
 @section('content')
     <div class="d-flex justify-content-between mb-3">
-        <h3>Module: #{{ $module->name }}</h3>
+        <h4>Module: #{{ $module->name }}</h4>
         <div class="d-flex align-items-center gap-2">
             <a href="{{ route('admin.module.index') }}" class="btn btn-secondary">
                 <i class="fas fa-chevron-left"></i> Danh sách
