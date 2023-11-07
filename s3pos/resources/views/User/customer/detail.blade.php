@@ -1,4 +1,4 @@
-@extends('user.layout')
+@extends('User.layout.main')
 @section('style')
     <!--begin::Vendor Stylesheets(used for this page only)-->
     <link href="{{ asset('user/assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
@@ -13,17 +13,17 @@
         <div id="kt_toolbar_container" class="container-xxl d-flex flex-stack flex-wrap">
             <div class="page-title d-flex flex-column me-3">
                 <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-1">
-                    <h6 class="breadcrumb-item text-white opacity-75">
-                        <a href=".#" class="text-white text-hover-primary">Khách hàng</a>
-                    </h6>
-                    <h6 class="breadcrumb-item">
+                    <h5 class="breadcrumb-item text-white opacity-75">
+                        <a href=".#" class="text-white text-hover-primary">Khuyến mãi</a>
+                    </h5>
+                    <h5 class="breadcrumb-item">
                         <span class="bullet bg-white opacity-75 w-5px h-2px"></span>
-                    </h6>
-                    <h6 class="breadcrumb-item text-white opacity-75">Quản lý khách hàng</h6>
-                    <h6 class="breadcrumb-item">
+                    </h5>
+                    <a class="breadcrumb-item text-white opacity-75" href="{{ route('customer.index') }}">Quản lý khách hàng</a>
+                    <h5 class="breadcrumb-item">
                         <span class="bullet bg-white opacity-75 w-5px h-2px"></span>
-                    </h6>
-                    <h6 class="breadcrumb-item text-white opacity-75">Chi tiết khách hàng</h6>
+                    </h5>
+                    <h5 class="breadcrumb-item text-white opacity-75">Chi tiết khách hàng</h5>
                 </ul>
             </div>
         </div>

@@ -11,16 +11,16 @@
                 {{ $item->code }}
             </td>
             <td class="text-center">
-                {{ $item->name }}
+                {{ $item->subject }}
             </td>
             <td class="text-center">
-                {{$item->start }} -  {{$item->end }}
+                {{date('d/m/Y', strtotime($item->start)) }} -  {{date('d/m/Y', strtotime($item->end)) }}
             </td>
             <td class="text-center">
-                {{$item->value }} {$item->type_value}
+                {{$item->value }} {{$item->type_value}}
             </td>
             <td class="text-center">
-                {{ $item->total_order }}
+               >=  {{ $item->total_order }}
             </td>
             <td class="text-center">
                 {{ $item->description }}

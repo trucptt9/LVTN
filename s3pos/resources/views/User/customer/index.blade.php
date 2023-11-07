@@ -1,7 +1,7 @@
 @extends('user.layout.main')
 @section('style')
     <!--begin::Vendor Stylesheets(used for this page only)-->
-    <link href="user/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('user/assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
     <!--end::Vendor Stylesheets-->
 @endsection
 @section('content')
@@ -39,7 +39,8 @@
                     <div class="me-4 row">
                         <!--begin::Search-->
                         <input type="text" data-kt-user-table-filter="search" name="search"
-                            class="form-control col form-control-solid w-250px ps-13 mx-3" placeholder="Nhập nội dung cần tìm ... " />
+                            class="form-control col form-control-solid w-250px ps-13 mx-3"
+                            placeholder="Nhập nội dung cần tìm ... " />
                         <!--end::Search-->
                         <select class="form-select col filter-status form-filter select-picker" name="status">
                             <option selected value="">Trạng thái </option>
@@ -89,96 +90,111 @@
 @endsection
 
 @section('script')
-<script>
-    const routeList = "{{ route('customer.list') }}";
-    filterTable();
+    <script>
+        
+        const routeList = "{{ route('customer.list') }}";
+        filterTable();
 
-    function filterTable() {
-        loadTable(routeList);
-    };
-
-    $('.btn-add').click(function(e) {
-        e.preventDefault();
-        $('#modal-add').trigger('reset');
-        $('#modal-add').modal('show');
-    })
-    $('.btn-close').click(function(e) {
-        e.preventDefault();
-        $('#modal-add').trigger('reset');
-        $('#modal-add').modal('hide');
-    })
-    $('.btn-cancle').click(function(e) {
-        e.preventDefault();
-        $('#modal-add').trigger('reset');
-        $('#modal-add').modal('hide');
-    })
-    const form_create = $('form#form-create');
-    if (form_create) {
-        const action = form_create.attr('action');
-        form_create.submit(function(e) {
-            e.preventDefault();
-            $('.btn-create').html(`<span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+        function filterTable() {
+            loadTable(routeList);
+        };
+        $('.btn-add').click(function(e) {
+                e.preventDefault();
+                $('#modal-add').trigger('reset');
+                $('#modal-add').modal('show');
+            })
+            $('.btn-close').click(function(e) {
+                e.preventDefault();
+                $('#modal-add').trigger('reset');
+                $('#modal-add').modal('hide');
+            })
+            $('.btn-cancle').click(function(e) {
+                e.preventDefault();
+                $('#modal-add').trigger('reset');
+                $('#modal-add').modal('hide');
+            })
+        $(document).ready(function() {
+           
+            $(document).on("click", ".btn-edit", function(e) {
+                showSpinner(".table-loading");
+                e.preventDefault();
+                const url = $(this).attr('href');
+                console.log(url)
+                $.get(url, function(data) {
+                    hideSniper(".table-loading");
+                    console.log(data);
+                    $('.content-update').html(data);
+                    $('#modal-edit').modal('show');
+                })
+            })
+        })
+        const form_create = $('form#form-create');
+        if (form_create) {
+            const action = form_create.attr('action');
+            form_create.submit(function(e) {
+                e.preventDefault();
+                $('.btn-create').html(`<span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
                          <span role="status">Loading...</span>`);
-            const data = new FormData($(this)[0]);
-            $.ajax({
-                url: action,
-                data: data,
-                processData: false,
-                contentType: false,
-                type: 'POST',
-                success: function(rs) {
-                    $('.btn-create').html(`<i class="fas fa-plus"></i> Tạo mới`);
-                    $('button[type=submit]').removeAttr('disabled');
-                    if (rs.status == 200) {
-                        form_create[0].reset();
-                        loadTable();
-                        if (rs?.uri) {
-                            location.href = rs?.uri;
+                const data = new FormData($(this)[0]);
+                $.ajax({
+                    url: action,
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    type: 'POST',
+                    success: function(rs) {
+                        $('.btn-create').html(`<i class="fas fa-plus"></i> Tạo mới`);
+                        $('button[type=submit]').removeAttr('disabled');
+                        if (rs.status == 200) {
+                            form_create[0].reset();
+                            loadTable();
+                            if (rs?.uri) {
+                                location.href = rs?.uri;
+                            }
+                            $('.btn-close').click();
                         }
-                        $('.btn-close').click();
+                        Toast.fire({
+                            icon: rs?.type,
+                            title: rs.message
+                        });
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        $('.btn-create').html(`<i class="fas fa-plus"></i> Tạo mới`);
+                        $('button[type=submit]').removeAttr('disabled');
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Tạo mới lỗi'
+                        });
                     }
-                    Toast.fire({
-                        icon: rs?.type,
-                        title: rs.message
-                    });
-                },
-                error: function(XMLHttpRequest, textStatus, errorThrown) {
-                    $('.btn-create').html(`<i class="fas fa-plus"></i> Tạo mới`);
-                    $('button[type=submit]').removeAttr('disabled');
-                    Toast.fire({
-                        icon: 'error',
-                        title: 'Tạo mới lỗi'
-                    });
-                }
+                });
             });
-        });
-    }
+        }
 
-    function confirmDelete(id) {
-        deleteData(id, "{{ route('customer.delete') }}");
-    }
-
-    function changeStatus(id) {
-        $.post("{{ route('customer.update') }}", {
-            id
-        }, function(rs) {
-            Toast.fire({
-                icon: rs?.type,
-                title: rs.message
+        function confirmDelete(id) {
+            deleteData(id, "{{ route('customer.delete') }}");
+        }
+        function changeStatus(id) {
+            $.post("{{ route('customer.update') }}", {
+                id
+            }, function(rs) {
+                Toast.fire({
+                    icon: rs?.type,
+                    title: rs.message
+                });
             });
-        });
-    }
-</script>
+        }
+      
+    </script>
     <!--begin::Custom Javascript(used for this page only)-->
     <script src=""></script>
-    <script src="user/assets/js/custom/apps/user-management/users/list/table.js"></script>
-    <script src="user/assets/js/custom/apps/user-management/users/list/export-users.js"></script>
-    <script src="user/assets/js/custom/apps/user-management/users/list/add.js"></script>
-    <script src="user/assets/js/widgets.bundle.js"></script>
-    <script src="user/assets/js/custom/widgets.js"></script>
-    {{-- <script src="user/assets/js/custom/apps/chat/chat.js"></script> --}}
-    <script src="user/assets/js/custom/utilities/modals/upgrade-plan.js"></script>
-    <script src="user/assets/js/custom/utilities/modals/create-app.js"></script>
-    <script src="user/assets/js/custom/utilities/modals/users-search.js"></script>
+    <script src="{{ asset('user/assets/js/custom/apps/user-management/users/list/table.js')}}"></script>
+    <script src="{{ asset('user/assets/js/custom/apps/user-management/users/list/export-users.js')}}"></script>
+    <script src="{{ asset('user/assets/js/custom/apps/user-management/users/list/add.js')}}"></script>
+    <script src="{{ asset('user/assets/js/widgets.bundle.js')}}"></script>
+    <script src="{{ asset('user/assets/js/custom/widgets.js')}}"></script>
+    {{-- <script src="{{ asset('user/assets/js/custom/apps/chat/chat.js')}}"></script> --}}
+    <script src="{{ asset('user/assets/js/custom/utilities/modals/upgrade-plan.js')}}"></script>
+    <script src="{{ asset('user/assets/js/custom/utilities/modals/create-app.js')}}"></script>
+    <script src="{{ asset('user/assets/js/custom/utilities/modals/users-search.js')}}"></script>
     <!--end::Custom Javascript-->
 @endsection

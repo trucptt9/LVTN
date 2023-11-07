@@ -39,6 +39,7 @@ class CategoryProduct extends Model
         self::updated(function ($model) {
         });
         self::deleted(function ($model) {
+            
         });
     }
 

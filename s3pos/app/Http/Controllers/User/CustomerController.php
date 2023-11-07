@@ -9,6 +9,7 @@ use App\Models\Customer;
 use App\Models\CustomerGroup;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Response as ResHTTP;
+use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
 {
@@ -30,10 +31,6 @@ class CustomerController extends Controller
         ];
 
         return view('user.customer.index', compact('data'));
-    }
-    public function add()
-    {
-        return view('User.customer.add');
     }
 
     public function list()
@@ -63,9 +60,13 @@ class CustomerController extends Controller
     }
 
 
-    public function detail()
+    public function detail($id)
     {
-        return view('user.customer.detail');
+        $customer =Customer ::storeId($this->store_id)->findOrFail($id);
+        if (request()->ajax()) {
+            return view('user.customer.modal_edit', compact('customer'))->render();
+        }
+        return view('user.customer.detail', compact('customer'));
     }
 
     public function insert(CustomerInsertRequest $request)
@@ -94,24 +95,37 @@ class CustomerController extends Controller
     public function update(CustomerUpdateRequest $request)
     {
         try {
-            $id = $request->get('id', '');
-            $promotion = Customer::storeId($this->store_id)->whereId($id)->first();
-            $promotion->status = $promotion->status == Customer::STATUS_ACTIVE ? Customer::STATUS_BLOCKED : Customer::STATUS_ACTIVE;
-            $promotion->save();
+          DB::beginTransaction();
+          $id = $request->get('id', '');
+          $type = request('type', 'one');
+          $custome = Customer::whereId($id)->first();
+          if ($type == 'all') {
+            $data = $request->all();
+            $data['status'] = $custome->status == Customer::STATUS_ACTIVE ? Customer::STATUS_BLOCKED : Customer::STATUS_ACTIVE;
+            $custome->update($data);
+          } else {
+            $custome->status = $custome->status == Customer::STATUS_ACTIVE ? Customer::STATUS_BLOCKED : Customer::STATUS_ACTIVE;
+            $custome->save();
+          }
+          DB::commit();
+          if (request()->ajax()) {
             return Response::json([
-                'status' => ResHTTP::HTTP_OK,
-                'message' => 'Cập nhật thành công',
-                'type' => 'success'
+              'status' => ResHTTP::HTTP_OK,
+              'message' => 'Cập nhật thành công',
+              'type' => 'success'
             ]);
+          }
+          return redirect()->back()->with('success', 'Cập nhật thành công');
         } catch (\Throwable $th) {
-            showLog($th);
-            return Response::json([
-                'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
-                'message' => 'Lỗi cập nhật',
-                'type' => 'error'
-            ]);
+          showLog($th);
+          DB::rollBack();
+          return Response::json([
+            'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
+            'message' => 'Lỗi cập nhật',
+            'type' => 'error'
+          ]);
         }
-    }
+      }
 
     public function delete(CustomerDeleteRequest $request)
     {

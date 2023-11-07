@@ -135,15 +135,8 @@
 
                                               </select>
                                           </div>
-                                      </div>
-
-
-
-                                  </div>
+                                      </div>/div>
                               </div>
-
-
-                              <!--begin::Actions-->
                               <div class="text-center pt-10">
                                   <button type="reset" class="btn btn-light me-3 btn-cancle"
                                       data-kt-users-modal-action="cancel">Hủy</button>

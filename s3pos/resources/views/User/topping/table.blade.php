@@ -22,10 +22,10 @@
                 {{ $item->name }}
             </td>
             <td class="text-center">
-                {{number_format($item->price, 0, ',', '.') . "đ" }}
+                {{ number_format($item->price, 0, ',', '.') . 'đ' }}
             </td>
             <td class="text-center">
-                {{number_format($item->cost, 0, ',', '.') . "đ" }}
+                {{ number_format($item->cost, 0, ',', '.') . 'đ' }}
             </td>
             <td class="text-center">
                 {{ $item->group->name }}
@@ -38,14 +38,14 @@
                         onclick="changeStatus('{{ $item->id }}')" />
                 </div>
             </td>
-           
+
             <td class="text-center d-flex">
-                <button class="btn btn-light btn-edit" style="padding: 0px">
+                <a class="btn btn-light btn-edit" style="padding: 0px" href="{{ route('topping.detail', $item->id) }}">
                     <i class="ki-duotone ki-message-edit fs-2qx text-success">
                         <span class="path1"></span>
                         <span class="path2"></span>
                     </i>
-                </button>
+                </a>
 
                 <button class="btn btn-light btn-delete" style="padding: 0px"
                     onclick="confirmDelete('{{ $item->id }}')">

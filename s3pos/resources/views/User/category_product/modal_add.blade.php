@@ -37,8 +37,6 @@
                                   data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-max-height="auto"
                                   data-kt-scroll-dependencies="#kt_modal_add_user_header"
                                   data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
-
-                                  <!--begin::Input group-->
                                   <div class="fv-row mb-7">
                                       <!--begin::Label-->
                                       <label class="required fw-semibold fs-6 mb-2">Tên danh mục</label>
@@ -49,19 +47,8 @@
                                           placeholder="Tên danh mục" />
                                       <!--end::Input-->
                                   </div>
-                                  <!--end::Input group-->
-                                  <!--begin::Input group-->
+                                 
                                   <div class="fv-row mb-7">
-                                      <!--begin::Label-->
-                                      <label class="fw-semibold fs-6 mb-2">Mã</label>
-                                      <!--end::Label-->
-                                      <!--begin::Input-->
-                                      <input type="text" name="code"
-                                          class="form-control form-control-solid mb-3 mb-lg-0"
-                                          placeholder="Để trống tự sinh" />
-                                      <!--end::Input-->
-                                  </div>
-                                  <!--end::Input group-->
 
                                   <div class="fv-row mb-7">
                                       <div class="card-title">
@@ -77,11 +64,10 @@
                                       <label class="fw-semibold fs-6 mb-2">Mô tả</label>
                                       <!--end::Label-->
                                       <!--begin::Input-->
-                                      <textarea class="form-control" aria-label="With textarea" rows="2"></textarea>
+                                      <textarea class="form-control" name="description" aria-label="With textarea" rows="2"></textarea>
                                       <!--end::Input-->
                                   </div>
-
-                                  <!--end::Input group-->
+                
                                   <div class="fv-row mb-7">
                                       <!--begin::Label-->
                                       <label class=" fw-semibold fs-6 mb-2">Trạng
@@ -101,7 +87,7 @@
                               <div class="text-center pt-10">
                                   <button type="reset" class="btn btn-light me-3 btn-cancle"
                                       data-kt-users-modal-action="cancel">Hủy</button>
-                                  <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
+                                  <button type="submit" class="btn btn-primary btn-create" data-kt-users-modal-action="submit">
                                       <span class="indicator-label">Lưu</span>
                                       <span class="indicator-progress">Please wait...
                                           <span

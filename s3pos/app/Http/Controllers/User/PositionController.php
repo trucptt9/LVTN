@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Position;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Response as ResHTTP;
+use Illuminate\Support\Facades\DB;
 class PositionController extends Controller
 {
     protected $limit_default, $store_id;
@@ -57,11 +58,16 @@ class PositionController extends Controller
     }
   
     
-    public function detail()
+    public function detail($id)
     {
-      return view('user.position.detail');
-    }
+      $data = [
+        'status' => Position::get_status(),
+      ];
+      $position = Position::storeId($this->store_id)->findOrFail($id);
+      return view('user.position.modal_edit', compact('position', 'data'))->render();
   
+  
+    }
     public function insert(PositionInsertRequest $request)
     {
         try {
@@ -86,24 +92,36 @@ class PositionController extends Controller
   
     public function update(PositionUpdateRequest $request)
     {
-        try {
-            $id = $request->get('id', '');
-            $position = Position::storeId($this->store_id)->whereId($id)->first();
-            $position->status = $position->status == Position::STATUS_ACTIVE ? Position::STATUS_BLOCKED : Position::STATUS_ACTIVE;
-            $position->save();
-            return Response::json([
-                'status' => ResHTTP::HTTP_OK,
-                'message' => 'Cập nhật thành công',
-                'type' => 'success'
-            ]);
-        } catch (\Throwable $th) {
-            showLog($th);
-            return Response::json([
-                'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
-                'message' => 'Lỗi cập nhật',
-                'type' => 'error'
-            ]);
+      try {
+        DB::beginTransaction();
+        $id = $request->get('id', '');
+        $type = request('type', 'one');
+        $Position = Position::storeId($this->store_id)->whereId($id)->first();
+        if ($type == 'all') {
+          $data = $request->all();
+          $Position->update($data);
+        } else {
+          $Position->status = $Position->status == Position::STATUS_ACTIVE ? Position::STATUS_BLOCKED : Position::STATUS_ACTIVE;
+          $Position->save();
         }
+        DB::commit();
+        if (request()->ajax()) {
+          return Response::json([
+            'status' => ResHTTP::HTTP_OK,
+            'message' => 'Cập nhật thành công',
+            'type' => 'success'
+          ]);
+        }
+        return redirect()->back()->with('success', 'Cập nhật thành công');
+      } catch (\Throwable $th) {
+        showLog($th);
+        DB::rollBack();
+        return Response::json([
+          'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
+          'message' => 'Lỗi cập nhật',
+          'type' => 'error'
+        ]);
+      }
     }
   
     public function delete(PositionDeleteRequest $request)

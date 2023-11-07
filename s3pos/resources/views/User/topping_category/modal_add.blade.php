@@ -77,7 +77,7 @@
                                       <label class="fw-semibold fs-6 mb-2">Mô tả</label>
                                       <!--end::Label-->
                                       <!--begin::Input-->
-                                      <textarea class="form-control" aria-label="With textarea" rows="2"></textarea>
+                                      <textarea class="form-control"  name="description" aria-label="With textarea" rows="2"></textarea>
                                       <!--end::Input-->
                                   </div>
 
@@ -101,7 +101,7 @@
                               <div class="text-center pt-10">
                                   <button type="reset" class="btn btn-light me-3 btn-cancle"
                                       data-kt-users-modal-action="cancel">Hủy</button>
-                                  <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
+                                  <button type="submit" class="btn btn-primary btn-create" data-kt-users-modal-action="submit">
                                       <span class="indicator-label">Lưu</span>
                                       <span class="indicator-progress">Please wait...
                                           <span

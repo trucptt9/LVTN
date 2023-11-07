@@ -22,10 +22,10 @@
                 {{ $item->name }}
             </td>
             <td class="text-center">
-                {{number_format($item->price, 0, ',', '.') . "đ" }}
+                {{ number_format($item->price, 0, ',', '.') . 'đ' }}
             </td>
             <td class="text-center">
-                {{number_format($item->cost, 0, ',', '.') . "đ" }}
+                {{ number_format($item->cost, 0, ',', '.') . 'đ' }}
             </td>
             <td class="text-center">
                 {{ $item->name }}
@@ -38,29 +38,21 @@
                         onclick="changeStatus('{{ $item->id }}')" />
                 </div>
             </td>
-            <td class="text-center">
-                <button class="btn btn-light btn-recipe">
-                    <i class="ki-duotone ki-burger-menu-2 fs-2x">
+           
+            <td class="text-center d-flex">
+                <a class="btn btn-light" style="padding: 0px" href="{{ route('product.detail',$item->id) }}">
+                    <i class="ki-duotone fs-2qx ki-eye">
                         <span class="path1"></span>
                         <span class="path2"></span>
                         <span class="path3"></span>
-                        <span class="path4"></span>
-                        <span class="path5"></span>
-                        <span class="path6"></span>
-                        <span class="path7"></span>
-                        <span class="path8"></span>
-                        <span class="path9"></span>
-                        <span class="path10"></span>
                     </i>
-                </button>
-            </td>
-            <td class="text-center d-flex">
-                <button class="btn btn-light btn-edit" style="padding: 0px">
+                </a>
+                <a class="btn btn-light btn-edit" style="padding: 0px" href="{{ route('product.detail', $item->id) }}">
                     <i class="ki-duotone ki-message-edit fs-2qx text-success">
                         <span class="path1"></span>
                         <span class="path2"></span>
                     </i>
-                </button>
+                </a>
 
                 <button class="btn btn-light btn-delete" style="padding: 0px"
                     onclick="confirmDelete('{{ $item->id }}')">
@@ -78,7 +70,7 @@
     @endforeach
     @if ($paginate != '')
         <tr>
-            <td colspan="5">
+            <td colspan="9">
                 <div class="mt-2">
                     {{ $paginate }}
                 </div>
@@ -87,7 +79,7 @@
     @endif
 @else
     <tr>
-        <td colspan="6" class="text-center no-data">
+        <td colspan="9" class="text-center no-data">
             Không tìm thấy dữ liệu!
         </td>
     </tr>

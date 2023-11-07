@@ -1,5 +1,4 @@
-
-  <div class="modal fade" id="modal-add" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="modal-add" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-900px">
         <!--begin::Modal content-->
@@ -7,7 +6,7 @@
             <!--begin::Modal header-->
             <div class="modal-header">
                 <!--begin::Modal title-->
-                <h2>Thêm topping</h2>
+                <h2>Thêm sản phẩm</h2>
                 <!--end::Modal title-->
                 <!--begin::Close-->
                 <div class="btn btn-sm btn-icon btn-active-color-primary btn-close" data-bs-dismiss="modal">
@@ -30,7 +29,8 @@
                     <!--begin::Content-->
                     <div class="flex-row-fluid py-lg-5 px-lg-15">
                         <!--begin::Form-->
-                        <form class="form" action="{{ route('topping.insert') }}" id="form-create" method="POST" enctype="multipart/form-data">
+                        <form class="form" action="{{ route('product.insert') }}" id="form-create" method="POST"
+                            enctype="multipart/form-data">
                             <!--begin::Step 4-->
                             <div data-kt-stepper-element="content" class="current">
                                 <div class="w-100">
@@ -38,12 +38,12 @@
                                         <div class="col-md-6 d-flex flex-column mb-7 fv-row">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                                <span class="required">Tên topping</span>
+                                                <span class="required">Tên sản phẩm</span>
 
                                             </label>
                                             <!--end::Label-->
                                             <input type="text" class="form-control form-control-solid"
-                                                placeholder="Nhập tên topping" name="name" value="" />
+                                                placeholder="Nhập tên sản phẩm" name="name" value="" />
                                         </div>
 
                                         <div class=" col-md-6 d-flex flex-column mb-7 fv-row">
@@ -72,7 +72,7 @@
                                             </label>
                                             <!--end::Label-->
                                             <input type="text" class="form-control form-control-solid"
-                                                placeholder="Giá bán topping" name="price" value="" />
+                                                placeholder="Giá bán sản phẩm" name="price" value="" />
                                         </div>
 
                                         <div class="col-md-6 d-flex flex-column mb-7 fv-row">
@@ -83,18 +83,19 @@
                                             </label>
                                             <!--end::Label-->
                                             <input type="text" class="form-control form-control-solid"
-                                                placeholder="Giá vốn topping" name="cost" value="" />
+                                                placeholder="Giá vốn sản phẩm" name="cost" value="" />
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class=" col-md-6 d-flex flex-column mb-7 fv-row">
                                             <!--begin::Label-->
-                                            <label class="fs-6 required fw-semibold form-label mb-2">Danh mục</label>
+                                            <label class="fs-6 required fw-semibold form-label mb-2">Danh mục sản
+                                                phẩm</label>
                                             <!--end::Label-->
-                                            <select class="form-select" aria-label="Select example" name="group_id">
+                                            <select class="form-select" aria-label="Select example" name="category_id">
                                                 <option selected value="">Chọn danh mục </option>
-                                                @foreach ($data['group_topping'] as  $item)
+                                                @foreach ($data['category'] as $item)
                                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                 @endforeach
 
@@ -124,13 +125,13 @@
 
                                             </label>
                                             <!--end::Label-->
-                                            <input type="file" class="form-control form-control-solid"
-                                               name="image" value="" />
+                                            <input type="file" class="form-control form-control-solid" name="image"
+                                                value="" />
                                         </div>
 
-                                       
+
                                     </div>
-                                   
+
                                 </div>
                             </div>
 
@@ -139,11 +140,11 @@
                             <div class="text-center pt-10">
                                 <button type="reset" class="btn btn-sm btn-light me-3 btn-cancle"
                                     data-kt-users-modal-action="cancel">Hủy</button>
-                                <button type="submit" class="btn btn-sm btn-primary btn-create" data-kt-users-modal-action="submit">
+                                <button type="submit" class="btn btn-sm btn-primary btn-create"
+                                    data-kt-users-modal-action="submit">
                                     <span class="indicator-label">Thêm</span>
                                     <span class="indicator-progress">Please wait...
-                                        <span
-                                            class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                 </button>
                             </div>
                             <!--end::Actions-->
@@ -160,4 +161,3 @@
     </div>
     <!--end::Modal dialog-->
 </div>
-

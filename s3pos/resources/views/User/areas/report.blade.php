@@ -1,64 +1,15 @@
-<div class="row pt-3 row-header">
-
-    <div class="col box">
-        <div class="d-flex " style="align-items: center">
-            <div class="box-icon">
-                <i class="ki-duotone ki-abstract-26 fs-2x text-light">
-                    <span class="path1"></span>
-                    <span class="path2"></span>
-                </i>
-            </div>
-            <div class="box-info">
-                <span class="fs-4 text-primary fw-semibold">số</span>
-                <span>diễn giải</span>
+<div class="row">
+    @for ($i = 0; $i < 4; $i++)
+        <div class="col-md-3 cursor-pointer hover-elevate-up">
+            <div class="alert alert-dismissible bg-success d-flex flex-column flex-sm-row w-100 p-5 mb-10">
+                <div class="w-100 text-white">
+                    <div class="d-flex justify-content-between w-100">
+                        <h5 class="mb-1 text-white">5</h5>
+                        <i class="ki-outline ki-document fs-1 me-5 text-white"></i>
+                    </div>
+                    <span>Tổng nhân viên</span>
+                </div>
             </div>
         </div>
-
-    </div>
-    <div class="col box">
-        <div class="d-flex " style="align-items: center">
-            <div class="box-icon">
-                <i class="ki-duotone ki-abstract-26 fs-2x text-light">
-                    <span class="path1"></span>
-                    <span class="path2"></span>
-                </i>
-            </div>
-            <div class="box-info">
-                <span class="fs-4 text-primary fw-semibold">số</span>
-                <span>diễn giải</span>
-            </div>
-        </div>
-
-    </div>
-    <div class="col box">
-        <div class="d-flex " style="align-items: center">
-            <div class="box-icon">
-                <i class="ki-duotone ki-abstract-26 fs-2x text-light">
-                    <span class="path1"></span>
-                    <span class="path2"></span>
-                </i>
-            </div>
-            <div class="box-info">
-                <span class="fs-4 text-primary fw-semibold">số</span>
-                <span>diễn giải</span>
-            </div>
-        </div>
-
-    </div>
-    <div class="col box">
-        <div class="d-flex " style="align-items: center">
-            <div class="box-icon">
-                <i class="ki-duotone ki-abstract-26 fs-2x text-light">
-                    <span class="path1"></span>
-                    <span class="path2"></span>
-                </i>
-            </div>
-            <div class="box-info">
-                <span class="fs-4 text-primary fw-semibold">số</span>
-                <span>diễn giải</span>
-            </div>
-        </div>
-
-    </div>
-
+    @endfor
 </div>

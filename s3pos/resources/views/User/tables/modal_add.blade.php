@@ -7,7 +7,7 @@
               <!--begin::Modal header-->
               <div class="modal-header">
                   <!--begin::Modal title-->
-                  <h2>Thêm khu vực bàn</h2>
+                  <h2>Thêm bàn</h2>
                   <!--end::Modal title-->
                   <!--begin::Close-->
                   <div class="btn btn-sm btn-icon btn-active-color-primary btn-close" data-bs-dismiss="modal">
@@ -92,7 +92,7 @@
                                       </div>
                                       <div class=" col-md-6 d-flex flex-column mb-7 fv-row">
                                           <!--begin::Label-->
-                                          <label class="fs-6 fw-semibold form-label mb-2">Khu vực</label>
+                                          <label class="fs-6 fw-semibold form-label mb-2">Trạng thái</label>
                                           <!--end::Label-->
                                           <select class="form-select" aria-label="Select example" name="status">
                                               <option selected value="">Trạng thái </option>

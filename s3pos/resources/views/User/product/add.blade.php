@@ -10,35 +10,43 @@
     <!--begin::Toolbar-->
     <div class="toolbar py-5 " id="kt_toolbar">
         <!--begin::Container-->
-        <div id="kt_toolbar_container" class="container-xxl d-flex flex-stack flex-wrap">
-            <div class="page-title d-flex flex-column me-3">
-                <!--begin::Breadcrumb-->
-                <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-1">
-                    <!--begin::Item-->
-                    <h5 class="breadcrumb-item text-white opacity-75">
-                        <a href=".#" class="text-white text-hover-primary">Sản phẩm</a>
-                    </h5>
-                    <!--end::Item-->
-                    <!--begin::Item-->
-                    <h5 class="breadcrumb-item">
-                        <span class="bullet bg-white opacity-75 w-5px h-2px"></span>
-                    </h5>
-                    <!--end::Item-->
-                    <!--begin::Item-->
-                    <h5 class="breadcrumb-item text-white opacity-75">Quản lý sản phẩm</h5>
-                    <!--end::Item-->
-
-                    <!--begin::Item-->
-                    <h5 class="breadcrumb-item">
-                        <span class="bullet bg-white opacity-75 w-5px h-2px"></span>
-                    </h5>
-                    <!--end::Item-->
-                    <!--begin::Item-->
-                    <h5 class="breadcrumb-item text-white opacity-75">Thêm sản phẩm</h5>
-                    <!--end::Item-->
-                </ul>
-                <!--end::Breadcrumb-->
+        <div id="kt_toolbar_container" class="container-xxl flex-row-fluid">
+            <div class="d-flex justify-content-between py-5">
+                <div class="">
+                    <h1 class="d-flex text-white fw-bold my-1 fs-3">Tạo mới sản phẩm</h1>
+                    <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-1">
+                        <!--begin::Item-->
+                        <li class="breadcrumb-item text-white opacity-75">
+                            <a href="{{ route('index') }}" class="text-white text-hover-primary">
+                                Trang chủ
+                            </a>
+                        </li>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <li class="breadcrumb-item">
+                            <span class="bullet bg-white opacity-75 w-5px h-2px"></span>
+                        </li>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <li class="breadcrumb-item text-white opacity-75">
+                            Sản phẩm
+                        </li>
+                        <li class="breadcrumb-item">
+                            <span class="bullet bg-white opacity-75 w-5px h-2px"></span>
+                        </li>
+                        <li class="breadcrumb-item text-white opacity-75">
+                            <a href="{{ route('product.index') }}" class="text-white text-hover-primary">
+                               Quản lý sản phẩm
+                            </a>
+                        </li>
+                        <!--end::Item-->
+                    </ul>
+                </div>
+                <a class="btn btn-primary h-40px" href="{{ route('product.index') }}">
+                   Quay lại
+                </a>
             </div>
+
         </div>
 
     </div>
@@ -127,7 +135,7 @@
                             <div class="card-title">
                                 <h2>Trạng thái</h2>
                             </div>
-                          -->
+                         
                         </div>
                         <!--end::Card header-->
                         <!--begin::Card body-->
@@ -137,7 +145,7 @@
                                 name="status">
                                 <option value="" selected>Chọn trạng thái</option>
                                 @foreach ($data['status'] as $key=> $item )
-                                <option value="{{ $key }}" selected="selected">{{ $item[0] }}</option>
+                                <option value="{{ $key }}" >{{ $item[0] }}</option>
                                 @endforeach
                                
                                
@@ -169,7 +177,7 @@
                             <!--end::Label-->
                             <!--begin::Select2-->
                             <select class="form-select mb-2" data-control="select2"
-                                data-allow-clear="true"  name="category_id">
+                                 name="category_id">
                                 <option value="" selected>Chọn danh mục</option>
                                 @foreach ($data['category'] as $item )
                                 

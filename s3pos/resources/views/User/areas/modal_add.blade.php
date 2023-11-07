@@ -1,5 +1,5 @@
   <!--begin::Modal - Create App-->
-  <div class="modal fade" id="modal_add_area" tabindex="-1" aria-hidden="true">
+  <div class="modal fade" id="modal-add" tabindex="-1" aria-hidden="true">
       <!--begin::Modal dialog-->
       <div class="modal-dialog modal-dialog-centered mw-900px">
           <!--begin::Modal content-->
@@ -92,14 +92,7 @@
                                       </div>
 
 
-                                      <div class="fv-row mb-7">
-                                          <!--begin::Label-->
-                                          <label class="fw-semibold fs-6 mb-2">Mô tả</label>
-                                          <!--end::Label-->
-                                          <!--begin::Input-->
-                                          <textarea class="form-control" aria-label="With textarea" name="description" rows="2"></textarea>
-                                          <!--end::Input-->
-                                      </div>
+                                    
                                   </div>
                               </div>
 
