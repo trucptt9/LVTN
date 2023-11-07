@@ -25,7 +25,7 @@
                         <!--end::Item-->
                         <!--begin::Item-->
                         <li class="breadcrumb-item text-white opacity-75">
-                            sản phẩm
+                            Sản phẩm
                         </li>
                         <!--end::Item-->
                     </ul>

@@ -118,7 +118,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <!--begin::Modal title-->
-                        <h2>Cập nhật chức vụ</h2>
+                        <h2>Cập nhật ca làm việc</h2>
                         <div class="btn btn-sm btn-icon btn-active-color-primary close-btn" data-bs-dismiss="modal">
                             <i class="ki-duotone ki-cross fs-1">
                                 <span class="path1"></span>
@@ -170,26 +170,7 @@
             loadTable(routeList);
         };
 
-        $("#start-datepicker").flatpickr({
-            enableTime: true,
-            noCalendar: true,
-            dateFormat: "H:i",
-        });
-        $("#end-datepicker").flatpickr({
-            enableTime: true,
-            noCalendar: true,
-            dateFormat: "H:i",
-        });
-        $("#startdatepicker1").flatpickr({
-            enableTime: true,
-            noCalendar: true,
-            dateFormat: "H:i",
-        });
-        $("#enddatepicker2").flatpickr({
-            enableTime: true,
-            noCalendar: true,
-            dateFormat: "H:i",
-        });
+
         $('.btn-add').click(function(e) {
             e.preventDefault();
             $('#modal-add').trigger('reset');
@@ -268,6 +249,26 @@
             });
         }
         $(document).ready(function() {
+            $("#start-datepicker").flatpickr({
+                enableTime: true,
+                noCalendar: true,
+                dateFormat: "H:i",
+            });
+            $("#end-datepicker").flatpickr({
+                enableTime: true,
+                noCalendar: true,
+                dateFormat: "H:i",
+            });
+            $("#kt_datepicker_8").flatpickr({
+                enableTime: true,
+                noCalendar: true,
+                dateFormat: "H:i",
+            })
+            $("#kt_datepicker_7").flatpickr({
+                enableTime: true,
+                noCalendar: true,
+                dateFormat: "H:i",
+            })
             $(document).on("click", ".btn-edit", function(e) {
                 showSpinner(".table-loading");
                 e.preventDefault();

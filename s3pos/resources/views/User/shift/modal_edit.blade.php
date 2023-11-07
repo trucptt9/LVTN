@@ -36,8 +36,8 @@
 
         </label>
         <!--end::Label-->
-        <input class="form-control" placeholder="Chọn giờ" id="startdatepicker1" name="start"
-            value="{{ $shift->start }}" />
+        <input class="form-control" placeholder="Chọn giờ" id="kt_datepicker_8" name="start"
+            value=" {{date('H:i', strtotime($shift->start)) }}" />
     </div>
 
     <div class="col-md-6 d-flex flex-column mb-7 fv-row">
@@ -47,8 +47,8 @@
 
         </label>
         <!--end::Label-->
-        <input class="form-control" placeholder="Chọn giờ" id="enddatepicker2" name="end"
-            value="{{ $shift->end }}" />
+        <input class="form-control" placeholder="Chọn giờ" id="kt_datepicker_7" name="end"
+        value=" {{date('H:i', strtotime($shift->end)) }}"  />
     </div>
 </div>
 
@@ -66,7 +66,7 @@
     <div class=" col-md-6 d-flex flex-column mb-7 fv-row">
         <!--begin::Label-->
         <label class="fs-6 fw-semibold form-label mb-2">Trạng thái</label>
-        <select class="form-select w-50" aria-label="Select example" name="status">
+        <select class="form-select" aria-label="Select example" name="status">
 
             @foreach ($data['status'] as $key => $item)
                 <option value="{{ $key }}" {{ $shift->status == $key ? 'selected' : '' }}>

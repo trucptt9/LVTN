@@ -13,10 +13,10 @@
                 {{ $item->name }}
             </td>
             <td class="text-center">
-                {{ $item->start }}
+                {{date('H:i', strtotime($item->start)) }}
             </td>
             <td class="text-center">
-                {{ $item->end }}
+                {{date('H:i', strtotime($item->end)) }}
             </td>
             <td class="text-center">
                 {{  number_format($item->salary,0,',',',') }} đ

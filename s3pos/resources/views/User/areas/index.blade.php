@@ -111,7 +111,7 @@
     <div class="modal fade" id="modal-edit" tabindex="-1" aria-hidden="true">
         <!--begin::Modal dialog-->
         <form action="{{ route('area.update') }}" id="form-update" method="POST" enctype="multipart/form-data">
-            <div class="modal-dialog modal-dialog-centered mw-600px">
+            <div class="modal-dialog modal-dialog-centered mw-650px">
                 <div class="modal-content">
                     <div class="modal-header">
                         <!--begin::Modal title-->

@@ -9,7 +9,7 @@
         <div class="content flex-row-fluid" id="kt_content">
             <div class="d-flex justify-content-between py-5">
                 <div class="">
-                    <h1 class="d-flex text-white fw-bold my-1 fs-3">Khu vực bàn</h1>
+                    <h1 class="d-flex text-white fw-bold my-1 fs-3">Danh mục sản phẩm</h1>
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-1">
                         <!--begin::Item-->
                         <li class="breadcrumb-item text-white opacity-75">
@@ -25,7 +25,7 @@
                         <!--end::Item-->
                         <!--begin::Item-->
                         <li class="breadcrumb-item text-white opacity-75">
-                            Cửa hàng
+                           Sản phẩm
                         </li>
                         <!--end::Item-->
                     </ul>
@@ -80,18 +80,17 @@
                     <table class="table align-middle table-bordered fs-6 gy-5">
                         <thead>
                             <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-
-                                <th class="w-125px">Hình ảnh</th>
-                                <th class="w-140px">Mã</th>
-                                <th class="">Tên danh mục</th>
-                                <th class=" text-center w-450px">Mô tả</th>
-                                <th class="w-125px text-center">Trạng thái</th>
-                                <th class="w-100px text-center">#</th>
+                                <th class="w-100px">Hình ảnh</th>
+                                <th class="w-100px">Mã</th>
+                                <th class="w-200px">Tên danh mục</th>
+                                <th class="">Mô tả</th>
+                                <th class="text-center w-100px">Trạng thái</th>
+                                <th class="text-center w-100px">#</th>
                             </tr>
                         </thead>
                         <tbody class="fw-semibold text-gray-600" id="load-table">
                             <tr>
-                                <td colspan="6" class="text-center no-data">
+                                <td colspan="5" class="text-center no-data">
                                     Không tìm thấy dữ liệu!
                                 </td>
                             </tr>
@@ -112,11 +111,11 @@
     <div class="modal fade" id="modal-edit" tabindex="-1" aria-hidden="true">
         <!--begin::Modal dialog-->
         <form action="{{ route('product_category.update') }}" id="form-update" method="POST" enctype="multipart/form-data">
-            <div class="modal-dialog modal-dialog-centered mw-600px">
+            <div class="modal-dialog modal-dialog-centered mw-650px">
                 <div class="modal-content">
                     <div class="modal-header">
                         <!--begin::Modal title-->
-                        <h2>Cập nhật chức vụ</h2>
+                        <h2>Cập nhật danh mục sản phẩm</h2>
                         <div class="btn btn-sm btn-icon btn-active-color-primary close-btn" data-bs-dismiss="modal">
                             <i class="ki-duotone ki-cross fs-1">
                                 <span class="path1"></span>
@@ -161,7 +160,7 @@
 @section('script')
     <script>
         const routeList = "{{ route('product_category.list') }}";
-        // const routeUpdate = "{{ route('product_category.update') }}";
+        const routeUpdate = "{{ route('product_category.update') }}";
         filterTable();
 
         function filterTable() {

@@ -1,125 +1,113 @@
-  <!--begin::Modal - Create App-->
-  <div class="modal fade" id="modal-add" tabindex="-1" aria-hidden="true">
-      <!--begin::Modal dialog-->
-      <div class="modal-dialog modal-dialog-centered mw-900px">
-          <!--begin::Modal content-->
-          <div class="modal-content">
-              <!--begin::Modal header-->
-              <div class="modal-header">
-                  <!--begin::Modal title-->
-                  <h2>Thêm khu vực bàn</h2>
-                  <!--end::Modal title-->
-                  <!--begin::Close-->
-                  <div class="btn btn-sm btn-icon btn-active-color-primary btn-close" data-bs-dismiss="modal">
-                      <i class="ki-duotone ki-cross fs-1">
-                          <span class="path1"></span>
-                          <span class="path2"></span>
-                      </i>
-                  </div>
-                  <!--end::Close-->
-              </div>
-              <!--end::Modal header-->
-              <!--begin::Modal body-->
-              <div class="modal-body px-lg-10">
-                  <!--begin::Stepper-->
-                  <div class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid"
-                      id="kt_modal_create_app_stepper">
-                      <!--begin::Aside-->
+   <!--begin::Modal - Add task-->
+   <div class="modal fade" id="modal-add" tabindex="-1" aria-hidden="true">
+    <!--begin::Modal dialog-->
+    <div class="modal-dialog modal-dialog-centered mw-650px">
+        <!--begin::Modal content-->
+        <div class="modal-content">
+            <!--begin::Modal header-->
+            <div class="modal-header" id="kt_modal_add_user_header">
+                <!--begin::Modal title-->
+                <h2 class="fw-bold">Thêm khu vực bàn</h2>
+                <!--end::Modal title-->
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-icon-primary btn-close" data-kt-users-modal-action="close">
+                    <i class="ki-duotone ki-cross fs-1">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                    </i>
+                </div>
+                <!--end::Close-->
+            </div>
+            <!--end::Modal header-->
+            <!--begin::Modal body-->
+            <div class="modal-body px-5 my-7">
+                <!--begin::Form-->
+                <form class="form" action="{{ route('area.insert') }}" id="form-create" method="POST"
+                    enctype="multipart/form-data">
+                    <!--begin::Scroll-->
+                    <div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_user_scroll"
+                        data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-max-height="auto"
+                        data-kt-scroll-dependencies="#kt_modal_add_user_header"
+                        data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
 
-                      <!--begin::Aside-->
-                      <!--begin::Content-->
-                      <div class="flex-row-fluid py-lg-5 px-lg-15">
-                          <!--begin::Form-->
-                          <form class="form" action="{{ route('area.insert') }}" id="form-create" method="POST" enctype="multipart/form-data">
-                              <!--begin::Step 4-->
-                              <div data-kt-stepper-element="content" class="current">
-                                  <div class="w-100">
-                                      <div class="row">
-                                          <div class="col-md-6 d-flex flex-column mb-7 fv-row">
-                                              <!--begin::Label-->
-                                              <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                                  <span class="required">Tên khu
-                                                      vực</span>
-
-                                              </label>
-                                              <!--end::Label-->
-                                              <input type="text" class="form-control form-control-solid"
-                                                  placeholder="Nhập tên khu vực" name="name" value="" />
-                                          </div>
-
-                                          <div class=" col-md-6 d-flex flex-column mb-7 fv-row">
-                                              <!--begin::Label-->
-                                              <label class="fs-6 fw-semibold form-label mb-2">Mã
-                                              </label>
-                                              <!--end::Label-->
-                                              <!--begin::Input wrapper-->
-                                              <div class="position-relative">
-                                                  <!--begin::Input-->
-                                                  <input type="text" class="form-control form-control-solid"
-                                                      placeholder="Đê trống tự sinh" name="code" value="" />
-                                                  <!--end::Input-->
-                                                  <!--begin::Card logos-->
-
-                                              </div>
-                                              <!--end::Input wrapper-->
-                                          </div>
-                                      </div>
-                                      <div class="row">
-                                          <div class="col-md-6 d-flex flex-column mb-7 fv-row">
-                                              <!--begin::Label-->
-                                              <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                                  <span class="required">Sức chứa</span>
-
-                                              </label>
-                                              <!--end::Label-->
-                                              <input type="number" class="form-control form-control-solid"
-                                                  placeholder="Sức chứa khu vực" name="capacity" value="" />
-                                          </div>
-
-                                          <div class=" col-md-6 d-flex flex-column mb-7 fv-row">
-                                              <!--begin::Label-->
-                                              <label class="fs-6 fw-semibold form-label mb-2">Trạng thái</label>
-                                              <!--end::Label-->
-                                              <select class="form-select" aria-label="Select example" name="status">
-                                                  <option selected value="">Trạng thái </option>
-                                                  @foreach ($data['status'] as $key => $item)
-                                                      <option value="{{ $key }}">{{ $item[0] }}</option>
-                                                  @endforeach
+                        <!--begin::Input group-->
+                        <div class="fv-row mb-7">
+                            <!--begin::Label-->
+                            <label class="required fw-semibold fs-6 mb-2">Tên khu vực bàn</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input type="text" name="name" class="form-control form-control-solid mb-3 mb-lg-0"
+                                placeholder="Tên khu vực bàn" />
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Input group-->
+                        <!--begin::Input group-->
+                        <div class="fv-row mb-7">
+                            <!--begin::Label-->
+                            <label class=" fw-semibold fs-6 mb-2">Mã</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input type="text" name="code" class="form-control form-control-solid mb-3 mb-lg-0"
+                                placeholder="Để trống tự sinh" />
+                            <!--end::Input-->
+                        </div>
+                        <div class="fv-row mb-7">
+                            <!--begin::Label-->
+                            <label class=" fw-semibold fs-6 mb-2">Sức chứa</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <input type="text" name="capacity" class="form-control form-control-solid mb-3 mb-lg-0"
+                                placeholder="Sức chứa khu vực" />
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Input group-->
+                        <!--begin::Input group-->
+                        <div class="fv-row mb-7">
+                            <!--begin::Label-->
+                            <label class=" fw-semibold fs-6 mb-2">Mô tả</label>
+                            <!--end::Label-->
+                            <!--begin::Input-->
+                            <textarea class="form-control" aria-label="With textarea" rows="2" name="description"></textarea>
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Input group-->
 
 
-                                              </select>
-                                          </div>
-                                      </div>
+                        <!--end::Input group-->
+                        <div class="fv-row mb-7">
+                            <!--begin::Label-->
+                            <label class=" fw-semibold fs-6 mb-2">Trạng
+                                thái</label>
+                            <!--end::Label-->
+                            <select class="form-select w-50" aria-label="Select example" name="status">
+                                <option selected value="">Trạng thái </option>
+                                @foreach ($data['status'] as $key => $item)
+                                    <option value="{{ $key }}">{{ $item[0] }}</option>
+                                @endforeach
 
 
-                                    
-                                  </div>
-                              </div>
-
-
-                              <!--begin::Actions-->
-                              <div class="text-center pt-10">
-                                  <button type="reset" class="btn btn-light me-3 btn-cancle"
-                                      data-kt-users-modal-action="cancel">Hủy</button>
-                                  <button type="submit" class="btn btn-primary btn-create" data-kt-users-modal-action="submit">
-                                      <span class="indicator-label">Tạo mới</span>
-                                      <span class="indicator-progress">Please wait...
-                                          <span
-                                              class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                                  </button>
-                              </div>
-                              <!--end::Actions-->
-                          </form>
-                          <!--end::Form-->
-                      </div>
-                      <!--end::Content-->
-                  </div>
-                  <!--end::Stepper-->
-              </div>
-              <!--end::Modal body-->
-          </div>
-          <!--end::Modal content-->
-      </div>
-      <!--end::Modal dialog-->
-  </div>
-  <!--end::Modal - Create App-->
+                            </select>
+                        </div>
+                    </div>
+                    <!--end::Scroll-->
+                    <!--begin::Actions-->
+                    <div class="text-center pt-10">
+                        <button type="reset" class="btn btn-light me-3 btn-cancle"
+                            data-kt-users-modal-action="cancel">Hủy</button>
+                        <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
+                            <span class="indicator-label">Thêm</span>
+                            <span class="indicator-progress">Please wait...
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                        </button>
+                    </div>
+                    <!--end::Actions-->
+                </form>
+                <!--end::Form-->
+            </div>
+            <!--end::Modal body-->
+        </div>
+        <!--end::Modal content-->
+    </div>
+    <!--end::Modal dialog-->
+</div>
+<!--end::Modal - Add task-->

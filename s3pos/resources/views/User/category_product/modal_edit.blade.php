@@ -5,8 +5,8 @@
     <label class="required fw-semibold fs-6 mb-2">Tên danh mục</label>
     <!--end::Label-->
     <!--begin::Input-->
-    <input type="text" name="name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Tên danh mục"
-        value="{{ $category_product->name }}" />
+    <input type="text" name="name" class="form-control form-control-solid mb-3 mb-lg-0"
+        placeholder="Tên nhóm khách hàng" value="{{ $category_product->name }}" />
     <!--end::Input-->
 </div>
 
@@ -19,30 +19,11 @@
         placeholder="Để trống tự sinh" value="{{ $category_product->code }}" />
     <!--end::Input-->
 </div>
-
-
-<div class="fv-row mb-7">
-    <div class="card-title">
-        <span class=" fw-semibold fs-6 mb-2">Hình ảnh</span>
-    </div>
-    @if ($category_product->image != null)
-        <img src="{{ asset('storage/' . $category_product->image) }}" alt="" width="50" height="50">
-    @else
-        <img src="{{ asset('images/image_none.png') }}" alt="" width="50" height="50">
-    @endif
-    <input type="file" name="image" accept=".png, .jpg, .jpeg" />
-
-
-</div>
 <div class="fv-row mb-7">
     <!--begin::Label-->
     <label class="fw-semibold fs-6 mb-2">Mô tả</label>
-    <!--end::Label-->
-    <!--begin::Input-->
-    <textarea class="form-control" name="description" aria-label="With textarea" rows="2">{{ $category_product->description }}</textarea>
-    <!--end::Input-->
+   <textarea name="description" id=""  rows="2">{{ $category_product->description }}</textarea>
 </div>
-
 
 <div class="fv-row mb-7">
     <!--begin::Label-->
