@@ -7,8 +7,11 @@ use App\Models\Admin;
 use App\Models\License;
 use App\Models\Package;
 use App\Models\Store;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Response as ResHTTP;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -16,6 +19,15 @@ class HomeController extends Controller
     public function index()
     {
         return view('Admin.home.index');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        Cache::flush();
+        return redirect()->route('admin.login')->with('success', 'Đăng xuất thành công');
     }
 
     public function total()

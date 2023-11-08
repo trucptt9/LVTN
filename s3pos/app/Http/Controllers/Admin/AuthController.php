@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -43,6 +44,7 @@ class AuthController extends Controller
             $admin->last_login = now();
             $admin->save();
             DB::commit();
+            Auth::guard('admin')->login($admin);
             return redirect()->route('admin.index')->with('success', 'Đăng nhập thành công');
         } catch (\Throwable $th) {
             DB::rollBack();

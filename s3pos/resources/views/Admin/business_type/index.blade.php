@@ -1,8 +1,8 @@
-@extends('layout.default')
-@section('title', 'Kênh thanh toán')
+@extends('Admin.layout.default')
+@section('title', 'Loại hình doanh nghiệp')
 @section('content')
     <div class="d-flex justify-content-between mb-3">
-        <h3>Kênh thanh toán <span class="total-item">(0)</span></h3>
+        <h3>Loại hình doanh nghiệp <span class="total-item">(0)</span></h3>
         <div class="d-flex align-items-center gap-2">
             <a href="{{ previousUrl() }}" class="btn btn-secondary">
                 <i class="fas fa-chevron-left"></i> Quay lại
@@ -48,12 +48,13 @@
                         <th class="text-center w-125px">#</th>
                         <th class="text-center w-200px">Mã</th>
                         <th class="text-center">Tên</th>
+                        <th class="text-center w-200px">Số cửa hàng</th>
                         <th class="text-center w-125px">Trạng thái</th>
                     </tr>
                 </thead>
                 <tbody id="load-table" class="text-gray-600 fw-semibold">
                     <tr>
-                        <td colspan="4" class="text-center no-data">
+                        <td colspan="5" class="text-center no-data">
                             Không tìm thấy dữ liệu!
                         </td>
                     </tr>
@@ -62,15 +63,18 @@
         </div>
         <!--end::Card body-->
     </div>
-    @include('channel_payment.create')
+    <div class="alert alert-danger mt-3" role="alert">
+        <i class="fas fa-exclamation-triangle"></i> Chỉ được phép xóa những loại hình doanh nghiệp chưa có cửa hàng!
+    </div>
+    @include('Admin.business_type.create')
     <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
-            <form action="{{ route('channel_payment.update') }}" id="form-update" method="POST"
+            <form action="{{ route('admin.business_type.update') }}" id="form-update" method="POST"
                 enctype="multipart/form-data">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5">Cập nhật kênh thanh toán</h1>
+                        <h1 class="modal-title fs-5">Cập nhật Loại hình doanh nghiệp</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body px-4 py-1 content-update">
@@ -91,8 +95,8 @@
 @endsection
 @push('js')
     <script>
-        const routeList = "{{ route('channel_payment.list') }}";
-        const routeUpdate = "{{ route('channel_payment.update') }}";
+        const routeList = "{{ route('admin.business_type.list') }}";
+        const routeUpdate = "{{ route('admin.business_type.update') }}";
         filterTable();
 
         function filterTable() {
@@ -100,7 +104,7 @@
         };
 
         function confirmDelete(id) {
-            deleteData(id, "{{ route('channel_payment.delete') }}");
+            deleteData(id, "{{ route('admin.business_type.delete') }}");
         }
 
         $(document).ready(function() {

@@ -28,7 +28,7 @@ class AdminComposer
     public function compose(View $view)
     {
         if (auth('admin')->check()) {
-            $admin = auth()->user();
+            $admin = auth('admin')->user();
             $view->with('admin_staff', $admin);
 
             $key = 'admin-menu';

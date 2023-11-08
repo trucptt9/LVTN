@@ -5,20 +5,25 @@
     @foreach ($list as $item)
         <tr id="tr-{{ $item->id }}">
             <td class="text-center">
-                <a href="{{ route('channel_payment.detail', ['id' => $item->id]) }}"
+                <a href="{{ route('admin.business_type.detail', ['id' => $item->id]) }}"
                     class="btn bg-gradient bg-gray-200 btn-sm data-item">
                     <i class="fas fa-edit"></i>
                 </a>
-                <button class="btn bg-gradient-orange-red btn-sm btn-delete"
-                    onclick="confirmDelete('{{ $item->id }}')">
-                    <i class="fas fa-trash text-white"></i>
-                </button>
+                @if ($item->stores_count == 0)
+                    <button class="btn bg-gradient-orange-red btn-sm btn-delete"
+                        onclick="confirmDelete('{{ $item->id }}')">
+                        <i class="fas fa-trash text-white"></i>
+                    </button>
+                @endif
             </td>
             <td class="text-center">
                 {{ $item->code }}
             </td>
             <td>
                 {{ $item->name }}
+            </td>
+            <td class="text-center">
+                {{ number_format($item->stores_count) }}
             </td>
             <td class="text-center">
                 <div class="form-switch">
@@ -30,7 +35,7 @@
     @endforeach
     @if ($paginate != '')
         <tr>
-            <td colspan="4">
+            <td colspan="5">
                 <div class="mt-2">
                     {{ $paginate }}
                 </div>
@@ -39,7 +44,7 @@
     @endif
 @else
     <tr>
-        <td colspan="4" class="text-center no-data">
+        <td colspan="5" class="text-center no-data">
             Không tìm thấy dữ liệu!
         </td>
     </tr>

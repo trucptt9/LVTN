@@ -49,8 +49,9 @@ if (!defined('ARRAY_COLORS')) {
         '#0d6efd', '#dc3545', '#198754', '#0dcaf0', '#6c757d', '#f8f9fa', '#212529', '#ffc107'
     ]);
 }
-function formatNumber($number){
-        return number_format($number,0,',',',') ;
+function formatNumber($number)
+{
+    return number_format($number, 0, ',', ',');
 }
 
 if (!function_exists('generateRandomString')) {
@@ -169,7 +170,6 @@ if (!function_exists('showLog')) {
             'line' => $th->getLine()
         ]);
     }
-
 }
 if (!function_exists('renderSubMenu')) {
     // generate code
@@ -189,7 +189,7 @@ if (!function_exists('renderSubMenu')) {
                 $subSubMenu .= renderSubMenu($menu->menus, $currentUrl);
                 $subSubMenu .= '</div>';
             }
-            $active = ($currentUrl == $menuUrl) ? 'active' : '';
+            $active = (check_active($menuUrl, $currentUrl)) ? 'active' : '';
             if ($status_active == '') {
                 $status_active = $active;
             }
@@ -222,7 +222,7 @@ if (!function_exists('renderAdminMenu')) {
                 $menuSubMenu .= $subMenu[0];
                 $menuSubMenu .= '</div>';
             }
-            $active = ((!empty($menu->url) && $currentUrl == $menu->url) || $subMenu[1] == 'active') ? 'active' : '';
+            $active = ((!empty($menu->url) && check_active($menu->url, $currentUrl)) || $subMenu[1] == 'active') ? 'active' : '';
             echo '
                         <div class="menu-item ' . $hasSub . ' ' . $active . '">
                             <a href="' . $menuUrl . '" class="menu-link ' . $active . '">
@@ -234,5 +234,24 @@ if (!function_exists('renderAdminMenu')) {
                         </div>
                     ';
         }
+    }
+}
+
+if (!function_exists('check_active')) {
+    function check_active($url, $currentUrl)
+    {
+        if ($currentUrl != request()->schemeAndHttpHost() && $url != request()->schemeAndHttpHost()) {
+            $pattern = '/^' . preg_quote($url, '/') . '(\/.*)?$/';
+            return preg_match($pattern, $currentUrl);
+        } else {
+            return $url == $currentUrl;
+        }
+    }
+}
+
+if (!function_exists('previousUrl')) {
+    function previousUrl()
+    {
+        return url()->previous();
     }
 }
