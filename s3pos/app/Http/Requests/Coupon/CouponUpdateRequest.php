@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Promotions;
+namespace App\Http\Requests\Coupon;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PromotionsInsertRequest extends FormRequest
+class CouponUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,9 +23,7 @@ class PromotionsInsertRequest extends FormRequest
     {
         return [
             //
-            'subject' => 'required',
-            'start' => 'required',
-            
+            'id' => 'required|exists:coupons,id'
         ];
     }
 }

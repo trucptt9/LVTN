@@ -78,12 +78,12 @@
                         <thead>
                             <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
 
-                                <th class="w-140px">Mã</th>
+                                <th class="w-100px">Mã</th>
                                 <th class="">Tên chương trình</th>
-                                <th class="w-240px text-center">Thời gian áp dụng</th>
+                                <th class="w-200px text-center">Thời gian áp dụng</th>
                                 <th class="w-140px text-center" >Giá trị</th>
-                                <th class="w-140px text-center">Điều kiện</th>
-                                <th class="w-240px">Mô tả</th>
+                             
+                                <th class="w-240px">Mô tả</th>  
                                 <th class="w-125px text-center">Trạng thái</th>
                                 <th class=" w-90px text-center">#</th>
                             </tr>

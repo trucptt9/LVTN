@@ -22,6 +22,7 @@ class AuthController extends Controller
         try {
             DB::beginTransaction();
             $data = request()->all();
+           
             $rules = array(
                 'email' => 'required|email|exists:staffs,email',
                 'password' => 'required',

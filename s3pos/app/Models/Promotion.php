@@ -52,16 +52,18 @@ class Promotion extends Model
         });
     }
 
+    const STATUS_UN_ACTIVE = 'un_active';
     const STATUS_ACTIVE = 'active';
     const STATUS_BLOCKED = 'blocked';
 
     public static function get_status($status = '')
     {
-        $types = [
-            self::STATUS_ACTIVE => ['Đang kích hoạt', 'success', COLOR_SUCCESS],
-            self::STATUS_BLOCKED => ['Tạm ngưng', 'danger', COLOR_DANGER],
+        $_status = [
+            self::STATUS_UN_ACTIVE => ['Đang khởi tạo', 'secondary', COLOR_SECONDARY],
+            self::STATUS_ACTIVE => ['Đang chạy', 'success', COLOR_SUCCESS],
+            self::STATUS_BLOCKED => ['Đã kết thúc', 'danger', COLOR_DANGER],
         ];
-        return $status == '' ? $types : $types["$status"];
+        return $status == '' ? $_status : $_status["$status"];
     }
 
     const TYPE_VND = 'vnd';

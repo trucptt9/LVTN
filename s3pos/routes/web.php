@@ -65,9 +65,11 @@ Route::middleware(['auth','checkStaff'])->group(function () {
     });
     Route::prefix('staffs')->name('staff.')->group(function () {
         Route::get('', [StaffController::class, 'index'])->name('index');
-        Route::get('table', [StaffController::class, 'table'])->name('table');
-        Route::get('report', [StaffController::class, 'report'])->name('report');
+        Route::get('list', [StaffController::class, 'list'])->name('list');
         Route::get('detail/{id}', [StaffController::class, 'detail'])->name('detail');
+        Route::post('insert', [StaffController::class, 'insert'])->name('insert');
+        Route::post('update', [StaffController::class, 'update'])->name('update');
+        Route::get('delete', [StaffController::class, 'delete'])->name('delete');
     });
     Route::prefix('departments')->name('department.')->group(function () {
         Route::get('', [DepartmentController::class, 'index'])->name('index');

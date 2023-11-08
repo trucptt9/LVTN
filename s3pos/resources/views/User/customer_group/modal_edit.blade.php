@@ -25,7 +25,7 @@
     <label class="fw-semibold fs-6 mb-2">Mô tả</label>
     <!--end::Label-->
     <!--begin::Input-->
-    <textarea class="form-control" aria-label="With textarea" rows="2">{{ $customer_group->description }}</textarea>
+    <textarea class="form-control" aria-label="With textarea" rows="2" name="description">{{ $customer_group->description }}</textarea>
     <!--end::Input-->
 </div>
 
