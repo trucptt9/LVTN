@@ -10,6 +10,7 @@ use App\Models\Store;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Response as ResHTTP;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 class LicenseController extends Controller
 {
@@ -24,7 +25,7 @@ class LicenseController extends Controller
     {
         $data = [
             'status' => License::get_status(),
-            'stores' => Store::ofStatus(Store::STATUS_ACTIVE)->get(),
+            'stores' => Store::all(),
             'packages' => Package::ofStatus(Package::STATUS_ACTIVE)->get(),
             'report' => License::select('status', DB::raw('count(*) as total'))
                 ->groupBy('status')->get()
@@ -68,6 +69,15 @@ class LicenseController extends Controller
         $status = License::get_status($license->status);
         $modules = Module::ofStatus(Module::STATUS_ACTIVE)->get();
         return view('Admin.license.detail', compact('license', 'status', 'modules'));
+    }
+
+    public function invoice($id)
+    {
+        $data = [
+            'license' => License::with('payment', 'store', 'package')->findOrFail($id)
+        ];
+        $pdf = PDF::loadView('Admin.license.invoice', $data);
+        return $pdf->stream('invoice.pdf');
     }
 
     public function insert()
