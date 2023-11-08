@@ -16,13 +16,15 @@ class Table extends Model
         'code',
         'name',
         'status',
-        'seat'
+        'seat',
+        'order_id'
     ];
 
     protected $hidden = [];
 
     protected $casts = [
         'area_id' => 'integer',
+        'order_id' => 'integer',
         'seat' => 'integer',
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
@@ -55,7 +57,7 @@ class Table extends Model
         ];
         return $status == '' ? $types : $types["$status"];
     }
-   
+
     public function scopeOfCode($query, $code)
     {
         return $query->where('tables.code', $code);
@@ -65,6 +67,7 @@ class Table extends Model
     {
         return $query->where('tables.status', $status);
     }
+
     public function scopeSearch($query, $search)
     {
         return $query->where(function ($query) use ($search) {
@@ -72,6 +75,7 @@ class Table extends Model
                 ->orWhere('tables.name', 'LIKE', "%$search%");
         });
     }
+
     public function scopeStoreId($query, $store_id)
     {
         if (is_array($store_id)) {
@@ -88,8 +92,18 @@ class Table extends Model
         return $query->where('tables.area_id', $area_id);
     }
 
+    public function scopeOrderId($query, $order_id)
+    {
+        return $query->where('tables.order_id', $order_id);
+    }
+
     public function area()
     {
         return $this->belongsTo(Area::class, 'area_id');
+    }
+
+    public function order()
+    {
+        return $this->hasOne(Order::class, 'id', 'order_id');
     }
 }
