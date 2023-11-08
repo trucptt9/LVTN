@@ -61,6 +61,7 @@ class PackageController extends Controller
             'modules' => Module::ofStatus(Module::STATUS_ACTIVE)->get(),
         ];
         return view('Admin.package.detail', compact('package', 'data'));
+
     }
 
     public function insert()
@@ -98,6 +99,7 @@ class PackageController extends Controller
                 $data = request()->all();
                 $data['status'] = $package->status == Package::STATUS_ACTIVE ? Package::STATUS_BLOCKED : Package::STATUS_ACTIVE;
                 $data['modules'] = json_encode($data['modules']);
+
                 $package->update($data);
             } else {
                 $package->status = $package->status == Package::STATUS_ACTIVE ? Package::STATUS_BLOCKED : Package::STATUS_ACTIVE;
@@ -129,7 +131,9 @@ class PackageController extends Controller
             DB::beginTransaction();
             $id = request()->get('id', '');
             $package = Package::withCount('licenses')->find($id);
+
             if ($package && $package->licenses_count == 0) {
+
                 $package->delete();
                 DB::commit();
                 return Response::json([

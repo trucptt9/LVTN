@@ -54,9 +54,11 @@ class BusinessTypeController extends Controller
     public function detail($id)
     {
         $business_type = BusinessType::withCount('stores')->findOrFail($id);
+
         if (request()->ajax()) {
             return view('Admin.business_type.show', compact('business_type'))->render();
         }
+
         return view('Admin.business_type.detail', compact('business_type'));
     }
 

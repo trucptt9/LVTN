@@ -104,6 +104,7 @@ class StoreController extends Controller
             $store = Store::find($id);
             $data = request()->all();
             $store->update($data);
+
             DB::commit();
             return Response::json([
                 'status' => ResHTTP::HTTP_OK,
