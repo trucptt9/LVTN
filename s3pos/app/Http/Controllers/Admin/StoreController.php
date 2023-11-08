@@ -109,6 +109,7 @@ class StoreController extends Controller
             $data = request()->all();
             $data['status'] = $store->status == Store::STATUS_ACTIVE ? Store::STATUS_ACTIVE : Store::STATUS_BLOCKED;
             $store->update($data);
+
             DB::commit();
             if (request()->ajax()) {
                 return Response::json([
@@ -178,24 +179,5 @@ class StoreController extends Controller
             LIMIT 10";
         $list = DB::select($sql);
         return $list;
-    }
-
-    public function reset_password_manager(ResetManagerPassword $request)
-    {
-        try {
-            DB::beginTransaction();
-            $store_id = $request->store_id ?? '';
-            $store = Store::with('manager')->findOrFail($store_id);
-            if ($store && $store->manager) {
-                $store->manager->password = Hash::make(trim($request->password));
-                $store->manager->save();
-                DB::commit();
-                return redirect()->back()->with('success', 'Khôi phục thành công');
-            }
-        } catch (\Throwable $th) {
-            showLog($th);
-            DB::rollBack();
-        }
-        return redirect()->back()->with('error', 'Khôi phục thất bại!');
     }
 }

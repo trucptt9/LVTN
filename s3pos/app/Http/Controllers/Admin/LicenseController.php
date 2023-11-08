@@ -123,6 +123,7 @@ class LicenseController extends Controller
         try {
             DB::beginTransaction();
             $id = request()->get('id', '');
+
             $license = License::where('status', '<>', License::STATUS_SUSPEND)->whereId($id)->first();
             if ($license) {
                 $license->status = License::STATUS_SUSPEND;
@@ -130,7 +131,14 @@ class LicenseController extends Controller
                 $license->save();
                 DB::commit();
                 return redirect()->back()->with('success', 'Khóa thành công');
+
             }
+            DB::commit();
+            return Response::json([
+                'status' => ResHTTP::HTTP_OK,
+                'message' => 'Cập nhật thành công',
+                'type' => 'success'
+            ]);
         } catch (\Throwable $th) {
             showLog($th);
             DB::rollBack();

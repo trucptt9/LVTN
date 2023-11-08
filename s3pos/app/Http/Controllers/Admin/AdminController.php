@@ -54,6 +54,7 @@ class AdminController extends Controller
     public function detail($id)
     {
         $admin = Admin::findOrFail($id);
+
         if (request()->ajax()) {
             return view('Admin.admin.show', compact('admin'))->render();
         }
@@ -160,11 +161,5 @@ class AdminController extends Controller
                 'data' => '',
             ]);
         }
-    }
-
-    public function permission($id)
-    {
-        $admin = Admin::findOrFail($id);
-        return view('Admin.admin.permission', compact('admin'));
     }
 }

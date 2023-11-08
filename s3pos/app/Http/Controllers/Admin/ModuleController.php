@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-
 use App\Models\Module;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
@@ -58,6 +57,7 @@ class ModuleController extends Controller
         if (request()->ajax()) {
             return view('Admin.module.show', compact('module'))->render();
         }
+
         return view('Admin.module.detail', compact('module'));
     }
 
@@ -70,14 +70,12 @@ class ModuleController extends Controller
             $module->status = $module->status == Module::STATUS_ACTIVE ? Module::STATUS_ACTIVE : Module::STATUS_BLOCKED;
             $module->save();
             DB::commit();
-            if (request()->ajax()) {
-                return Response::json([
-                    'status' => ResHTTP::HTTP_OK,
-                    'message' => 'Cập nhật thành công',
-                    'type' => 'success'
-                ]);
-            }
-            return redirect()->back()->with('success', 'Cập nhật thành công');
+
+            return Response::json([
+                'status' => ResHTTP::HTTP_OK,
+                'message' => 'Cập nhật thành công',
+                'type' => 'success'
+            ]);
         } catch (\Throwable $th) {
             showLog($th);
             DB::rollBack();
@@ -88,4 +86,5 @@ class ModuleController extends Controller
             'type' => 'error'
         ]);
     }
+
 }
