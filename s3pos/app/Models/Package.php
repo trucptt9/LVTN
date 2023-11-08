@@ -75,4 +75,9 @@ class Package extends Model
                 ->orWhere('packages.name', 'LIKE', "%$search%");
         });
     }
+
+    public function licenses()
+    {
+        return $this->hasMany(License::class, 'package_id', 'id');
+    }
 }

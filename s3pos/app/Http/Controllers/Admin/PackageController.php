@@ -32,7 +32,7 @@ class PackageController extends Controller
             $status = request('status', '');
             $search = request('search', '');
 
-            $list = Package::query();
+            $list = Package::withCount('licenses');
             $list = $status != '' ? $list->ofStatus($status) : $list;
             $list = $search != '' ? $list->search($search) : $list;
 
@@ -53,7 +53,7 @@ class PackageController extends Controller
 
     public function detail($id)
     {
-        $package = Package::findOrFail($id);
+        $package = Package::withCount('licenses')->findOrFail($id);
         return view('Admin.package.detail', compact('package'));
     }
 
@@ -62,6 +62,7 @@ class PackageController extends Controller
         try {
             DB::beginTransaction();
             $data = request()->all();
+            $data['modules'] = json_encode($data['modules']);
             Package::create($data);
             DB::commit();
             return Response::json([
@@ -85,9 +86,16 @@ class PackageController extends Controller
         try {
             DB::beginTransaction();
             $id = request()->get('id', '');
-            $data = request()->all();
+            $type = request('type', 'one');
             $package = Package::find($id);
-            $package->update($data);
+            if ($type == 'all') {
+                $data = request()->all();
+                $data['status'] = $package->status == Package::STATUS_ACTIVE ? Package::STATUS_BLOCKED : Package::STATUS_ACTIVE;
+                $package->update($data);
+            } else {
+                $package->status = $package->status == Package::STATUS_ACTIVE ? Package::STATUS_BLOCKED : Package::STATUS_ACTIVE;
+                $package->save();
+            }
             DB::commit();
             return Response::json([
                 'status' => ResHTTP::HTTP_OK,
@@ -110,8 +118,9 @@ class PackageController extends Controller
         try {
             DB::beginTransaction();
             $id = request()->get('id', '');
-            $package = Package::find($id);
-            if ($package) {
+            $package = Package::withCount('licenses')->find($id);
+            $package = Package::withCount('licenses')->find($id);
+            if ($package && $package->count_licenses == 0) {
                 $package->delete();
                 DB::commit();
                 return Response::json([

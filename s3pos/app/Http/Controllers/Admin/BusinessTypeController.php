@@ -53,7 +53,7 @@ class BusinessTypeController extends Controller
 
     public function detail($id)
     {
-        $business_type = BusinessType::findOrFail($id);
+        $business_type = BusinessType::withCount('stores')->findOrFail($id);
         return view('Admin.business_type.detail', compact('business_type'));
     }
 
@@ -85,9 +85,16 @@ class BusinessTypeController extends Controller
         try {
             DB::beginTransaction();
             $id = request()->get('id', '');
-            $data = request()->all();
+            $type = request('type', 'one');
             $business_type = BusinessType::find($id);
-            $business_type->update($data);
+            if ($type == 'all') {
+                $data = request()->all();
+                $data['status'] = $business_type->status == BusinessType::STATUS_ACTIVE ? BusinessType::STATUS_BLOCKED : BusinessType::STATUS_ACTIVE;
+                $business_type->update($data);
+            } else {
+                $business_type->status = $business_type->status == BusinessType::STATUS_ACTIVE ? BusinessType::STATUS_BLOCKED : BusinessType::STATUS_ACTIVE;
+                $business_type->save();
+            }
             DB::commit();
             return Response::json([
                 'status' => ResHTTP::HTTP_OK,
