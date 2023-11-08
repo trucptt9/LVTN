@@ -2,7 +2,7 @@
 @section('title', 'Gói dịch vụ')
 @section('content')
     <div class="d-flex justify-content-between mb-3">
-        <h3>Gói dịch vụ <span class="total-item">(0)</span></h3>
+        <h4>Gói dịch vụ <span class="total-item">(0)</span></h4>
         <div class="d-flex align-items-center gap-2">
             <a href="{{ previousUrl() }}" class="btn btn-secondary">
                 <i class="fas fa-chevron-left"></i> Quay lại
@@ -34,7 +34,6 @@
                             data-bs-toggle="modal" data-bs-target="#addModal">
                             <i class="fas fa-plus"></i> Tạo
                         </button>
-
                     </div>
                 </div>
             </div>
@@ -75,7 +74,7 @@
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5">Cập nhật Gói dịch vụ</h1>
+                        <h1 class="modal-title fs-5">Cập nhật gói dịch vụ</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body px-4 py-1 content-update">

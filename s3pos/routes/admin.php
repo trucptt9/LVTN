@@ -33,6 +33,7 @@ Route::prefix('system')->name('admin.')->group(function () {
 
     Route::middleware(['checkAdmin'])->group(function () {
         Route::get('logout', [HomeController::class, 'logout'])->name('logout');
+        Route::get('guide', [HomeController::class, 'guide'])->name('guide');
         // home
         Route::get('', [HomeController::class, 'index'])->name('index');
         Route::prefix('stores')->name('store.')->group(function () {
@@ -49,6 +50,11 @@ Route::prefix('system')->name('admin.')->group(function () {
             Route::post('insert', [StoreController::class, 'insert'])->name('insert');
             Route::post('update', [StoreController::class, 'update'])->name('update');
             Route::post('delete', [StoreController::class, 'delete'])->name('delete');
+            Route::post('reset_password_manager', [StoreController::class, 'reset_password_manager'])->name('reset_password_manager');
+            Route::prefix('report')->name('report.')->group(function () {
+                Route::post('revenue_by_month', [StoreController::class, 'report_revenue_by_month'])->name('revenue_by_month');
+                Route::post('revenue_by_product', [StoreController::class, 'report_revenue_by_product'])->name('revenue_by_product');
+            });
         });
         Route::prefix('business_type')->name('business_type.')->group(function () {
             Route::get('', [BusinessTypeController::class, 'index'])->name('index');
@@ -72,15 +78,11 @@ Route::prefix('system')->name('admin.')->group(function () {
             Route::get('detail/{id}', [ModuleController::class, 'detail'])->name('detail');
             Route::post('update', [ModuleController::class, 'update'])->name('update');
         });
-        Route::prefix('module')->name('module.')->group(function () {
-            Route::get('', [ModuleController::class, 'index'])->name('index');
-            Route::get('table', [ModuleController::class, 'table'])->name('list');
-            Route::get('detail/{id}', [ModuleController::class, 'detail'])->name('detail');
-        });
         Route::prefix('license')->name('license.')->group(function () {
             Route::get('', [LicenseController::class, 'index'])->name('index');
             Route::get('table', [LicenseController::class, 'table'])->name('list');
             Route::get('detail/{id}', [LicenseController::class, 'detail'])->name('detail');
+            Route::get('invoice/{id}', [LicenseController::class, 'invoice'])->name('invoice');
             Route::get('report', [LicenseController::class, 'report'])->name('report');
             Route::post('insert', [LicenseController::class, 'insert'])->name('insert');
             Route::post('update', [LicenseController::class, 'update'])->name('update');
@@ -95,6 +97,7 @@ Route::prefix('system')->name('admin.')->group(function () {
             Route::get('', [AdminController::class, 'index'])->name('index');
             Route::get('table', [AdminController::class, 'table'])->name('list');
             Route::get('detail/{id}', [AdminController::class, 'detail'])->name('detail');
+            Route::get('permission/{id}', [AdminController::class, 'permission'])->name('permission');
             Route::get('report', [AdminController::class, 'report'])->name('report');
             Route::post('insert', [AdminController::class, 'insert'])->name('insert');
             Route::post('update', [AdminController::class, 'update'])->name('update');
