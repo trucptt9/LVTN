@@ -53,7 +53,7 @@ class AdminController extends Controller
 
     public function detail($id)
     {
-        $license = Admin::findOrFail($id);
+        $admin = Admin::findOrFail($id);
         return view('Admin.admin.detail', compact('license'));
     }
 
@@ -85,9 +85,16 @@ class AdminController extends Controller
         try {
             DB::beginTransaction();
             $id = request()->get('id', '');
-            $data = request()->all();
-            $license = Admin::find($id);
-            $license->update($data);
+            $type = request('type', 'one');
+            $admin = Admin::find($id);
+            if ($type == 'all') {
+                $data = request()->all();
+                $data['status'] = $admin->status == Admin::STATUS_ACTIVE ? Admin::STATUS_SUSPEND : Admin::STATUS_ACTIVE;
+                $admin->update($data);
+            } else {
+                $admin->status = $admin->status == Admin::STATUS_ACTIVE ? Admin::STATUS_SUSPEND : Admin::STATUS_ACTIVE;
+                $admin->save();
+            }
             DB::commit();
             return Response::json([
                 'status' => ResHTTP::HTTP_OK,
@@ -110,9 +117,9 @@ class AdminController extends Controller
         try {
             DB::beginTransaction();
             $id = request()->get('id', '');
-            $license = Admin::ofRoot('false')->whereId($id)->first();
-            if ($license) {
-                $license->delete();
+            $admin = Admin::ofRoot('false')->whereId($id)->first();
+            if ($admin) {
+                $admin->delete();
                 DB::commit();
                 return Response::json([
                     'status' => ResHTTP::HTTP_OK,

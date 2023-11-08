@@ -87,9 +87,16 @@ class StoreController extends Controller
         try {
             DB::beginTransaction();
             $id = request()->get('id', '');
-            $data = request()->all();
+            $type = request('type', 'one');
             $store = Store::find($id);
-            $store->update($data);
+            if ($type == 'all') {
+                $data = request()->all();
+                $data['status'] = $store->status == Store::STATUS_ACTIVE ? Store::STATUS_BLOCKED : Store::STATUS_ACTIVE;
+                $store->update($data);
+            } else {
+                $store->status = $store->status == Store::STATUS_ACTIVE ? Store::STATUS_BLOCKED : Store::STATUS_ACTIVE;
+                $store->save();
+            }
             DB::commit();
             return Response::json([
                 'status' => ResHTTP::HTTP_OK,

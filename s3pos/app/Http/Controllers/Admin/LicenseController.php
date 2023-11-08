@@ -58,7 +58,7 @@ class LicenseController extends Controller
 
     public function detail($id)
     {
-        $license = License::with('payment')->findOrFail($id);
+        $license = License::with('payment', 'store', 'package')->findOrFail($id);
         return view('Admin.license.detail', compact('license'));
     }
 
@@ -93,20 +93,24 @@ class LicenseController extends Controller
         try {
             DB::beginTransaction();
             $id = request()->get('id', '');
-            $data = request()->all();
+            $type = request('type', 'one');
             $license = License::ofStatus(License::STATUS_UN_ACTIVE)->whereId($id)->first();
-            if ($license) {
+            if ($type == 'all') {
+                $data = request()->all();
                 $package = Package::find($data['package_id']);
                 $total_month = $data['total_month'] ?? 1;
                 $data['total_amount'] = $package->amount * $total_month;
                 $license->update($data);
-                DB::commit();
-                return Response::json([
-                    'status' => ResHTTP::HTTP_OK,
-                    'message' => 'Cập nhật thành công',
-                    'type' => 'success'
-                ]);
+            } else {
+                $license->status = $license->status == License::STATUS_ACTIVE ? License::STATUS_SUSPEND : License::STATUS_ACTIVE;
+                $license->save();
             }
+            DB::commit();
+            return Response::json([
+                'status' => ResHTTP::HTTP_OK,
+                'message' => 'Cập nhật thành công',
+                'type' => 'success'
+            ]);
         } catch (\Throwable $th) {
             showLog($th);
             DB::rollBack();
