@@ -97,7 +97,11 @@
     <script>
         const routeList = "{{ route('admin.business_type.list') }}";
         const routeUpdate = "{{ route('admin.business_type.update') }}";
+<<<<<<< HEAD
         filterTable(page = 1);
+=======
+        filterTable();
+>>>>>>> 3cb5f0d (update admin)
 
         function filterTable(page) {
             loadTable(page, routeList);

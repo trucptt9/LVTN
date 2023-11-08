@@ -1,17 +1,7 @@
-$.ajaxSetup({
-    headers: {
-        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-    },
-});
 if ($(".select-picker")) {
     $(".select-picker").picker();
 }
-const Toast = Swal.mixin({
-    toast: true,
-    position: "bottom-end",
-    showConfirmButton: false,
-    timer: 3000,
-});
+
 $("form").submit(function () {
     const btn_submit = $(this).find('button[type="submit"]');
     btn_submit.html(`<span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
