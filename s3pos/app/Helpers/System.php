@@ -271,6 +271,7 @@ if (!function_exists('previousUrl')) {
     }
 }
 
+
 if (!function_exists('save_log_action_admin')) {
     function save_log_action_admin($content, $link = '')
     {
