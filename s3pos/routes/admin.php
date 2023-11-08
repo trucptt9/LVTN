@@ -71,17 +71,20 @@ Route::prefix('system')->name('admin.')->group(function () {
             Route::post('insert', [PackageController::class, 'insert'])->name('insert');
             Route::post('update', [PackageController::class, 'update'])->name('update');
             Route::post('delete', [PackageController::class, 'delete'])->name('delete');
+
         });
         Route::prefix('module')->name('module.')->group(function () {
             Route::get('', [ModuleController::class, 'index'])->name('index');
             Route::get('table', [ModuleController::class, 'table'])->name('list');
             Route::get('detail/{id}', [ModuleController::class, 'detail'])->name('detail');
             Route::post('update', [ModuleController::class, 'update'])->name('update');
+
         });
         Route::prefix('module')->name('module.')->group(function () {
             Route::get('', [ModuleController::class, 'index'])->name('index');
             Route::get('table', [ModuleController::class, 'table'])->name('list');
             Route::get('detail/{id}', [ModuleController::class, 'detail'])->name('detail');
+            Route::post('update', [ModuleController::class, 'update'])->name('update');
         });
         Route::prefix('license')->name('license.')->group(function () {
             Route::get('', [LicenseController::class, 'index'])->name('index');

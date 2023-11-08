@@ -8,7 +8,6 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body px-4 py-1">
-<<<<<<< HEAD
                     <ul class="nav nav-tabs mt-2" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active text-uppercase" id="basic-tab" data-bs-toggle="tab"
@@ -68,7 +67,7 @@
                                             </label>
                                         </div>
                                     @endforeach
-=======
+
                     <div class="modal-body px-4 py-1">
                         <ul class="nav nav-tabs mt-2" id="myTab" role="tablist">
                             <li class="nav-item" role="presentation">
@@ -124,7 +123,22 @@
                                     <button class="btn btn-success btn-add-row my-3 w-100" type="button">
                                         <i class="fas fa-plus"></i> Thêm
                                     </button>
->>>>>>> 3cb5f0d (update admin)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="option-tab-pane" role="tabpanel" aria-labelledby="option-tab"
+                            tabindex="0">
+                            <div class="data-content mt-2 px-3">
+                                <div class="row">
+                                    @foreach ($data['modules'] as $item)
+                                        <div class="form-check form-switch col-sm-6">
+                                            <input class="form-check-input" name="modules[]" value="{{ $item->code }}"
+                                                type="checkbox" role="switch" id="switch_module_{{ $item->id }}">
+                                            <label class="form-check-label" for="switch_module_{{ $item->id }}">
+                                                {{ $item->name }}
+                                            </label>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
