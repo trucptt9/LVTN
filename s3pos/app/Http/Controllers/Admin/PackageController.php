@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Module;
 use App\Models\Package;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Response as ResHTTP;
@@ -21,6 +22,7 @@ class PackageController extends Controller
     {
         $data = [
             'status' => Package::get_status(),
+            'modules' => Module::ofStatus(Module::STATUS_ACTIVE)->get(),
         ];
         return view('Admin.package.index', compact('data'));
     }
@@ -54,7 +56,11 @@ class PackageController extends Controller
     public function detail($id)
     {
         $package = Package::withCount('licenses')->findOrFail($id);
-        return view('Admin.package.detail', compact('package'));
+        $data = [
+            'status' => Package::get_status(),
+            'modules' => Module::ofStatus(Module::STATUS_ACTIVE)->get(),
+        ];
+        return view('Admin.package.detail', compact('package', 'data'));
     }
 
     public function insert()
@@ -91,17 +97,21 @@ class PackageController extends Controller
             if ($type == 'all') {
                 $data = request()->all();
                 $data['status'] = $package->status == Package::STATUS_ACTIVE ? Package::STATUS_BLOCKED : Package::STATUS_ACTIVE;
+                $data['modules'] = json_encode($data['modules']);
                 $package->update($data);
             } else {
                 $package->status = $package->status == Package::STATUS_ACTIVE ? Package::STATUS_BLOCKED : Package::STATUS_ACTIVE;
                 $package->save();
             }
             DB::commit();
-            return Response::json([
-                'status' => ResHTTP::HTTP_OK,
-                'message' => 'Cập nhật thành công',
-                'type' => 'success'
-            ]);
+            if (request()->ajax()) {
+                return Response::json([
+                    'status' => ResHTTP::HTTP_OK,
+                    'message' => 'Cập nhật thành công',
+                    'type' => 'success'
+                ]);
+            }
+            return redirect()->back()->with('success', 'Cập nhật thành công');
         } catch (\Throwable $th) {
             showLog($th);
             DB::rollBack();
@@ -119,8 +129,7 @@ class PackageController extends Controller
             DB::beginTransaction();
             $id = request()->get('id', '');
             $package = Package::withCount('licenses')->find($id);
-            $package = Package::withCount('licenses')->find($id);
-            if ($package && $package->count_licenses == 0) {
+            if ($package && $package->licenses_count == 0) {
                 $package->delete();
                 DB::commit();
                 return Response::json([
