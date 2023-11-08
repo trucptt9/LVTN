@@ -42,7 +42,7 @@
                         class="ms-100 mh-100 rounded-circle" />
                 </div>
                 <div class="menu-text">
-                    {{ $admin_staff->position ? $admin_staff->position->name : 'Nhân viên' }}
+                    Quản trị viên
                     <div class="text-wrap text-body-secondary fs-6 st-italic">
                         {{ $admin_staff->name }}
                     </div>

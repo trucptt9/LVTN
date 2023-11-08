@@ -1,10 +1,11 @@
 <div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
-        <form action="{{ route('channel_payment.insert') }}" id="form-create" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.business_type.insert') }}" id="form-create" method="POST"
+            enctype="multipart/form-data">
             @csrf
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5">Tạo mới kênh thanh toán</h1>
+                    <h1 class="modal-title fs-5">Tạo mới loại hình doanh nghiệp</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body px-4 py-1">
@@ -15,10 +16,6 @@
                     <div class="mb-1 form-group">
                         <label class="col-form-label">Tên *</label>
                         <input type="text" class="form-control" name="name">
-                    </div>
-                    <div class="mb-1 form-group">
-                        <label class="col-form-label">Hình ảnh</label>
-                        <input type="file" class="form-control" name="image">
                     </div>
                     <div class="my-3">
                         <div class="form-check form-switch">
