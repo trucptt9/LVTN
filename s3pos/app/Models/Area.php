@@ -16,7 +16,8 @@ class Area extends Model
         'name',
         'capacity',
         'priority',
-        'status'
+        'status',
+        'diagram'
     ];
 
     protected $hidden = [];

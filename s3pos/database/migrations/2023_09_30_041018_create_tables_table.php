@@ -14,14 +14,13 @@ return new class extends Migration
         Schema::create('tables', function (Blueprint $table) {
             $table->id()->index();
             $table->unsignedBigInteger('area_id')->index();
-          
+            $table->unsignedBigInteger('order_id')->nullable();
             $table->string('code')->unique()->index();
             $table->string('name');
             $table->integer('seat')->nullable()->default(1);
             $table->enum('status', ['active', 'blocked'])->index()->nullable()->default('blocked');
             $table->timestamps();
             $table->foreign('area_id')->references('id')->on('areas')->onDelete('cascade');
-           
         });
     }
 
