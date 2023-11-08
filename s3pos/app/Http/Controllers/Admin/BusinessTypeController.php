@@ -58,7 +58,6 @@ class BusinessTypeController extends Controller
         if (request()->ajax()) {
             return view('Admin.business_type.show', compact('business_type'))->render();
         }
-
         return view('Admin.business_type.detail', compact('business_type'));
     }
 
