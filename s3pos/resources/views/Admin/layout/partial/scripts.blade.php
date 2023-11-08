@@ -75,7 +75,7 @@
     function deleteData(id, url, title = 'Xác nhận xóa dữ liệu này?') {
         if (confirm(title)) {
             showSpiner('.table-loading');
-            $.get(url, {
+            $.post(url, {
                 id: id
             }, function(rs) {
                 hideSniper('.table-loading');
