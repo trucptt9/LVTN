@@ -1,7 +1,7 @@
 <meta charset="utf-8" />
 <title>{{ get_option_admin('short-name') }} | @yield('title')</title>
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<link rel="icon" href="{{ asset(get_option_admin('app-favicon')) }}">
+<link rel="icon" href="{{ show_s3_file(get_option_admin('app-favicon')) }}">
 
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -45,5 +45,9 @@
         position: absolute;
         top: 50%;
         right: 50%;
+    }
+
+    .brand-logo {
+        height: 80px !important;
     }
 </style>

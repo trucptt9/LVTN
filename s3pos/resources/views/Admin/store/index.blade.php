@@ -27,7 +27,7 @@
                     <div class="me-2 mw-150px">
                         <select name="type_id" class="form-select filter-type_id form-filter select-picker">
                             <option value="" selected>-- Loại --</option>
-                            @foreach ($data['types'] as $item)
+                            @foreach ($data['business_types'] as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
@@ -36,6 +36,11 @@
                         <button type="submit" data-bs-toggle="tooltip" title="Tải lại dữ liệu"
                             class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-primary btn-reload">
                             <i class="fas fa-sync"></i>
+                        </button>
+                        <button type="button"
+                            class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-primary"
+                            data-bs-toggle="modal" data-bs-target="#addModal">
+                            <i class="fas fa-plus"></i> Tạo
                         </button>
                     </div>
                 </div>
@@ -66,6 +71,7 @@
         </div>
         <!--end::Card body-->
     </div>
+    @include('Admin.store.create')
     <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <form action="{{ route('admin.store.update') }}" id="form-update" method="POST" enctype="multipart/form-data">

@@ -53,4 +53,9 @@ class HomeController extends Controller
             'data' => $list
         ]);
     }
+
+    public function guide()
+    {
+        return view('Admin.guide.index');
+    }
 }

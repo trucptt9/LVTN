@@ -6,6 +6,7 @@ use App\Models\AdminSetting;
 use App\Models\Settings;
 use App\Models\StaffHistory;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 // color
@@ -143,6 +144,7 @@ if (!function_exists('save_log_action')) {
         return $log;
     }
 }
+
 if (!function_exists('get_avatar_api')) {
     function get_avatar_api($name = '')
     {

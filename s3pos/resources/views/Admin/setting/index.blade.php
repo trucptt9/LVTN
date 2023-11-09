@@ -51,7 +51,7 @@
                                             @endif
                                         </label>
                                         <div class="col-lg-9 mb-3">
-                                            <img src="{{ asset($setting->value) }}" alt="" class="image-setting"
+                                            <img src="{{ show_s3_file($setting->value) }}" alt="" class="image-setting"
                                                 onclick="clickElement('{{ $setting->code }}')">
                                             <input type="file" onchange="previewFile()" class="form-control"
                                                 name="{{ $setting->code }}" class="{{ $setting->code }}"
