@@ -9,7 +9,7 @@
             @endphp
             {{ renderAdminMenu($currentUrl) }}
             <div class="p-3 px-4 mt-auto hide-on-minified">
-                <a href="" class="btn btn-secondary d-block w-100 fw-600 rounded-pill">
+                <a href="{{ route('admin.guide') }}" class="btn btn-secondary d-block w-100 fw-600 rounded-pill">
                     <i class="fas fa-book me-1 ms-n1 opacity-5"></i> Hướng dẫn
                 </a>
             </div>

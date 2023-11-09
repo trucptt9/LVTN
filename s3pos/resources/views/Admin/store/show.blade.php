@@ -7,7 +7,7 @@
     <label class="col-form-label">Loại *</label>
     <select name="type_id" class="form-select select-picker">
         <option value="" selected>-- Chọn --</option>
-        @foreach ($data['types'] as $item)
+        @foreach ($data['business_types'] as $item)
             <option {{ $store->business_type_id == $item->id ? 'selected' : '' }} value="{{ $item->id }}"
                 {{ $store->type_id == $item->id ? 'selected' : '' }}>
                 {{ $item->name }}</option>

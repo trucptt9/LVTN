@@ -13,12 +13,11 @@ return new class extends Migration
     {
         Schema::create('admin_histories', function (Blueprint $table) {
             $table->id()->index();
-            $table->unsignedBigInteger('admin_id')->index();
+            $table->unsignedBigInteger('admin_id')->index()->nullable();
             $table->integer('action');
             $table->string('link');
             $table->string('note');
             $table->timestamps();
-            $table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
         });
     }
 

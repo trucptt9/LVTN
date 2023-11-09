@@ -6,6 +6,7 @@ use App\Models\AdminSetting;
 use App\Models\Settings;
 use App\Models\StaffHistory;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 // color
@@ -123,18 +124,6 @@ if (!function_exists('get_option_admin')) {
     {
         $option = AdminSetting::ofCode($code)->first();
         return $option->value ?? $default;
-    }
-}
-if (!function_exists('save_log_action')) {
-    function save_log_action($description, $action, $link = null)
-    {
-        $log = StaffHistory::create([
-            'staff_id' => auth('staff')->check() ? auth('staff')->user()->id : 0,
-            'description' => $description,
-            'action' => $action,
-            'link' => $link
-        ]);
-        return $log;
     }
 }
 if (!function_exists('get_avatar_api')) {
@@ -286,5 +275,19 @@ if (!function_exists('save_log_action')) {
             'link' => $link ? $link : request()->getUri()
         ]);
         return $log;
+    }
+}
+
+if (!function_exists('show_s3_file')) {
+    function show_s3_file($link)
+    {
+        return asset("storage/$link");
+    }
+}
+
+if (!function_exists('remove_s3_file')) {
+    function remove_s3_file($link)
+    {
+        return Storage::disk('public')->delete($link);
     }
 }

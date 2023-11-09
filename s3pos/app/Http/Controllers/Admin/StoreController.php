@@ -24,7 +24,7 @@ class StoreController extends Controller
     {
         $data = [
             'status' => Store::get_status(),
-            'types' => BusinessType::ofStatus(BusinessType::STATUS_ACTIVE)->get(),
+            'business_types' => BusinessType::ofStatus(BusinessType::STATUS_ACTIVE)->get(),
         ];
         return view('Admin.store.index', compact('data'));
     }
@@ -62,7 +62,7 @@ class StoreController extends Controller
         $store = Store::with('businessType')->findOrFail($id);
         $data = [
             'status' => Store::get_status($store->status),
-            'types' => BusinessType::ofStatus(BusinessType::STATUS_ACTIVE)->get(),
+            'business_types' => BusinessType::ofStatus(BusinessType::STATUS_ACTIVE)->get(),
             'staffs' => Staff::storeId($id)->count(),
             'revenue' => Order::storeId($id)->sum('total'),
             'orders' => Order::storeId($id)->count(),

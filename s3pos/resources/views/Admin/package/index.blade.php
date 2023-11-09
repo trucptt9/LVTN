@@ -34,7 +34,6 @@
                             data-bs-toggle="modal" data-bs-target="#addModal">
                             <i class="fas fa-plus"></i> Tạo
                         </button>
-
                     </div>
                 </div>
             </div>

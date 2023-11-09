@@ -33,6 +33,7 @@ Route::prefix('system')->name('admin.')->group(function () {
 
     Route::middleware(['checkAdmin'])->group(function () {
         Route::get('logout', [HomeController::class, 'logout'])->name('logout');
+        Route::get('guide', [HomeController::class, 'guide'])->name('guide');
         // home
         Route::get('', [HomeController::class, 'index'])->name('index');
         Route::prefix('stores')->name('store.')->group(function () {

@@ -21,7 +21,7 @@
         </div>
 
         <a href="{{ route('admin.index') }}" class="brand-logo">
-            <img src="{{ asset(get_option_admin('app-logo')) }}" class="invert-dark" alt="" height="20" />
+            <img src="{{ show_s3_file(get_option_admin('app-logo')) }}" class="invert-dark" alt="" />
         </a>
     </div>
     <!-- END brand -->
@@ -36,19 +36,20 @@
         </form>
         <div class="menu-item dropdown">
             <a href="#" data-bs-toggle="dropdown" data-display="static" class="menu-link">
-                <div class="menu-img online">
-                    <img src="{{ $admin_staff->avatar ?? asset('admin/assets/img/favicon.png') }}" alt=""
-                        class="ms-100 mh-100 rounded-circle" />
-                </div>
-                <div class="menu-text">
-                    Quản trị viên
+                <div class="menu-text text-end pe-2">
+                    <span class="text-gray-500">Quản trị viên</span>
                     <div class="text-wrap text-body-secondary fs-6 st-italic">
                         {{ $admin_staff->name }}
                     </div>
                 </div>
+                <div class="menu-img online">
+                    <img src="{{ $admin_staff->avatar ?? show_s3_file(get_option_admin('app-favicon')) }}"
+                        alt="" class="ms-100 mh-100 rounded-circle" />
+                </div>
             </a>
             <div class="dropdown-menu dropdown-menu-end me-lg-3">
-                <a class="dropdown-item d-flex align-items-center" href="/">
+                <a class="dropdown-item d-flex align-items-center"
+                    href="{{ route('admin.admin.detail', ['id' => $admin_staff->id]) }}">
                     Cá nhân
                     <i class="fa fa-user-circle fa-fw ms-auto text-body text-opacity-50"></i>
                 </a>
