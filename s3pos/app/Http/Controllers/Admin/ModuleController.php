@@ -54,6 +54,9 @@ class ModuleController extends Controller
     public function detail($id)
     {
         $module = Module::findOrFail($id);
+        if (request()->ajax()) {
+            return view('Admin.module.show', compact('module'))->render();
+        }
         return view('Admin.module.detail', compact('module'));
     }
 
@@ -65,6 +68,7 @@ class ModuleController extends Controller
             $module = Module::find($id);
             $module->status = $module->status == Module::STATUS_ACTIVE ? Module::STATUS_BLOCKED : Module::STATUS_ACTIVE;
             $module->save();
+            DB::commit();
             return Response::json([
                 'status' => ResHTTP::HTTP_OK,
                 'message' => 'Cập nhật thành công',

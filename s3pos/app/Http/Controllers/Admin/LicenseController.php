@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\License;
+use App\Models\Module;
 use App\Models\Package;
+use App\Models\Store;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Response as ResHTTP;
 use Illuminate\Support\Facades\DB;
@@ -22,6 +24,8 @@ class LicenseController extends Controller
     {
         $data = [
             'status' => License::get_status(),
+            'stores' => Store::ofStatus(Store::STATUS_ACTIVE)->get(),
+            'packages' => Package::ofStatus(Package::STATUS_ACTIVE)->get(),
         ];
         return view('Admin.license.index', compact('data'));
     }
@@ -35,7 +39,7 @@ class LicenseController extends Controller
             $store_id = request('store_id', '');
             $package_id = request('package_id', '');
 
-            $list = License::query();
+            $list = License::with('store', 'package');
             $list = $status != '' ? $list->ofStatus($status) : $list;
             $list = $search != '' ? $list->search($search) : $list;
             $list = $store_id != '' ? $list->storeId($store_id) : $list;
@@ -59,7 +63,9 @@ class LicenseController extends Controller
     public function detail($id)
     {
         $license = License::with('payment', 'store', 'package')->findOrFail($id);
-        return view('Admin.license.detail', compact('license'));
+        $status = License::get_status($license->status);
+        $modules = Module::ofStatus(Module::STATUS_ACTIVE)->get();
+        return view('Admin.license.detail', compact('license', 'status', 'modules'));
     }
 
     public function insert()
@@ -93,33 +99,19 @@ class LicenseController extends Controller
         try {
             DB::beginTransaction();
             $id = request()->get('id', '');
-            $type = request('type', 'one');
-            $license = License::ofStatus(License::STATUS_UN_ACTIVE)->whereId($id)->first();
-            if ($type == 'all') {
-                $data = request()->all();
-                $package = Package::find($data['package_id']);
-                $total_month = $data['total_month'] ?? 1;
-                $data['total_amount'] = $package->amount * $total_month;
-                $license->update($data);
-            } else {
-                $license->status = $license->status == License::STATUS_ACTIVE ? License::STATUS_SUSPEND : License::STATUS_ACTIVE;
+            $license = License::where('status', '<>', License::STATUS_SUSPEND)->whereId($id)->first();
+            if ($license) {
+                $license->status = License::STATUS_SUSPEND;
+                $license->note = request('note', 'Khóa license');
                 $license->save();
+                DB::commit();
+                return redirect()->back()->with('success', 'Khóa thành công');
             }
-            DB::commit();
-            return Response::json([
-                'status' => ResHTTP::HTTP_OK,
-                'message' => 'Cập nhật thành công',
-                'type' => 'success'
-            ]);
         } catch (\Throwable $th) {
             showLog($th);
             DB::rollBack();
         }
-        return Response::json([
-            'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
-            'message' => 'Lỗi cập nhật',
-            'type' => 'error'
-        ]);
+        return redirect()->back()->with('error', 'Lỗi khóa license!');
     }
 
     public function delete()

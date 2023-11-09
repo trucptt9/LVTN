@@ -37,6 +37,7 @@
 
     // function load data table
     function loadTable(
+        _page = 1,
         uri = "",
         tableElement = "#load-table",
         formElement = "#form-filter",
@@ -45,7 +46,7 @@
         uri = uri != "" ? uri : routeList;
         showSpiner(".table-loading");
         var data = $(formElement).serialize();
-        const url = uri + "?page=" + page + "&" + data;
+        const url = uri + "?page=" + _page + "&" + data;
         $.get(url, function(rs) {
             hideSniper(".table-loading");
             $("button[type=submit]").removeAttr("disabled");

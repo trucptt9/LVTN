@@ -1,36 +1,49 @@
+@php
+    use App\Models\License;
+@endphp
 @if ($list->count() > 0)
     @php
         $paginate = $list->appends(request()->all())->links();
     @endphp
     @foreach ($list as $item)
+        @php
+            $status = License::get_status($item->status);
+        @endphp
         <tr id="tr-{{ $item->id }}">
             <td class="text-center">
-                <a href="{{ route('channel_payment.detail', ['id' => $item->id]) }}"
+                <a href="{{ route('admin.license.detail', ['id' => $item->id]) }}"
                     class="btn bg-gradient bg-gray-200 btn-sm data-item">
-                    <i class="fas fa-edit"></i>
+                    <i class="fas fa-eye"></i>
                 </a>
-                <button class="btn bg-gradient-orange-red btn-sm btn-delete"
-                    onclick="confirmDelete('{{ $item->id }}')">
-                    <i class="fas fa-trash text-white"></i>
-                </button>
             </td>
             <td class="text-center">
-                {{ $item->code }}
+                <span>
+                    <span class="key-show" style="">***************</span>
+                    <span class="key-hide" style="display: none;">{{ $item->key }}</span>
+                    <button class="btn" onclick="toogle_key(this);">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </span>
             </td>
             <td>
-                {{ $item->name }}
+                {{ $item->store ? $item->store->name : '-' }}
             </td>
             <td class="text-center">
-                <div class="form-switch">
-                    <input class="form-check-input" {{ $item->status == 'active' ? 'checked' : '' }} type="checkbox"
-                        name="status" role="switch" onclick="changeStatus('{{ $item->id }}')">
-                </div>
+                {{ $item->package ? $item->package->name : '-' }}
+            </td>
+            <td class="text-center">
+                {{ $item->total_month }} tháng
+            </td>
+            <td class="text-center">
+                <span class="badge bg-{{ $status[1] }}">
+                    {{ $status[0] }}
+                </span>
             </td>
         </tr>
     @endforeach
     @if ($paginate != '')
         <tr>
-            <td colspan="4">
+            <td colspan="6">
                 <div class="mt-2">
                     {{ $paginate }}
                 </div>
@@ -39,7 +52,7 @@
     @endif
 @else
     <tr>
-        <td colspan="4" class="text-center no-data">
+        <td colspan="6" class="text-center no-data">
             Không tìm thấy dữ liệu!
         </td>
     </tr>

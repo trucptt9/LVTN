@@ -97,10 +97,10 @@
     <script>
         const routeList = "{{ route('admin.business_type.list') }}";
         const routeUpdate = "{{ route('admin.business_type.update') }}";
-        filterTable();
+        filterTable(page = 1);
 
-        function filterTable() {
-            loadTable(routeList);
+        function filterTable(page) {
+            loadTable(page, routeList);
         };
 
         function confirmDelete(id) {

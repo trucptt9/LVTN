@@ -33,7 +33,7 @@ function toogle_key(btn) {
 $(document).on("click", ".pagination a", function (event) {
     event.preventDefault();
     page = $(this).attr("href").split("page=")[1];
-    filterTable();
+    filterTable(page);
 });
 
 $(".form-filter").on("change", function () {

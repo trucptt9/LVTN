@@ -5,14 +5,10 @@
     @foreach ($list as $item)
         <tr id="tr-{{ $item->id }}">
             <td class="text-center">
-                <a href="{{ route('channel_payment.detail', ['id' => $item->id]) }}"
+                <a href="{{ route('admin.module.detail', ['id' => $item->id]) }}"
                     class="btn bg-gradient bg-gray-200 btn-sm data-item">
                     <i class="fas fa-edit"></i>
                 </a>
-                <button class="btn bg-gradient-orange-red btn-sm btn-delete"
-                    onclick="confirmDelete('{{ $item->id }}')">
-                    <i class="fas fa-trash text-white"></i>
-                </button>
             </td>
             <td class="text-center">
                 {{ $item->code }}
