@@ -42,15 +42,6 @@
             font-weight: bold;
             font-size: 20px;
         }
-
-        .image-qrcode {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .image-qrcode img {
-            height: 200px;
-        }
     </style>
 </head>
 
@@ -93,10 +84,6 @@
                 </td>
             </tr>
         </table>
-        <div class="image-qrcode">
-            <img src="{{ $qrcode }}" alt="">
-            <div>Quét mã này để thanh toán dịch vụ</div>
-        </div>
     </div>
 </body>
 
