@@ -12,13 +12,10 @@
                 class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-primary">
                 <i class="fas fa-user-tag"></i> Phân quyền
             </a>
-<<<<<<< HEAD
             <button class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-primary" data-bs-toggle="modal"
                 data-bs-target="#editModal">
                 <i class="fas fa-edit"></i> Cập nhật
             </button>
-=======
->>>>>>> be89e0c5e296b39750352c4d6e3962191a2e67a7
         </div>
     </div>
     <div class="row">

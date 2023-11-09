@@ -218,6 +218,10 @@
             filterTable();
         });
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 08b376c (update layout)
         const form_update = $('form#form-update');
         if (form_update) {
             const action = form_update.attr('action');

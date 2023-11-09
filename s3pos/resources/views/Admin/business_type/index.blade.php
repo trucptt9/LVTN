@@ -2,8 +2,7 @@
 @section('title', 'Loại hình doanh nghiệp')
 @section('content')
     <div class="d-flex justify-content-between mb-3">
-
-        <h3>Loại hình doanh nghiệp <span class="total-item">(0)</span></h3>
+        <h4>Loại hình doanh nghiệp <span class="total-item">(0)</span></h4>
 
         <div class="d-flex align-items-center gap-2">
             <a href="{{ previousUrl() }}" class="btn btn-secondary">

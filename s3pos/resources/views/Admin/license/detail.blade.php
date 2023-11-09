@@ -14,7 +14,7 @@
                     <i class="fas fa-lock"></i> Khóa
                 </button>
             @endif
-            <a target="_blank" href="{{ route('admin.license.invoice', ['id' => $license->id]) }}"
+            <a href="{{ route('admin.license.index') }}"
                 class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-primary">
                 <i class="fas fa-receipt"></i> Xuất hóa đơn
             </a>
