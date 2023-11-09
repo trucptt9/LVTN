@@ -109,7 +109,6 @@ class StoreController extends Controller
             $data = request()->all();
             $data['status'] = $store->status == Store::STATUS_ACTIVE ? Store::STATUS_ACTIVE : Store::STATUS_BLOCKED;
             $store->update($data);
-
             DB::commit();
             if (request()->ajax()) {
                 return Response::json([
