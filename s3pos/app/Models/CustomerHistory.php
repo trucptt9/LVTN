@@ -83,4 +83,8 @@ class CustomerHistory extends Model
             $query->where('customer_histories.code', 'LIKE', "%$search%");
         });
     }
+    public function scopeOfStatus($query, $status)
+    {
+        return $query->where('customer_histories.status', $status);
+    }
 }

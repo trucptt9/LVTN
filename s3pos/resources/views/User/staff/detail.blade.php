@@ -218,18 +218,26 @@
                                             <thead class="border-bottom border-gray-200 fs-7 fw-bold">
                                                 <tr class="text-start text-muted text-uppercase gs-0">
                                             
-                                                    <th>Quyền</th>
+                                                    <th class="w-300px">Tính năng</th>
+
+                                                    <th class="text-center" colspan="6">Quyền cụ thể</th>
+    
+
+                                                </tr>
+                                                <tr class="text-start text-muted text-uppercase gs-0">
+                                            
+                                                    <th colspan="2"></th>
+                                                    <th class="text-center">Tất cả</th>
                                                     <th class="text-center">Thêm</th>
                                                     <th class="text-center">Sửa</th>
                                                     <th class="text-center">Xóa</th>
                                                     <th class="text-center">Phân quyền</th>
-                                            
-                                            
+
                                                 </tr>
                                             </thead>
                                             <tbody class="fs-6 fw-semibold text-gray-600 permition_table ">
                                                     <tr>
-                                                        <td colspan="5">
+                                                        <td colspan="3">
                                                             Không tìm thấy dữ liệu
                                                         </td>
                                                     </tr>

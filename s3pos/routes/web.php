@@ -166,6 +166,7 @@ Route::middleware(['auth','checkStaff'])->group(function () {
         Route::post('insert', [CouponController::class, 'insert'])->name('insert');
         Route::post('update', [CouponController::class, 'update'])->name('update');
         Route::get('delete', [CouponController::class, 'delete'])->name('delete');
+        Route::get('log', [CouponController::class, 'log'])->name('log');
     });
     Route::prefix('customer_groups')->name('customer_group.')->group(function () {
         Route::get('', [CustomerGroupController::class, 'index'])->name('index');

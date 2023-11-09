@@ -45,9 +45,9 @@ class CustomerController extends Controller
             $list = Customer::storeId($this->store_id);
             $list = $status != '' ? $list->ofStatus($status) : $list;
             $list = $search != '' ? $list->search($search) : $list;
-          
+
             $list = $list->latest()->paginate($limit);
-           
+
             return Response::json([
                 'status' => ResHTTP::HTTP_OK,
                 'data' => view('User.customer.table', compact('list'))->render(),
@@ -67,14 +67,13 @@ class CustomerController extends Controller
             $limit = request('limit', $this->limit_default);
             $status = request('status', '');
             $search = request('search', '');
-            // $type = request('type', '');
+            $type = request('type', '');
             $list = CustomerHistory::customerId($id);
-            return $list->get();
             $list = $status != '' ? $list->ofStatus($status) : $list;
             $list = $search != '' ? $list->search($search) : $list;
-            // $list = $search != '' ? $list->search($search) : $list;
+            $list = $type != '' ? $list->type($type) : $list;
             $list = $list->latest()->paginate($limit);
-           
+
             return Response::json([
                 'status' => ResHTTP::HTTP_OK,
                 'data' => view('User.customer.table_customer', compact('list'))->render(),
@@ -90,17 +89,18 @@ class CustomerController extends Controller
     public function detail($id)
     {
         $customer = Customer::storeId($this->store_id)->findOrFail($id);
-      
-        $data=[
-            'status' =>  Customer::get_status(),
-            'customer_group' =>CustomerGroup::storeId($this->store_id)->get(),
+
+        $data = [
+            'status' => Customer::get_status(),
+            'customer_group' => CustomerGroup::storeId($this->store_id)->get(),
+            'type' => CustomerHistory::get_type()
         ];
         $status = Customer::get_status($customer->status);
-        
+
         if (request()->ajax()) {
             return view('user.customer.modal_edit', compact('customer', 'data'))->render();
         }
-        return view('user.customer.detail', compact('customer', 'data','status'));
+        return view('user.customer.detail', compact('customer', 'data', 'status'));
     }
 
     public function insert(CustomerInsertRequest $request)
@@ -133,6 +133,7 @@ class CustomerController extends Controller
             $id = $request->get('id', '');
             $type = request('type', 'one');
             $custome = Customer::whereId($id)->first();
+            $status_cur = Customer::get_status($custome->status);
             if ($type == 'all') {
                 $data = $request->all();
                 $data['status'] = $custome->status == Customer::STATUS_ACTIVE ? Customer::STATUS_BLOCKED : Customer::STATUS_ACTIVE;
@@ -142,11 +143,14 @@ class CustomerController extends Controller
                 $custome->save();
             }
             DB::commit();
+            $status_update = Customer::get_status($custome->status);
             if (request()->ajax()) {
                 return Response::json([
                     'status' => ResHTTP::HTTP_OK,
                     'message' => 'Cập nhật thành công',
-                    'type' => 'success'
+                    'type' => 'success',
+                    'status_update' => $status_update,
+                    'status_cur' => $status_cur,
                 ]);
             }
             return redirect()->back()->with('success', 'Cập nhật thành công');

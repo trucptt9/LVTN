@@ -20,7 +20,8 @@ return new class extends Migration
             $table->date('end')->nullable();
             $table->integer('value')->nullable()->default(0);
             $table->enum('type_value', ['vnd', 'percent'])->nullable()->default('percent');
-            $table->integer('usage')->nullable();
+            $table->integer('quantity')->nullable()->default(0);
+            $table->integer('usage')->nullable()->default(0);
             $table->enum('status', ['active', 'blocked'])->index()->nullable()->default('blocked');
             $table->string('description')->nullable();
             $table->timestamps();

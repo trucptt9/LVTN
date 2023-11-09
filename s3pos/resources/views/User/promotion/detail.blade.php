@@ -82,7 +82,7 @@
                                     <div class="fw-bold mt-5">Trạng thái</div>
 
 
-                                    <div class="{{ 'badge badge-light-'.$status[1] }}" >{{ $status[0] }}</div>
+                                    <div class="{{ 'badge badge-light-'.$status[1] }} status-change" >{{ $status[0] }}</div>
                                     <!--begin::Details item-->
                                 </div>
 
@@ -404,6 +404,12 @@
                         $('button[type=submit]').removeAttr('disabled');
                         if (rs.status == 200) {
                           
+                            $class = 'badge badge-light-' + rs.status_update[1]
+                            $class_cur = 'badge badge-light-' + rs.status_cur[1]
+                            $('.status-change').html(rs.status_update[0])
+                            $('.status-change').removeClass($class_cur);
+                            
+                            $('.status-change').addClass($class);
                         }
                         Toast.fire({
                             icon: rs?.type,
