@@ -77,11 +77,10 @@
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <<<<<<< HEAD <h1 class="modal-title fs-5">Cập nhật gói dịch vụ</h1>
-                            =======
-                            <h1 class="modal-title fs-5">Cập nhật Gói dịch vụ</h1>
-                            >>>>>>> 1fa7d2d (update package)
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h1 class="modal-title fs-5">Cập nhật gói dịch vụ</h1>
+
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
                     </div>
                     <div class="modal-body px-4 py-1 content-update">
 

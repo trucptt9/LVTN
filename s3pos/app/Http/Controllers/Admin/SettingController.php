@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-
 use App\Models\AdminSetting;
 use App\Models\AdminSettingGroup;
 use Carbon\Carbon;
@@ -88,4 +87,5 @@ class SettingController extends Controller
             return redirect()->back()->with('error', 'Cập nhật thất bại!');
         }
     }
+
 }

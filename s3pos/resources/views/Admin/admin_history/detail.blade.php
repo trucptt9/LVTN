@@ -6,7 +6,6 @@
         <div class="btn-group" role="group">
             <a href="{{ route('admin.admin_history.index') }}"
                 class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-primary">
-
                 <i class="fas fa-chevron-left"></i> Danh sách
             </a>
         </div>
