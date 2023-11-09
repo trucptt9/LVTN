@@ -14,12 +14,14 @@ return new class extends Migration
         Schema::create('order_details', function (Blueprint $table) {
             $table->id()->index();
             $table->unsignedBigInteger('order_id')->index();
-            $table->integer('parent_id')->nullable()->default(0);
-            $table->integer('item_id')->index();
+            $table->unsignedBigInteger('product_id')->index();
+            $table->string('product_name')->nullable();
             $table->integer('quantity')->nullable()->default(1);
             $table->integer('price')->nullable()->default(0);
             $table->string('note')->nullable();
             $table->integer('total')->nullable()->default(0);
+            $table->json('toppings')->nullable();
+            $table->integer('topping_total')->nullable()->default(0);
             $table->timestamps();
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
         });

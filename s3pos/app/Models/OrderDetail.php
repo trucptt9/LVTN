@@ -12,20 +12,22 @@ class OrderDetail extends Model
 
     protected $fillable = [
         'order_id',
-        'parent_id',
-        'item_id',
+        'product_id',
+        'product_name',
         'quantity',
         'price',
         'note',
         'total',
+        'toppings',
+        'topping_total'
     ];
 
     protected $hidden = [];
 
     protected $casts = [
+        'topping_total' => 'integer',
         'order_id' => 'integer',
-        'parent_id' => 'integer',
-        'item_id' => 'integer',
+        'product_id' => 'integer',
         'quantity' => 'integer',
         'total' => 'integer',
         'price' => 'integer',
@@ -40,6 +42,7 @@ class OrderDetail extends Model
             $model->quantity = $model->quantity ?? 0;
             $model->price = $model->price ?? 0;
             $model->total = $model->total ?? 0;
+            $model->topping_total = $model->topping_total ?? 0;
         });
         self::created(function ($model) {
         });
@@ -64,33 +67,18 @@ class OrderDetail extends Model
         return $query->where('order_details.order_id', $order_id);
     }
 
-    public function scopeParentId($query, $parent_id)
+    public function scopeProductId($query, $product_id)
     {
-        return $query->where('order_details.parent_id', $parent_id);
+        return $query->where('order_details.product_id', $product_id);
     }
 
     public function product()
     {
-        return $this->belongsTo(Product::class, 'item_id')->whereNull('parent_id');
-    }
-
-    public function topping()
-    {
-        return $this->belongsTo(Toppings::class, 'item_id')->whereIsNull('parent_id');
-    }
-
-    public function parent()
-    {
-        return $this->belongsTo(OrderDetail::class, 'parent_id');
+        return $this->belongsTo(Product::class, 'product_id');
     }
 
     public function order()
     {
         return $this->belongsTo(Order::class, 'order_id');
-    }
-
-    public function toppings()
-    {
-        return $this->hasMany(OrderDetail::class, 'id', 'parent_id');
     }
 }

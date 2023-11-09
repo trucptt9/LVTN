@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone');
             $table->string('address');
+            $table->string('logo')->nullable();
             $table->enum('status', ['un_active', 'active', 'blocked'])->index()->nullable()->default('blocked');
             $table->string('description')->nullable();
             $table->timestamps();
