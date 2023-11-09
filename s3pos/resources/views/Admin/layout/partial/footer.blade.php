@@ -1,5 +1,10 @@
 <!-- BEGIN #footer -->
-<div id="footer" class="app-footer">
-    &copy; 2023 {{ env('APP_NAME') }} All Right Reserved
+<div id="footer" class="app-footer d-flex justify-content-between">
+    <span>
+        &copy; 2023 {{ get_option_admin('copyright-by') }}, All Right Reserved
+    </span>
+    <span>
+        Phát triển bơi: {{ get_option_admin('development-by') }}
+    </span>
 </div>
 <!-- END #footer -->

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,5 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SeedMenu::class);
         $this->call(SeedModule::class);
         $this->call(SeedBrand::class);
+        $this->call(SeedAdminSetting::class);
+        Artisan::call('app:sync-bank-list');
     }
 }

@@ -1,7 +1,7 @@
 <meta charset="utf-8" />
-<title>{{ env('APP_NAME') }} | @yield('title')</title>
+<title>{{ get_option_admin('short-name') }} | @yield('title')</title>
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<link rel="icon" href="{{ asset('admin/assets/img/favicon.png') }}">
+<link rel="icon" href="{{ asset(get_option_admin('app-favicon')) }}">
 
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
