@@ -41,10 +41,13 @@ class Shift extends Model
             $model->salary = $model->salary ?? 0;
         });
         self::created(function ($model) {
+            save_log_action("Tạo mới ca làm việc #$model->name");
         });
         self::updated(function ($model) {
+            save_log_action("Cập nhật thông tin ca làm việc #$model->name");
         });
         self::deleted(function ($model) {
+            save_log_action("Xóa ca làm việc #$model->name");
         });
     }
 

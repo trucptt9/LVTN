@@ -37,10 +37,13 @@ class Store extends Model
             $model->code = $model->code ?? generateRandomString();
         });
         self::created(function ($model) {
+            save_log_action_admin("Tạo mới cửa hàng #$model->name");
         });
         self::updated(function ($model) {
+            save_log_action_admin("Cập nhật thông tin cửa hàng #$model->name");
         });
         self::deleted(function ($model) {
+            save_log_action_admin("Xó cửa hàng #$model->name");
             // delete logo
         });
     }

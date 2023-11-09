@@ -40,10 +40,13 @@ class Area extends Model
             $model->priority = $model->priority ?? self::getOrder($model->store_id);
         });
         self::created(function ($model) {
+            save_log_action("Tạo mới khu vực bàn #$model->name");
         });
         self::updated(function ($model) {
+            save_log_action("Cập nhật thông tin khu vực bàn #$model->name");
         });
         self::deleted(function ($model) {
+            save_log_action("Xóa khu vực bàn #$model->name");
         });
     }
 

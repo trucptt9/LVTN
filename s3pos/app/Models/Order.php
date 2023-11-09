@@ -64,10 +64,12 @@ class Order extends Model
             $model->discount_type = $model->discount_type ?? self::TYPE_PERCENT;
         });
         self::created(function ($model) {
+            save_log_action("Tạo mới đơn hàng #$model->code");
         });
         self::updated(function ($model) {
         });
         self::deleted(function ($model) {
+            save_log_action("Xóa đơn hàng #$model->code");
         });
     }
     const TYPE_VND = 'vnd';

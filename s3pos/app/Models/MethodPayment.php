@@ -36,10 +36,13 @@ class MethodPayment extends Model
             $model->code = $model->code ?? generateRandomString();
         });
         self::created(function ($model) {
+            save_log_action("Tạo mới phương thức thanh toán #$model->name");
         });
         self::updated(function ($model) {
+            save_log_action("Cập nhật phương thức thanh toán #$model->name");
         });
         self::deleted(function ($model) {
+            save_log_action("Xóa phương thức thanh toán #$model->name");
         });
     }
 

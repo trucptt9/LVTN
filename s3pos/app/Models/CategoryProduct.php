@@ -35,11 +35,13 @@ class CategoryProduct extends Model
             $model->code = $model->code ?? generateRandomString();
         });
         self::created(function ($model) {
+            save_log_action("Tạo mới danh mục sản phẩm #$model->name");
         });
         self::updated(function ($model) {
+            save_log_action("Cập nhật thông tin danh mục sản phẩm #$model->name");
         });
         self::deleted(function ($model) {
-            
+            save_log_action("Xóa danh mục sản phẩm #$model->name");
         });
     }
 

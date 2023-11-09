@@ -33,10 +33,13 @@ class Material extends Model
             $model->code = $model->code ?? generateRandomString();
         });
         self::created(function ($model) {
+            save_log_action("Tạo mới nguyên liệu #$model->name");
         });
         self::updated(function ($model) {
+            save_log_action("Cập nhật thông tin nguyên liệu #$model->name");
         });
         self::deleted(function ($model) {
+            save_log_action("Xóa nguyên liệu #$model->name");
         });
     }
 

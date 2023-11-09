@@ -41,10 +41,13 @@ class Product extends Model
             $model->cost = $model->cost ?? 0;
         });
         self::created(function ($model) {
+            save_log_action("Tạo mới sản phẩm #$model->name");
         });
         self::updated(function ($model) {
+            save_log_action("Cập nhật thông tin sản phẩm #$model->name");
         });
         self::deleted(function ($model) {
+            save_log_action("Xóa sản phẩm #$model->name");
         });
     }
 

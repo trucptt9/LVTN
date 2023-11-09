@@ -25,16 +25,18 @@ class AdminHistoryController extends Controller
         return view('Admin.admin_history.index', compact('data'));
     }
 
-    public function list()
+    public function table()
     {
         try {
             $limit = request('limit', $this->limit_default);
             $search = request('search', '');
             $admin_id = request('admin_id', '');
+            $date = request('date', date('Y-m-d'));
 
-            $list = AdminHistory::query();
+            $list = AdminHistory::with('admin');
             $list = $search != '' ? $list->search($search) : $list;
             $list = $admin_id != '' ? $list->adminId($admin_id) : $list;
+            $list = $date != '' ? $list->ofDate($date) : $list;
 
             $list = $list->latest()->paginate($limit);
             return Response::json([

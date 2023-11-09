@@ -45,10 +45,13 @@ class Promotion extends Model
             $model->type_value = $model->type_value ?? self::TYPE_PERCENT;
         });
         self::created(function ($model) {
+            save_log_action("Tạo mới khuyến mãi #$model->name");
         });
         self::updated(function ($model) {
+            save_log_action("Cập nhật thông tin khuyến mãi #$model->name");
         });
         self::deleted(function ($model) {
+            save_log_action("Xóa khuyến mãi #$model->name");
         });
     }
 

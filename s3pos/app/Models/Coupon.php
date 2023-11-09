@@ -43,10 +43,13 @@ class Coupon extends Model
             $model->type_value = $model->type_value ?? self::TYPE_PERCENT;
         });
         self::created(function ($model) {
+            save_log_action("Tạo mới mã giảm giá #$model->code");
         });
         self::updated(function ($model) {
+            save_log_action("Cập nhật thông tin mã giảm giá #$model->name");
         });
         self::deleted(function ($model) {
+            save_log_action("Xóa mã giảm giá #$model->name");
         });
     }
 
