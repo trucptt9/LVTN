@@ -10,6 +10,7 @@ use App\Models\Store;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Response as ResHTTP;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 class LicenseController extends Controller
 {
@@ -72,6 +73,11 @@ class LicenseController extends Controller
 
     public function invoice($id)
     {
+        $data = [
+            'license' => License::with('payment', 'store', 'package')->findOrFail($id)
+        ];
+        $pdf = PDF::loadView('Admin.license.invoice', $data);
+        return $pdf->stream('invoice.pdf');
     }
 
     public function insert()
