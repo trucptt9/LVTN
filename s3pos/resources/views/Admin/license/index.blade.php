@@ -1,3 +1,6 @@
+@php
+    use App\Models\License;
+@endphp
 @extends('Admin.layout.default')
 @section('title', 'Bản quyền')
 @section('content')
@@ -8,6 +11,31 @@
                 <i class="fas fa-chevron-left"></i> Quay lại
             </a>
         </div>
+    </div>
+    <div class="row">
+        @foreach ($data['report'] as $item)
+            @php
+                $status = License::get_status($item->status);
+            @endphp
+            <div class="col-md-3">
+                <div class="card mb-2">
+                    <div class="d-flex align-items-center py-2 px-3">
+                        <div
+                            class="w-40px h-40px d-flex align-items-center justify-content-center bg-{{ $status[1] }} text-white rounded-2 ms-n1">
+                            <i class="fas fa-key fa-lg"></i>
+                        </div>
+                        <div class="flex-fill px-3 py-1">
+                            <div class="fw-semibold">
+                                {{ $item->total }}
+                            </div>
+                            <div class="small text-body text-opacity-50">
+                                {{ $status[0] }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
     </div>
     <div class="card card-header-actions">
         <form action="" id="form-filter">
