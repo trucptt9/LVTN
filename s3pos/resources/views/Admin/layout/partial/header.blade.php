@@ -21,8 +21,7 @@
         </div>
 
         <a href="{{ route('admin.index') }}" class="brand-logo">
-            <img src="{{ $user_brand->logo ?? asset('admin/assets/img/logo.png') }}" class="invert-dark" alt=""
-                height="20" />
+            <img src="{{ asset(get_option_admin('app-logo')) }}" class="invert-dark" alt="" height="20" />
         </a>
     </div>
     <!-- END brand -->

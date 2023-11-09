@@ -5,13 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Settings extends Model
+class AdminSetting extends Model
 {
     use HasFactory;
-    protected $table = 'settings';
+    protected $table = 'admin_settings';
 
     protected $fillable = [
-        'store_id',
         'code',
         'name',
         'description',
@@ -19,14 +18,13 @@ class Settings extends Model
         'value',
         'data',
         'numering',
-        'group_id',
         'status',
+        'group_id'
     ];
 
     protected $hidden = [];
 
     protected $casts = [
-        'store_id' => 'integer',
         'group_id' => 'integer',
         'numering' => 'integer',
         'created_at' => 'datetime:Y-m-d H:i:s',
@@ -41,7 +39,7 @@ class Settings extends Model
             $model->code = $model->code ?? generateRandomString();
             $model->type = $model->type ?? self::TYPE_TEXT;
             $model->value = $model->value ?? '';
-            $model->numering = $model->numering ?? self::getOrder($model->store_id, $model->group_id);
+            $model->numering = $model->numering ?? self::getOrder($model->group_id);
         });
         self::created(function ($model) {
         });
@@ -51,6 +49,18 @@ class Settings extends Model
         });
     }
 
+    const STATUS_ACTIVE = 'active';
+    const STATUS_BLOCKED = 'blocked';
+
+    public static function get_status($status = '')
+    {
+        $types = [
+            self::STATUS_ACTIVE => ['Đang kích hoạt', 'success', COLOR_SUCCESS],
+            self::STATUS_BLOCKED => ['Tạm ngưng', 'danger', COLOR_DANGER],
+        ];
+        return $status == '' ? $types : $types["$status"];
+    }
+
     const TYPE_TEXT = 'text';
     const TYPE_FILE = 'file';
     const TYPE_SELECT = 'select';
@@ -58,42 +68,32 @@ class Settings extends Model
 
     public function scopeOfCode($query, $code)
     {
-        return $query->where('settings.code', $code);
+        return $query->where('admin_settings.code', $code);
     }
 
     public function scopeOfType($query, $type)
     {
-        return $query->where('settings.type', $type);
-    }
-
-    public function scopeGroupId($query, $group_id)
-    {
-        return $query->where('settings.group_id', $group_id);
-    }
-
-    public function scopeStoreId($query, $store_id)
-    {
-        return $query->where('settings.store_id', $store_id);
+        return $query->where('admin_settings.type', $type);
     }
 
     public function scopeOfStatus($query, $status)
     {
-        return $query->where('settings.status', $status);
+        return $query->where('admin_settings.status', $status);
     }
 
-    public function store()
+    public function scopeGroupId($query, $group_id)
     {
-        return $this->belongsTo(Store::class, 'store_id');
+        return $query->where('admin_settings.group_id', $group_id);
+    }
+
+    public static function getOrder($group_id)
+    {
+        $max = AdminSetting::groupId($group_id)->max('numering') ?? 0;
+        return $max + 1;
     }
 
     public function group()
     {
-        return $this->belongsTo(SettingGroup::class, 'group_id');
-    }
-
-    public static function getOrder($group_id, $store_id)
-    {
-        $max = Settings::groupId($group_id)->storeId($store_id)->ofStatus(true)->max('numering') ?? 0;
-        return $max + 1;
+        return $this->belongsTo(AdminSettingGroup::class, 'group_id');
     }
 }

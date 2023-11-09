@@ -24,7 +24,7 @@ class ComposerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->composer(['*'], 'App\Http\ViewComposers\AdminComposer');
-        view()->composer(['*'], 'App\Http\ViewComposers\UserComposer');
+        view()->composer(['Admin/*'], 'App\Http\ViewComposers\AdminComposer');
+        view()->composer(['User/*'], 'App\Http\ViewComposers\UserComposer');
     }
 }

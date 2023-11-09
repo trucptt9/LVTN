@@ -21,7 +21,7 @@
             @yield('content')
         @endif
 
-        @includeWhen(!empty($appFooter), 'Admin.layout.partial.footer')
+        @includeWhen(empty($appFooter), 'Admin.layout.partial.footer')
     </div>
     <!-- END #app -->
 

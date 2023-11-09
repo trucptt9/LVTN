@@ -2,6 +2,7 @@
 
 use App\Models\AdminHistory;
 use App\Models\AdminMenu;
+use App\Models\AdminSetting;
 use App\Models\Settings;
 use App\Models\StaffHistory;
 use Illuminate\Support\Facades\Log;
@@ -114,6 +115,13 @@ if (!function_exists('get_option')) {
     function get_option($code, $storeId, $default = '')
     {
         $option = Settings::ofCode($code)->storeId($storeId)->first();
+        return $option->value ?? $default;
+    }
+}
+if (!function_exists('get_option_admin')) {
+    function get_option_admin($code, $default = '')
+    {
+        $option = AdminSetting::ofCode($code)->first();
         return $option->value ?? $default;
     }
 }
