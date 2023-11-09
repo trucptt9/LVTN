@@ -102,6 +102,7 @@
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     - Ngày tạo:
                     <span>{{ $store->created_at ? date('H:i:s d/m/Y', strtotime($store->created_at)) : '-' }}</span>
+
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     - Địa chỉ:

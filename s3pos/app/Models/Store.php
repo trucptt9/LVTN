@@ -43,7 +43,8 @@ class Store extends Model
             save_log_action_admin("Cập nhật thông tin cửa hàng #$model->name");
         });
         self::deleted(function ($model) {
-            save_log_action_admin("Xó cửa hàng #$model->name");
+            save_log_action_admin("Xóa cửa hàng #$model->name");
+
             // delete logo
         });
     }
