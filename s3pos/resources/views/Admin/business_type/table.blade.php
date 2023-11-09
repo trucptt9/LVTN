@@ -5,12 +5,13 @@
     @foreach ($list as $item)
         <tr id="tr-{{ $item->id }}">
             <td class="text-center">
-                <a href="{{ route('admin.business_type.detail', ['id' => $item->id]) }}"
+                <a data-bs-toggle="tooltip" title="Cập nhật"
+                    href="{{ route('admin.business_type.detail', ['id' => $item->id]) }}"
                     class="btn bg-gradient bg-gray-200 btn-sm data-item">
                     <i class="fas fa-edit"></i>
                 </a>
                 @if ($item->stores_count == 0)
-                    <button class="btn bg-gradient-orange-red btn-sm btn-delete"
+                    <button data-bs-toggle="tooltip" title="Xóa" class="btn bg-gradient-orange-red btn-sm btn-delete"
                         onclick="confirmDelete('{{ $item->id }}')">
                         <i class="fas fa-trash text-white"></i>
                     </button>

@@ -2,7 +2,7 @@
 @section('title', 'Chi tiết loại hình doanh nghiệp')
 @section('content')
     <div class="d-flex justify-content-between mb-3">
-        <h3>Loại hình doanh nghiệp: #{{ $business_type->name }}</h3>
+        <h4>Loại hình doanh nghiệp: #{{ $business_type->name }}</h4>
         <div class="btn-group" role="group">
             <a href="{{ route('admin.business_type.index') }}"
                 class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-primary">

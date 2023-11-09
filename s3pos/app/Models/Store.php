@@ -56,6 +56,7 @@ class Store extends Model
     public static function get_status($status = '')
     {
         $types = [
+            self::STATUS_UN_ACTIVE => ['Chưa kích hoạt', 'secondary', COLOR_SECONDARY],
             self::STATUS_ACTIVE => ['Đang kích hoạt', 'success', COLOR_SUCCESS],
             self::STATUS_BLOCKED => ['Tạm ngưng', 'danger', COLOR_DANGER],
         ];

@@ -5,16 +5,21 @@
     @foreach ($list as $item)
         <tr id="tr-{{ $item->id }}">
             <td class="text-center">
-                <a href="{{ route('admin.admin.detail', ['id' => $item->id]) }}"
+                <a data-bs-toggle="tooltip" title="Cập nhật" href="{{ route('admin.admin.detail', ['id' => $item->id]) }}"
                     class="btn bg-gradient bg-gray-200 btn-sm data-item">
                     <i class="fas fa-edit"></i>
                 </a>
                 @if ($item->status == 'blocked')
-                    <button class="btn bg-gradient-orange-red btn-sm btn-delete"
+                    <button data-bs-toggle="tooltip" title="Xóa" class="btn bg-gradient-orange-red btn-sm btn-delete"
                         onclick="confirmDelete('{{ $item->id }}')">
                         <i class="fas fa-trash text-white"></i>
                     </button>
                 @endif
+                <a data-bs-toggle="tooltip" title="Phân quyền"
+                    href="{{ route('admin.admin.permission', ['id' => $item->id]) }}"
+                    class="btn bg-gradient-yellow-red btn-sm">
+                    <i class="fas fa-user-tag"></i>
+                </a>
             </td>
             <td class="text-center">
                 {{ $item->code }}

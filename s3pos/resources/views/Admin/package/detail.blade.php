@@ -5,7 +5,7 @@
 @section('title', 'Chi tiết gói dịch vụ')
 @section('content')
     <div class="d-flex justify-content-between mb-3">
-        <h3>Gói dịch vụ: #{{ $package->name }}</h3>
+        <h4>Gói dịch vụ: #{{ $package->name }}</h4>
         <div class="btn-group" role="group">
             <a href="{{ route('admin.package.index') }}"
                 class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-primary">

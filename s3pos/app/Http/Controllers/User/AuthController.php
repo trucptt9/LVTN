@@ -4,7 +4,10 @@ namespace App\Http\Controllers\User;
 
 use App\Events\StaffLogin;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\ActiveLicense;
+use App\Models\License;
 use App\Models\Staff;
+use App\Models\Store;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -56,8 +59,6 @@ class AuthController extends Controller
             showLog($th);
             return redirect()->back()->with('error', 'Đăng nhập thất bại!');
         }
-
-
     }
 
     public function forgot_password()
@@ -83,7 +84,17 @@ class AuthController extends Controller
         return view('user.authen.license');
     }
 
-    public function license_active()
+    public function license_active(ActiveLicense $request)
     {
+        $license = License::with('store')->ofKey($request->license)->ofStatus(License::STATUS_UN_ACTIVE)->first();
+        if ($license && $license->store) {
+            $license->status = License::STATUS_ACTIVE;
+            $license->save();
+            $license->store->status = Store::STATUS_ACTIVE;
+            $license->store->save();
+
+            return redirect()->route('login')->with('success', 'Kích hoạt license thành công');
+        }
+        return redirect()->route('login')->with('error', 'Lỗi kích hoạt!');
     }
 }

@@ -18,6 +18,11 @@
                     </div>
                     <!--end::Link-->
                 </div>
+                @if ($errors->any())
+                    <div class="alert alert-danger text-center">
+                        Lỗi kích hoạt!
+                    </div>
+                @endif
                 <!--begin::Heading-->
                 <!--begin::Input group=-->
                 <div class="fv-row mb-8 fv-plugins-icon-container">
@@ -29,7 +34,7 @@
                 </div>
                 <!--begin::Actions-->
                 <div class="d-flex flex-wrap justify-content-center pb-lg-0">
-                    <button type="button" id="kt_password_reset_submit" class="btn btn-primary me-4">
+                    <button type="submit" class="btn btn-primary me-4">
                         <!--begin::Indicator label-->
                         <span class="indicator-label">Kích hoạt</span>
                         <!--end::Indicator label-->

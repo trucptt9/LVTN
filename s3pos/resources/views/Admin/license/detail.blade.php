@@ -2,7 +2,7 @@
 @section('title', 'Chi tiết license')
 @section('content')
     <div class="d-flex justify-content-between mb-3">
-        <h3>License: #{{ $license->id }}</h3>
+        <h4>License: #{{ $license->id }}</h4>
         <div class="btn-group" role="group">
             <a href="{{ route('admin.license.index') }}"
                 class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-primary">
@@ -14,6 +14,10 @@
                     <i class="fas fa-lock"></i> Khóa
                 </button>
             @endif
+            <a href="{{ route('admin.license.index') }}"
+                class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-primary">
+                <i class="fas fa-receipt"></i> Xuất hóa đơn
+            </a>
         </div>
     </div>
     <div class="row">

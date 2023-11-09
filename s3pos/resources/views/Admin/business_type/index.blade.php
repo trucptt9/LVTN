@@ -2,15 +2,14 @@
 @section('title', 'Loại hình doanh nghiệp')
 @section('content')
     <div class="d-flex justify-content-between mb-3">
-        <<<<<<< HEAD <h4>Loại hình doanh nghiệp <span class="total-item">(0)</span></h4>
-            =======
-            <h3>Loại hình doanh nghiệp <span class="total-item">(0)</span></h3>
-            >>>>>>> 3cb5f0d (update admin)
-            <div class="d-flex align-items-center gap-2">
-                <a href="{{ previousUrl() }}" class="btn btn-secondary">
-                    <i class="fas fa-chevron-left"></i> Quay lại
-                </a>
-            </div>
+        <h4>Loại hình doanh nghiệp <span class="total-item">(0)</span></h4>
+
+        <div class="d-flex align-items-center gap-2">
+            <a href="{{ previousUrl() }}" class="btn btn-secondary">
+                <i class="fas fa-chevron-left"></i> Quay lại
+            </a>
+        </div>
+
     </div>
     <div class="card card-header-actions">
         <form action="" id="form-filter">

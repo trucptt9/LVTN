@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\GenerateDataStore;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ResetManagerPassword;
 use App\Models\BusinessType;
@@ -80,8 +81,11 @@ class StoreController extends Controller
         try {
             DB::beginTransaction();
             $data = request()->all();
-            Store::create($data);
+            $store = Store::create($data);
             DB::commit();
+            if (request('generate_data', '') == '1') {
+                event(new GenerateDataStore($store));
+            }
             return Response::json([
                 'status' => ResHTTP::HTTP_OK,
                 'message' => 'Tạo mới thành công',
