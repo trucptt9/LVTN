@@ -98,10 +98,10 @@
     <script>
         const routeList = "{{ route('admin.package.list') }}";
         const routeUpdate = "{{ route('admin.package.update') }}";
-        filterTable();
+        filterTable(page = 1);
 
-        function filterTable() {
-            loadTable(routeList);
+        function filterTable(page) {
+            loadTable(page, routeList);
         };
 
         function confirmDelete(id) {

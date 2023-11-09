@@ -1,8 +1,8 @@
-@extends('layout.default')
-@section('title', 'Kênh thanh toán')
+@extends('Admin.layout.default')
+@section('title', 'Bản quyền')
 @section('content')
     <div class="d-flex justify-content-between mb-3">
-        <h3>Kênh thanh toán <span class="total-item">(0)</span></h3>
+        <h3>Bản quyền <span class="total-item">(0)</span></h3>
         <div class="d-flex align-items-center gap-2">
             <a href="{{ previousUrl() }}" class="btn btn-secondary">
                 <i class="fas fa-chevron-left"></i> Quay lại
@@ -45,15 +45,17 @@
             <table class="table table-bordered table-striped table-sm">
                 <thead>
                     <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0 bg-light-primary">
-                        <th class="text-center w-125px">#</th>
-                        <th class="text-center w-200px">Mã</th>
-                        <th class="text-center">Tên</th>
+                        <th class="text-center w-50px">#</th>
+                        <th class="text-center w-250px">Key</th>
+                        <th class="text-center">Cửa hàng</th>
+                        <th class="text-center w-200px">Gói dịch vụ</th>
+                        <th class="text-center w-125px">Thời gian SD</th>
                         <th class="text-center w-125px">Trạng thái</th>
                     </tr>
                 </thead>
                 <tbody id="load-table" class="text-gray-600 fw-semibold">
                     <tr>
-                        <td colspan="4" class="text-center no-data">
+                        <td colspan="6" class="text-center no-data">
                             Không tìm thấy dữ liệu!
                         </td>
                     </tr>
@@ -62,58 +64,15 @@
         </div>
         <!--end::Card body-->
     </div>
-    @include('channel_payment.create')
-    <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <form action="{{ route('channel_payment.update') }}" id="form-update" method="POST"
-                enctype="multipart/form-data">
-                @csrf
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5">Cập nhật kênh thanh toán</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body px-4 py-1 content-update">
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                            <i class="fas fa-long-arrow-alt-left"></i> Thoát
-                        </button>
-                        <button type="submit" class="btn bg-gradient-cyan-blue btn-create text-white">
-                            <i class="fas fa-save"></i> Cập nhật
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
+    @include('Admin.license.create')
 @endsection
 @push('js')
     <script>
-        const routeList = "{{ route('channel_payment.list') }}";
-        const routeUpdate = "{{ route('channel_payment.update') }}";
-        filterTable();
+        const routeList = "{{ route('admin.license.list') }}";
+        filterTable(page = 1);
 
-        function filterTable() {
-            loadTable(routeList);
+        function filterTable(page) {
+            loadTable(page, routeList);
         };
-
-        function confirmDelete(id) {
-            deleteData(id, "{{ route('channel_payment.delete') }}");
-        }
-
-        $(document).ready(function() {
-            $(document).on("click", ".data-item", function(e) {
-                showSpiner(".table-loading");
-                e.preventDefault();
-                const url = $(this).attr('href');
-                $.get(url, function(data) {
-                    hideSniper(".table-loading");
-                    $('.content-update').html(data);
-                    $('#editModal').modal('show');
-                })
-            })
-        })
     </script>
 @endpush
