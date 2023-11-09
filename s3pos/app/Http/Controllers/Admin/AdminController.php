@@ -54,7 +54,6 @@ class AdminController extends Controller
     public function detail($id)
     {
         $admin = Admin::findOrFail($id);
-
         if (request()->ajax()) {
             return view('Admin.admin.show', compact('admin'))->render();
         }
