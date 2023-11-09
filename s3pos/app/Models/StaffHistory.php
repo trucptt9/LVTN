@@ -13,7 +13,7 @@ class StaffHistory extends Model
 
     protected $fillable = [
         'staff_id',
-        'note',
+        'description',
         'action',
         'link',
     ];

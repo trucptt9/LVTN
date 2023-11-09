@@ -43,8 +43,9 @@ class Store extends Model
             save_log_action_admin("Cập nhật thông tin cửa hàng #$model->name");
         });
         self::deleted(function ($model) {
-            save_log_action_admin("Xó cửa hàng #$model->name");
+            save_log_action_admin("Xóa cửa hàng #$model->name");
             // delete logo
+            remove_s3_file($model->logo);
         });
     }
 
@@ -84,5 +85,10 @@ class Store extends Model
     public function license()
     {
         return $this->hasOne(License::class, 'store_id', 'id')->ofStatus(License::STATUS_ACTIVE);
+    }
+
+    public function manager()
+    {
+        return $this->hasOne(Staff::class, 'store_id', 'id')->ofSupper(Staff::IS_SUPPER);
     }
 }

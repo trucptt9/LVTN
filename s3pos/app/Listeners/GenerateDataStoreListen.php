@@ -7,7 +7,6 @@ use App\Models\Area;
 use App\Models\CategoryProduct;
 use App\Models\CustomerGroup;
 use App\Models\Department;
-use App\Models\License;
 use App\Models\MethodPayment;
 use App\Models\Position;
 use App\Models\Product;

@@ -74,6 +74,7 @@ class Staff extends Authenticatable
         });
         self::deleted(function ($model) {
             save_log_action("Xóa nhân viên #$model->email");
+            remove_s3_file($model->avatar);
         });
     }
 

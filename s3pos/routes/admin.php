@@ -50,6 +50,7 @@ Route::prefix('system')->name('admin.')->group(function () {
             Route::post('insert', [StoreController::class, 'insert'])->name('insert');
             Route::post('update', [StoreController::class, 'update'])->name('update');
             Route::post('delete', [StoreController::class, 'delete'])->name('delete');
+            Route::post('reset_password_manager', [StoreController::class, 'reset_password_manager'])->name('reset_password_manager');
             Route::prefix('report')->name('report.')->group(function () {
                 Route::post('revenue_by_month', [StoreController::class, 'report_revenue_by_month'])->name('revenue_by_month');
                 Route::post('revenue_by_product', [StoreController::class, 'report_revenue_by_product'])->name('revenue_by_product');

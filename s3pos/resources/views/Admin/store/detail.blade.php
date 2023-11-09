@@ -1,3 +1,6 @@
+@php
+    use App\Models\Store;
+@endphp
 @extends('Admin.layout.default')
 @section('title', 'Chi cửa hàng')
 @section('content')
@@ -81,10 +84,6 @@
                     <span>{{ $store->code }}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    - Tên:
-                    <span>{{ $store->name }}</span>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center">
                     - Loại doanh nghiệp:
                     <span>{{ $store->businessType ? $store->businessType->name : '-' }}</span>
                 </li>
@@ -108,6 +107,37 @@
                     <span class="w-250px text-end">{{ $store->address }}</span>
                 </li>
             </ul>
+            <h5 class="text-uppercase mt-3">
+                Thông tin quản lý
+            </h5>
+            @if ($store->manager)
+                @php
+                    $_status = Store::get_status($store->manager->status);
+                @endphp
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        - Email:
+                        <span>{{ $store->manager->email }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        - Trạng thái:
+                        <span>
+                            <i class="fa fa-circle fs-8px fa-fw text-{{ $_status[1] }} me-1"></i>
+                            {{ $_status[0] }}
+                        </span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        - Mật khẩu:
+                        <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">
+                            Khôi phục mật khẩu
+                        </button>
+                    </li>
+                </ul>
+            @else
+                <button class="btn btn-danger">
+                    Cấp tài khoản quản lý
+                </button>
+            @endif
         </div>
         <div class="col-lg-7 col-sm-12 mb-2">
             <div class="card">
@@ -149,6 +179,39 @@
                     </div>
                     <div class="modal-body px-4 py-1 content-update">
                         @include('Admin.store.show')
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            <i class="fas fa-long-arrow-alt-left"></i> Thoát
+                        </button>
+                        <button type="submit" class="btn bg-gradient-cyan-blue btn-create text-white">
+                            <i class="fas fa-save"></i> Cập nhật
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <form action="{{ route('admin.store.reset_password_manager') }}" method="POST"
+                enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="store_id" value="{{ $store->id }}">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5">Khôi phục mật khẩu quản lý</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body px-4 py-1 content-update">
+                        <div class="form-group mb-1">
+                            <label class="col-form-label">Mật khẩu mới *</label>
+                            <input type="password" name="password" class="form-control">
+                        </div>
+                        <div class="form-group mb-1">
+                            <label class="col-form-label">Nhập lại mật khẩu *</label>
+                            <input type="password" name="confirm_password" class="form-control">
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">

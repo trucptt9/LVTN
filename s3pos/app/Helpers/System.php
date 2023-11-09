@@ -271,7 +271,7 @@ if (!function_exists('save_log_action')) {
     {
         $log = StaffHistory::create([
             'staff_id' => auth()->check() ? auth()->user()->id : 0,
-            'note' => $content,
+            'description' => $content,
             'link' => $link ? $link : request()->getUri()
         ]);
         return $log;
@@ -288,6 +288,8 @@ if (!function_exists('show_s3_file')) {
 if (!function_exists('remove_s3_file')) {
     function remove_s3_file($link)
     {
-        return Storage::disk('public')->delete($link);
+        if ($link) {
+            return Storage::disk('public')->delete($link);
+        }
     }
 }

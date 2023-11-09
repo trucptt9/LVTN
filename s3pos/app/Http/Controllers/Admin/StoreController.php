@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ResetManagerPassword;
 use App\Models\BusinessType;
 use App\Models\Order;
 use App\Models\Staff;
@@ -10,6 +11,7 @@ use App\Models\Store;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Response as ResHTTP;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class StoreController extends Controller
 {
@@ -59,7 +61,7 @@ class StoreController extends Controller
 
     public function detail($id)
     {
-        $store = Store::with('businessType')->findOrFail($id);
+        $store = Store::with('businessType', 'manager')->findOrFail($id);
         $data = [
             'status' => Store::get_status($store->status),
             'business_types' => BusinessType::ofStatus(BusinessType::STATUS_ACTIVE)->get(),
@@ -170,5 +172,24 @@ class StoreController extends Controller
             LIMIT 10";
         $list = DB::select($sql);
         return $list;
+    }
+
+    public function reset_password_manager(ResetManagerPassword $request)
+    {
+        try {
+            DB::beginTransaction();
+            $store_id = $request->store_id ?? '';
+            $store = Store::with('manager')->findOrFail($store_id);
+            if ($store && $store->manager) {
+                $store->manager->password = Hash::make(trim($request->password));
+                $store->manager->save();
+                DB::commit();
+                return redirect()->back()->with('success', 'Khôi phục thành công');
+            }
+        } catch (\Throwable $th) {
+            showLog($th);
+            DB::rollBack();
+        }
+        return redirect()->back()->with('error', 'Khôi phục thất bại!');
     }
 }

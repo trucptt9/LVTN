@@ -14,11 +14,10 @@ return new class extends Migration
         Schema::create('staff_histories', function (Blueprint $table) {
             $table->id()->index();
             $table->unsignedBigInteger('staff_id')->index();
-            $table->integer('action');
+            $table->integer('action')->nullable();
             $table->string('link')->nullable();
             $table->text('description');
             $table->timestamps();
-            $table->foreign('staff_id')->references('id')->on('staffs')->onDelete('cascade');
         });
     }
 
