@@ -80,8 +80,6 @@ class LicenseController extends Controller
         $pdf = PDF::loadView('Admin.license.invoice', $data);
         return $pdf->stream('invoice.pdf');
 
-
-
     }
 
     public function insert()
