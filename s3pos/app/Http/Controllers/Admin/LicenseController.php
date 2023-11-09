@@ -29,7 +29,6 @@ class LicenseController extends Controller
             'packages' => Package::ofStatus(Package::STATUS_ACTIVE)->get(),
             'report' => License::select('status', DB::raw('count(*) as total'))
                 ->groupBy('status')->get()
-
         ];
         return view('Admin.license.index', compact('data'));
     }
