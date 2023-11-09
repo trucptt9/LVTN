@@ -18,7 +18,6 @@
                 <a href="{{ route('admin.license.invoice', ['id' => $item->id]) }}"
                     class="btn bg-gradient-yellow-red btn-sm">
                     <i class="fas fa-receipt"></i>
-
                 </a>
             </td>
             <td class="text-center">

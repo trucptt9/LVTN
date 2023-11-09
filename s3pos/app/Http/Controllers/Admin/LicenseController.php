@@ -81,6 +81,7 @@ class LicenseController extends Controller
         return $pdf->stream('invoice.pdf');
 
 
+
     }
 
     public function insert()
