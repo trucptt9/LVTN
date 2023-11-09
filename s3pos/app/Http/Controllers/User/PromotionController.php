@@ -9,6 +9,7 @@ use App\Models\CustomerGroup;
 use App\Models\Promotion;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Response as ResHTTP;
+use Illuminate\Support\Facades\DB;
 class PromotionController extends Controller
 {
     protected $limit_default, $store_id;
@@ -30,9 +31,9 @@ class PromotionController extends Controller
 
         return view('user.promotion.index', compact('data'));
     }
-    public function add()
+    public function log()
     {
-        return view('User.promotion.add');
+        return view('User.promotion.log');
     }
 
     public function list()
@@ -62,18 +63,33 @@ class PromotionController extends Controller
     }
 
 
-    public function detail()
+    public function detail($id)
     {
-        return view('user.promotion.detail');
-    }
+      $data = [
+        'status' => Promotion::get_status(),
+        'customer_group'=> CustomerGroup::storeId($this->store_id)->get(), 
+      ];
+      $promotion = Promotion::storeId($this->store_id)->findOrFail($id);
+      $status = Promotion::get_status($promotion->status);
 
+      
+      if (request()->ajax()) {
+        return view('user.promotion.modal_edit', compact('promotion', 'data'))->render();
+    }
+     
+      return view('user.promotion.detail', compact('promotion', 'data','status'))->render();
+  
+  
+    }
     public function insert(PromotionsInsertRequest $request)
     {
         try {
             $data = $request->all();
            
             $data['store_id'] = $this->store_id;
-            $data['status'] = request('status', Promotion::STATUS_BLOCKED);
+            // $data['status'] = request('status', Promotion::STATUS_BLOCKED);
+            $data['start'] = date('Y-m-d', strtotime($request->start)) ;
+            $data['end'] = date('Y-m-d', strtotime($request->end)) ;
             Promotion::create($data);
             return Response::json([
                 'status' => ResHTTP::HTTP_OK,
@@ -82,6 +98,7 @@ class PromotionController extends Controller
             ]);
         } catch (\Throwable $th) {
             showLog($th);
+           
             return Response::json([
                 'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
                 'message' => 'Lỗi tạo mới',
@@ -93,24 +110,36 @@ class PromotionController extends Controller
     public function update(PromotionsUpdateRequest $request)
     {
         try {
-            $id = $request->get('id', '');
-            $promotion = Promotion::storeId($this->store_id)->whereId($id)->first();
-            $promotion->status = $promotion->status == Promotion::STATUS_ACTIVE ? Promotion::STATUS_BLOCKED : Promotion::STATUS_ACTIVE;
-            $promotion->save();
+          DB::beginTransaction();
+          $id = $request->get('id', '');
+          $type = request('type', 'one');
+          $Promotion = Promotion::storeId($this->store_id)->whereId($id)->first();
+          if ($type == 'all') {
+            $data = $request->all();
+            $Promotion->update($data);
+          } else {
+            $Promotion->status = $Promotion->status == Promotion::STATUS_ACTIVE ? Promotion::STATUS_BLOCKED : Promotion::STATUS_ACTIVE;
+            $Promotion->save();
+          }
+          DB::commit();
+          if (request()->ajax()) {
             return Response::json([
-                'status' => ResHTTP::HTTP_OK,
-                'message' => 'Cập nhật thành công',
-                'type' => 'success'
+              'status' => ResHTTP::HTTP_OK,
+              'message' => 'Cập nhật thành công',
+              'type' => 'success'
             ]);
+          }
+          return redirect()->back()->with('success', 'Cập nhật thành công');
         } catch (\Throwable $th) {
-            showLog($th);
-            return Response::json([
-                'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
-                'message' => 'Lỗi cập nhật',
-                'type' => 'error'
-            ]);
+          showLog($th);
+          DB::rollBack();
+          return Response::json([
+            'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
+            'message' => 'Lỗi cập nhật',
+            'type' => 'error'
+          ]);
         }
-    }
+      }
 
     public function delete(PromotionsDeleteRequest $request)
     {

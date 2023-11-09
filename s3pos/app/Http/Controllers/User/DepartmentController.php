@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Department;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Response as ResHTTP;
+use Illuminate\Support\Facades\DB;
 class DepartmentController extends Controller
 {
     protected $limit_default, $store_id;
@@ -56,53 +57,70 @@ class DepartmentController extends Controller
     }
   
     
-    public function detail()
+    public function detail($id)
     {
-      return view('user.department.detail');
-    }
+      $data = [
+        'status' => Department::get_status(),
+      ];
+      $department = Department::storeId($this->store_id)->findOrFail($id);
+      return view('user.department.modal_edit', compact('department', 'data'))->render();
   
+  
+    }
     public function insert(DepartmentInsertRequest $request)
     {
-        try {
-            $data = $request->all();
-            $data['store_id'] = $this->store_id;
-            $data['status'] = request('status', Department::STATUS_BLOCKED);
-            Department::create($data);
-            return Response::json([
-                'status' => ResHTTP::HTTP_OK,
-                'message' => 'Tạo mới thành công',
-                'type' => 'success'
-            ]);
-        } catch (\Throwable $th) {
-            showLog($th);
-            return Response::json([
-                'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
-                'message' => 'Lỗi tạo mới',
-                'type' => 'error'
-            ]);
-        }
+      try {
+        $data = $request->all();
+        $data['store_id'] = $this->store_id;
+        $data['status'] = request('status', Department::STATUS_BLOCKED);
+        Department::create($data);
+        return Response::json([
+          'status' => ResHTTP::HTTP_OK,
+          'message' => 'Tạo mới thành công',
+          'type' => 'success'
+        ]);
+      } catch (\Throwable $th) {
+        showLog($th);
+        return Response::json([
+          'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
+          'message' => 'Lỗi tạo mới',
+          'type' => 'error'
+        ]);
+      }
     }
   
     public function update(DepartmentUpdateRequest $request)
     {
-        try {
-            $id = $request->get('id', '');
-            $department = Department::storeId($this->store_id)->whereId($id)->first();
-            $department->status = $department->status == Department::STATUS_ACTIVE ? Department::STATUS_BLOCKED : Department::STATUS_ACTIVE;
-            $department->save();
-            return Response::json([
-                'status' => ResHTTP::HTTP_OK,
-                'message' => 'Cập nhật thành công',
-                'type' => 'success'
-            ]);
-        } catch (\Throwable $th) {
-            showLog($th);
-            return Response::json([
-                'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
-                'message' => 'Lỗi cập nhật',
-                'type' => 'error'
-            ]);
+      try {
+        DB::beginTransaction();
+        $id = $request->get('id', '');
+        $type = request('type', 'one');
+        $department = Department::storeId($this->store_id)->whereId($id)->first();
+        if ($type == 'all') {
+          $data = $request->all();
+          $department->update($data);
+        } else {
+          $department->status = $department->status == Department::STATUS_ACTIVE ? Department::STATUS_BLOCKED : Department::STATUS_ACTIVE;
+          $department->save();
         }
+        DB::commit();
+        if (request()->ajax()) {
+          return Response::json([
+            'status' => ResHTTP::HTTP_OK,
+            'message' => 'Cập nhật thành công',
+            'type' => 'success'
+          ]);
+        }
+        return redirect()->back()->with('success', 'Cập nhật thành công');
+      } catch (\Throwable $th) {
+        showLog($th);
+        DB::rollBack();
+        return Response::json([
+          'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
+          'message' => 'Lỗi cập nhật',
+          'type' => 'error'
+        ]);
+      }
     }
   
     public function delete(DepartmentDeleteRequest $request)

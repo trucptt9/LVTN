@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\CategoryProduct;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Response as ResHTTP;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -27,6 +28,7 @@ class ProductController extends Controller
     {
         $data = [
             'status' => Product::get_status(),
+            'category' => CategoryProduct::storeId($this->store_id)->get(),
         ];
 
         return view('user.product.index', compact('data'));
@@ -35,7 +37,7 @@ class ProductController extends Controller
     {
         $data = [
             'status' => Product::get_status(),
-            'category'=> CategoryProduct::storeId($this->store_id)->get(),
+            'category' => CategoryProduct::storeId($this->store_id)->get(),
         ];
         return view('User.product.add', compact('data'));
     }
@@ -73,9 +75,16 @@ class ProductController extends Controller
     }
 
 
-    public function detail()
+    public function detail($id)
     {
-        return view('user.product.detail');
+        $data = [
+            'status' => Product::get_status(),
+            'category' => CategoryProduct::storeId($this->store_id)->get()
+        ];
+        $product = Product::findOrFail($id);
+        return view('user.product.modal_edit', compact('product', 'data'))->render();
+
+
     }
 
     public function insert(ProductInsertRequest $request)
@@ -110,30 +119,44 @@ class ProductController extends Controller
     public function update(ProductUpdateRequest $request)
     {
         try {
-            \DB::beginTransaction();
+            DB::beginTransaction();
             $id = $request->get('id', '');
             $type = request('type', 'one');
             $product = Product::whereId($id)->first();
             if ($type == 'all') {
                 $data = $request->all();
-                $data['status'] = $product->status == Product::STATUS_ACTIVE ? Product::STATUS_BLOCKED : Product::STATUS_ACTIVE;
+                if ($request->file('image') != null) {
+                    if ($product->image != null) {
+                        \Storage::delete($product->image);
+                    } else {
+                        $path = $request->file('image')->store('product');
+                        $data['image'] = $path;
+                    }
+
+                }
                 $product->update($data);
+
             } else {
                 $product->status = $product->status == Product::STATUS_ACTIVE ? Product::STATUS_BLOCKED : Product::STATUS_ACTIVE;
                 $product->save();
+
             }
-            \DB::commit();
+            DB::commit();
             if (request()->ajax()) {
                 return Response::json([
                     'status' => ResHTTP::HTTP_OK,
                     'message' => 'Cập nhật thành công',
                     'type' => 'success'
                 ]);
+               
+
             }
             return redirect()->back()->with('success', 'Cập nhật thành công');
+
+
         } catch (\Throwable $th) {
             showLog($th);
-            \DB::rollBack();
+            DB::rollBack();
             return Response::json([
                 'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
                 'message' => 'Lỗi cập nhật',

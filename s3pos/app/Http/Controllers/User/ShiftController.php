@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Shift;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Response as ResHTTP;
+use Illuminate\Support\Facades\DB;
 class ShiftController extends Controller
 {
     protected $limit_default, $store_id;
@@ -56,9 +57,15 @@ class ShiftController extends Controller
     }
   
     
-    public function detail()
+    public function detail($id)
     {
-      return view('user.shift.detail');
+      $data = [
+        'status' => Shift::get_status(),
+      ];
+      $shift = Shift::storeId($this->store_id)->findOrFail($id);
+      return view('user.shift.modal_edit', compact('shift', 'data'))->render();
+  
+  
     }
   
     public function insert(ShiftInsertRequest $request)
@@ -85,24 +92,36 @@ class ShiftController extends Controller
   
     public function update(ShiftUpdateRequest $request)
     {
-        try {
-            $id = $request->get('id', '');
-            $shift = Shift::storeId($this->store_id)->whereId($id)->first();
-            $shift->status = $shift->status == Shift::STATUS_ACTIVE ? Shift::STATUS_BLOCKED : Shift::STATUS_ACTIVE;
-            $shift->save();
-            return Response::json([
-                'status' => ResHTTP::HTTP_OK,
-                'message' => 'Cập nhật thành công',
-                'type' => 'success'
-            ]);
-        } catch (\Throwable $th) {
-            showLog($th);
-            return Response::json([
-                'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
-                'message' => 'Lỗi cập nhật',
-                'type' => 'error'
-            ]);
+      try {
+        DB::beginTransaction();
+        $id = $request->get('id', '');
+        $type = request('type', 'one');
+        $Shift = Shift::storeId($this->store_id)->whereId($id)->first();
+        if ($type == 'all') {
+          $data = $request->all();
+          $Shift->update($data);
+        } else {
+          $Shift->status = $Shift->status == Shift::STATUS_ACTIVE ? Shift::STATUS_BLOCKED : Shift::STATUS_ACTIVE;
+          $Shift->save();
         }
+        DB::commit();
+        if (request()->ajax()) {
+          return Response::json([
+            'status' => ResHTTP::HTTP_OK,
+            'message' => 'Cập nhật thành công',
+            'type' => 'success'
+          ]);
+        }
+        return redirect()->back()->with('success', 'Cập nhật thành công');
+      } catch (\Throwable $th) {
+        showLog($th);
+        DB::rollBack();
+        return Response::json([
+          'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
+          'message' => 'Lỗi cập nhật',
+          'type' => 'error'
+        ]);
+      }
     }
   
     public function delete(ShiftDeleteRequest $request)

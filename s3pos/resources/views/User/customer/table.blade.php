@@ -12,8 +12,8 @@
         <td>
             {{ $item->name }}
         </td>
-        <td>
-            {{ $item->name }}
+        <td class="text-center">
+           {{$item->group != null ? $item->group->name : ''}}
         </td>
         <td class="text-center">
             {{ $item->phone }}
@@ -28,22 +28,22 @@
                     onclick="changeStatus('{{ $item->id }}')" />
             </div>
         </td>
-        <td class="text-center">
-            <a href="">
+        
+        <td class="text-center d-flex">
+          
+            <a href="{{ route('customer.detail',$item->id) }}">
                 <i class="ki-duotone ki-eye fs-2qx text-dark">
                     <span class="path1"></span>
                     <span class="path2"></span>
                     <span class="path3"></span>
                 </i>
             </a>
-        </td>
-        <td class="text-center d-flex">
-            <button class="btn btn-light btn-edit" style="padding: 0px">
+            <a class="btn btn-light btn-edit" style="padding: 0px" href="{{ route('customer.detail',['id'=>$item->id]) }}">
                 <i class="ki-duotone ki-message-edit fs-2qx text-success">
                     <span class="path1"></span>
                     <span class="path2"></span>
                 </i>
-            </button>
+            </a>
 
             <button class="btn btn-light btn-delete" style="padding: 0px"
                 onclick="confirmDelete('{{ $item->id }}')">
@@ -61,7 +61,7 @@
 @endforeach
 @if ($paginate != '')
     <tr>
-        <td colspan="8">
+        <td colspan="7">
             <div class="mt-2">
                 {{ $paginate }}
             </div>
@@ -70,7 +70,7 @@
 @endif
 @else
 <tr>
-    <td colspan="8" class="text-center no-data">
+    <td colspan="7" class="text-center no-data">
         Không tìm thấy dữ liệu!
     </td>
 </tr>

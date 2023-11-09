@@ -86,6 +86,9 @@ class Table extends Model
 
     public function scopeAreaId($query, $area_id)
     {
+        if (is_array($area_id)) {
+            return $query->whereIn('tables.area_id', $area_id);
+        }
         return $query->where('tables.area_id', $area_id);
     }
 

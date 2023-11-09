@@ -126,6 +126,8 @@
                 icon: 'success',
                 title: "{{ session('success') }}"
             });
+
+            console.log({{ session('success') }});
         @endif
 
         @if (session('error'))
@@ -205,47 +207,7 @@
             });
         }
 
-        const form_create = $('form#form-create');
-        if (form_create) {
-            const action = form_create.attr('action');
-            form_create.submit(function(e) {
-                e.preventDefault();
-                $('.btn-create').html(`<span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
-                <span role="status">Loading...</span>`);
-                const data = new FormData($(this)[0]);
-                $.ajax({
-                    url: action,
-                    data: data,
-                    processData: false,
-                    contentType: false,
-                    type: 'POST',
-                    success: function(rs) {
-                        $('.btn-create').html(`<i class="fas fa-plus"></i> Tạo mới`);
-                        $('button[type=submit]').removeAttr('disabled');
-                        if (rs.status == 200) {
-                            form_create[0].reset();
-                            loadTable();
-                            if (rs?.uri) {
-                                location.href = rs?.uri;
-                            }
-                            $('.btn-close').click();
-                        }
-                        Toast.fire({
-                            icon: rs?.type,
-                            title: rs.message
-                        });
-                    },
-                    error: function(XMLHttpRequest, textStatus, errorThrown) {
-                        $('.btn-create').html(`<i class="fas fa-plus"></i> Tạo mới`);
-                        $('button[type=submit]').removeAttr('disabled');
-                        Toast.fire({
-                            icon: 'error',
-                            title: 'Tạo mới lỗi'
-                        });
-                    }
-                });
-            });
-        }
+       
         const form_update = $('form#form-update');
         if (form_update) {
             const action = form_update.attr('action');
@@ -253,7 +215,7 @@
                 e.preventDefault();
                 $('.btn-create').html(`<span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
                 <span role="status">Loading...</span>`);
-                const data = new FormData($(this)[0]);
+                const data = new FormData($(this)[0]);  
                 $.ajax({
                     url: action,
                     data: data,

@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Models\CategoryProduct;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Response as ResHTTP;
+use Illuminate\Support\Facades\DB;
 
 class CategoryProductController extends Controller
 {
@@ -60,11 +61,16 @@ class CategoryProductController extends Controller
     }
 
 
-    public function detail()
+    public function detail($id)
     {
-        return view('user.category_product.detail');
-    }
+        $data = [
+            'status' => CategoryProduct::get_status(),
+        ];
+        $category_product = CategoryProduct::storeId($this->store_id)->findOrFail($id);
+        return view('user.category_product.modal_edit', compact('category_product', 'data'))->render();
 
+
+    }
     public function insert(CategoryProductInsertRequest $request)
     {
         try {
@@ -97,17 +103,29 @@ class CategoryProductController extends Controller
     public function update(CategoryProductUpdateRequest $request)
     {
         try {
+            DB::beginTransaction();
             $id = $request->get('id', '');
+            $type = request('type', 'one');
             $CategoryProduct = CategoryProduct::storeId($this->store_id)->whereId($id)->first();
-            $CategoryProduct->status = $CategoryProduct->status == CategoryProduct::STATUS_ACTIVE ? CategoryProduct::STATUS_BLOCKED : CategoryProduct::STATUS_ACTIVE;
-            $CategoryProduct->save();
-            return Response::json([
-                'status' => ResHTTP::HTTP_OK,
-                'message' => 'Cập nhật thành công',
-                'type' => 'success'
-            ]);
+            if ($type == 'all') {
+                $data = $request->all();
+                $CategoryProduct->update($data);
+            } else {
+                $CategoryProduct->status = $CategoryProduct->status == CategoryProduct::STATUS_ACTIVE ? CategoryProduct::STATUS_BLOCKED : CategoryProduct::STATUS_ACTIVE;
+                $CategoryProduct->save();
+            }
+            DB::commit();
+            if (request()->ajax()) {
+                return Response::json([
+                    'status' => ResHTTP::HTTP_OK,
+                    'message' => 'Cập nhật thành công',
+                    'type' => 'success'
+                ]);
+            }
+            return redirect()->back()->with('success', 'Cập nhật thành công');
         } catch (\Throwable $th) {
             showLog($th);
+            DB::rollBack();
             return Response::json([
                 'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
                 'message' => 'Lỗi cập nhật',

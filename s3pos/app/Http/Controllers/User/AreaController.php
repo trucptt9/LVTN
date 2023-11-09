@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Area;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Response as ResHTTP;
+use Illuminate\Support\Facades\DB;
 
 class AreaController extends Controller
 {
@@ -25,6 +26,7 @@ class AreaController extends Controller
   {
     $data = [
       'status' => Area::get_status(),
+      
     ];
 
     return view('user.areas.index', compact('data'));
@@ -57,10 +59,16 @@ class AreaController extends Controller
   }
 
   
-  public function detail()
-  {
-    return view('user.areas.detail');
-  }
+  public function detail($id)
+    {
+      $data = [
+        'status' => Area::get_status(),
+      ];
+      $area = Area::storeId($this->store_id)->findOrFail($id);
+      return view('user.areas.modal_edit', compact('area', 'data'))->render();
+  
+  
+    }
 
   public function insert(AreaInsertRequest $request)
   {
@@ -86,24 +94,36 @@ class AreaController extends Controller
 
   public function update(AreaUpdateRequest $request)
   {
-      try {
-          $id = $request->get('id', '');
-          $area = Area::storeId($this->store_id)->whereId($id)->first();
-          $area->status = $area->status == Area::STATUS_ACTIVE ? Area::STATUS_BLOCKED : Area::STATUS_ACTIVE;
-          $area->save();
-          return Response::json([
-              'status' => ResHTTP::HTTP_OK,
-              'message' => 'Cập nhật thành công',
-              'type' => 'success'
-          ]);
-      } catch (\Throwable $th) {
-          showLog($th);
-          return Response::json([
-              'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
-              'message' => 'Lỗi cập nhật',
-              'type' => 'error'
-          ]);
+    try {
+      DB::beginTransaction();
+      $id = $request->get('id', '');
+      $type = request('type', 'one');
+      $Area = Area::storeId($this->store_id)->whereId($id)->first();
+      if ($type == 'all') {
+        $data = $request->all();
+        $Area->update($data);
+      } else {
+        $Area->status = $Area->status == Area::STATUS_ACTIVE ? Area::STATUS_BLOCKED : Area::STATUS_ACTIVE;
+        $Area->save();
       }
+      DB::commit();
+      if (request()->ajax()) {
+        return Response::json([
+          'status' => ResHTTP::HTTP_OK,
+          'message' => 'Cập nhật thành công',
+          'type' => 'success'
+        ]);
+      }
+      return redirect()->back()->with('success', 'Cập nhật thành công');
+    } catch (\Throwable $th) {
+      showLog($th);
+      DB::rollBack();
+      return Response::json([
+        'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
+        'message' => 'Lỗi cập nhật',
+        'type' => 'error'
+      ]);
+    }
   }
 
   public function delete(AreaDeleteRequest $request)

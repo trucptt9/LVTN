@@ -1,4 +1,4 @@
-  <!--begin::Modal - Create App-->
+
   <div class="modal fade" id="modal-add" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-900px">
@@ -160,4 +160,4 @@
     </div>
     <!--end::Modal dialog-->
 </div>
-<!--end::Modal - Create App-->
+

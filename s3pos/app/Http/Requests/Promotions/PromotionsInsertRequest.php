@@ -23,7 +23,9 @@ class PromotionsInsertRequest extends FormRequest
     {
         return [
             //
-            'name' => 'required'
+            'subject' => 'required',
+            'start' => 'required',
+            
         ];
     }
 }

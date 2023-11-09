@@ -9,7 +9,7 @@ use App\Models\Area;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Response as ResHTTP;
-
+use Illuminate\Support\Facades\DB;
 class TableController extends Controller
 {
   protected $limit_default, $store_id;
@@ -38,8 +38,12 @@ class TableController extends Controller
       $limit = request('limit', $this->limit_default);
       $status = request('status', '');
       $search = request('search', '');
-
-      $list = Table::storeId($this->store_id);
+      $area = Area::storeId($this->store_id)->get();
+      $area_id = array();
+      foreach($area as $val){
+        $area_id[] = $val->id;
+      }
+      $list = Table::areaId($area_id);
       $list = $status != '' ? $list->ofStatus($status) : $list;
       $list = $search != '' ? $list->search($search) : $list;
 
@@ -59,16 +63,23 @@ class TableController extends Controller
   }
 
   
-  public function detail()
-  {
-    return view('user.tables.detail');
-  }
+  public function detail($id)
+    {
+      $data = [
+        'status' => Table::get_status(),
+        'areas' => Area::storeId($this->store_id)->get(),
+      ];
+      $table = Table::findOrFail($id);
+      return view('user.tables.modal_edit', compact('table', 'data'))->render();
+  
+  
+    }
 
   public function insert(TableInsertRequest $request)
   {
       try {
           $data = $request->all();
-          $data['store_id'] = $this->store_id;
+  
           $data['status'] = request('status', Table::STATUS_BLOCKED);
          
           Table::create($data);
@@ -89,31 +100,43 @@ class TableController extends Controller
 
   public function update(TableUpdateRequest $request)
   {
-      try {
-          $id = $request->get('id', '');
-          $table = Table::storeId($this->store_id)->whereId($id)->first();
-          $table->status = $table->status == Table::STATUS_ACTIVE ? Table::STATUS_BLOCKED : Table::STATUS_ACTIVE;
-          $table->save();
-          return Response::json([
-              'status' => ResHTTP::HTTP_OK,
-              'message' => 'Cập nhật thành công',
-              'type' => 'success'
-          ]);
-      } catch (\Throwable $th) {
-          showLog($th);
-          return Response::json([
-              'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
-              'message' => 'Lỗi cập nhật',
-              'type' => 'error'
-          ]);
+    try {
+      DB::beginTransaction();
+      $id = $request->get('id', '');
+      $type = request('type', 'one');
+      $table = Table::whereId($id)->first();
+      if ($type == 'all') {
+        $data = $request->all();
+        $table->update($data);
+      } else {
+        $table->status = $table->status == Table::STATUS_ACTIVE ? Table::STATUS_BLOCKED : Table::STATUS_ACTIVE;
+        $table->save();
       }
+      DB::commit();
+      if (request()->ajax()) {
+        return Response::json([
+          'status' => ResHTTP::HTTP_OK,
+          'message' => 'Cập nhật thành công',
+          'type' => 'success'
+        ]);
+      }
+      return redirect()->back()->with('success', 'Cập nhật thành công');
+    } catch (\Throwable $th) {
+      showLog($th);
+      DB::rollBack();
+      return Response::json([
+        'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
+        'message' => 'Lỗi cập nhật',
+        'type' => 'error'
+      ]);
+    }
   }
 
   public function delete(TableDeleteRequest $request)
   {
       try {
           $id = $request->get('id', '');
-          $table = Table::storeId($this->store_id)->whereId($id)->first();
+          $table = Table::whereId($id)->first();
           $table->delete();
           return Response::json([
               'status' => ResHTTP::HTTP_OK,

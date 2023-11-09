@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\User;
+
 use App\Http\Requests\Topping\ToppingDeleteRequest;
 use App\Http\Requests\Topping\ToppingInsertRequest;
 use App\Http\Requests\Topping\ToppingUpdateRequest;
@@ -9,6 +10,8 @@ use App\Models\ToppingGroup;
 use App\Models\Toppings;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Response as ResHTTP;
+use Illuminate\Support\Facades\DB;
+
 class ToppingController extends Controller
 {
     protected $limit_default, $store_id;
@@ -25,12 +28,12 @@ class ToppingController extends Controller
     {
         $data = [
             'status' => Toppings::get_status(),
-            'group_topping'=>ToppingGroup::storeId($this->store_id)->get(), 
+            'group_topping' => ToppingGroup::storeId($this->store_id)->get(),
         ];
 
         return view('user.topping.index', compact('data'));
     }
-  
+
 
     public function list()
     {
@@ -65,9 +68,16 @@ class ToppingController extends Controller
     }
 
 
-    public function detail()
+    public function detail($id)
     {
-        return view('user.topping.detail');
+        $data = [
+            'status' => Toppings::get_status(),
+            'topping_group' => ToppingGroup::storeId($this->store_id)->get(),
+        ];
+        $topping = Toppings::findOrFail($id);
+        return view('user.topping.modal_edit', compact('topping', 'data'))->render();
+
+
     }
 
     public function insert(ToppingInsertRequest $request)
@@ -101,17 +111,38 @@ class ToppingController extends Controller
     public function update(ToppingUpdateRequest $request)
     {
         try {
+            DB::beginTransaction();
             $id = $request->get('id', '');
-            $topping = Toppings::whereId($id)->first();
-            $topping->status = $topping->status == Toppings::STATUS_ACTIVE ? Toppings::STATUS_BLOCKED : Toppings::STATUS_ACTIVE;
-            $topping->save();
-            return Response::json([
-                'status' => ResHTTP::HTTP_OK,
-                'message' => 'Cập nhật thành công',
-                'type' => 'success'
-            ]);
+            $type = request('type', 'one');
+            $Toppings = Toppings::whereId($id)->first();
+            if ($type == 'all') {
+                $data = $request->all();
+                if ($request->file('image') != null) {
+                    if ($Toppings->image != null) {
+                        \Storage::delete($Toppings->image);
+                    } else {
+                        $path = $request->file('image')->store('topping');
+                        $data['image'] = $path;
+                    }
+
+                }
+                $Toppings->update($data);
+            } else {
+                $Toppings->status = $Toppings->status == Toppings::STATUS_ACTIVE ? Toppings::STATUS_BLOCKED : Toppings::STATUS_ACTIVE;
+                $Toppings->save();
+            }
+            DB::commit();
+            if (request()->ajax()) {
+                return Response::json([
+                    'status' => ResHTTP::HTTP_OK,
+                    'message' => 'Cập nhật thành công',
+                    'type' => 'success'
+                ]);
+            }
+            return redirect()->back()->with('success', 'Cập nhật thành công');
         } catch (\Throwable $th) {
             showLog($th);
+            DB::rollBack();
             return Response::json([
                 'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
                 'message' => 'Lỗi cập nhật',

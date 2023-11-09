@@ -10,7 +10,7 @@
                 <h2>Thêm khuyến mãi</h2>
                 <!--end::Modal title-->
                 <!--begin::Close-->
-                <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                <div class="btn btn-sm btn-icon btn-active-color-primary close-btn" data-bs-dismiss="modal">
                     <i class="ki-duotone ki-cross fs-1">
                         <span class="path1"></span>
                         <span class="path2"></span>
@@ -25,11 +25,11 @@
                 <form action="{{ route('promotion.insert') }}" method="POST" id="form-create">
                     <div class="row" id="kt_modal_create_app_stepper">
 
-                        <!--begin::Aside-->
+                       
                         <div class="col-6">
                             <!--begin::Nav-->
                             <div class="stepper-nav ps-lg-10">
-                              
+
                                 <div class="fv-row mb-2">
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
                                         <span class="required">Tên chương trình</span>
@@ -39,7 +39,7 @@
                                         name="subject" placeholder="Tên chương trình" value="" />
                                     <!--begin::Label-->
 
-                                   
+
                                     <!--end::Input-->
                                 </div>
                                 <div class="fv-row mb-2">
@@ -59,27 +59,28 @@
                                 <div class="fv-row mb-2">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
-                                        <span class="required">Đối tượng áp dụng</span>
+                                        <span class="">Đối tượng áp dụng</span>
 
                                     </label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
-                                    <select name="" id="" class="form-select form-select-solid"
-                                        data-control="select2" data-hide-search="true">
-                                        
-                                        <option value="" selected>Tất cả
+                                    <select name="customer_group_id" id=""
+                                        class="form-select form-select-solid" data-control="select2"
+                                        data-hide-search="true">
+
+                                        <option value="0" selected>Tất cả
                                         </option>
-                                       @foreach ($data['customer_group'] as $item )
-                                       <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                       @endforeach
-                                        
+                                        @foreach ($data['customer_group'] as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
+
                                     </select>
                                     <!--end::Input-->
                                 </div>
                                 <div class="fv-row mb-2" style="display: flex; align-items:center">
                                     <div class="">
                                         <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
-                                            <span class="required">Giá trị khuyến mãi</span>
+                                            <span class="">Giá trị khuyến mãi</span>
 
                                         </label>
                                         <!--end::Label-->
@@ -90,14 +91,14 @@
 
                                     <div class="" style="margin-left:10px; position: relative; top:20px">
                                         <label class="form-check form-check-custom form-check-solid">
-                                            <input class="form-check-input" type="radio" value="" checked
+                                            <input class="form-check-input" type="radio" value="percent" checked
                                                 name="type_value" />
                                             <span class="form-check-label fw-semibold" style=color:black>
                                                 %
                                             </span>
                                         </label>
                                         <label class="form-check form-check-custom form-check-solid">
-                                            <input class="form-check-input" type="radio" value=""
+                                            <input class="form-check-input" type="radio" value="vnd"
                                                 name="type_value" />
                                             <span class="form-check-label fw-semibold" style="color: rgb(0, 0, 0)">
                                                 đ
@@ -105,21 +106,14 @@
                                         </label>
                                     </div>
 
-                                    <!--begin::Label-->
-
-
-                                    <!--end::Input-->
                                 </div>
                                 <div class="fv-row mb-2">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
-                                        <span class="required">Tổng đơn hàng >=</span>
-
+                                    <p class="text-uppercase fw-bold required">Điều kiện áp dụng</p> 
+                                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">                                    
+                                        <span class="">Tổng tiền đơn hàng >=</span>
                                     </label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
                                     <input type="number" class="form-control form-control-lg form-control-solid"
-                                        name="total_order" placeholder="Giá trị tổng đơn hàng tối thiểu để áp dụng" value="" />
+                                        name="total_order" placeholder="" value="" />
 
                                     <!--end::Input-->
                                 </div>
@@ -129,38 +123,29 @@
 
                             <!--end::Nav-->
                         </div>
-                        <!--begin::Aside-->
-                        <!--begin::Content-->
+                    
                         <div class="col-6">
                             <!--begin::Nav-->
 
                             <div class="stepper-nav ps-lg-10">
-
-                               
-
                                 <div class="fv-row mb-2">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
                                         <span class="required">Bắt đầu</span>
-
-
                                     </label>
-                                    <!--end::Label-->
+                                   
                                     <input class="form-control form-control-solid" placeholder="Chọn ngày"
-                                        id="promotion_day_start" />
+                                        name="start" id="promotion_day_start" />
 
                                 </div>
                                 <div class="fv-row mb-2">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
                                         <span class="">Kết thúc</span>
-
-
                                     </label>
                                     <!--end::Label-->
                                     <input class="form-control form-control-solid" placeholder="Chọn ngày"
-                                        id="promotion_day_end" />
-
+                                        name="end" id="promotion_day_end" />
                                 </div>
                                 <div class="fv-row mb-2">
                                     <!--begin::Label-->
@@ -170,14 +155,13 @@
                                     </label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
-                                    <textarea class="form-control" aria-label="With textarea" rows="3"></textarea>
+                                    <textarea class="form-control" name="description" aria-label="With textarea" rows="3"></textarea>
                                     <!--end::Input-->
                                 </div>
                                 <div class="fv-row mb-2">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                         <span class="">Trạng thái</span>
-
                                     </label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
@@ -185,10 +169,10 @@
                                         data-control="select2" data-hide-search="true">
                                         <option value="" selected>Chọn trạng thái
                                         </option>
-                                        @foreach ($data['status'] as $key=>$item )
-                                            <option value="{{ $key }}">$item[0]</option>
+                                        @foreach ($data['status'] as $key => $item)
+                                            <option value="{{ $key }}">{{  $item[0]}}</option>
                                         @endforeach
-                                        
+
                                     </select>
                                     <!--end::Input-->
                                 </div>
@@ -201,11 +185,11 @@
                                 data-kt-users-modal-action="cancel">Hủy</button>
                             <button type="submit" class="btn btn-primary btn-create"
                                 data-kt-users-modal-action="submit">
-                                <span class="indicator-label">Thêm</span>
+                                <span class="indicator-label">Tạo mới</span>
                                 <span class="indicator-progress">Please wait...
                                     <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                             </button>
-                    </div>
+                        </div>
                 </form>
                 <!--end::Content-->
             </div>

@@ -31,7 +31,7 @@
                       <div class="flex-row-fluid py-lg-5 px-lg-15">
                           <!--begin::Form-->
                           <form class="form" action="{{ route('shift.insert') }}" id="form-create" method="POST"
-                          enctype="multipart/form-data">
+                              enctype="multipart/form-data">
                               <!--begin::Step 4-->
                               <div data-kt-stepper-element="content" class="current">
                                   <div class="w-100">
@@ -88,16 +88,16 @@
                                       </div>
 
                                       <div class="row">
-                                        <div class="col-md-6 d-flex flex-column mb-7 fv-row">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                                <span class="required">Tiền lương</span>
+                                          <div class="col-md-6 d-flex flex-column mb-7 fv-row">
+                                              <!--begin::Label-->
+                                              <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
+                                                  <span class="required">Tiền lương</span>
 
-                                            </label>
-                                            <!--end::Label-->
-                                            <input type="text" class="form-control  " placeholder="Nhập tiền lương"
-                                                name="salary" value="" />
-                                        </div>
+                                              </label>
+                                              <!--end::Label-->
+                                              <input type="text" class="form-control  " placeholder="Nhập tiền lương"
+                                                  name="salary" value="" />
+                                          </div>
                                           <div class=" col-md-6 d-flex flex-column mb-7 fv-row">
                                               <!--begin::Label-->
                                               <label class="fs-6 fw-semibold form-label mb-2">Trạng thái</label>
@@ -120,7 +120,7 @@
 
 
                                           <!--begin::Input-->
-                                          <textarea class="form-control" aria-label="With textarea" rows="2"></textarea>
+                                          <textarea class="form-control" name="description" aria-label="With textarea" rows="2"></textarea>
                                           <!--end::Input-->
                                       </div>
 
