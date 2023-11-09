@@ -179,4 +179,5 @@ class StoreController extends Controller
         $list = DB::select($sql);
         return $list;
     }
+
 }

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('link')->nullable();
             $table->text('description');
             $table->timestamps();
+
         });
     }
 

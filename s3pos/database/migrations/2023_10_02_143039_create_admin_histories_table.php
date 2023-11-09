@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('admin_histories', function (Blueprint $table) {
             $table->id()->index();
             $table->unsignedBigInteger('admin_id')->index()->nullable();
-            $table->integer('action');
-            $table->string('link');
+            $table->integer('action')->nullable();
+            $table->string('link')->nullable();
             $table->string('note');
             $table->timestamps();
         });

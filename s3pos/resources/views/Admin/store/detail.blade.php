@@ -84,12 +84,9 @@
                     <span>{{ $store->code }}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-<<<<<<< HEAD
                     - Tên: <span>{{ $store->name }}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-=======
->>>>>>> be89e0c5e296b39750352c4d6e3962191a2e67a7
                     - Loại doanh nghiệp:
                     <span>{{ $store->businessType ? $store->businessType->name : '-' }}</span>
                 </li>
@@ -107,7 +104,6 @@
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     - Ngày tạo:
                     <span>{{ $store->created_at ? date('H:i:s d/m/Y', strtotime($store->created_at)) : '-' }}</span>
-
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     - Địa chỉ:
@@ -232,7 +228,6 @@
             </form>
         </div>
     </div>
-<<<<<<< HEAD
     <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <form action="{{ route('admin.store.update') }}" method="POST" enctype="multipart/form-data">
@@ -257,8 +252,6 @@
             </form>
         </div>
     </div>
-=======
->>>>>>> be89e0c5e296b39750352c4d6e3962191a2e67a7
 @endsection
 @push('js')
     <script src="{{ asset('admin/assets/js/chart.js') }}"></script>

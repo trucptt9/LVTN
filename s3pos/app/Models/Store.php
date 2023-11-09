@@ -86,4 +86,5 @@ class Store extends Model
     {
         return $this->hasOne(License::class, 'store_id', 'id')->ofStatus(License::STATUS_ACTIVE);
     }
+
 }
