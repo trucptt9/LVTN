@@ -47,6 +47,7 @@ class Toppings extends Model
         });
         self::deleted(function ($model) {
             save_log_action("Xóa topping #$model->name");
+            remove_s3_file($model->image);
         });
     }
 

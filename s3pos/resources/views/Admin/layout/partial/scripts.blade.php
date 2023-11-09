@@ -105,6 +105,13 @@
         });
     @endif
 
+    @if ($errors->any())
+        Toast.fire({
+            icon: 'error',
+            title: "Lỗi"
+        });
+    @endif
+
     // event update status of data table
     function changeStatus(id) {
         $.post(routeUpdate, {

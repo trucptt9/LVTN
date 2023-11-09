@@ -44,8 +44,8 @@ class Store extends Model
         });
         self::deleted(function ($model) {
             save_log_action_admin("Xóa cửa hàng #$model->name");
-
             // delete logo
+            remove_s3_file($model->logo);
         });
     }
 
@@ -86,4 +86,5 @@ class Store extends Model
     {
         return $this->hasOne(License::class, 'store_id', 'id')->ofStatus(License::STATUS_ACTIVE);
     }
+
 }
