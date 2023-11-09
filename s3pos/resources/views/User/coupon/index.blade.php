@@ -1,6 +1,6 @@
 @extends('User.layout.main')
 @section('style')
-    <link href="{{asset('user/assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('user/assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('content')
@@ -30,12 +30,12 @@
                         <!--end::Item-->
                     </ul>
                 </div>
-                <button class="btn btn-primary h-40px btn-add">
+                <a class="btn btn-add btn-primary h-40px">
                     Tạo mới
-                </button>
+                </a>
             </div>
-
-            <!--begin::Products-->
+            @include('User.coupon.modal_add')
+            <!--begin::promotions-->
             <div class="card card-flush">
                 <!--begin::Card header-->
                 <form action="" id="form-filter">
@@ -68,9 +68,6 @@
                                 <!--end::Select2-->
                             </div>
                         </div>
-
-
-
                     </div>
                 </form>
                 <!--end::Card header-->
@@ -80,11 +77,12 @@
                     <table class="table align-middle table-bordered fs-6 gy-5">
                         <thead>
                             <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+
                                 <th class="w-100px">Mã</th>
-                                <th class="">Tên chương trình</th>
+                                <th class="">Tên</th>
                                 <th class="w-200px text-center">Thời gian áp dụng</th>
                                 <th class="w-140px text-center" >Giá trị</th>
-                                <th class="w-240px">Mô tả</th>  
+                                <th class="w-140px text-center" >Số lượng còn lại</th>
                                 <th class="w-125px text-center">Trạng thái</th>
                                 <th class=" w-90px text-center">#</th>
                             </tr>
@@ -103,20 +101,18 @@
                 <!--end::Card body-->
             </div>
 
-            <!--end::Products-->
+            <!--end::promotions-->
         </div>
         <!--end::Post-->
     </div>
-    @include('User.coupon.modal_add')
-
     <div class="modal fade" id="modal-edit" tabindex="-1" aria-hidden="true">
         <!--begin::Modal dialog-->
         <form action="{{ route('coupon.update') }}" id="form-update" method="POST" enctype="multipart/form-data">
-            <div class="modal-dialog modal-dialog-centered mw-650px">
+            <div class="modal-dialog modal-dialog-centered mw-900px">
                 <div class="modal-content">
                     <div class="modal-header">
                         <!--begin::Modal title-->
-                        <h2>Cập nhật khu vực bàn</h2>
+                        <h2>Cập nhật phiếu mua hàng</h2>
                         <div class="btn btn-sm btn-icon btn-active-color-primary close-btn" data-bs-dismiss="modal">
                             <i class="ki-duotone ki-cross fs-1">
                                 <span class="path1"></span>
@@ -127,26 +123,21 @@
                     </div>
 
                     <div class="modal-body px-lg-10 ">
-                        <div class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid"
-                            id="kt_modal_create_app_stepper">
-
-                            <div class="flex-row-fluid py-lg-5 ">
-                                <div class="d-flex flex-column scroll-y px-5 px-lg-10 content-update"
-                                    id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="true"
-                                    data-kt-scroll-max-height="auto" data-kt-scroll-offset="300px">
 
 
+                        <div class="flex-row-fluid py-lg-5 ">
+                            <div class="row content-update" id="kt_modal_create_app_stepper" >
 
-                                </div>
-                                <div class="text-center pt-10">
-                                    <button type="reset" class="btn btn-light me-3 close-btn2">Hủy</button>
-                                    <button type="submit" class="btn btn-primary btn-create">
-                                        <span class="indicator-label">Cập nhật </span>
-
-                                    </button>
-                                </div>
+                            </div>
+                            <div class="text-center pt-10">
+                                <button type="reset" class="btn btn-light me-3 close-btn2">Hủy</button>
+                                <button type="submit" class="btn btn-primary btn-create">
+                                    <span class="indicator-label">Cập nhật </span>
+    
+                                </button>
                             </div>
                         </div>
+                       
                         <!--end::Content-->
                     </div>
                 </div>
@@ -161,13 +152,12 @@
 @section('script')
     <script>
         const routeList = "{{ route('coupon.list') }}";
-        const routeUpdate = "{{ route('coupon.update') }}";
+
         filterTable();
 
         function filterTable() {
             loadTable(routeList);
         };
-
         $('.btn-add').click(function(e) {
             e.preventDefault();
             $('#modal-add').trigger('reset');
@@ -189,6 +179,32 @@
             // $('#modal-edit').trigger('reset');
             $('#modal-edit').modal('hide');
         })
+
+        $(document).ready(function() {
+            $("#coupon_day_start").flatpickr({
+                dateFormat: 'd-m-Y'
+            });
+            $("#coupon_day_end").flatpickr({
+                dateFormat: 'd-m-Y'
+            });
+            $("#coupon_day_start1").flatpickr({
+                dateFormat: 'd-m-Y'
+            });
+            $("#coupon_day_end2").flatpickr({
+                dateFormat: 'd-m-Y'
+            });
+
+        })
+        $('#start-datepicker').flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+        });
+        $('#end-datepicker').flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+        });
         const form_create = $('form#form-create');
         if (form_create) {
             const action = form_create.attr('action');
@@ -260,8 +276,11 @@
             })
         })
     </script>
-    <script src="{{asset('user/assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
-    <script src="{{asset('user/assets/js/custom/apps/ecommerce/sales/listing.js')}}"></script>
-    <script src="{{asset('user/assets/js/widgets.bundle.js')}}"></script>
-    <script src="{{asset('user/assets/js/custom/widgets.js')}}"></script>
+    <script src="{{ asset('user/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+    <script src="{{ asset('user/assets/js/custom/apps/ecommerce/sales/listing.js') }}"></script>
+    <script src="{{ asset('user/assets/js/widgets.bundle.js') }}"></script>
+    <script src="{{ asset('user/assets/js/custom/widgets.js') }}"></script>
+    <script src="{{ asset('user/assets/js/custom/utilities/modals/upgrade-plan.js') }}"></script>
+    <script src="{{ asset('user/assets/js/custom/utilities/modals/create-app.js') }}"></script>
+    <script src="{{ asset('user/assets/js/custom/utilities/modals/users-search.js') }}"></script>
 @endsection

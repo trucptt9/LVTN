@@ -132,23 +132,23 @@
                                                                         name="type">
                                                                         <option value="" selected> Chọn hành động
                                                                         </option>
-
-                                                                        <option value="add"> Tích điểm</option>
-                                                                        <option value="sub"> Đổi điểm</option>
+                                                                            @foreach ( $data['type'] as $key => $item )
+                                                                            <option value="{{ $key }}"> {{ $item[0] }}</option>
+                                                                            @endforeach
                                                                     </select>
                                                                     <!--end::Select2-->
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </form>
-                                                    <div class="card-body py-4">
+                                                    <div class="card-body py-4 table-loading">
                                                         <!--begin::Table-->
                                                         <table class="table align-middle table-bordered fs-6 gy-5"
-                                                            id="kt_table_users">
+                                                            >
                                                             <thead>
                                                                 <tr
                                                                     class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
-
+                                                                    <th class="min-w-100px">Mã hóa đơn</th>
                                                                     <th class="min-w-100px">Hành động</th>
                                                                     <th class="min-w-75px text-center ">Số điểm</th>
                                                                     <th class="min-w-125px text-center">Thời gian</th>
@@ -160,7 +160,7 @@
                                                             <tbody class="text-gray-600 fw-semibold" id="load-table">
 
                                                                 <tr>
-                                                                    <td colspan="4" class="text-center">
+                                                                    <td colspan="5" class="text-center">
                                                                         Không tìm thấy dữ liệu
                                                                     </td>
                                                                 </tr>
@@ -200,10 +200,10 @@
     <script>
         $(document).ready(function() {
             const routeList = "{{ route('customer.table_history',$customer->id) }}"
-            filterTable();
+            // filterTable();
 
             function filterTable() {
-                loadTable(routeList);
+               loadTable(routeList);
             };
 
             $('.btn-update').click(function(e){
@@ -223,7 +223,12 @@
                         $('.btn-update').html(`<span class="indicator-label">Cập nhật </span>`);
                         $('button[type=submit]').removeAttr('disabled');
                         if (rs.status == 200) {
-                          
+                            $class = 'badge badge-light-' + rs.status_update[1]
+                            $class_cur = 'badge badge-light-' + rs.status_cur[1]
+                            $('.status-change').html(rs.status_update[0])
+                            $('.status-change').removeClass($class_cur);
+                            
+                            $('.status-change').addClass($class);
                         }
                         Toast.fire({
                             icon: rs?.type,
@@ -247,15 +252,6 @@
     <!--end::Vendors Javascript-->
     <!--begin::Custom Javascript(used for this page only)-->
     <script src="{{ asset('user/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/apps/user-management/users/view/view.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/apps/user-management/users/view/update-details.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/apps/user-management/users/view/add-schedule.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/apps/user-management/users/view/add-task.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/apps/user-management/users/view/update-email.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/apps/user-management/users/view/update-password.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/apps/user-management/users/view/update-role.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/apps/user-management/users/view/add-auth-app.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/apps/user-management/users/view/add-one-time-password.js') }}"></script>
     <script src="{{ asset('user/assets/js/widgets.bundle.js') }}"></script>
     <script src="{{ asset('user/assets/js/custom/widgets.js') }}"></script>
     <script src="{{ asset('user/assets/js/custom/apps/chat/chat.js') }}"></script>

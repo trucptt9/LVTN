@@ -1,3 +1,4 @@
+<!--begin::Modal - Create App-->
 <div class="modal fade" id="modal-add" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-900px">
@@ -7,47 +8,57 @@
             <div class="modal-header">
                 <!--begin::Modal title-->
                 <h2>Thêm phiếu mua hàng</h2>
-
+                <!--end::Modal title-->
+                <!--begin::Close-->
                 <div class="btn btn-sm btn-icon btn-active-color-primary close-btn" data-bs-dismiss="modal">
                     <i class="ki-duotone ki-cross fs-1">
                         <span class="path1"></span>
                         <span class="path2"></span>
                     </i>
                 </div>
-
+                <!--end::Close-->
             </div>
-
+            <!--end::Modal header-->
+            <!--begin::Modal body-->
             <div class="modal-body py-lg-10 px-lg-10">
                 <!--begin::Stepper-->
                 <form action="{{ route('coupon.insert') }}" method="POST" id="form-create">
                     <div class="row" id="kt_modal_create_app_stepper">
 
-                        <!--begin::Aside-->
+                       
                         <div class="col-6">
                             <!--begin::Nav-->
                             <div class="stepper-nav ps-lg-10">
 
                                 <div class="fv-row mb-2">
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
-                                        <span class="required">Tên chương trình</span>
+                                        <span class="required">Tên</span>
 
                                     </label>
                                     <input type="text" class="form-control form-control-lg form-control-solid"
-                                        name="name" placeholder="Tên chương trình" value="" />
-                                    <!--begin::Label-->
-
-
-                                    <!--end::Input-->
+                                        name="name" placeholder="Tên " value="" />
                                 </div>
+                               
 
+                                <div class="fv-row mb-2">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
+                                        <span class="">Số lượng phiếu tạo</span>
+
+                                    </label>
+                                    <input type="number" class="form-control form-control-lg form-control-solid"
+                                    name="quantity" placeholder="Số lượng phiếu" value="" />
+                                </div>
                                 <div class="fv-row mb-2" style="display: flex; align-items:center">
                                     <div class="">
                                         <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
-                                            <span class="">Giá trị khuyến mãi</span>
+                                            <span class="">Giá trị phiếu</span>
 
                                         </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
                                         <input type="number" class="form-control form-control-lg form-control-solid"
-                                            name="value" placeholder="Giá trị khuyến mãi" value="" />
+                                            name="value" placeholder="Giá trị phiếu mua hàng" value="" />
                                     </div>
 
                                     <div class="" style="margin-left:10px; position: relative; top:20px">
@@ -69,41 +80,43 @@
 
                                 </div>
                                 <div class="fv-row mb-2">
-
-                                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
-                                        <span class="">Số lượng thẻ mua hàng cần tạo</span>
-                                    </label>
-                                    <input type="number" class="form-control form-control-lg form-control-solid"
-                                        name="usage" placeholder="" value="" />
-                                </div>
-                                <div class="fv-row mb-2">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                         <span class="">Trạng thái</span>
                                     </label>
-
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
                                     <select name="status" id="" class="form-select form-select-solid"
                                         data-control="select2" data-hide-search="true">
                                         <option value="" selected>Chọn trạng thái
                                         </option>
                                         @foreach ($data['status'] as $key => $item)
-                                            <option value="{{ $key }}">$item[0]</option>
+                                            <option value="{{ $key }}">{{  $item[0]}}</option>
                                         @endforeach
 
                                     </select>
-
+                                    <!--end::Input-->
                                 </div>
+
                             </div>
+
+
+                            <!--end::Nav-->
                         </div>
+                    
                         <div class="col-6">
+                            <!--begin::Nav-->
+
                             <div class="stepper-nav ps-lg-10">
                                 <div class="fv-row mb-2">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
                                         <span class="required">Bắt đầu</span>
                                     </label>
+                                   
                                     <input class="form-control form-control-solid" placeholder="Chọn ngày"
                                         name="start" id="coupon_day_start" />
+
                                 </div>
                                 <div class="fv-row mb-2">
                                     <!--begin::Label-->
@@ -125,7 +138,7 @@
                                     <textarea class="form-control" name="description" aria-label="With textarea" rows="3"></textarea>
                                     <!--end::Input-->
                                 </div>
-
+                               
 
                             </div>
                             <!--end::Nav-->
@@ -149,3 +162,6 @@
     </div>
     <!--end::Modal content-->
 </div>
+<!--end::Modal dialog-->
+</div>
+<!--end::Modal - Create App-->

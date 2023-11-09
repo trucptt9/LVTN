@@ -108,12 +108,12 @@
     </div>
     <div class="modal fade" id="modal-edit" tabindex="-1" aria-hidden="true">
         <!--begin::Modal dialog-->
-        <form action="{{ route('staff.update') }}" id="form-update" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('promotion.update') }}" id="form-update" method="POST" enctype="multipart/form-data">
             <div class="modal-dialog modal-dialog-centered mw-900px">
                 <div class="modal-content">
                     <div class="modal-header">
                         <!--begin::Modal title-->
-                        <h2>Cập nhật nhân viên</h2>
+                        <h2>Cập nhật chương trình khuyến mãi</h2>
                         <div class="btn btn-sm btn-icon btn-active-color-primary close-btn" data-bs-dismiss="modal">
                             <i class="ki-duotone ki-cross fs-1">
                                 <span class="path1"></span>

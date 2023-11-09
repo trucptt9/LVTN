@@ -6,13 +6,14 @@
             align-items: center; ">
                 <h3 class="col-8">Thông tin khách hàng</h3>
                 <div class="col">
-                    <button class="btn btn-light-success btn-update btn-sm " type="submit" style="float:inline-float">Cập nhật</button>
+                    <button class="btn btn-success btn-update btn-sm " type="submit" style="float:inline-float">Cập
+                        nhật</button>
                 </div>
-                
+
             </div>
 
-          <input type="hidden" name="id" value="{{ $customer->id }}" id="">
-          <input type="hidden" name="type" value="all" id="">
+            <input type="hidden" name="id" value="{{ $customer->id }}" id="">
+            <input type="hidden" name="type" value="all" id="">
             <div class="fw-bold mt-5">Tên khách hàng</div>
             <div class="text-gray-600">
                 <input type="text" class="form-control form-control-lg form-control-solid" name="name"
@@ -30,7 +31,8 @@
                 name="group_id">
                 <option value="" selected> Chọn nhóm khách hàng</option>
                 @foreach ($data['customer_group'] as $item)
-                    <option value="{{ $item->id }}"> {{ $item->name }}</option>
+                    <option value="{{ $item->id }}" {{ $item->id == $customer->group_id ? 'selected' : '' }}>
+                        {{ $item->name }}</option>
                 @endforeach
             </select>
             <div class="fw-bold mt-5">Địa chỉ</div>
@@ -44,7 +46,7 @@
 
             <!--begin::Details item-->
             <div class="fw-bold mt-5">Trạng thái</div>
-            <div class="{{ 'badge badge-light-' . $status[1] }}">{{ $status[0] }}</div>
+            <div class="{{ 'badge badge-light-' . $status[1] }} status-change">{{ $status[0] }}</div>
             <!--begin::Details item-->
         </div>
 

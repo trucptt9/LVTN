@@ -34,7 +34,7 @@
         <label class=" fw-semibold fs-6 mb-2">Nhóm khách hàng</label>
         <select class="form-select" aria-label="Select example" name="group_id">
             <option value="">Chọn</option>
-            @foreach ($data['group'] as $item)
+            @foreach ($data['customer_group'] as $item)
                 <option value="{{ $item->id }}" {{ $item->id == $customer->group_id ? 'selected' : '' }}>
                     {{ $item->name }}</option>
             @endforeach

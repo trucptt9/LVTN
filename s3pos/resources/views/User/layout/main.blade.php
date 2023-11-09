@@ -182,7 +182,7 @@
             const url = uri + "?page=" + page + "&" + data;
             console.log(url)
             $.get(url, function(rs) {
-                console.log(status)
+                // console.log(status)
                 hideSniper(".table-loading");
                 $("button[type=submit]").removeAttr("disabled");
                 $(".btn-reload").html('<i class="fas fa-sync"></i>');
