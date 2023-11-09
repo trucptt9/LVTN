@@ -127,18 +127,18 @@
 
 
                         <div class="flex-row-fluid py-lg-5 ">
-                            <div class="row" id="kt_modal_create_app_stepper" class="content-update">
+                            <div class="row content-update" id="kt_modal_create_app_stepper" >
 
                             </div>
                             <div class="text-center pt-10">
                                 <button type="reset" class="btn btn-light me-3 close-btn2">Hủy</button>
                                 <button type="submit" class="btn btn-primary btn-create">
                                     <span class="indicator-label">Cập nhật </span>
-
+    
                                 </button>
                             </div>
                         </div>
-
+                       
                         <!--end::Content-->
                     </div>
                 </div>

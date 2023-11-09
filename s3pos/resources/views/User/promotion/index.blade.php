@@ -108,12 +108,12 @@
     </div>
     <div class="modal fade" id="modal-edit" tabindex="-1" aria-hidden="true">
         <!--begin::Modal dialog-->
-        <form action="{{ route('promotion.update') }}" id="form-update" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('staff.update') }}" id="form-update" method="POST" enctype="multipart/form-data">
             <div class="modal-dialog modal-dialog-centered mw-900px">
                 <div class="modal-content">
                     <div class="modal-header">
                         <!--begin::Modal title-->
-                        <h2>Cập nhật sản phẩm</h2>
+                        <h2>Cập nhật nhân viên</h2>
                         <div class="btn btn-sm btn-icon btn-active-color-primary close-btn" data-bs-dismiss="modal">
                             <i class="ki-duotone ki-cross fs-1">
                                 <span class="path1"></span>
@@ -124,26 +124,21 @@
                     </div>
 
                     <div class="modal-body px-lg-10 ">
-                        <div class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid"
-                            id="kt_modal_create_app_stepper">
-
-                            <div class="flex-row-fluid py-lg-5 ">
-                                <div class="d-flex flex-column scroll-y px-5 px-lg-10 content-update"
-                                    id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="true"
-                                    data-kt-scroll-max-height="auto" data-kt-scroll-offset="300px">
 
 
+                        <div class="flex-row-fluid py-lg-5 ">
+                            <div class="row content-update" id="kt_modal_create_app_stepper" >
 
-                                </div>
-                                <div class="text-center pt-10">
-                                    <button type="reset" class="btn btn-light me-3 close-btn2">Hủy</button>
-                                    <button type="submit" class="btn btn-primary btn-create">
-                                        <span class="indicator-label">Cập nhật </span>
-
-                                    </button>
-                                </div>
+                            </div>
+                            <div class="text-center pt-10">
+                                <button type="reset" class="btn btn-light me-3 close-btn2">Hủy</button>
+                                <button type="submit" class="btn btn-primary btn-create">
+                                    <span class="indicator-label">Cập nhật </span>
+    
+                                </button>
                             </div>
                         </div>
+                       
                         <!--end::Content-->
                     </div>
                 </div>

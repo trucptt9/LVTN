@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\User;
+
 use App\Http\Requests\Staff\StaffDeleteRequest;
 use App\Http\Requests\Staff\StaffInsertRequest;
 use App\Http\Requests\Staff\StaffUpdateRequest;
@@ -11,6 +12,7 @@ use App\Models\Department;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Response as ResHTTP;
 use Illuminate\Support\Facades\DB;
+
 class StaffController extends Controller
 {
     protected $limit_default, $store_id;
@@ -33,15 +35,18 @@ class StaffController extends Controller
 
         return view('user.staff.index', compact('data'));
     }
-  
 
+    public function permission()
+    {
+        return view('user.staff.permission')->render();
+    }
     public function list()
     {
 
         try {
             $limit = request('limit', $this->limit_default);
             $status = request('status', '');
-            $search = request('search', '');       
+            $search = request('search', '');
             $list = Staff::storeId($this->store_id);
             $list = $status != '' ? $list->ofStatus($status) : $list;
             $list = $search != '' ? $list->search($search) : $list;
@@ -69,12 +74,12 @@ class StaffController extends Controller
             'departments' => Department::storeId($this->store_id)->get(),
             'positions' => Position::storeId($this->store_id)->get(),
         ];
-        $staff = Staff::brandId($this->store_id)->findOrFail($id);
-            if (request()->ajax()) {
-                return view('user.staff.modal_edit', compact('staff', 'data'))->render();
-            }
-            return view('user.staff.detail', compact('staff','data'));
-        
+        $staff = Staff::storeId($this->store_id)->findOrFail($id);
+        if (request()->ajax()) {
+            return view('user.staff.modal_edit', compact('staff', 'data'))->render();
+        }
+        return view('user.staff.detail', compact('staff', 'data'));
+
 
     }
 
@@ -88,7 +93,6 @@ class StaffController extends Controller
             } else {
                 $data['avatar'] = null;
             }
-
             $data['store_id'] = $this->store_id;
             $data['status'] = request('status', Staff::STATUS_UN_ACTIVE);
             Staff::create($data);
@@ -113,7 +117,7 @@ class StaffController extends Controller
             DB::beginTransaction();
             $id = $request->get('id', '');
             $type = request('type', 'one');
-            $staff = Staff::whereId($id)->first();
+            $staff = Staff::storeId($this->store_id)->whereId($id)->first();
             if ($type == 'all') {
                 $data = $request->all();
                 if ($request->file('avatar') != null) {
@@ -127,7 +131,12 @@ class StaffController extends Controller
                 }
                 $staff->update($data);
 
-            } else {
+            } elseif($type == 'account'){
+               
+                $staff->email = $request->email;
+                $staff->password = $request->password;
+                $staff->save();
+            }else {
                 $staff->status = $staff->status == Staff::STATUS_ACTIVE ? Staff::STATUS_UN_ACTIVE : Staff::STATUS_ACTIVE;
                 $staff->save();
 
@@ -139,7 +148,7 @@ class StaffController extends Controller
                     'message' => 'Cập nhật thành công',
                     'type' => 'success'
                 ]);
-               
+
 
             }
             return redirect()->back()->with('success', 'Cập nhật thành công');
@@ -155,7 +164,7 @@ class StaffController extends Controller
             ]);
         }
     }
-
+ 
     public function delete(StaffDeleteRequest $request)
     {
         try {

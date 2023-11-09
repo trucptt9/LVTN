@@ -126,6 +126,8 @@
                 icon: 'success',
                 title: "{{ session('success') }}"
             });
+
+            console.log({{ session('success') }});
         @endif
 
         @if (session('error'))

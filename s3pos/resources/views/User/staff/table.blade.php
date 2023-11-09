@@ -14,7 +14,6 @@
                     <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
 
                         <div class="symbol-label">
-
                             @if ($item->avatar == null)
                                 <img src="{{ asset('images/avatar.jpg') }} " alt=""
                                     class="w-100" />
@@ -22,11 +21,6 @@
                                 <img src="{{ asset('storage/' . $item->avatar) }} " alt="{{ $item->name }}"
                                     class="w-100" />
                             @endif
-
-
-
-
-
                         </div>
 
                     </div>
@@ -41,10 +35,10 @@
                 {{ $item->phone }}
             </td>
             <td class="text-center">
-                {{ $item->phone }}
+                {{ $item->position_id != null ? $item->position->name : 'Không có' }}
             </td>
             <td class="text-center">
-                {{ $item->phone }}
+                {{ $item->department_id != null ? $item->department->name : 'Không có' }}
             </td>
 
             <td class="text-center">

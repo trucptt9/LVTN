@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('promotions', function (Blueprint $table) {
             $table->id()->index();
             $table->unsignedBigInteger('store_id')->index();
-            $table->unsignedBigInteger('customer_group_id')->index()->nullable()->default(0);
+            $table->unsignedBigInteger('customer_group_id')->index()->nullable();
             $table->string('code')->unique();
             $table->string('subject');
             $table->date('start');
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->timestamps();
             $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade');
-            $table->foreign('customer_group_id')->references('id')->on('customer_group')->onDelete('cascade');
+            $table->foreign('customer_group_id')->references('id')->on('customer_groups')->onDelete('cascade');
         });
     }
 

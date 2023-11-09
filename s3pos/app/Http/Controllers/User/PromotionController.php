@@ -31,9 +31,9 @@ class PromotionController extends Controller
 
         return view('user.promotion.index', compact('data'));
     }
-    public function add()
+    public function log()
     {
-        return view('User.promotion.add');
+        return view('User.promotion.log');
     }
 
     public function list()
@@ -67,9 +67,17 @@ class PromotionController extends Controller
     {
       $data = [
         'status' => Promotion::get_status(),
+        'customer_group'=> CustomerGroup::storeId($this->store_id)->get(), 
       ];
       $promotion = Promotion::storeId($this->store_id)->findOrFail($id);
-      return view('user.promotion.modal_edit', compact('promotion', 'data'))->render();
+      $status = Promotion::get_status($promotion->status);
+
+      
+      if (request()->ajax()) {
+        return view('user.promotion.modal_edit', compact('promotion', 'data'))->render();
+    }
+     
+      return view('user.promotion.detail', compact('promotion', 'data','status'))->render();
   
   
     }

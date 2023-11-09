@@ -1,4 +1,4 @@
-@extends('user.layout')
+@extends('user.layout.main')
 @section('style')
     <!--begin::Vendor Stylesheets(used for this page only)-->
     <link href="{{ asset('user/assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
@@ -10,18 +10,43 @@
     <!--begin::Toolbar-->
     <div class="toolbar py-5 " id="kt_toolbar">
         <!--begin::Container-->
-        <div id="kt_toolbar_container" class="container-xxl d-flex flex-stack flex-wrap">
-            <div class="page-title d-flex flex-column me-3">
-                <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-1">
-                    <h6 class="breadcrumb-item text-white opacity-75">
-                        <a href=".#" class="text-white text-hover-primary">Chương trình khuyến mãi</a>
-                    </h6>
-                    <h6 class="breadcrumb-item">
-                        <span class="bullet bg-white opacity-75 w-5px h-2px"></span>
-                    </h6>
-                    <h6 class="breadcrumb-item text-white opacity-75">Chi tiết chương trình</h6>
-
-                </ul>
+        <div id="kt_toolbar_container" class="container-xxl flex-row-fluid">
+            <div class="d-flex justify-content-between py-5">
+                <div class="">
+                    <h1 class="d-flex text-white fw-bold my-1 fs-3">Chi tiết khuyến mãi</h1>
+                    <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-1">
+                        <!--begin::Item-->
+                        <li class="breadcrumb-item text-white opacity-75">
+                            <a href="{{ route('index') }}" class="text-white text-hover-primary">
+                                Trang chủ
+                            </a>
+                        </li>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <li class="breadcrumb-item">
+                            <span class="bullet bg-white opacity-75 w-5px h-2px"></span>
+                        </li>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <li class="breadcrumb-item text-white opacity-75">
+                            Khuyến mãi
+                        </li>
+                        <li class="breadcrumb-item">
+                            <span class="bullet bg-white opacity-75 w-5px h-2px"></span>
+                        </li>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <li class="breadcrumb-item text-white opacity-75">
+                            <a href="{{ route('promotion.index') }}" class="text-white text-hover-primary">
+                               Quản lý khuyến mãi
+                            </a>
+                        </li>
+                        <!--end::Item-->
+                    </ul>
+                </div>
+                <a class="btn  btn-primary h-40px" href="{{ route('promotion.index') }}">
+                    Quay lại
+                </a>
             </div>
         </div>
 
@@ -49,13 +74,15 @@
                                     <!--begin::Details item-->
                                     <div class="fw-bold mt-5">Tên chương trình</div>
                                     <div class="text-gray-600">
-                                        Giảm giá tháng 10 nnnnhdhf jhfjdhg fjhgjfdhg jfhgjfhdj fjjkdfhjdfgh fghjfgjh
+                                        {{ $promotion->subject }}
                                     </div>
                                     <!--begin::Details item-->
                                     <!--begin::Details item-->
 
                                     <div class="fw-bold mt-5">Trạng thái</div>
-                                    <div class="badge badge-light-success">Đang kích hoạt</div>
+
+
+                                    <div class="{{ 'badge badge-light-'.$status[1] }}" >{{ $status[0] }}</div>
                                     <!--begin::Details item-->
                                 </div>
 
@@ -354,9 +381,45 @@
 
             //load log
             $('.log_promotion').click(function(e){
-                $.get("{{ route('promotion.table_log') }}", function(res){
+                $.get("{{ route('promotion.log') }}", function(res){
                     $('.promotion_log').html(res)
                 })
+            })
+
+            $('.btn-update').click(function(e){
+                e.preventDefault();
+                $('.btn-update').html(`<span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                <span role="status">Loading...</span>`);
+                const form = $('form#form-update-info');
+                const data = new FormData(form[0]); 
+                const action = form.attr('action'); 
+                $.ajax({
+                    url: action,
+                    data: data, 
+                    processData: false,
+                    contentType: false,
+                    type: 'POST',
+                    success: function(rs) {
+                        $('.btn-update').html(`<span class="indicator-label">Cập nhật </span>`);
+                        $('button[type=submit]').removeAttr('disabled');
+                        if (rs.status == 200) {
+                          
+                        }
+                        Toast.fire({
+                            icon: rs?.type,
+                            title: rs.message
+                        });
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                      
+                        $('button[type=submit]').removeAttr('disabled');
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Cập nhật lỗi'
+                        });
+                    }
+                });
+
             })
 
 

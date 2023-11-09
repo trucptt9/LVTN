@@ -70,6 +70,7 @@ Route::middleware(['auth','checkStaff'])->group(function () {
         Route::post('insert', [StaffController::class, 'insert'])->name('insert');
         Route::post('update', [StaffController::class, 'update'])->name('update');
         Route::get('delete', [StaffController::class, 'delete'])->name('delete');
+        Route::get('permission', [StaffController::class, 'permission'])->name('permission');
     });
     Route::prefix('departments')->name('department.')->group(function () {
         Route::get('', [DepartmentController::class, 'index'])->name('index');
@@ -156,6 +157,7 @@ Route::middleware(['auth','checkStaff'])->group(function () {
         Route::post('insert', [PromotionController::class, 'insert'])->name('insert');
         Route::post('update', [PromotionController::class, 'update'])->name('update');
         Route::get('delete', [PromotionController::class, 'delete'])->name('delete');
+        Route::get('log', [PromotionController::class, 'log'])->name('log');
     });
     Route::prefix('coupons')->name('coupon.')->group(function () {
         Route::get('', [CouponController::class, 'index'])->name('index');
@@ -180,6 +182,7 @@ Route::middleware(['auth','checkStaff'])->group(function () {
         Route::post('insert', [CustomerController::class, 'insert'])->name('insert');
         Route::post('update', [CustomerController::class, 'update'])->name('update');
         Route::get('delete', [CustomerController::class, 'delete'])->name('delete');
+        Route::get('table_history/{id}', [CustomerController::class, 'table_history'])->name('table_history');
     });
     Route::prefix('card_member')->name('card_member.')->group(function () {
         Route::get('', [CardMemberController::class, 'index'])->name('index');

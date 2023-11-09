@@ -1,4 +1,4 @@
-<div class="modal fade" id="modal_add_staff" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="modal-add" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered mw-900px">
         <div class="modal-content">
             <div class="modal-header">
@@ -22,24 +22,19 @@
                                     <h4 class="">Thông tin tài
                                         khoản</h4>
                                 </label>
-                                <div class="fv-row mb-2">
-                                    <input class="form-check-input" type="checkbox" value="" id="account_staff" />
-                                    <label class="form-check-label fs-6" for="flexCheckDefault">
-                                        Cấp tài khoản đăng nhập
-                                    </label>
-                                </div>
-                                <div class="fv-row mb-2 account_staff" hidden>
-                               
+
+                                <div class="fv-row mb-2 account_staff">
+
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
-                                        <span class="required">Email</span>
+                                        <span class="">Email</span>
 
                                     </label>
-                                    
+
                                     <input type="text" class="form-control form-control-lg form-control-solid"
                                         name="email" placeholder="Email đăng nhập" value="" />
 
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
-                                        <span class="required">Mật khẩu</span>
+                                        <span class="">Mật khẩu</span>
 
                                     </label>
 
@@ -51,7 +46,7 @@
                                 <div class="fv-row mb-2">
 
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-3">
-                                        <span class="required">Chức vụ</span>
+                                        <span class="">Chức vụ</span>
 
                                     </label>
                                     <select class="form-select" aria-label="Select example" name="position_id">
@@ -64,13 +59,28 @@
                                 <div class="fv-row mb-2">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                        <span class="required">Phòng ban</span>
+                                        <span class="">Phòng ban</span>
                                     </label>
                                     <select class="form-select" aria-label="Select example" name="department_id">
                                         <option selected value="">-- Chọn phòng ban -- </option>
                                         @foreach ($data['departments'] as $item)
                                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
+                                    </select>
+                                </div>
+                                <div class="fv-row mb-2">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                        <span class="">Trạng thái</span>
+
+                                    </label>
+                                    <select class="form-select" aria-label="Select example" name="status">
+                                        <option selected value="">Trạng thái </option>
+                                        @foreach ($data['status'] as $key => $item)
+                                            <option value="{{ $key }}">{{ $item[0] }}</option>
+                                        @endforeach
+
+
                                     </select>
                                 </div>
 
@@ -98,15 +108,11 @@
                                     <!--end::Input-->
                                 </div>
                                 <div class="fv-row mb-2">
-                                    <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                         <span class="">Mã</span>
-
                                     </label>
-                                 
                                     <input type="text" class="form-control form-control-lg form-control-solid"
                                         name="code" placeholder="Để trống tự sinh" value="" />
-                                    <!--end::Input-->
                                 </div>
                                 <div class="fv-row mb-2">
                                     <!--begin::Label-->
@@ -115,43 +121,39 @@
                                             thoại</span>
 
                                     </label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
+
                                     <input type="text" class="form-control form-control-lg form-control-solid"
                                         name="phone" placeholder="0934 956 345" value="" />
                                     <!--end::Input-->
                                 </div>
                                 <div class="fv-row mb-2">
-                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                        <span class="">Ảnh</span>
+                                    </label>
+                                    <input type="file" class="form-control form-control-lg form-control-solid"
+                                        name="avatar" value="" />
+                                </div>
+                                <div class="fv-row mb-2">
+
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                         <span class="">Địa
                                             chỉ</span>
 
                                     </label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
                                     <textarea name="" id="" cols="" rows="2" class="form-control"></textarea>
-                                    <!--end::Input-->
+
                                 </div>
-                                <div class="fv-row mb-2">
-                                    <!--begin::Label-->
-                                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                        <span class="">Trạng thái</span>
 
-                                    </label>
-                                    <select class="form-select" aria-label="Select example" name="status">
-                                        <option selected value="">Trạng thái </option>
-                                        @foreach ($data['status'] as $key => $item)
-                                            <option value="{{ $key }}">{{ $item[0] }}</option>
-                                        @endforeach
-
-
-                                    </select>
-                                </div>
                             </div>
-                            <!--end::Nav-->
-                        </div>
 
+                        </div>
+                        <div class="text-center pt-10">
+                            <button type="reset" class="btn btn-light me-3 close-btn">Hủy</button>
+                            <button type="submit" class="btn btn-primary btn-create">
+                                <span class="indicator-label">Tạo mới </span>
+
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>

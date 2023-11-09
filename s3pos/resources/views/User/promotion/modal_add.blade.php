@@ -25,7 +25,7 @@
                 <form action="{{ route('promotion.insert') }}" method="POST" id="form-create">
                     <div class="row" id="kt_modal_create_app_stepper">
 
-                        <!--begin::Aside-->
+                       
                         <div class="col-6">
                             <!--begin::Nav-->
                             <div class="stepper-nav ps-lg-10">
@@ -108,7 +108,7 @@
 
                                 </div>
                                 <div class="fv-row mb-2">
-                                    <p class="text-uppercase fw-bold">Điều kiện áp dụng</p> 
+                                    <p class="text-uppercase fw-bold required">Điều kiện áp dụng</p> 
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">                                    
                                         <span class="">Tổng tiền đơn hàng >=</span>
                                     </label>
@@ -123,8 +123,7 @@
 
                             <!--end::Nav-->
                         </div>
-                        <!--begin::Aside-->
-                        <!--begin::Content-->
+                    
                         <div class="col-6">
                             <!--begin::Nav-->
 
@@ -171,7 +170,7 @@
                                         <option value="" selected>Chọn trạng thái
                                         </option>
                                         @foreach ($data['status'] as $key => $item)
-                                            <option value="{{ $key }}">$item[0]</option>
+                                            <option value="{{ $key }}">{{  $item[0]}}</option>
                                         @endforeach
 
                                     </select>

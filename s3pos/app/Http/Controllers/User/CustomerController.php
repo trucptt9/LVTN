@@ -7,6 +7,7 @@ use App\Http\Requests\Customer\CustomerInsertRequest;
 use App\Http\Requests\Customer\CustomerUpdateRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\CustomerHistory;
 use App\Models\CustomerGroup;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Response as ResHTTP;
@@ -60,16 +61,46 @@ class CustomerController extends Controller
         }
     }
 
-
+    public function table_history($id)
+    {
+        try {
+            $limit = request('limit', $this->limit_default);
+            $status = request('status', '');
+            $search = request('search', '');
+            // $type = request('type', '');
+            $list = CustomerHistory::customerId($id);
+            return $list->get();
+            $list = $status != '' ? $list->ofStatus($status) : $list;
+            $list = $search != '' ? $list->search($search) : $list;
+            // $list = $search != '' ? $list->search($search) : $list;
+            $list = $list->latest()->paginate($limit);
+           
+            return Response::json([
+                'status' => ResHTTP::HTTP_OK,
+                'data' => view('User.customer.table_customer', compact('list'))->render(),
+            ]);
+        } catch (\Throwable $th) {
+            showLog($th);
+            return Response::json([
+                'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
+                'data' => '',
+            ]);
+        }
+    }
     public function detail($id)
     {
         $customer = Customer::storeId($this->store_id)->findOrFail($id);
-        $group = CustomerGroup::storeId($this->store_id)->get();
-        $status = Customer::get_status();
+      
+        $data=[
+            'status' =>  Customer::get_status(),
+            'customer_group' =>CustomerGroup::storeId($this->store_id)->get(),
+        ];
+        $status = Customer::get_status($customer->status);
+        
         if (request()->ajax()) {
-            return view('user.customer.modal_edit', compact('customer', 'group', 'status'))->render();
+            return view('user.customer.modal_edit', compact('customer', 'data'))->render();
         }
-        return view('user.customer.detail', compact('customer'));
+        return view('user.customer.detail', compact('customer', 'data','status'));
     }
 
     public function insert(CustomerInsertRequest $request)
