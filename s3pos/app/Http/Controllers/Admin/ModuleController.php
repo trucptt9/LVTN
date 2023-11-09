@@ -57,7 +57,6 @@ class ModuleController extends Controller
         if (request()->ajax()) {
             return view('Admin.module.show', compact('module'))->render();
         }
-
         return view('Admin.module.detail', compact('module'));
     }
 
@@ -70,7 +69,6 @@ class ModuleController extends Controller
             $module->status = $module->status == Module::STATUS_ACTIVE ? Module::STATUS_ACTIVE : Module::STATUS_BLOCKED;
             $module->save();
             DB::commit();
-
             return Response::json([
                 'status' => ResHTTP::HTTP_OK,
                 'message' => 'Cập nhật thành công',
