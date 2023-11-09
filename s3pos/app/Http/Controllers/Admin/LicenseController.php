@@ -70,6 +70,10 @@ class LicenseController extends Controller
         return view('Admin.license.detail', compact('license', 'status', 'modules'));
     }
 
+    public function invoice($id)
+    {
+    }
+
     public function insert()
     {
         try {

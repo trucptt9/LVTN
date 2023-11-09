@@ -80,6 +80,7 @@ Route::prefix('system')->name('admin.')->group(function () {
             Route::get('', [LicenseController::class, 'index'])->name('index');
             Route::get('table', [LicenseController::class, 'table'])->name('list');
             Route::get('detail/{id}', [LicenseController::class, 'detail'])->name('detail');
+            Route::get('invoice/{id}', [LicenseController::class, 'invoice'])->name('invoice');
             Route::get('report', [LicenseController::class, 'report'])->name('report');
             Route::post('insert', [LicenseController::class, 'insert'])->name('insert');
             Route::post('update', [LicenseController::class, 'update'])->name('update');
