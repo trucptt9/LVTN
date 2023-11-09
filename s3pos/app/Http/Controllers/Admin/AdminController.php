@@ -158,4 +158,10 @@ class AdminController extends Controller
             ]);
         }
     }
+
+    public function permission($id)
+    {
+        $admin = Admin::findOrFail($id);
+        return view('Admin.admin.permission', compact('admin'));
+    }
 }

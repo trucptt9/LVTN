@@ -5,7 +5,7 @@
 @section('title', 'Chi cửa hàng')
 @section('content')
     <div class="d-flex justify-content-between mb-3">
-        <h3>Cửa hàng: #{{ $store->name }}</h3>
+        <h4>Cửa hàng: #{{ $store->name }}</h4>
         <div class="btn-group" role="group">
             <a href="{{ route('admin.store.index') }}"
                 class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-primary">

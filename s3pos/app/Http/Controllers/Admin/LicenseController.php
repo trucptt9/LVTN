@@ -24,7 +24,7 @@ class LicenseController extends Controller
     {
         $data = [
             'status' => License::get_status(),
-            'stores' => Store::ofStatus(Store::STATUS_ACTIVE)->get(),
+            'stores' => Store::all(),
             'packages' => Package::ofStatus(Package::STATUS_ACTIVE)->get(),
             'report' => License::select('status', DB::raw('count(*) as total'))
                 ->groupBy('status')->get()

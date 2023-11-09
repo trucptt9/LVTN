@@ -4,10 +4,10 @@
 
 <head>
     <base href="{{ route('index') }}" />
-    <title>{{ env('COPYRIGHT') }}</title>
+    <title>{{ get_option_admin('short-name') }}</title>
     <meta charset="utf-8" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="shortcut icon" href="{{ asset('user/assets/media/logos/favicon.ico') }}" />
+    <link rel="shortcut icon" href="{{ show_s3_file(get_option_admin('app-favicon')) }}" />
     <!--begin::Fonts(mandatory for all pages)-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
     <!--end::Fonts-->
@@ -75,6 +75,23 @@
     <script src=" {{ asset('user/assets/js/custom.js') }} "></script>
     <!--end::Global Javascript Bundle-->
     <!--begin::Custom Javascript(used for this page only)-->
+    <script>
+        @if (session('success'))
+            Toast.fire({
+                icon: 'success',
+                title: "{{ session('success') }}"
+            });
+
+            console.log({{ session('success') }});
+        @endif
+
+        @if (session('error'))
+            Toast.fire({
+                icon: 'error',
+                title: "{{ session('error') }}"
+            });
+        @endif
+    </script>
     @yield('script')
     <!--end::Custom Javascript-->
     <!--end::Javascript-->

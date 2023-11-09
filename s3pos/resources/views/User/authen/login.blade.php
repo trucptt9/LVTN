@@ -17,6 +17,11 @@
                     </div>
                     <!--end::Link-->
                 </div>
+                @if ($errors->any())
+                    <div class="alert alert-danger text-center">
+                        Đăng nhập thất bại!
+                    </div>
+                @endif
                 <!--begin::Heading-->
                 <!--begin::Input group=-->
                 <div class="fv-row mb-8">

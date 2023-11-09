@@ -4,11 +4,11 @@
 
 <head>
     <base href="{{ route('index') }}" />
-    <title>{{ env('COPYRIGHT') }}</title>
+    <title>{{ get_option_admin('short-name') }}</title>
     <meta charset="utf-8" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="shortcut icon" href="{{ asset('user/assets/media/logos/favicon.ico') }}" />
+    <link rel="shortcut icon"href="{{ show_s3_file(get_option_admin('app-favicon')) }}" />
     <!--begin::Fonts(mandatory for all pages)-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
     <!--end::Fonts-->
@@ -207,7 +207,7 @@
             });
         }
 
-       
+
         const form_update = $('form#form-update');
         if (form_update) {
             const action = form_update.attr('action');
@@ -215,7 +215,7 @@
                 e.preventDefault();
                 $('.btn-create').html(`<span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
                 <span role="status">Loading...</span>`);
-                const data = new FormData($(this)[0]);  
+                const data = new FormData($(this)[0]);
                 $.ajax({
                     url: action,
                     data: data,
@@ -231,7 +231,7 @@
                             if (rs?.uri) {
                                 location.href = rs?.uri;
                             }
-                           
+
                             $('.close-btn').click();
 
                         }
@@ -241,7 +241,7 @@
                         });
                     },
                     error: function(XMLHttpRequest, textStatus, errorThrown) {
-                      
+
                         $('button[type=submit]').removeAttr('disabled');
                         Toast.fire({
                             icon: 'error',

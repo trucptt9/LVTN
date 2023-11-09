@@ -6,11 +6,11 @@
         <tr id="tr-{{ $item->id }}">
             <td class="text-center">
                 <a href="{{ route('admin.package.detail', ['id' => $item->id]) }}"
-                    class="btn bg-gradient bg-gray-200 btn-sm data-item">
+                    class="btn bg-gradient bg-gray-200 btn-sm data-item" data-bs-toggle="tooltip" title="Xem chi tiết">
                     <i class="fas fa-eye"></i>
                 </a>
                 @if ($item->licenses_count == 0)
-                    <button class="btn bg-gradient-orange-red btn-sm btn-delete"
+                    <button class="btn bg-gradient-orange-red btn-sm btn-delete" data-bs-toggle="tooltip" title="Xóa"
                         onclick="confirmDelete('{{ $item->id }}')">
                         <i class="fas fa-trash text-white"></i>
                     </button>

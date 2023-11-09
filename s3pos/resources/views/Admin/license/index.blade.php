@@ -5,7 +5,7 @@
 @section('title', 'Bản quyền')
 @section('content')
     <div class="d-flex justify-content-between mb-3">
-        <h3>Bản quyền <span class="total-item">(0)</span></h3>
+        <h4>Bản quyền <span class="total-item">(0)</span></h4>
         <div class="d-flex align-items-center gap-2">
             <a href="{{ previousUrl() }}" class="btn btn-secondary">
                 <i class="fas fa-chevron-left"></i> Quay lại

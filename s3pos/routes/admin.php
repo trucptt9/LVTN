@@ -97,6 +97,7 @@ Route::prefix('system')->name('admin.')->group(function () {
             Route::get('', [AdminController::class, 'index'])->name('index');
             Route::get('table', [AdminController::class, 'table'])->name('list');
             Route::get('detail/{id}', [AdminController::class, 'detail'])->name('detail');
+            Route::get('permission/{id}', [AdminController::class, 'permission'])->name('permission');
             Route::get('report', [AdminController::class, 'report'])->name('report');
             Route::post('insert', [AdminController::class, 'insert'])->name('insert');
             Route::post('update', [AdminController::class, 'update'])->name('update');

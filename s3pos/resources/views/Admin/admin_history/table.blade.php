@@ -5,7 +5,8 @@
     @foreach ($list as $item)
         <tr id="tr-{{ $item->id }}">
             <td class="text-center">
-                <a href="{{ route('admin.admin_history.detail', ['id' => $item->id]) }}"
+                <a data-bs-toggle="tooltip" title="Xem chi tiết"
+                    href="{{ route('admin.admin_history.detail', ['id' => $item->id]) }}"
                     class="btn bg-gradient bg-gray-200 btn-sm data-item">
                     <i class="fas fa-eye"></i>
                 </a>
