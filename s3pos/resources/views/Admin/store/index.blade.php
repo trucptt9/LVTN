@@ -71,12 +71,9 @@
         </div>
         <!--end::Card body-->
     </div>
-<<<<<<< HEAD
     <div class="alert alert-danger mt-3" role="alert">
         <i class="fas fa-exclamation-triangle"></i> Chỉ được phép xóa những cửa hàng chưa được kích hoạt!
     </div>
-=======
->>>>>>> be89e0c5e296b39750352c4d6e3962191a2e67a7
     @include('Admin.store.create')
     <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
