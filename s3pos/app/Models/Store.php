@@ -18,6 +18,7 @@ class Store extends Model
         'address',
         'status',
         'description',
+        'logo'
     ];
 
     protected $hidden = [];
@@ -32,7 +33,7 @@ class Store extends Model
     {
         parent::boot();
         self::creating(function ($model) {
-            $model->status = $model->status ?? self::STATUS_ACTIVE;
+            $model->status = $model->status ?? self::STATUS_UN_ACTIVE;
             $model->code = $model->code ?? generateRandomString();
         });
         self::created(function ($model) {
@@ -40,6 +41,7 @@ class Store extends Model
         self::updated(function ($model) {
         });
         self::deleted(function ($model) {
+            // delete logo
         });
     }
 

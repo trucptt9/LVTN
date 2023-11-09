@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\BusinessType;
+use App\Models\Order;
+use App\Models\Staff;
 use App\Models\Store;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Response as ResHTTP;
@@ -21,6 +24,7 @@ class StoreController extends Controller
     {
         $data = [
             'status' => Store::get_status(),
+            'types' => BusinessType::ofStatus(BusinessType::STATUS_ACTIVE)->get(),
         ];
         return view('Admin.store.index', compact('data'));
     }
@@ -56,7 +60,17 @@ class StoreController extends Controller
     public function detail($id)
     {
         $store = Store::with('businessType')->findOrFail($id);
-        return view('Admin.store.detail', compact('store'));
+        $data = [
+            'status' => Store::get_status($store->status),
+            'types' => BusinessType::ofStatus(BusinessType::STATUS_ACTIVE)->get(),
+            'staffs' => Staff::storeId($id)->count(),
+            'revenue' => Order::storeId($id)->sum('total'),
+            'orders' => Order::storeId($id)->count(),
+        ];
+        if (request()->ajax()) {
+            return view('Admin.store.show', compact('store', 'data'))->render();
+        }
+        return view('Admin.store.detail', compact('store', 'data'));
     }
 
     public function insert()
@@ -87,16 +101,9 @@ class StoreController extends Controller
         try {
             DB::beginTransaction();
             $id = request()->get('id', '');
-            $type = request('type', 'one');
             $store = Store::find($id);
-            if ($type == 'all') {
-                $data = request()->all();
-                $data['status'] = $store->status == Store::STATUS_ACTIVE ? Store::STATUS_BLOCKED : Store::STATUS_ACTIVE;
-                $store->update($data);
-            } else {
-                $store->status = $store->status == Store::STATUS_ACTIVE ? Store::STATUS_BLOCKED : Store::STATUS_ACTIVE;
-                $store->save();
-            }
+            $data = request()->all();
+            $store->update($data);
             DB::commit();
             return Response::json([
                 'status' => ResHTTP::HTTP_OK,
@@ -138,5 +145,30 @@ class StoreController extends Controller
             'message' => 'Không thể xóa dữ liệu này!',
             'type' => 'error'
         ]);
+    }
+
+    public function report_revenue_by_month()
+    {
+        $year = request('year', date('Y'));
+        $store_id = request('store_id', '');
+        $sql = "SELECT MONTH(orders.created_at) AS month, SUM(total) AS revenue, COUNT(*) AS order_count
+            FROM orders LEFT JOIN stores ON orders.store_id = stores.id
+            WHERE store_id = " . $store_id . "
+            AND YEAR(orders.created_at) = " . $year . "
+            GROUP BY month ORDER BY month";
+        $list = DB::select($sql);
+        return $list;
+    }
+
+    public function report_revenue_by_product()
+    {
+        $store_id = request('store_id', '');
+        $sql = "SELECT product_id, product_name, SUM(order_details.total) AS revenue, SUM(quantity) AS quantity
+            FROM order_details JOIN orders ON order_details.order_id = orders.id
+            WHERE orders.store_id = " . $store_id . "
+            GROUP BY product_id, product_name ORDER BY revenue DESC
+            LIMIT 10";
+        $list = DB::select($sql);
+        return $list;
     }
 }

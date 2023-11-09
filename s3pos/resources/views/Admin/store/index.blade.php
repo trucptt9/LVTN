@@ -1,8 +1,8 @@
-@extends('layout.default')
-@section('title', 'Kênh thanh toán')
+@extends('Admin.layout.default')
+@section('title', 'Cửa hàng')
 @section('content')
     <div class="d-flex justify-content-between mb-3">
-        <h3>Kênh thanh toán <span class="total-item">(0)</span></h3>
+        <h3>Cửa hàng <span class="total-item">(0)</span></h3>
         <div class="d-flex align-items-center gap-2">
             <a href="{{ previousUrl() }}" class="btn btn-secondary">
                 <i class="fas fa-chevron-left"></i> Quay lại
@@ -24,17 +24,19 @@
                             @endforeach
                         </select>
                     </div>
+                    <div class="me-2 mw-150px">
+                        <select name="type_id" class="form-select filter-type_id form-filter select-picker">
+                            <option value="" selected>-- Loại --</option>
+                            @foreach ($data['types'] as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <div class="btn-group" role="group">
                         <button type="submit" data-bs-toggle="tooltip" title="Tải lại dữ liệu"
                             class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-primary btn-reload">
                             <i class="fas fa-sync"></i>
                         </button>
-                        <button type="button"
-                            class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-primary"
-                            data-bs-toggle="modal" data-bs-target="#addModal">
-                            <i class="fas fa-plus"></i> Tạo
-                        </button>
-
                     </div>
                 </div>
             </div>
@@ -45,15 +47,17 @@
             <table class="table table-bordered table-striped table-sm">
                 <thead>
                     <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0 bg-light-primary">
-                        <th class="text-center w-125px">#</th>
-                        <th class="text-center w-200px">Mã</th>
+                        <th class="text-center w-100px">#</th>
+                        <th class="text-center w-125px">Mã</th>
                         <th class="text-center">Tên</th>
-                        <th class="text-center w-125px">Trạng thái</th>
+                        <th class="text-center w-200px">Loại hình DN</th>
+                        <th class="text-center w-150px">Trạng thái</th>
+                        <th class="text-center w-100px">Ngày tạo</th>
                     </tr>
                 </thead>
                 <tbody id="load-table" class="text-gray-600 fw-semibold">
                     <tr>
-                        <td colspan="4" class="text-center no-data">
+                        <td colspan="6" class="text-center no-data">
                             Không tìm thấy dữ liệu!
                         </td>
                     </tr>
@@ -62,15 +66,13 @@
         </div>
         <!--end::Card body-->
     </div>
-    @include('channel_payment.create')
     <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
-            <form action="{{ route('channel_payment.update') }}" id="form-update" method="POST"
-                enctype="multipart/form-data">
+            <form action="{{ route('admin.store.update') }}" id="form-update" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5">Cập nhật kênh thanh toán</h1>
+                        <h1 class="modal-title fs-5">Cập nhật thông tin cửa hàng</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body px-4 py-1 content-update">
@@ -91,17 +93,13 @@
 @endsection
 @push('js')
     <script>
-        const routeList = "{{ route('channel_payment.list') }}";
-        const routeUpdate = "{{ route('channel_payment.update') }}";
+        const routeList = "{{ route('admin.store.list') }}";
+        const routeUpdate = "{{ route('admin.store.update') }}";
         filterTable();
 
         function filterTable() {
             loadTable(routeList);
         };
-
-        function confirmDelete(id) {
-            deleteData(id, "{{ route('channel_payment.delete') }}");
-        }
 
         $(document).ready(function() {
             $(document).on("click", ".data-item", function(e) {
