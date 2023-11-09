@@ -40,10 +40,13 @@ class Toppings extends Model
             $model->cost = $model->cost ?? 0;
         });
         self::created(function ($model) {
+            save_log_action("Tạo mới topping #$model->name");
         });
         self::updated(function ($model) {
+            save_log_action("Cập nhật thông tin topping #$model->name");
         });
         self::deleted(function ($model) {
+            save_log_action("Xóa topping #$model->name");
         });
     }
 

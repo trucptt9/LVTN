@@ -36,10 +36,13 @@ class Package extends Model
             $model->code = $model->code ?? generateRandomString();
         });
         self::created(function ($model) {
+            save_log_action_admin("Tạo mới gói dịch vụ #$model->name");
         });
         self::updated(function ($model) {
+            save_log_action_admin("Cập nhật thông tin gói dịch vụ #$model->name");
         });
         self::deleted(function ($model) {
+            save_log_action_admin("Xóa gói dịch vụ #$model->name");
         });
     }
 

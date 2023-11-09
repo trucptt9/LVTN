@@ -67,10 +67,13 @@ class Staff extends Authenticatable
             $model->is_supper = $model->is_supper ?? self::NOT_SUPPER;
         });
         self::created(function ($model) {
+            save_log_action("Tạo mới nhân viên #$model->email");
         });
         self::updated(function ($model) {
+            save_log_action("Cập nhật thông tin nhân viên #$model->email");
         });
         self::deleted(function ($model) {
+            save_log_action("Xóa nhân viên #$model->email");
         });
     }
 

@@ -35,10 +35,13 @@ class SaleSource extends Model
             $model->default = $model->default ?? 'false';
         });
         self::created(function ($model) {
+            save_log_action("Tạo mới nguồn bán hàng #$model->name");
         });
         self::updated(function ($model) {
+            save_log_action("Cập nhật thông tin nguồn bán hàng #$model->name");
         });
         self::deleted(function ($model) {
+            save_log_action("Xóa nguồn bán hàng #$model->name");
         });
     }
 

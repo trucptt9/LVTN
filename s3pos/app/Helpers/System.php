@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\AdminHistory;
 use App\Models\AdminMenu;
 use App\Models\Settings;
 use App\Models\StaffHistory;
@@ -253,5 +254,29 @@ if (!function_exists('previousUrl')) {
     function previousUrl()
     {
         return url()->previous();
+    }
+}
+
+if (!function_exists('save_log_action_admin')) {
+    function save_log_action_admin($content, $link = '')
+    {
+        $log = AdminHistory::create([
+            'admin_id' => auth('admin')->check() ? auth('admin')->user()->id : 0,
+            'note' => $content,
+            'link' => $link ? $link : request()->getUri()
+        ]);
+        return $log;
+    }
+}
+
+if (!function_exists('save_log_action')) {
+    function save_log_action($content, $link = '')
+    {
+        $log = StaffHistory::create([
+            'staff_id' => auth()->check() ? auth()->user()->id : 0,
+            'note' => $content,
+            'link' => $link ? $link : request()->getUri()
+        ]);
+        return $log;
     }
 }

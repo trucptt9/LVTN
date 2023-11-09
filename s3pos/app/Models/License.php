@@ -50,10 +50,13 @@ class License extends Model
             $model->date_end = Carbon::parse($start)->addMonths($month);
         });
         self::created(function ($model) {
+            save_log_action_admin("Tạo mới license #$model->key");
         });
         self::updated(function ($model) {
+            save_log_action_admin("Cập nhật thông tin license #$model->key");
         });
         self::deleted(function ($model) {
+            save_log_action_admin("Xóa license #$model->key");
         });
     }
 

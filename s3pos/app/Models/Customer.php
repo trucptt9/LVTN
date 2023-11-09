@@ -42,10 +42,13 @@ class Customer extends Model
             $model->point_current = $model->point_current ?? 0;
         });
         self::created(function ($model) {
+            save_log_action("Tạo mới khách hàng #$model->phone");
         });
         self::updated(function ($model) {
+            save_log_action("Cập nhật thông tin khách hàng #$model->phone");
         });
         self::deleted(function ($model) {
+            save_log_action("Xóa khách hàng #$model->phone");
         });
     }
 

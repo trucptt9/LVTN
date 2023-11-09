@@ -34,10 +34,13 @@ class Unit extends Model
             $model->code = $model->code ?? generateRandomString();
         });
         self::created(function ($model) {
+            save_log_action("Tạo mới đơn vị #$model->name");
         });
         self::updated(function ($model) {
+            save_log_action("Cập nhật thông tin đơn vị #$model->name");
         });
         self::deleted(function ($model) {
+            save_log_action("Xóa đơn vị #$model->name");
         });
     }
 

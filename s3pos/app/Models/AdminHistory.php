@@ -31,6 +31,7 @@ class AdminHistory extends Model
         parent::boot();
         self::creating(function ($model) {
             $model->admin_id = $model->admin_id ?? auth('admin')->user()->id;
+            $model->action = $model->action ?? 0;
         });
         self::created(function ($model) {
         });
@@ -53,7 +54,7 @@ class AdminHistory extends Model
         return $query->where('admin_histories.admin_id', $admin_id);
     }
 
-    public function scopeOfDate($query, $from, $to)
+    public function scopeOfBetween($query, $from, $to)
     {
         $_from = Carbon::parse($from)->startOfDay();
         $_to = Carbon::parse($to)->endOfDay();
@@ -65,5 +66,10 @@ class AdminHistory extends Model
         return $query->where(function ($query) use ($search) {
             $query->where('admin_histories.note', 'LIKE', "%$search%");
         });
+    }
+
+    public function scopeOfDate($query, $date)
+    {
+        return $query->whereDate('admin_histories.created_at', $date);
     }
 }

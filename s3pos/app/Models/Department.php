@@ -34,10 +34,13 @@ class Department extends Model
             $model->code = $model->code ?? generateRandomString();
         });
         self::created(function ($model) {
+            save_log_action("Tạo mới phòng ban #$model->name");
         });
         self::updated(function ($model) {
+            save_log_action("Cập nhật thông tin phòng ban #$model->name");
         });
         self::deleted(function ($model) {
+            save_log_action("Xóa phòng ban #$model->name");
         });
     }
 

@@ -33,6 +33,7 @@ class Module extends Model
         self::created(function ($model) {
         });
         self::updated(function ($model) {
+            save_log_action_admin("Cập nhật thông tin module #$model->name");
         });
         self::deleted(function ($model) {
         });

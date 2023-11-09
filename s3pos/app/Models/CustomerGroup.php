@@ -37,10 +37,13 @@ class CustomerGroup extends Model
             $model->code = $model->code ?? generateRandomString();
         });
         self::created(function ($model) {
+            save_log_action("Tạo mới nhóm khách hàng #$model->name");
         });
         self::updated(function ($model) {
+            save_log_action("Cập nhật thông tin nhóm khách hàng #$model->name");
         });
         self::deleted(function ($model) {
+            save_log_action("Xóa nhóm khách hàng #$model->name");
         });
     }
 

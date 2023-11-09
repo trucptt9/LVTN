@@ -35,10 +35,13 @@ class Supplier extends Model
             $model->code = $model->code ?? generateRandomString();
         });
         self::created(function ($model) {
+            save_log_action("Tạo mới nhà cung cấp #$model->name");
         });
         self::updated(function ($model) {
+            save_log_action("Cập nhật thông tin nhà cung cấp #$model->name");
         });
         self::deleted(function ($model) {
+            save_log_action("Xóa nhà cung cấp #$model->name");
         });
     }
 

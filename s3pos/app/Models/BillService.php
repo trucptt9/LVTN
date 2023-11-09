@@ -44,10 +44,13 @@ class BillService extends Model
             $model->status = $model->status ?? self::STATUS_TMP;
         });
         self::created(function ($model) {
+            save_log_action_admin("Tạo mới hóa đơn dịch vụ #$model->code");
         });
         self::updated(function ($model) {
+            save_log_action_admin("Cập nhật thông tin hóa đơn dịch vụ #$model->code");
         });
         self::deleted(function ($model) {
+            save_log_action_admin("Xóa hóa đơn dịch vụ #$model->code");
         });
     }
 

@@ -5,26 +5,25 @@
     @foreach ($list as $item)
         <tr id="tr-{{ $item->id }}">
             <td class="text-center">
-                <a href="{{ route('channel_payment.detail', ['id' => $item->id]) }}"
+                <a href="{{ route('admin.admin_history.detail', ['id' => $item->id]) }}"
                     class="btn bg-gradient bg-gray-200 btn-sm data-item">
-                    <i class="fas fa-edit"></i>
+                    <i class="fas fa-eye"></i>
                 </a>
-                <button class="btn bg-gradient-orange-red btn-sm btn-delete"
-                    onclick="confirmDelete('{{ $item->id }}')">
-                    <i class="fas fa-trash text-white"></i>
-                </button>
             </td>
             <td class="text-center">
-                {{ $item->code }}
+                @if ($item->admin)
+                    <a href="{{ route('admin.admin.detail', ['id' => $item->admin_id]) }}">
+                        {{ $item->admin->name }}
+                    </a>
+                @else
+                    -
+                @endif
+            </td>
+            <td class="text-center">
+                {{ $item->created_at ? date('H:i:s d/m/Y', strtotime($item->created_at)) : '-' }}
             </td>
             <td>
-                {{ $item->name }}
-            </td>
-            <td class="text-center">
-                <div class="form-switch">
-                    <input class="form-check-input" {{ $item->status == 'active' ? 'checked' : '' }} type="checkbox"
-                        name="status" role="switch" onclick="changeStatus('{{ $item->id }}')">
-                </div>
+                {{ $item->note }}
             </td>
         </tr>
     @endforeach

@@ -34,10 +34,13 @@ class Position extends Model
             $model->code = $model->code ?? generateRandomString();
         });
         self::created(function ($model) {
+            save_log_action("Tạo mới chức vụ #$model->name");
         });
         self::updated(function ($model) {
+            save_log_action("Cập nhật thông tin chức vụ #$model->name");
         });
         self::deleted(function ($model) {
+            save_log_action("Xóa chức vụ #$model->name");
         });
     }
 

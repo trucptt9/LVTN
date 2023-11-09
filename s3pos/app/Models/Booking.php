@@ -43,10 +43,13 @@ class Booking extends Model
             $model->date_start = $model->date_start = now();
         });
         self::created(function ($model) {
+            save_log_action("Booking vừa mới được tạo #$model->code");
         });
         self::updated(function ($model) {
+            save_log_action("Cập nhật thông tin booking #$model->code");
         });
         self::deleted(function ($model) {
+            save_log_action("Xóa booking #$model->code");
         });
     }
 

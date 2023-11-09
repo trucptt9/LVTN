@@ -61,10 +61,13 @@ class Admin extends Authenticatable
             $model->code = $model->code ?? generateRandomString();
         });
         self::created(function ($model) {
+            save_log_action_admin("Tạo mới quản trị viên #$model->name");
         });
         self::updated(function ($model) {
+            save_log_action_admin("Cập nhật thông tin quản trị viên #$model->name");
         });
         self::deleted(function ($model) {
+            save_log_action_admin("Xóa quản trị viên #$model->name");
         });
     }
 

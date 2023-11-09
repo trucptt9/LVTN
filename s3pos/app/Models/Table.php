@@ -39,10 +39,13 @@ class Table extends Model
             $model->seat = $model->seat ?? 1;
         });
         self::created(function ($model) {
+            save_log_action("Tạo mới bàn #$model->name");
         });
         self::updated(function ($model) {
+            save_log_action("Cập nhật thông tin bàn #$model->name");
         });
         self::deleted(function ($model) {
+            save_log_action("Xóa bàn #$model->name");
         });
     }
 
