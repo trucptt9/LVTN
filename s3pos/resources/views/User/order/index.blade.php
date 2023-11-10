@@ -104,6 +104,7 @@
         </div>
         <!--end::Post-->
     </div>
+    <!--end::Root-->
 @endsection
 @section('script')
     <script>

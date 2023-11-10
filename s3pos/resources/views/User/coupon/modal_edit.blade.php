@@ -38,49 +38,6 @@
                     </span>
                 </label>
             </div>
-
-        </div>
-
-
-    </div>
-
-
-    <!--end::Nav-->
-</div>
-
-<div class="col-6">
-    <!--begin::Nav-->
-
-    <div class="stepper-nav ps-lg-10">
-        <div class="fv-row mb-2">
-            <!--begin::Label-->
-            <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
-                <span class="required">Bắt đầu</span>
-            </label>
-
-            <input class="form-control" placeholder="Chọn ngày" name="start" id="coupon_day_start1"
-                value="{{ date('d/m/Y', strtotime($coupon->start)) }}" />
-
-        </div>
-        <div class="fv-row mb-2">
-            <!--begin::Label-->
-            <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
-                <span class="">Kết thúc</span>
-            </label>
-            <!--end::Label-->
-            <input class="form-control" placeholder="Chọn ngày" name="end" id="coupon_day_end2"
-                value=" {{ date('d/m/Y', strtotime($coupon->end)) }}" />
-        </div>
-        <div class="fv-row mb-2">
-            <!--begin::Label-->
-            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                <span class="">Mô tả</span>
-
-            </label>
-            <!--end::Label-->
-            <!--begin::Input-->
-            <textarea class="form-control" name="description" aria-label="With textarea" rows="3">{{ $coupon->description }}</textarea>
-            <!--end::Input-->
         </div>
         <div class="fv-row mb-2">
             <!--begin::Label-->

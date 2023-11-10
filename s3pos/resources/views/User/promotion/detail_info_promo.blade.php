@@ -16,13 +16,8 @@
                                 <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
                                     <span class="required">Tên chương trình</span>
                                 </label>
-<<<<<<< HEAD
                                 <input type="text" class="form-control form-control-lg" name="subject"
                                     placeholder="Tên chương trình" value="{{ $promotion->subject }}" />
-=======
-                                <input type="text" class="form-control form-control-lg form-control-solid"
-                                    name="subject" placeholder="Tên chương trình" value="{{ $promotion->subject }}" />
->>>>>>> 86efb2d (update layout and controller)
                             </div>
                             <div class="fv-row mb-2">
                                 <!--begin::Label-->
@@ -75,13 +70,8 @@
                                 <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
                                     <span class="">Tổng tiền đơn hàng >=</span>
                                 </label>
-<<<<<<< HEAD
                                 <input type="number" class="form-control form-control-lg" name="total_order"
                                     placeholder="" value="{{ $promotion->total_order }}" />
-=======
-                                <input type="number" class="form-control form-control-lg form-control-solid"
-                                    name="total_order" placeholder="" value="{{ $promotion->total_order }}" />
->>>>>>> 86efb2d (update layout and controller)
                                 <!--end::Input-->
                             </div>
                         </div>

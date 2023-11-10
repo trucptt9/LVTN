@@ -249,4 +249,17 @@
             })
         })
     </script>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    <script src="{{ asset('user/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+    <script src="{{ asset('user/assets/js/custom/apps/ecommerce/sales/listing.js') }}"></script>
+    <script src="{{ asset('user/assets/js/widgets.bundle.js') }}"></script>
+    <script src="{{ asset('user/assets/js/custom/widgets.js') }}"></script>
+>>>>>>> 86efb2d (update layout and controller)
+=======
+>>>>>>> 0251e6c (update layout)
+>>>>>>> 458b9fa (update layout)
 @endsection

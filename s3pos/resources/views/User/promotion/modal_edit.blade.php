@@ -15,17 +15,6 @@
         <div class="fv-row mb-2">
             <!--begin::Label-->
             <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
-                <span class="">Mã</span>
-            </label>
-            <!--end::Label-->
-            <!--begin::Input-->
-            <input type="text" class="form-control form-control-lg form-control-solid" name="code"
-                placeholder="Để trống tự sinh" value="{{ $promotion->code }}" />
-            <!--end::Input-->
-        </div>
-        <div class="fv-row mb-2">
-            <!--begin::Label-->
-            <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
                 <span class="">Đối tượng áp dụng</span>
             </label>
             <!--end::Label-->
@@ -74,8 +63,8 @@
             <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
                 <span class="">Tổng tiền đơn hàng >=</span>
             </label>
-            <input type="number" class="form-control form-control-lg form-control-solid" name="total_order"
-                placeholder="" value="{{ $promotion->order_total }}" />
+            <input type="number" class="form-control form-control-lg" name="total_order" placeholder=""
+                value="{{ $promotion->order_total }}" />
             <!--end::Input-->
         </div>
     </div>
@@ -83,7 +72,7 @@
 </div>
 <div class="col-6">
     <!--begin::Nav-->
-    <div class="stepper-nav ps-lg-10">
+    <div class="stepper-nav pe-lg-10">
         <div class="fv-row mb-2">
             <!--begin::Label-->
             <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">

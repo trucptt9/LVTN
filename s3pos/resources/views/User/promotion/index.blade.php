@@ -86,10 +86,6 @@
                                 <th class="">Tên chương trình</th>
                                 <th class="w-200px text-center">Thời gian áp dụng</th>
                                 <th class="w-140px text-center">Giá trị</th>
-<<<<<<< HEAD
-=======
-                                <th class="w-240px">Mô tả</th>
->>>>>>> 86efb2d (update layout and controller)
                                 <th class="w-125px text-center">Trạng thái</th>
                                 <th class=" w-90px text-center">#</th>
                             </tr>
