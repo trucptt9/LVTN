@@ -173,7 +173,7 @@
                             <div class="card-toolbar">
                                 <!--begin::Select-->
                                 <select name="status" data-control="select2" data-hide-search="true"
-                                    class="form-select form-select-solid form-select-sm fw-bold w-100px">
+                                    class="form-select form-select-sm fw-bold w-100px">
                                     <option value="1">2020 Q1</option>
                                     <option value="2">2020 Q2</option>
                                     <option value="3" selected="selected">2020 Q3</option>
@@ -212,7 +212,7 @@
                         <!--begin::Select-->
                         <div class="me-6 my-1">
                             <select id="kt_filter_year" name="year" data-control="select2" data-hide-search="true"
-                                class="w-125px form-select form-select-solid form-select-sm">
+                                class="w-125px form-select form-select-sm">
                                 <option value="All" selected="selected">All time</option>
                                 <option value="thisyear">This year</option>
                                 <option value="thismonth">This month</option>
@@ -224,7 +224,7 @@
                         <!--begin::Select-->
                         <div class="me-4 my-1">
                             <select id="kt_filter_orders" name="orders" data-control="select2" data-hide-search="true"
-                                class="w-125px form-select form-select-solid form-select-sm">
+                                class="w-125px form-select form-select-sm">
                                 <option value="All" selected="selected">All Orders</option>
                                 <option value="Approved">Approved</option>
                                 <option value="Declined">Declined</option>
@@ -239,8 +239,7 @@
                                 <span class="path1"></span>
                                 <span class="path2"></span>
                             </i>
-                            <input type="text" id="kt_filter_search"
-                                class="form-control form-control-solid form-select-sm w-150px ps-9"
+                            <input type="text" id="kt_filter_search" class="form-control form-select-sm w-150px ps-9"
                                 placeholder="Search Order" />
                         </div>
                         <!--end::Search-->

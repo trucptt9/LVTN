@@ -79,7 +79,7 @@
                     <!--end::Close-->
                 </div>
 
-                <div class="modal-body px-lg-10 ">
+                <div class="modal-body">
                     <div class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid"
                         id="kt_modal_create_app_stepper">
 
@@ -93,8 +93,7 @@
 
                             </div>
                             <div class="text-center pt-10">
-                                <button type="reset" class="btn btn-light me-3 close-btn2"
-                                    >Hủy</button>
+                                <button type="reset" class="btn btn-light me-3 close-btn2">Hủy</button>
                                 <button type="submit" class="btn btn-primary btn-create">
                                     <span class="indicator-label">Cập nhật </span>
 

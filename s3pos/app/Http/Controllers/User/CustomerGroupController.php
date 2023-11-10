@@ -23,13 +23,12 @@ class CustomerGroupController extends Controller
       return $next($request);
     });
   }
+
   public function index()
   {
     $data = [
       'status' => CustomerGroup::get_status(),
     ];
-
-
     return view('user.customer_group.index', compact('data'));
   }
 
@@ -59,7 +58,6 @@ class CustomerGroupController extends Controller
     }
   }
 
-
   public function detail($id)
   {
     $data = [
@@ -67,8 +65,6 @@ class CustomerGroupController extends Controller
     ];
     $customer_group = CustomerGroup::storeId($this->store_id)->findOrFail($id);
     return view('user.customer_group.modal_edit', compact('customer_group', 'data'))->render();
-
-
   }
 
   public function insert(CustomerGroupInsertRequest $request)
@@ -148,5 +144,4 @@ class CustomerGroupController extends Controller
       ]);
     }
   }
-
 }

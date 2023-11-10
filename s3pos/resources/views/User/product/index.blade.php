@@ -1,8 +1,6 @@
 @extends('User.layout.main')
 @section('style')
-    <link href="{{ asset('user/assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 @endsection
-
 @section('content')
     <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
         <!--begin::Post-->
@@ -49,7 +47,7 @@
                                     <span class="path2"></span>
                                 </i>
                                 <input type="text" data-kt-ecommerce-order-filter="search"
-                                    class="form-control form-control-solid w-250px ps-12" placeholder="Nhập nội dung ..." />
+                                    class="form-control w-250px ps-12" placeholder="Nhập nội dung ..." />
                             </div>
                             <!--end::Search-->
                         </div>
@@ -58,9 +56,8 @@
 
                             <div class="w-200px ">
                                 <!--begin::Select2-->
-                                <select class="form-select form-select-solid" data-control="select2" data-hide-search="true"
-                                    name="status">
-                                    <option value="" selected> Chọn trạng thái</option>
+                                <select class="form-select" data-control="select2" data-hide-search="true" name="status">
+                                    <option value="" selected>-- Chọn trạng thái --</option>
                                     @foreach ($data['status'] as $key => $item)
                                         <option value="{{ $key }}"> {{ $item[0] }}</option>
                                     @endforeach
@@ -125,7 +122,7 @@
                         <!--end::Close-->
                     </div>
 
-                    <div class="modal-body px-lg-10 ">
+                    <div class="modal-body">
                         <div class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid"
                             id="kt_modal_create_app_stepper">
 
@@ -259,11 +256,4 @@
             })
         })
     </script>
-    <script src="{{ asset('user/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/apps/ecommerce/sales/listing.js') }}"></script>
-    <script src="{{ asset('user/assets/js/widgets.bundle.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/widgets.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/utilities/modals/upgrade-plan.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/utilities/modals/create-app.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/utilities/modals/users-search.js') }}"></script>
 @endsection

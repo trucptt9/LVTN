@@ -52,6 +52,12 @@
             justify-content: center;
 
         }
+
+        .logo-default,
+        .logo-sticky {
+            height: 40px;
+            border-radius: 6px;
+        }
     </style>
 </head>
 <!--end::Head-->
@@ -271,7 +277,7 @@
         }
     </script>
     @stack('js')
-  
+
     @yield('script')
     <!--end::Javascript-->
 </body>

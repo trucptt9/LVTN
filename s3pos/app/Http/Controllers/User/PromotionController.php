@@ -24,15 +24,16 @@ class PromotionController extends Controller
       return $next($request);
     });
   }
+
   public function index()
   {
     $data = [
       'status' => Promotion::get_status(),
       'customer_group' => CustomerGroup::storeId($this->store_id)->get(),
     ];
-
     return view('user.promotion.index', compact('data'));
   }
+
   public function log()
   {
     return view('User.promotion.log');
@@ -80,8 +81,6 @@ class PromotionController extends Controller
     }
 
     return view('user.promotion.detail', compact('promotion', 'data', 'status'))->render();
-
-
   }
   public function insert(PromotionsInsertRequest $request)
   {
@@ -169,5 +168,4 @@ class PromotionController extends Controller
       ]);
     }
   }
-
 }

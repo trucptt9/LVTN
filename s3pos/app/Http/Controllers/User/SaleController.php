@@ -21,15 +21,18 @@ class SaleController extends Controller
             return $next($request);
         });
     }
+
     public function index()
     {
         return view('Sale.home.index');
     }
+
     public function category()
     {
         $categories = CategoryProduct::storeId($this->store_id)->where('status', CategoryProduct::STATUS_ACTIVE)->get();
         return view('Sale.home.category', compact('categories'));
     }
+
     public function product()
     {
         $cat = CategoryProduct::storeId($this->store_id)->where('status', CategoryProduct::STATUS_ACTIVE)->get();
@@ -41,6 +44,7 @@ class SaleController extends Controller
 
         return view('Sale.home.product', compact('products'));
     }
+
     public function detail($id)
     {
         $topping_group = ToppingGroup::storeId($this->store_id)->where('status', ToppingGroup::STATUS_ACTIVE)->get();

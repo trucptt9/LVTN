@@ -63,8 +63,8 @@
                                     <span class="">Trạng thái</span>
 
                                 </label>
-                                <select name="status" id="" class="form-select form-select-solid"
-                                    data-control="select2" data-hide-search="true">
+                                <select name="status" id="" class="form-select" data-control="select2"
+                                    data-hide-search="true">
 
                                     @foreach ($data['status'] as $key => $item)
                                         <option value="{{ $key }}"
@@ -100,8 +100,8 @@
 
                                 </label>
                                 <!--end::Label-->
-                                <input class="form-control form-control-solid" placeholder="Chọn ngày"
-                                    id="coupon_day_start1" value="{{ date('d/m/Y', strtotime($coupon->start)) }}" />
+                                <input class="form-control" placeholder="Chọn ngày" id="coupon_day_start1"
+                                    value="{{ date('d/m/Y', strtotime($coupon->start)) }}" />
 
                             </div>
                             <div class="fv-row mb-2">
@@ -112,8 +112,8 @@
 
                                 </label>
                                 <!--end::Label-->
-                                <input class="form-control form-control-solid" placeholder="Chọn ngày"
-                                    id="coupon_day_end2" value="{{ date('d/m/Y', strtotime($coupon->end)) }}" />
+                                <input class="form-control" placeholder="Chọn ngày" id="coupon_day_end2"
+                                    value="{{ date('d/m/Y', strtotime($coupon->end)) }}" />
 
                             </div>
                             <div class="fv-row mb-2">

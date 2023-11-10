@@ -23,7 +23,6 @@ class AuthController extends Controller
     public function login_post()
     {
         try {
-            DB::beginTransaction();
             $data = request()->all();
 
             $rules = array(
@@ -45,17 +44,11 @@ class AuthController extends Controller
 
             $staff = Staff::ofEmail(request('email'))->ofStatus(Staff::STATUS_ACTIVE)->first();
             if (!$staff || !Hash::check(request('password'), $staff->password)) {
-
                 return redirect()->back()->with('error', 'Đăng nhập thất bại!');
             }
-            $staff->last_login = now();
-            $staff->save();
-            Auth::login($staff);
-            DB::commit();
+            event(new StaffLogin($staff));
             return redirect()->route('index')->with('success', 'Đăng nhập thành công');
         } catch (\Throwable $th) {
-            DB::rollBack();
-
             showLog($th);
             return redirect()->back()->with('error', 'Đăng nhập thất bại!');
         }
@@ -92,7 +85,6 @@ class AuthController extends Controller
             $license->save();
             $license->store->status = Store::STATUS_ACTIVE;
             $license->store->save();
-
             return redirect()->route('login')->with('success', 'Kích hoạt license thành công');
         }
         return redirect()->route('login')->with('error', 'Lỗi kích hoạt!');

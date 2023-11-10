@@ -20,12 +20,11 @@
               </div>
               <!--end::Modal header-->
               <!--begin::Modal body-->
-              <div class="modal-body px-lg-10">
+              <div class="modal-body">
                   <!--begin::Stepper-->
                   <div class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid"
                       id="kt_modal_create_app_stepper">
                       <!--begin::Aside-->
-
                       <!--begin::Aside-->
                       <!--begin::Content-->
                       <div class="flex-row-fluid py-lg-5 ">
@@ -33,75 +32,45 @@
                           <form class="form" action="{{ route('topping_category.insert') }}" id="form-create"
                               method="POST" enctype="multipart/form-data">
                               <!--begin::Scroll-->
-                              <div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_user_scroll"
-                                  data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-max-height="auto"
-                                  data-kt-scroll-dependencies="#kt_modal_add_user_header"
-                                  data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
-
-                                  <!--begin::Input group-->
-                                  <div class="fv-row mb-7">
-                                      <!--begin::Label-->
-                                      <label class="required fw-semibold fs-6 mb-2">Tên danh mục</label>
-                                      <!--end::Label-->
-                                      <!--begin::Input-->
-                                      <input type="text" name="name"
-                                          class="form-control form-control-solid mb-3 mb-lg-0"
-                                          placeholder="Tên danh mục" />
-                                      <!--end::Input-->
-                                  </div>
-                                  <!--end::Input group-->
-                                  <!--begin::Input group-->
-                                  <div class="fv-row mb-7">
-                                      <!--begin::Label-->
-                                      <label class="fw-semibold fs-6 mb-2">Mã</label>
-                                      <!--end::Label-->
-                                      <!--begin::Input-->
-                                      <input type="text" name="code"
-                                          class="form-control form-control-solid mb-3 mb-lg-0"
-                                          placeholder="Để trống tự sinh" />
-                                      <!--end::Input-->
-                                  </div>
-                                  <!--end::Input group-->
-
-                                  <div class="fv-row mb-7">
-                                      <div class="card-title">
-                                          <span class=" fw-semibold fs-6 mb-2">Hình ảnh</span>
+                              <div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_user_scroll">
+                                  <div class="row">
+                                      <div class="col-md-6">
+                                          <div class="fv-row mb-7">
+                                              <!--begin::Label-->
+                                              <label class="required fw-semibold fs-6 mb-2">Tên danh mục</label>
+                                              <!--end::Label-->
+                                              <!--begin::Input-->
+                                              <input type="text" name="name" class="form-control mb-3 mb-lg-0"
+                                                  placeholder="Tên danh mục" />
+                                              <!--end::Input-->
+                                          </div>
                                       </div>
-                                      <!--begin::Label-->
-                                      <input type="file" name="image" accept=".png, .jpg, .jpeg" />
-
-
+                                      <div class="col-md-6">
+                                          <div class="fv-row mb-7">
+                                              <label class=" fw-semibold fs-6 mb-2">Hình ảnh</label>
+                                              <!--begin::Label-->
+                                              <input type="file" class="form-control" name="image"
+                                                  accept=".png, .jpg, .jpeg" />
+                                          </div>
+                                      </div>
                                   </div>
                                   <div class="fv-row mb-7">
                                       <!--begin::Label-->
                                       <label class="fw-semibold fs-6 mb-2">Mô tả</label>
                                       <!--end::Label-->
                                       <!--begin::Input-->
-                                      <textarea class="form-control"  name="description" aria-label="With textarea" rows="2"></textarea>
+                                      <textarea class="form-control" name="description" aria-label="With textarea" rows="2"></textarea>
                                       <!--end::Input-->
                                   </div>
-
                                   <!--end::Input group-->
-                                  <div class="fv-row mb-7">
-                                      <!--begin::Label-->
-                                      <label class=" fw-semibold fs-6 mb-2">Trạng
-                                          thái</label>
-                                          <select class="form-select" aria-label="Select example" name="status">
-                                            <option selected value="">Trạng thái </option>
-                                            @foreach ($data['status'] as $key => $item)
-                                                <option value="{{ $key }}">{{ $item[0] }}</option>
-                                            @endforeach
-
-
-                                        </select>
-                                  </div>
                               </div>
                               <!--end::Scroll-->
                               <!--begin::Actions-->
                               <div class="text-center pt-10">
                                   <button type="reset" class="btn btn-light me-3 btn-cancle"
                                       data-kt-users-modal-action="cancel">Hủy</button>
-                                  <button type="submit" class="btn btn-primary btn-create" data-kt-users-modal-action="submit">
+                                  <button type="submit" class="btn btn-primary btn-create"
+                                      data-kt-users-modal-action="submit">
                                       <span class="indicator-label">Lưu</span>
                                       <span class="indicator-progress">Please wait...
                                           <span

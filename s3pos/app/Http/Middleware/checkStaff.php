@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\License;
 use App\Models\Staff;
 use App\Models\Store;
 use Closure;
@@ -21,7 +22,7 @@ class checkStaff
         if (auth()->check()) {
             $staff = Staff::whereHas('store', function ($q) {
                 $q->ofStatus(Store::STATUS_ACTIVE)->whereHas('license', function ($q1) {
-                    $q1->where('date_start', '<=', now())->where('date_end', '>=', now());
+                    $q1->where('date_start', '<=', now())->where('date_end', '>=', now())->ofStatus(License::STATUS_ACTIVE);
                 });
             })->ofStatus(Staff::STATUS_ACTIVE)->find(auth()->user()->id);
             if ($staff) {
@@ -29,6 +30,6 @@ class checkStaff
             }
             Auth::logout();
         }
-        return redirect()->route('login');
+        return redirect()->route('login')->with('error', 'Lỗi xác thực!');
     }
 }

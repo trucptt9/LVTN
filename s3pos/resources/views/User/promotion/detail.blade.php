@@ -1,9 +1,5 @@
 @extends('user.layout.main')
 @section('style')
-    <!--begin::Vendor Stylesheets(used for this page only)-->
-    <link href="{{ asset('user/assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
-
-    <!--end::Vendor Stylesheets-->
 @endsection
 
 @section('content')
@@ -38,7 +34,7 @@
                         <!--begin::Item-->
                         <li class="breadcrumb-item text-white opacity-75">
                             <a href="{{ route('promotion.index') }}" class="text-white text-hover-primary">
-                               Quản lý khuyến mãi
+                                Quản lý khuyến mãi
                             </a>
                         </li>
                         <!--end::Item-->
@@ -49,9 +45,7 @@
                 </a>
             </div>
         </div>
-
     </div>
-
     <!--begin::Container-->
     <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
         <!--begin::Post-->
@@ -64,8 +58,6 @@
                     <div class="card mb-5 mb-xl-8">
                         <!--begin::Card body-->
                         <div class="card-body">
-
-
                             <div class="separator"></div>
                             <!--begin::Details content-->
                             <div id="kt_user_view_details" class="collapse show">
@@ -78,29 +70,23 @@
                                     </div>
                                     <!--begin::Details item-->
                                     <!--begin::Details item-->
-
                                     <div class="fw-bold mt-5">Trạng thái</div>
-
-
-                                    <div class="{{ 'badge badge-light-'.$status[1] }} status-change" >{{ $status[0] }}</div>
+                                    <div class="{{ 'badge badge-light-' . $status[1] }} status-change">{{ $status[0] }}
+                                    </div>
                                     <!--begin::Details item-->
                                 </div>
-
                             </div>
                             <!--end::Details content-->
                         </div>
                         <!--end::Card body-->
                     </div>
                     <!--end::Card-->
-
                 </div>
                 <!--end::Sidebar-->
                 <!--begin::Content-->
                 <div class="flex-lg-row-fluid ms-lg-15">
                     <!--begin:::Tabs-->
                     <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-8">
-
-
                         <!--begin:::Tab item-->
                         <li class="nav-item">
                             <a class="nav-link active text-active-primary pb-4 fs-6" data-bs-toggle="tab"
@@ -108,14 +94,14 @@
                         </li>
                         <!--end:::Tab item-->
                         <li class="nav-item">
-                            <a class="nav-link text-active-primary pb-4 fs-6 log_promotion" data-bs-toggle="tab" href="#log_promotion">Lịch sử sử
+                            <a class="nav-link text-active-primary pb-4 fs-6 log_promotion" data-bs-toggle="tab"
+                                href="#log_promotion">Lịch sử sử
                                 dụng</a>
                         </li>
                     </ul>
                     <!--end:::Tabs-->
                     <!--begin:::Tab content-->
                     <div class="tab-content" id="myTabContent">
-
                         <!--begin:::Tab pane-->
                         <div class="tab-pane fade show active" id="info_detail" role="tabpanel">
                             <!--begin::Card-->
@@ -129,14 +115,11 @@
                                             @include('user.promotion.detail_info_promo')
                                         </div>
                                         <!--end::Container-->
-
                                     </div>
                                     <!--end::Wrapper-->
                                 </div>
                             </div>
                             <!--end::Card-->
-
-
                         </div>
                         <!--end:::Tab pane-->
                         <!--begin:::Tab pane-->
@@ -146,8 +129,6 @@
                                 <div class="page d-flex flex-row flex-column-fluid">
                                     <!--begin::Wrapper-->
                                     <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
-
-
                                         <!--begin::Container-->
                                         <div id="kt_content_container"
                                             class="d-flex flex-column-fluid align-items-start container-xxl">
@@ -167,7 +148,7 @@
                                                                     <span class="path2"></span>
                                                                 </i>
                                                                 <input type="text" data-kt-user-table-filter="search"
-                                                                    class="form-control form-control-solid w-250px ps-13"
+                                                                    class="form-control w-250px ps-13"
                                                                     placeholder="Tìm kiếm " />
                                                             </div>
                                                             <!--end::Search-->
@@ -189,7 +170,6 @@
                                                                 <!--begin::Menu 1-->
                                                                 <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px"
                                                                     data-kt-menu="true">
-
                                                                     <!--begin::Separator-->
                                                                     <div class="separator border-gray-200"></div>
                                                                     <!--end::Separator-->
@@ -204,7 +184,6 @@
                                                                                 id="kt_datepicker_1" />
                                                                         </div>
                                                                         <!--end::Input group-->
-
                                                                         <!--begin::Actions-->
                                                                         <div class="d-flex justify-content-end">
                                                                             <button type="reset"
@@ -223,11 +202,8 @@
                                                                 </div>
                                                                 <!--end::Menu 1-->
                                                                 <!--end::Filter-->
-
-
                                                             </div>
                                                             <!--end::Toolbar-->
-
                                                             <!--begin::Modal - Adjust Balance-->
                                                             <div class="modal fade" id="kt_modal_export_users"
                                                                 tabindex="-1" aria-hidden="true">
@@ -235,7 +211,6 @@
                                                                 <div class="modal-dialog modal-dialog-centered mw-650px">
                                                                     <!--begin::Modal content-->
                                                                     <div class="modal-content">
-
                                                                         <!--begin::Modal body-->
                                                                         <div
                                                                             class="modal-body scroll-y mx-5 mx-xl-15 my-7">
@@ -254,7 +229,7 @@
                                                                                         data-control="select2"
                                                                                         data-placeholder="Select a role"
                                                                                         data-hide-search="true"
-                                                                                        class="form-select form-select-solid fw-bold">
+                                                                                        class="form-select fw-bold">
                                                                                         <option></option>
                                                                                         <option value="Administrator">
                                                                                             Administrator</option>
@@ -282,7 +257,7 @@
                                                                                         data-control="select2"
                                                                                         data-placeholder="Select a format"
                                                                                         data-hide-search="true"
-                                                                                        class="form-select form-select-solid fw-bold">
+                                                                                        class="form-select fw-bold">
                                                                                         <option></option>
                                                                                         <option value="excel">Excel
                                                                                         </option>
@@ -321,7 +296,6 @@
                                                                 <!--end::Modal dialog-->
                                                             </div>
                                                             <!--end::Modal - New Card-->
-
                                                         </div>
                                                         <!--end::Card toolbar-->
                                                     </div>
@@ -329,9 +303,9 @@
                                                     <!--begin::Card body-->
                                                     <div class="card-body py-4">
                                                         <!--begin::Table-->
-                                                        <table class="table promotion_log align-middle table-row-dashed fs-6 gy-5"
+                                                        <table
+                                                            class="table promotion_log align-middle table-row-dashed fs-6 gy-5"
                                                             id="kt_table_promotion_log">
-                                                           
                                                         </table>
                                                         <!--end::Table-->
                                                     </div>
@@ -342,7 +316,6 @@
                                             <!--end::Post-->
                                         </div>
                                         <!--end::Container-->
-
                                     </div>
                                     <!--end::Wrapper-->
                                 </div>
@@ -352,16 +325,11 @@
                         </div>
                         <!--end:::Tab pane-->
                     </div>
-
                 </div>
                 <!--end::Content-->
             </div>
             <!--end::Layout-->
             <!--begin::Modals-->
-
-         
-
-
             <!--end::Modals-->
         </div>
         <!--end::Post-->
@@ -380,22 +348,22 @@
             });
 
             //load log
-            $('.log_promotion').click(function(e){
-                $.get("{{ route('promotion.log') }}", function(res){
+            $('.log_promotion').click(function(e) {
+                $.get("{{ route('promotion.log') }}", function(res) {
                     $('.promotion_log').html(res)
                 })
             })
 
-            $('.btn-update').click(function(e){
+            $('.btn-update').click(function(e) {
                 e.preventDefault();
                 $('.btn-update').html(`<span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
                 <span role="status">Loading...</span>`);
                 const form = $('form#form-update-info');
-                const data = new FormData(form[0]); 
-                const action = form.attr('action'); 
+                const data = new FormData(form[0]);
+                const action = form.attr('action');
                 $.ajax({
                     url: action,
-                    data: data, 
+                    data: data,
                     processData: false,
                     contentType: false,
                     type: 'POST',
@@ -403,12 +371,12 @@
                         $('.btn-update').html(`<span class="indicator-label">Cập nhật </span>`);
                         $('button[type=submit]').removeAttr('disabled');
                         if (rs.status == 200) {
-                          
+
                             $class = 'badge badge-light-' + rs.status_update[1]
                             $class_cur = 'badge badge-light-' + rs.status_cur[1]
                             $('.status-change').html(rs.status_update[0])
                             $('.status-change').removeClass($class_cur);
-                            
+
                             $('.status-change').addClass($class);
                         }
                         Toast.fire({
@@ -417,7 +385,7 @@
                         });
                     },
                     error: function(XMLHttpRequest, textStatus, errorThrown) {
-                      
+
                         $('button[type=submit]').removeAttr('disabled');
                         Toast.fire({
                             icon: 'error',

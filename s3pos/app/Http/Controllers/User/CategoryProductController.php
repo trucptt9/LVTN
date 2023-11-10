@@ -6,8 +6,6 @@ use App\Http\Requests\CategoryProduct\CategoryProductDeleteRequest;
 use App\Http\Requests\CategoryProduct\CategoryProductInsertRequest;
 use App\Http\Requests\CategoryProduct\CategoryProductUpdateRequest;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Http\Request;
 use App\Models\CategoryProduct;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Response as ResHTTP;
@@ -25,12 +23,12 @@ class CategoryProductController extends Controller
             return $next($request);
         });
     }
+
     public function index()
     {
         $data = [
             'status' => CategoryProduct::get_status(),
         ];
-
         return view('user.category_product.index', compact('data'));
     }
 
@@ -59,11 +57,11 @@ class CategoryProductController extends Controller
             ]);
         }
     }
+
     public function category_has_product($id)
     {
-        $products = CategoryProduct::where('id',$id)->products()->where('status', 'active');
+        $products = CategoryProduct::where('id', $id)->products()->where('status', 'active');
         return view('user.home.product', compact('products'))->render();
-
     }
 
     public function detail($id)
@@ -73,9 +71,8 @@ class CategoryProductController extends Controller
         ];
         $category_product = CategoryProduct::storeId($this->store_id)->findOrFail($id);
         return view('user.category_product.modal_edit', compact('category_product', 'data'))->render();
-
-
     }
+
     public function insert(CategoryProductInsertRequest $request)
     {
         try {
@@ -159,5 +156,4 @@ class CategoryProductController extends Controller
             ]);
         }
     }
-
 }

@@ -9,9 +9,7 @@
                     <button class="btn btn-success btn-update btn-sm " type="submit" style="float:inline-float">Cập
                         nhật</button>
                 </div>
-
             </div>
-
             <input type="hidden" name="id" value="{{ $customer->id }}" id="">
             <input type="hidden" name="type" value="all" id="">
             <div class="fw-bold mt-5">Tên khách hàng</div>
@@ -27,8 +25,7 @@
             <!--begin::Details item-->
             <!--begin::Details item-->
             <div class="fw-bold mt-5">Nhóm khách hàng</div>
-            <select class="form-select form-select-solid" data-control="select2" data-hide-search="true"
-                name="group_id">
+            <select class="form-select" data-control="select2" data-hide-search="true" name="group_id">
                 <option value="" selected> Chọn nhóm khách hàng</option>
                 @foreach ($data['customer_group'] as $item)
                     <option value="{{ $item->id }}" {{ $item->id == $customer->group_id ? 'selected' : '' }}>
@@ -43,12 +40,10 @@
             <input type="text" class="form-control form-control-lg form-control-solid" name="phone"
                 placeholder="Username" value="0766 877 776">
             <!--begin::Details item-->
-
             <!--begin::Details item-->
             <div class="fw-bold mt-5">Trạng thái</div>
             <div class="{{ 'badge badge-light-' . $status[1] }} status-change">{{ $status[0] }}</div>
             <!--begin::Details item-->
         </div>
-
     </form>
 </div>

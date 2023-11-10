@@ -23,18 +23,18 @@ class ToppingCategoryController extends Controller
             return $next($request);
         });
     }
+
     public function category_has_topping($id)
     {
-        $toppings = ToppingGroup::where('id',$id)->toppings()->where('status', 'active');
+        $toppings = ToppingGroup::where('id', $id)->toppings()->where('status', 'active');
         return view('user.home.product', compact('toppings'))->render();
-
     }
+
     public function index()
     {
         $data = [
             'status' => ToppingGroup::get_status(),
         ];
-
         return view('user.topping_category.index', compact('data'));
     }
 
@@ -64,7 +64,6 @@ class ToppingCategoryController extends Controller
         }
     }
 
-
     public function detail($id)
     {
         $data = [
@@ -72,8 +71,6 @@ class ToppingCategoryController extends Controller
         ];
         $topping_group = ToppingGroup::storeId($this->store_id)->findOrFail($id);
         return view('user.topping_category.modal_edit', compact('topping_group', 'data'))->render();
-
-
     }
 
     public function insert(ToppingCategoryInsertRequest $request)
@@ -121,7 +118,6 @@ class ToppingCategoryController extends Controller
                         $path = $request->file('image')->store('topping_category');
                         $data['image'] = $path;
                     }
-
                 }
                 $topping_group->update($data);
             } else {
@@ -168,5 +164,4 @@ class ToppingCategoryController extends Controller
             ]);
         }
     }
-
 }

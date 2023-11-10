@@ -25,6 +25,7 @@ class CustomerController extends Controller
             return $next($request);
         });
     }
+
     public function index()
     {
         $data = [
@@ -88,15 +89,13 @@ class CustomerController extends Controller
     }
     public function detail($id)
     {
-        $customer = Customer::storeId($this->store_id)->findOrFail($id);
-
+        $customerr = Customer::storeId($this->store_id)->findOrFail($id);
         $data = [
             'status' => Customer::get_status(),
             'customer_group' => CustomerGroup::storeId($this->store_id)->get(),
             'type' => CustomerHistory::get_type()
         ];
-        $status = Customer::get_status($customer->status);
-
+        $status = Customer::get_status($customerr->status);
         if (request()->ajax()) {
             return view('user.customer.modal_edit', compact('customer', 'data'))->render();
         }
@@ -132,18 +131,18 @@ class CustomerController extends Controller
             DB::beginTransaction();
             $id = $request->get('id', '');
             $type = request('type', 'one');
-            $custome = Customer::whereId($id)->first();
-            $status_cur = Customer::get_status($custome->status);
+            $customer = Customer::storeId($this->store_id)->whereId($id)->first();
+            $status_cur = Customer::get_status($customer->status);
             if ($type == 'all') {
                 $data = $request->all();
-                $data['status'] = $custome->status == Customer::STATUS_ACTIVE ? Customer::STATUS_BLOCKED : Customer::STATUS_ACTIVE;
-                $custome->update($data);
+                $data['status'] = $customer->status == Customer::STATUS_ACTIVE ? Customer::STATUS_BLOCKED : Customer::STATUS_ACTIVE;
+                $customer->update($data);
             } else {
-                $custome->status = $custome->status == Customer::STATUS_ACTIVE ? Customer::STATUS_BLOCKED : Customer::STATUS_ACTIVE;
-                $custome->save();
+                $customer->status = $customer->status == Customer::STATUS_ACTIVE ? Customer::STATUS_BLOCKED : Customer::STATUS_ACTIVE;
+                $customer->save();
             }
             DB::commit();
-            $status_update = Customer::get_status($custome->status);
+            $status_update = Customer::get_status($customer->status);
             if (request()->ajax()) {
                 return Response::json([
                     'status' => ResHTTP::HTTP_OK,
@@ -185,5 +184,4 @@ class CustomerController extends Controller
             ]);
         }
     }
-
 }

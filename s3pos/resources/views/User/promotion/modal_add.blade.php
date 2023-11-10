@@ -24,56 +24,44 @@
                 <!--begin::Stepper-->
                 <form action="{{ route('promotion.insert') }}" method="POST" id="form-create">
                     <div class="row" id="kt_modal_create_app_stepper">
-
-                       
                         <div class="col-6">
                             <!--begin::Nav-->
                             <div class="stepper-nav ps-lg-10">
-
                                 <div class="fv-row mb-2">
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
                                         <span class="required">Tên chương trình</span>
-
                                     </label>
                                     <input type="text" class="form-control form-control-lg form-control-solid"
                                         name="subject" placeholder="Tên chương trình" value="" />
                                     <!--begin::Label-->
-
-
                                     <!--end::Input-->
                                 </div>
                                 <div class="fv-row mb-2">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
                                         <span class="">Mã</span>
-
                                     </label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
                                     <input type="text" class="form-control form-control-lg form-control-solid"
                                         name="code" placeholder="Để trống tự sinh" value="" />
-
                                     <!--end::Input-->
                                 </div>
-
                                 <div class="fv-row mb-2">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
                                         <span class="">Đối tượng áp dụng</span>
-
                                     </label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
-                                    <select name="customer_group_id" id=""
-                                        class="form-select form-select-solid" data-control="select2"
-                                        data-hide-search="true">
+                                    <select name="customer_group_id" id="" class="form-select"
+                                        data-control="select2" data-hide-search="true">
 
                                         <option value="0" selected>Tất cả
                                         </option>
                                         @foreach ($data['customer_group'] as $item)
                                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
-
                                     </select>
                                     <!--end::Input-->
                                 </div>
@@ -81,14 +69,12 @@
                                     <div class="">
                                         <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
                                             <span class="">Giá trị khuyến mãi</span>
-
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
                                         <input type="number" class="form-control form-control-lg form-control-solid"
                                             name="value" placeholder="Giá trị khuyến mãi" value="" />
                                     </div>
-
                                     <div class="" style="margin-left:10px; position: relative; top:20px">
                                         <label class="form-check form-check-custom form-check-solid">
                                             <input class="form-check-input" type="radio" value="percent" checked
@@ -105,38 +91,29 @@
                                             </span>
                                         </label>
                                     </div>
-
                                 </div>
                                 <div class="fv-row mb-2">
-                                    <p class="text-uppercase fw-bold required">Điều kiện áp dụng</p> 
-                                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">                                    
+                                    <p class="text-uppercase fw-bold required">Điều kiện áp dụng</p>
+                                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
                                         <span class="">Tổng tiền đơn hàng >=</span>
                                     </label>
                                     <input type="number" class="form-control form-control-lg form-control-solid"
                                         name="total_order" placeholder="" value="" />
-
                                     <!--end::Input-->
                                 </div>
-
                             </div>
-
-
                             <!--end::Nav-->
                         </div>
-                    
                         <div class="col-6">
                             <!--begin::Nav-->
-
                             <div class="stepper-nav ps-lg-10">
                                 <div class="fv-row mb-2">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
                                         <span class="required">Bắt đầu</span>
                                     </label>
-                                   
-                                    <input class="form-control form-control-solid" placeholder="Chọn ngày"
-                                        name="start" id="promotion_day_start" />
-
+                                    <input class="form-control" placeholder="Chọn ngày" name="start"
+                                        id="promotion_day_start" />
                                 </div>
                                 <div class="fv-row mb-2">
                                     <!--begin::Label-->
@@ -144,14 +121,13 @@
                                         <span class="">Kết thúc</span>
                                     </label>
                                     <!--end::Label-->
-                                    <input class="form-control form-control-solid" placeholder="Chọn ngày"
-                                        name="end" id="promotion_day_end" />
+                                    <input class="form-control" placeholder="Chọn ngày" name="end"
+                                        id="promotion_day_end" />
                                 </div>
                                 <div class="fv-row mb-2">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                         <span class="">Mô tả</span>
-
                                     </label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
@@ -165,18 +141,16 @@
                                     </label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
-                                    <select name="status" id="" class="form-select form-select-solid"
-                                        data-control="select2" data-hide-search="true">
+                                    <select name="status" id="" class="form-select" data-control="select2"
+                                        data-hide-search="true">
                                         <option value="" selected>Chọn trạng thái
                                         </option>
                                         @foreach ($data['status'] as $key => $item)
-                                            <option value="{{ $key }}">{{  $item[0]}}</option>
+                                            <option value="{{ $key }}">{{ $item[0] }}</option>
                                         @endforeach
-
                                     </select>
                                     <!--end::Input-->
                                 </div>
-
                             </div>
                             <!--end::Nav-->
                         </div>

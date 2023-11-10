@@ -26,6 +26,7 @@ class StaffController extends Controller
             return $next($request);
         });
     }
+
     public function index()
     {
         $data = [
@@ -33,15 +34,13 @@ class StaffController extends Controller
             'departments' => Department::storeId($this->store_id)->get(),
             'positions' => Position::storeId($this->store_id)->get(),
         ];
-
         return view('user.staff.index', compact('data'));
     }
     public function permission()
-    {
-      
-
+    {     
         return view('user.staff.permission', compact('data'));
     }
+
     public function log($id)
     {
         try {
@@ -68,7 +67,6 @@ class StaffController extends Controller
     }
     public function list()
     {
-
         try {
             $limit = request('limit', $this->limit_default);
             $status = request('status', '');
@@ -92,7 +90,6 @@ class StaffController extends Controller
         }
     }
 
-
     public function detail($id)
     {
         $data = [
@@ -105,8 +102,6 @@ class StaffController extends Controller
             return view('user.staff.modal_edit', compact('staff', 'data'))->render();
         }
         return view('user.staff.detail', compact('staff', 'data'));
-
-
     }
 
     public function insert(StaffInsertRequest $request)
@@ -155,14 +150,12 @@ class StaffController extends Controller
                     }
                 }
                 $staff->update($data);
-
             }else {
                 $staff->status = $staff->status == Staff::STATUS_ACTIVE ? Staff::STATUS_UN_ACTIVE : Staff::STATUS_ACTIVE;
                 $staff->save();
 
             }
-            DB::commit();
-            
+            DB::commit();            
             if (request()->ajax()) {
                 return Response::json([
                     'status' => ResHTTP::HTTP_OK,   
@@ -170,12 +163,8 @@ class StaffController extends Controller
                     'type' => 'success',
                     'staff_update' =>$staff
                 ]);
-
-
             }
             return redirect()->back()->with('success', 'Cập nhật thành công');
-
-
         } catch (\Throwable $th) {
             showLog($th);
             DB::rollBack();

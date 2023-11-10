@@ -170,7 +170,7 @@
                                                                         <span class="path2"></span>
                                                                     </i>
                                                                     <input type="text" name="search"
-                                                                        class="form-control form-control-solid w-250px ps-12"
+                                                                        class="form-control w-250px ps-12"
                                                                         placeholder="Nhập nội dung ..." />
                                                                 </div>
                                                                 <!--end::Search-->
@@ -181,9 +181,8 @@
 
                                                                 <div class="w-200px ">
                                                                     <!--begin::Select2-->
-                                                                    <select class="form-select form-select-solid"
-                                                                        data-control="select2" data-hide-search="true"
-                                                                        name="type">
+                                                                    <select class="form-select" data-control="select2"
+                                                                        data-hide-search="true" name="type">
                                                                         <option value="" selected> Trạng thái
                                                                         </option>
                                                                         @foreach ($data['status'] as $key => $item)
@@ -264,7 +263,7 @@
                 })
             })
 
-          
+
             $('.btn-update').click(function(e) {
                 e.preventDefault();
                 $('.btn-update').html(`<span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
@@ -272,7 +271,7 @@
                 const form = $('form#form-update-info');
                 const data = new FormData(form[0]);
                 const action = form.attr('action');
-                
+
                 $.ajax({
                     url: action,
                     data: data,
@@ -288,7 +287,7 @@
                             $class_cur = 'badge badge-light-' + rs.status_cur[1]
                             $('.status-change').html(rs.status_update[0])
                             $('.status-change').removeClass($class_cur);
-                            
+
                             $('.status-change').addClass($class);
                         }
                         Toast.fire({

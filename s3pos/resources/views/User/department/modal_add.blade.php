@@ -20,35 +20,20 @@
                </div>
                <!--end::Modal header-->
                <!--begin::Modal body-->
-               <div class="modal-body px-5 my-7">
+               <div class="modal-body my-5">
                    <!--begin::Form-->
                    <form class="form" action="{{ route('department.insert') }}" id="form-create" method="POST"
                        enctype="multipart/form-data">
                        <!--begin::Scroll-->
-                       <div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_user_scroll"
-                           data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-max-height="auto"
-                           data-kt-scroll-dependencies="#kt_modal_add_user_header"
-                           data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
-
+                       <div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_user_scroll">
                            <!--begin::Input group-->
                            <div class="fv-row mb-7">
                                <!--begin::Label-->
                                <label class="required fw-semibold fs-6 mb-2">Tên phòng ban</label>
                                <!--end::Label-->
                                <!--begin::Input-->
-                               <input type="text" name="name" class="form-control form-control-solid mb-3 mb-lg-0"
+                               <input type="text" name="name" class="form-control mb-3 mb-lg-0"
                                    placeholder="Tên phòng ban" />
-                               <!--end::Input-->
-                           </div>
-                           <!--end::Input group-->
-                           <!--begin::Input group-->
-                           <div class="fv-row mb-7">
-                               <!--begin::Label-->
-                               <label class=" fw-semibold fs-6 mb-2">Mã</label>
-                               <!--end::Label-->
-                               <!--begin::Input-->
-                               <input type="text" name="code" class="form-control form-control-solid mb-3 mb-lg-0"
-                                   placeholder="Để trống tự sinh" />
                                <!--end::Input-->
                            </div>
                            <!--end::Input group-->
@@ -62,23 +47,6 @@
                                <!--end::Input-->
                            </div>
                            <!--end::Input group-->
-
-
-                           <!--end::Input group-->
-                           <div class="fv-row mb-7">
-                               <!--begin::Label-->
-                               <label class=" fw-semibold fs-6 mb-2">Trạng
-                                   thái</label>
-                               <!--end::Label-->
-                               <select class="form-select w-50" aria-label="Select example" name="status">
-                                   <option selected value="">Trạng thái </option>
-                                   @foreach ($data['status'] as $key => $item)
-                                       <option value="{{ $key }}">{{ $item[0] }}</option>
-                                   @endforeach
-
-
-                               </select>
-                           </div>
                        </div>
                        <!--end::Scroll-->
                        <!--begin::Actions-->
