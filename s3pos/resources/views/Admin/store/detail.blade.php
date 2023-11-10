@@ -84,6 +84,10 @@
                     <span>{{ $store->code }}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <<<<<<< HEAD=======- Tên: <span>{{ $store->name }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    >>>>>>> 33dc2908c96ac78ce7f9e0f86e699d7dac34b851
                     - Loại doanh nghiệp:
                     <span>{{ $store->businessType ? $store->businessType->name : '-' }}</span>
                 </li>
@@ -212,6 +216,58 @@
                             <label class="col-form-label">Nhập lại mật khẩu *</label>
                             <input type="password" name="confirm_password" class="form-control">
                         </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            <i class="fas fa-long-arrow-alt-left"></i> Thoát
+                        </button>
+                        <button type="submit" class="btn bg-gradient-cyan-blue btn-create text-white">
+                            <i class="fas fa-save"></i> Cập nhật
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-lg-7 col-sm-12 mb-2">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    Top sản phẩm bán chạy nhất theo doanh thu
+                    <button onclick="loadDataProduct()" data-bs-toggle="tooltip" title="Tải lại dữ liệu"
+                        class="btn btn-sm load-product btn-outline btn-outline-dashed btn-outline-primary btn-active-primary">
+                        <i class="fas fa-sync"></i>
+                    </button>
+                </div>
+                <div class="card-body main-product">
+                    <canvas id="chartProduct" width="400" height="250"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 mb-2 mt-3">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    Doanh thu trong năm
+                    <button onclick="loadDataMonth()" data-bs-toggle="tooltip" title="Tải lại dữ liệu"
+                        class="btn btn-sm load-month btn-outline btn-outline-dashed btn-outline-primary btn-active-primary">
+                        <i class="fas fa-sync"></i>
+                    </button>
+                </div>
+                <div class="card-body main-month">
+                    <canvas id="chartMonth" width="800" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <form action="{{ route('admin.store.update') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5">Cập nhật thông tin cửa hàng</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body px-4 py-1 content-update">
+                        @include('Admin.store.show')
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">

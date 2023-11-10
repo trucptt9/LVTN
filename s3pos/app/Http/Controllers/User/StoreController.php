@@ -25,4 +25,8 @@ class StoreController extends Controller
   {
     return view('user.store.report');
   }
+  public function orderpage()
+  {
+    return view('user.order_page.index');
+  }
 }

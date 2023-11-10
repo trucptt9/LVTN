@@ -8,6 +8,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
+
 class SeedAdmin extends Seeder
 {
     /**
@@ -16,6 +17,8 @@ class SeedAdmin extends Seeder
     public function run(): void
     {
         DB::table('admins')->delete();
+        DB::table('admin_histories')->delete();
+
         Admin::create([
             'name' => 'Admin',
             'email' => 'admin@gmail.com',

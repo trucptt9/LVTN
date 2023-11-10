@@ -62,10 +62,17 @@ class StoreController extends Controller
 
     public function detail($id)
     {
+<<<<<<< HEAD
         $store = Store::with('businessType', 'manager')->findOrFail($id);
         $data = [
             'status' => Store::get_status($store->status),
             'business_types' => BusinessType::ofStatus(BusinessType::STATUS_ACTIVE)->get(),
+=======
+        $store = Store::with('businessType')->findOrFail($id);
+        $data = [
+            'status' => Store::get_status($store->status),
+            'types' => BusinessType::ofStatus(BusinessType::STATUS_ACTIVE)->get(),
+>>>>>>> 33dc2908c96ac78ce7f9e0f86e699d7dac34b851
             'staffs' => Staff::storeId($id)->count(),
             'revenue' => Order::storeId($id)->sum('total'),
             'orders' => Order::storeId($id)->count(),
@@ -177,6 +184,7 @@ class StoreController extends Controller
         $list = DB::select($sql);
         return $list;
     }
+<<<<<<< HEAD
 
     public function reset_password_manager(ResetManagerPassword $request)
     {
@@ -196,4 +204,6 @@ class StoreController extends Controller
         }
         return redirect()->back()->with('error', 'Khôi phục thất bại!');
     }
+=======
+>>>>>>> 33dc2908c96ac78ce7f9e0f86e699d7dac34b851
 }

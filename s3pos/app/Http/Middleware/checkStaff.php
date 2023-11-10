@@ -25,7 +25,7 @@ class checkStaff
                 });
             })->ofStatus(Staff::STATUS_ACTIVE)->find(auth()->user()->id);
             if ($staff) {
-                return  $next($request);
+                return $next($request);
             }
             Auth::logout();
         }

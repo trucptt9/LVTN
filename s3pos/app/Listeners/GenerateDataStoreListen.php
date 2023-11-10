@@ -40,7 +40,7 @@ class GenerateDataStoreListen
             $faker = \Faker\Factory::create();
             $store_id = $event->store->id;
 
-            // position
+            // // position
             $position = Position::create([
                 'store_id' => $store_id,
                 'name' => 'Kỹ thuật'

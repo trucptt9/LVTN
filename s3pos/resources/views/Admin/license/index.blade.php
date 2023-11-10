@@ -1,6 +1,8 @@
+
 @php
     use App\Models\License;
 @endphp
+
 @extends('Admin.layout.default')
 @section('title', 'Bản quyền')
 @section('content')

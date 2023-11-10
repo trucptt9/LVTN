@@ -10,6 +10,22 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
+
+use App\Models\Area;
+use App\Models\CategoryProduct;
+use App\Models\CustomerGroup;
+use App\Models\Department;
+use App\Models\MethodPayment;
+use App\Models\Position;
+use App\Models\Product;
+use App\Models\SaleSource;
+use App\Models\Settings;
+use App\Models\Staff;
+use App\Models\Table;
+use App\Models\ToppingGroup;
+use App\Models\Toppings;
+use App\Models\Warehouse;
+
 class SeedBrand extends Seeder
 {
     /**
@@ -51,5 +67,7 @@ class SeedBrand extends Seeder
             'status' => License::STATUS_ACTIVE,
         ]);
         event(new GenerateDataStore($store));
+
+
     }
 }

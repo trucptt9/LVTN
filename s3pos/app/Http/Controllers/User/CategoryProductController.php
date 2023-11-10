@@ -59,7 +59,12 @@ class CategoryProductController extends Controller
             ]);
         }
     }
+    public function category_has_product($id)
+    {
+        $products = CategoryProduct::where('id',$id)->products()->where('status', 'active');
+        return view('user.home.product', compact('products'))->render();
 
+    }
 
     public function detail($id)
     {

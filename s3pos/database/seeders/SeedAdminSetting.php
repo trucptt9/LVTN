@@ -52,14 +52,22 @@ class SeedAdminSetting extends Seeder
             'group_id' => $general->id,
             'code' => 'app-logo',
             'name' => 'Logo',
+<<<<<<< HEAD
             'value' => 'files/logo.png',
+=======
+            'value' => 'admin/assets/img/logo.png',
+>>>>>>> 33dc2908c96ac78ce7f9e0f86e699d7dac34b851
             'type' => AdminSetting::TYPE_FILE,
         ]);
         AdminSetting::create([
             'group_id' => $general->id,
             'code' => 'app-favicon',
             'name' => 'Logo',
+<<<<<<< HEAD
             'value' => 'files/favicon.png',
+=======
+            'value' => 'admin/assets/img/favicon.png',
+>>>>>>> 33dc2908c96ac78ce7f9e0f86e699d7dac34b851
             'type' => AdminSetting::TYPE_FILE,
         ]);
 

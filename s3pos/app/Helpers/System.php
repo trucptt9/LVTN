@@ -49,7 +49,14 @@ if (!defined('COLORS')) {
 }
 if (!defined('ARRAY_COLORS')) {
     define('ARRAY_COLORS', [
-        '#0d6efd', '#dc3545', '#198754', '#0dcaf0', '#6c757d', '#f8f9fa', '#212529', '#ffc107'
+        '#0d6efd',
+        '#dc3545',
+        '#198754',
+        '#0dcaf0',
+        '#6c757d',
+        '#f8f9fa',
+        '#212529',
+        '#ffc107'
     ]);
 }
 function formatNumber($number)
@@ -59,7 +66,7 @@ function formatNumber($number)
 
 if (!function_exists('generateRandomString')) {
     // generate code
-    function generateRandomString($length = 10,  $is_number = false)
+    function generateRandomString($length = 10, $is_number = false)
     {
         if ($is_number == true) {
             $length -= 1;
@@ -107,7 +114,7 @@ if (!function_exists('get_phone_number')) {
     function get_phone_number($value, $condition = false)
     {
         if ($value) {
-            return $condition ? Str::mask($value, '*', - (strlen($value)), (strlen($value) - 3)) : $value;
+            return $condition ? Str::mask($value, '*', -(strlen($value)), (strlen($value) - 3)) : $value;
         }
         return '';
     }
@@ -121,9 +128,26 @@ if (!function_exists('get_option')) {
 }
 if (!function_exists('get_option_admin')) {
     function get_option_admin($code, $default = '')
+<<<<<<< HEAD
     {
         $option = AdminSetting::ofCode($code)->first();
         return $option->value ?? $default;
+=======
+    {
+        $option = AdminSetting::ofCode($code)->first();
+        return $option->value ?? $default;
+    }
+}
+if (!function_exists('save_log_action')) {
+    function save_log_action($description, $action = '', $link = null)
+    {
+        $log = StaffHistory::create([
+            'staff_id' => auth()->check() ? auth()->user()->id : 0,
+            'description' => $description,
+            'link' => $link
+        ]);
+        return $log;
+>>>>>>> 33dc2908c96ac78ce7f9e0f86e699d7dac34b851
     }
 }
 if (!function_exists('get_avatar_api')) {
@@ -264,6 +288,7 @@ if (!function_exists('save_log_action_admin')) {
         ]);
         return $log;
     }
+<<<<<<< HEAD
 }
 
 if (!function_exists('save_log_action')) {
@@ -293,3 +318,6 @@ if (!function_exists('remove_s3_file')) {
         }
     }
 }
+=======
+}
+>>>>>>> 33dc2908c96ac78ce7f9e0f86e699d7dac34b851

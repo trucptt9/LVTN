@@ -58,7 +58,9 @@
 
                                 <div class="" style="margin-left:10px; position: relative; top:20px">
                                     <label class="form-check form-check-custom form-check-solid">
-                                        <input class="form-check-input" type="radio" value="percent"  {{ $promotion->type_value == 'percent' ? 'checked' : '' }} name="type_value" />
+                                        <input class="form-check-input" type="radio" value="percent"
+                                            {{ $promotion->type_value == 'percent' ? 'checked' : '' }}
+                                            name="type_value" />
                                         <span class="form-check-label fw-semibold" style=color:black>
                                             %
                                         </span>
@@ -129,7 +131,8 @@
                                 </label>
                                 <!--end::Label-->
                                 <input class="form-control form-control-solid" placeholder="Chọn ngày"
-                                    id="promotion_day_end2" value="{{ date('d/m/Y', strtotime($promotion->end)) }}" />
+                                    id="promotion_day_end2"
+                                    value="{{ $promotion->end == '1970-01-01' ? date('d/m/Y', strtotime($promotion->end)) : '' }}" />
 
                             </div>
                             <div class="fv-row mb-2">
@@ -149,14 +152,16 @@
                                     <span class="">Trạng thái</span>
 
                                 </label>
-                                <select name="status" id="" class="form-select form-select-solid" data-control="select2"
-                                data-hide-search="true">
-                              
-                                @foreach ($data['status'] as $key => $item)
-                                    <option value="{{ $key }}" {{ $key == $promotion->status ?'selected' :'' }}>{{ $item[0] }}</option>
-                                @endforeach
-                
-                            </select>
+                                <select name="status" id="" class="form-select form-select-solid"
+                                    data-control="select2" data-hide-search="true">
+
+                                    @foreach ($data['status'] as $key => $item)
+                                        <option value="{{ $key }}"
+                                            {{ $key == $promotion->status ? 'selected' : '' }}>{{ $item[0] }}
+                                        </option>
+                                    @endforeach
+
+                                </select>
                             </div>
 
                         </div>

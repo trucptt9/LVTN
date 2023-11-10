@@ -27,9 +27,12 @@
                     <div class="me-2 mw-150px">
                         <select name="type_id" class="form-select filter-type_id form-filter select-picker">
                             <option value="" selected>-- Loại --</option>
-                            @foreach ($data['business_types'] as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                            @endforeach
+                            <<<<<<< HEAD @foreach ($data['business_types'] as $item)
+                                =======
+                                @foreach ($data['types'] as $item)
+                                    >>>>>>> 33dc2908c96ac78ce7f9e0f86e699d7dac34b851
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
                         </select>
                     </div>
                     <div class="btn-group" role="group">
@@ -37,11 +40,13 @@
                             class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-primary btn-reload">
                             <i class="fas fa-sync"></i>
                         </button>
-                        <button type="button"
+                        <<<<<<< HEAD <button type="button"
                             class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-primary"
                             data-bs-toggle="modal" data-bs-target="#addModal">
                             <i class="fas fa-plus"></i> Tạo
-                        </button>
+                            </button>
+                            =======
+                            >>>>>>> 33dc2908c96ac78ce7f9e0f86e699d7dac34b851
                     </div>
                 </div>
             </div>
@@ -71,53 +76,54 @@
         </div>
         <!--end::Card body-->
     </div>
-    @include('Admin.store.create')
-    <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <form action="{{ route('admin.store.update') }}" id="form-update" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5">Cập nhật thông tin cửa hàng</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body px-4 py-1 content-update">
+    <<<<<<< HEAD @include('Admin.store.create')=======>>>>>>> 33dc2908c96ac78ce7f9e0f86e699d7dac34b851
+        <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <form action="{{ route('admin.store.update') }}" id="form-update" method="POST"
+                    enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5">Cập nhật thông tin cửa hàng</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body px-4 py-1 content-update">
 
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                <i class="fas fa-long-arrow-alt-left"></i> Thoát
+                            </button>
+                            <button type="submit" class="btn bg-gradient-cyan-blue btn-create text-white">
+                                <i class="fas fa-save"></i> Cập nhật
+                            </button>
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                            <i class="fas fa-long-arrow-alt-left"></i> Thoát
-                        </button>
-                        <button type="submit" class="btn bg-gradient-cyan-blue btn-create text-white">
-                            <i class="fas fa-save"></i> Cập nhật
-                        </button>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
-    </div>
-@endsection
-@push('js')
-    <script>
-        const routeList = "{{ route('admin.store.list') }}";
-        const routeUpdate = "{{ route('admin.store.update') }}";
-        filterTable();
+    @endsection
+    @push('js')
+        <script>
+            const routeList = "{{ route('admin.store.list') }}";
+            const routeUpdate = "{{ route('admin.store.update') }}";
+            filterTable();
 
-        function filterTable() {
-            loadTable(routeList);
-        };
+            function filterTable() {
+                loadTable(routeList);
+            };
 
-        $(document).ready(function() {
-            $(document).on("click", ".data-item", function(e) {
-                showSpiner(".table-loading");
-                e.preventDefault();
-                const url = $(this).attr('href');
-                $.get(url, function(data) {
-                    hideSniper(".table-loading");
-                    $('.content-update').html(data);
-                    $('#editModal').modal('show');
+            $(document).ready(function() {
+                $(document).on("click", ".data-item", function(e) {
+                    showSpiner(".table-loading");
+                    e.preventDefault();
+                    const url = $(this).attr('href');
+                    $.get(url, function(data) {
+                        hideSniper(".table-loading");
+                        $('.content-update').html(data);
+                        $('#editModal').modal('show');
+                    })
                 })
             })
-        })
-    </script>
-@endpush
+        </script>
+    @endpush

@@ -1,7 +1,11 @@
 <meta charset="utf-8" />
 <title>{{ get_option_admin('short-name') }} | @yield('title')</title>
 <meta name="csrf-token" content="{{ csrf_token() }}">
+<<<<<<< HEAD
 <link rel="icon" href="{{ show_s3_file(get_option_admin('app-favicon')) }}">
+=======
+<link rel="icon" href="{{ asset(get_option_admin('app-favicon')) }}">
+>>>>>>> 33dc2908c96ac78ce7f9e0f86e699d7dac34b851
 
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
