@@ -37,7 +37,6 @@ class SaleController extends Controller
         $categories = CategoryProduct::storeId($this->store_id)->where('status', CategoryProduct::STATUS_ACTIVE)->get();
         return view('Sale.home.category', compact('categories'));
     }
-
     public function product()
     {
         $cat = CategoryProduct::storeId($this->store_id)->where('status', CategoryProduct::STATUS_ACTIVE)->get();
@@ -95,6 +94,7 @@ class SaleController extends Controller
         ]);
 
     }
+
     public function table()
     {
         $area = Area::storeId($this->store_id)->get();

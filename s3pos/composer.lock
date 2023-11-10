@@ -4,7 +4,9 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+
     "content-hash": "abe9f25276fad98fa022a310d61900f3",
+
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -1923,6 +1925,7 @@
             },
             "dist": {
                 "type": "zip",
+
                 "url": "https://api.github.com/repos/Seldaek/monolog/zipball/c915e2634718dbc8a4a15c61b0e62e7a44e14448",
                 "reference": "c915e2634718dbc8a4a15c61b0e62e7a44e14448",
                 "shasum": ""
