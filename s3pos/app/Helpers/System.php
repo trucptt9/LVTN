@@ -188,6 +188,13 @@ if (!function_exists('showLog')) {
         ]);
     }
 }
+if (!function_exists('show_s3_file')) {
+    function show_s3_file($link)
+    {
+        return asset("storage/$link");
+    }
+}
+
 if (!function_exists('renderSubMenu')) {
     // generate code
     function renderSubMenu($value, $currentUrl = '/')
