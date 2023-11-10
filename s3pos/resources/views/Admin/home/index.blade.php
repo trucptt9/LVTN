@@ -102,7 +102,9 @@
                             <h5 class="mb-1">Doanh thu bán hàng</h5>
                             <div class="fs-13px">Thống kê trong năm hiện tại</div>
                         </div>
-                        <a href="javascript:;" class="text-secondary"><i class="fa fa-redo"></i></a>
+                        <button class="btn btn-sm btn-secondary" onclick="load_revenue_by_month()">
+                            <i class="fa fa-redo"></i>
+                        </button>
                     </div>
                     <canvas id="chartMonth" width="800" height="400"></canvas>
                 </div>
@@ -122,11 +124,14 @@
             <div class="card h-100">
                 <!-- BEGIN card-body -->
                 <div class="card-body">
-                    <div class="d-flex align-items-center mb-4">
+                    <div class="d-flex align-items-center mb-2">
                         <div class="flex-grow-1">
                             <h5 class="mb-1">Top 10 sản phẩm</h5>
                             <div class="fs-13px">Bán chạy trong tháng này</div>
                         </div>
+                        <button class="btn btn-sm btn-secondary" onclick="load_top_product()">
+                            <i class="fa fa-redo"></i>
+                        </button>
                     </div>
                     <div class="top-product-content"></div>
                 </div>
@@ -147,8 +152,10 @@
                             <h5 class="mb-1">Top 10 cửa hàng</h5>
                             <div class="fs-13px">Có doanh thu cao trong tháng này</div>
                         </div>
+                        <button class="btn btn-sm btn-secondary" onclick="load_top_store()">
+                            <i class="fa fa-redo"></i>
+                        </button>
                     </div>
-
                     <div class="top-store-content"></div>
                 </div>
                 <!-- END card-body -->
@@ -169,6 +176,7 @@
         load_revenue_by_month();
 
         function load_top_product() {
+            $('.top-product-content').html('');
             $.ajax({
                 url: "{{ route('admin.home.top_product') }}",
                 async: true,
@@ -180,6 +188,7 @@
         }
 
         function load_top_store() {
+            $('.top-store-content').html('');
             $.ajax({
                 url: "{{ route('admin.home.top_store') }}",
                 async: true,
