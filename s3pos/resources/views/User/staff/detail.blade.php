@@ -1,11 +1,6 @@
 @extends('User.layout.main')
 @section('style')
-    <!--begin::Vendor Stylesheets(used for this page only)-->
-    <link href="{{ asset('user/assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
-
-    <!--end::Vendor Stylesheets-->
 @endsection
-
 @section('content')
     <!--begin::Toolbar-->
     <div class="toolbar py-5 " id="kt_toolbar">
@@ -49,9 +44,7 @@
                 </a>
             </div>
         </div>
-
     </div>
-
     <!--begin::Container-->
     <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
         <!--begin::Post-->
@@ -64,9 +57,8 @@
                     <div class="card mb-5 mb-xl-8">
                         <!--begin::Card body-->
                         <div class="card-body">
-                            <div class="d-flex flex-center flex-column py-5">
-
-                                <div class="symbol symbol-100px symbol-circle mb-7">
+                            <div class="d-flex flex-center flex-column">
+                                <div class="symbol symbol-100px symbol-circle mb-3">
                                     @if ($staff->avatar == null)
                                         <img src="{{ asset('images/avatar.jpg') }} " alt="" height="100"
                                             width="100" />
@@ -77,19 +69,16 @@
                                 </div>
                                 <p class="fs-3 text-gray-800 text-hover-primary fw-bold mb-3 name_staff">{{ $staff->name }}
                                 </p>
-                                <div class="mb-9">
+                                <div class="mb-4">
                                     <!--begin::Badge-->
                                     <div class="badge badge-lg badge-light-primary d-inline code_staff">{{ $staff->code }}
                                     </div>
                                     <!--begin::Badge-->
                                 </div>
                                 <!--end::Position-->
-
                             </div>
-
                             <div id="kt_user_view_details" class="collapse show">
                                 <div class="pb-5 fs-6">
-
                                     <div class="fw-bold mt-5">Số điện thoại</div>
                                     <div class="text-gray-600 phone"> {{ $staff->phone }}</div>
                                     <div class="fw-bold mt-5">Địa chỉ</div>
@@ -104,13 +93,11 @@
                                     <div class="text-gray-600">{{ $staff->last_login }}</div>
                                     <!--begin::Details item-->
                                 </div>
-
                             </div>
                             <!--end::Details content-->
                         </div>
                         <!--end::Card body-->
                     </div>
-
                 </div>
                 <!--end::Sidebar-->
                 <!--begin::Content-->
@@ -165,41 +152,29 @@
                                             hidden>
                                         <input type="hidden" name="type" value="all">
                                         <div class="row">
-                                            <div class="col-5">
+                                            <div class="col-6">
                                                 <!--begin::Nav-->
-                                                <div class="stepper-nav ps-lg-10">
+                                                <div class="stepper-nav ps-lg-1">
                                                     <label class="d-flex align-items-center fs-5 fw-semibold mb-2">
                                                         <h4 class="">Thông tin tài
                                                             khoản</h4>
                                                     </label>
-
                                                     <div class="fv-row mb-2 account_staff">
-
-                                                        <label
-                                                            class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
+                                                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
                                                             <span class="">Email</span>
-
                                                         </label>
-
-                                                        <input type="text"
-                                                            class="form-control form-control-lg form-control-solid"
+                                                        <input type="text" class="form-control form-control-lg"
                                                             name="email" placeholder="Email đăng nhập"
                                                             value="{{ $staff->email }}" />
-
-
                                                         <!--end::Input-->
                                                     </div>
-
                                                     <div class="fv-row mb-2">
-
                                                         <label
                                                             class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-3">
                                                             <span class="">Chức vụ</span>
-
                                                         </label>
-                                                        <select class="form-select" aria-label="Select example"
-                                                            name="position_id">
-
+                                                        <select class="form-select" data-control="select2"
+                                                            aria-label="Select example" name="position_id">
                                                             @foreach ($data['positions'] as $item)
                                                                 <option value="{{ $item->id }}"
                                                                     {{ $item->id == $staff->position_id ? 'selected' : '' }}>
@@ -212,8 +187,8 @@
                                                         <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                                             <span class="">Phòng ban</span>
                                                         </label>
-                                                        <select class="form-select" aria-label="Select example"
-                                                            name="department_id">
+                                                        <select class="form-select" data-control="select2"
+                                                            aria-label="Select example" name="department_id">
 
                                                             @foreach ($data['departments'] as $item)
                                                                 <option value="{{ $item->id }}"
@@ -226,42 +201,33 @@
                                                         <!--begin::Label-->
                                                         <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                                             <span class="">Trạng thái</span>
-
                                                         </label>
-                                                        <select class="form-select" aria-label="Select example"
+                                                        <select class="form-select" data-hide-search="true"
+                                                            data-control="select2" aria-label="Select example"
                                                             name="status">
-
                                                             @foreach ($data['status'] as $key => $item)
                                                                 <option value="{{ $key }}"
                                                                     {{ $staff->status == $key ? 'selected' : '' }}>
                                                                     {{ $item[0] }}</option>
                                                             @endforeach
-
-
                                                         </select>
                                                     </div>
-
                                                 </div>
                                             </div>
-
                                             <div class="col-6">
                                                 <!--begin::Nav-->
                                                 <div class="stepper-nav ps-lg-10">
                                                     <div class="fv-row mb-2">
                                                         <label class="d-flex align-items-center fs-5 fw-semibold mb-2">
                                                             <h4 class="">Thông tin liên hệ </h4>
-
                                                         </label>
                                                         <!--begin::Label-->
-
                                                         <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                                             <span class="required">Họ tên</span>
-
                                                         </label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
-                                                        <input type="text"
-                                                            class="form-control form-control-lg form-control-solid"
+                                                        <input type="text" class="form-control form-control-lg"
                                                             name="name" placeholder="Họ tên nhân viên"
                                                             value="{{ $staff->name }}" />
                                                         <!--end::Input-->
@@ -270,8 +236,7 @@
                                                         <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                                             <span class="">Mã</span>
                                                         </label>
-                                                        <input type="text"
-                                                            class="form-control form-control-lg form-control-solid"
+                                                        <input type="text" class="form-control form-control-lg"
                                                             name="code" placeholder="Để trống tự sinh"
                                                             value="{{ $staff->code }}" />
                                                     </div>
@@ -280,11 +245,8 @@
                                                         <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                                             <span class="required">Số điện
                                                                 thoại</span>
-
                                                         </label>
-
-                                                        <input type="text"
-                                                            class="form-control form-control-lg form-control-solid"
+                                                        <input type="text" class="form-control form-control-lg"
                                                             name="phone" placeholder="0934 956 345"
                                                             value="{{ $staff->phone }}" />
                                                         <!--end::Input-->
@@ -295,7 +257,6 @@
                                                         </label>
                                                         <div
                                                             class="symbol symbol-circle symbol-100px overflow-hidden me-3">
-
                                                             <div class="symbol-label">
                                                                 @if ($staff->avatar == null)
                                                                     <img src="{{ asset('images/avatar.jpg') }} "
@@ -305,39 +266,27 @@
                                                                         alt="{{ $staff->name }}" class="w-100" />
                                                                 @endif
                                                             </div>
-
                                                         </div>
-
-                                                        <input type="file"
-                                                            class="form-control form-control-lg form-control-solid"
+                                                        <input type="file" class="form-control form-control-lg"
                                                             name="avatar" value="" />
                                                     </div>
                                                     <div class="fv-row mb-2">
-
                                                         <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                                             <span class="">Địa
                                                                 chỉ</span>
-
                                                         </label>
                                                         <textarea name="description" id="" cols="" rows="2" class="form-control">{{ $staff->description }}</textarea>
-
                                                     </div>
-
                                                 </div>
-
                                             </div>
                                         </div>
-
                                         <button class="btn btn-success mt-3 btn-create" style="float:inline-end"
                                             type="submit">Cập nhật</button>
                                     </form>
-
                                 </div>
                                 <!--end::Card body-->
                             </div>
                             <!--end::Card-->
-
-
                         </div>
                         <!--end:::Tab pane-->
                         <!--begin:::Tab pane-->
@@ -346,7 +295,6 @@
                             <div class="card pt-4 mb-6 mb-xl-9">
                                 <!--begin::Card header-->
                                 <div class="card-header border-0">
-
                                     <!--begin::Card toolbar-->
                                     <div class="card-toolbar">
                                         <!--begin::Filter-->
@@ -367,20 +315,15 @@
                                                 <tr class="text-start text-muted text-uppercase gs-0">
 
                                                     <th class="w-300px">Tính năng</th>
-
                                                     <th class="text-center" colspan="6">Quyền cụ thể</th>
-
-
                                                 </tr>
                                                 <tr class="text-start text-muted text-uppercase gs-0">
-
                                                     <th colspan="2"></th>
                                                     <th class="text-center">Tất cả</th>
                                                     <th class="text-center">Thêm</th>
                                                     <th class="text-center">Sửa</th>
                                                     <th class="text-center">Xóa</th>
                                                     <th class="text-center">Phân quyền</th>
-
                                                 </tr>
                                             </thead>
                                             <tbody class="fs-6 fw-semibold text-gray-600 permition_table ">
@@ -389,7 +332,6 @@
                                                         Không tìm thấy dữ liệu
                                                     </td>
                                                 </tr>
-
                                             </tbody>
                                         </table>
                                         <!--end::Table-->
@@ -399,8 +341,6 @@
                                 <!--end::Card body-->
                             </div>
                             <!--end::Card-->
-
-
                         </div>
                         <!--end:::Tab pane-->
                         <!--begin:::Tab pane-->
@@ -410,8 +350,6 @@
                                 <div class="page d-flex flex-row flex-column-fluid">
                                     <!--begin::Wrapper-->
                                     <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
-
-
                                         <!--begin::Container-->
                                         <div id="kt_content_container"
                                             class="d-flex flex-column-fluid align-items-start container-xxl">
@@ -431,7 +369,7 @@
                                                                     <span class="path2"></span>
                                                                 </i>
                                                                 <input type="text" data-kt-user-table-filter="search"
-                                                                    class="form-control form-control-solid w-250px ps-13"
+                                                                    class="form-control w-250px ps-13"
                                                                     placeholder="Tìm kiếm " />
                                                             </div>
                                                             <!--end::Search-->
@@ -444,8 +382,6 @@
                                                                     Thêm ca
                                                                 </a>
                                                             </div>
-
-
                                                         </div>
                                                         <!--end::Card toolbar-->
                                                     </div>
@@ -492,7 +428,6 @@
                                                                             <span class="path4"></span>
                                                                             <span class="path5"></span>
                                                                         </i>
-
                                                                         <i
                                                                             class="ki-duotone ki-message-edit fs-2qx text-success">
                                                                             <span class="path1"></span>
@@ -500,9 +435,6 @@
                                                                         </i>
                                                                     </td>
                                                                 </tr>
-
-
-
                                                             </tbody>
                                                         </table>
                                                         <!--end::Table-->
@@ -514,13 +446,11 @@
                                             <!--end::Post-->
                                         </div>
                                         <!--end::Container-->
-
                                     </div>
                                     <!--end::Wrapper-->
                                 </div>
                             </div>
                             <!--end::Card-->
-
                         </div>
                         <!--end:::Tab pane-->
                         <!--begin:::Tab pane-->
@@ -530,8 +460,6 @@
                                 <div class="page d-flex flex-row flex-column-fluid">
                                     <!--begin::Wrapper-->
                                     <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
-
-
                                         <!--begin::Container-->
                                         <div id="kt_content_container"
                                             class="d-flex flex-column-fluid align-items-start container-xxl">
@@ -541,7 +469,6 @@
                                                 <div class="card">
                                                     <form action="" id="form-filter">
                                                         <div class="card-header align-items-center py-5 gap-2 gap-md-5">
-
                                                             <div class="card-title">
                                                                 <!--begin::Search-->
                                                                 <div
@@ -553,20 +480,17 @@
                                                                     </i>
                                                                     <input type="text"
                                                                         data-kt-ecommerce-order-filter="search"
-                                                                        class="form-control form-control-solid w-250px ps-12"
+                                                                        class="form-control w-250px ps-12"
                                                                         placeholder="Nhập nội dung ..." />
                                                                 </div>
                                                                 <!--end::Search-->
                                                             </div>
-
                                                             <div
                                                                 class="card-toolbar flex-row-fluid justify-content-end gap-5">
-
                                                                 <div class="w-200px ">
                                                                     <!--begin::Select2-->
-                                                                    <select class="form-select form-select-solid"
-                                                                        data-control="select2" data-hide-search="true"
-                                                                        name="status">
+                                                                    <select class="form-select" data-control="select2"
+                                                                        data-hide-search="true" name="status">
                                                                         <option value="" selected> Chọn trạng thái
                                                                         </option>
                                                                         @foreach ($data['status'] as $key => $item)
@@ -617,16 +541,13 @@
                                 </div>
                             </div>
                             <!--end::Card-->
-
                         </div>
                         <!--end:::Tab pane-->
-
                     </div>
                     <!--end:::Tab content-->
                 </div>
                 <!--end::Content-->
             </div>
-
         </div>
         <!--end::Post-->
     </div>
@@ -636,8 +557,6 @@
 @section('script')
     <script>
         $(document).ready(function() {
-
-
             $("#start_modal_add_schedule_datepicker").flatpickr({
                 enableTime: true,
                 noCalendar: true,
@@ -708,23 +627,6 @@
                 });
             })
 
-
-
-
-
         })
     </script>
-
-    <!--end::Vendors Javascript-->
-    <!--begin::Custom Javascript(used for this page only)-->
-
-    <script src="{{ asset('user/assets/js/widgets.bundle.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/widgets.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/apps/chat/chat.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/utilities/modals/upgrade-plan.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/utilities/modals/create-app.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/utilities/modals/users-search.js') }}"></script>
-
-
-    <!--end::Custom Javascript-->
 @endsection

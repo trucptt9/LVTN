@@ -49,7 +49,7 @@
                                     <span class="path2"></span>
                                 </i>
                                 <input type="text" data-kt-ecommerce-order-filter="search"
-                                    class="form-control form-control-solid w-250px ps-12" placeholder="Nhập nội dung ..." />
+                                    class="form-control w-250px ps-12" placeholder="Nhập nội dung ..." />
                             </div>
                             <!--end::Search-->
                         </div>
@@ -58,9 +58,8 @@
 
                             <div class="w-200px ">
                                 <!--begin::Select2-->
-                                <select class="form-select form-select-solid" data-control="select2" data-hide-search="true"
-                                    name="status">
-                                    <option value="" selected> Chọn trạng thái</option>
+                                <select class="form-select" data-control="select2" data-hide-search="true" name="status">
+                                    <option value="" selected>-- Chọn trạng thái --</option>
                                     @foreach ($data['status'] as $key => $item)
                                         <option value="{{ $key }}"> {{ $item[0] }}</option>
                                     @endforeach
@@ -81,8 +80,8 @@
                                 <th class="w-100px">Mã</th>
                                 <th class="">Tên</th>
                                 <th class="w-200px text-center">Thời gian áp dụng</th>
-                                <th class="w-140px text-center" >Giá trị</th>
-                                <th class="w-140px text-center" >Số lượng còn lại</th>
+                                <th class="w-140px text-center">Giá trị</th>
+                                <th class="w-140px text-center">Số lượng còn lại</th>
                                 <th class="w-125px text-center">Trạng thái</th>
                                 <th class=" w-90px text-center">#</th>
                             </tr>
@@ -122,22 +121,22 @@
                         <!--end::Close-->
                     </div>
 
-                    <div class="modal-body px-lg-10 ">
+                    <div class="modal-body">
 
 
                         <div class="flex-row-fluid py-lg-5 ">
-                            <div class="row content-update" id="kt_modal_create_app_stepper" >
+                            <div class="row content-update" id="kt_modal_create_app_stepper">
 
                             </div>
                             <div class="text-center pt-10">
                                 <button type="reset" class="btn btn-light me-3 close-btn2">Hủy</button>
                                 <button type="submit" class="btn btn-primary btn-create">
                                     <span class="indicator-label">Cập nhật </span>
-    
+
                                 </button>
                             </div>
                         </div>
-                       
+
                         <!--end::Content-->
                     </div>
                 </div>

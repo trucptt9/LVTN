@@ -15,7 +15,7 @@
         <!--end::Heaeder menu toggle-->
         <!--begin::Header Logo-->
         <div class="header-logo me-5 me-md-10 flex-grow-1 flex-lg-grow-0">
-           logo
+            logo
         </div>
         <!--end::Header Logo-->
         <!--begin::Wrapper-->
@@ -23,7 +23,7 @@
             <!--begin::Navbar-->
             <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
                 <li class="nav-item">
-                    <a class="nav-link active"  href="">
+                    <a class="nav-link active" href="">
                         <span class="fs-4 fw-bold">Thực đơn</span>
 
 
@@ -31,7 +31,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link "  href="{{ route('admin.login') }}">
+                    <a class="nav-link " href="{{ route('admin.login') }}">
                         <span class="fs-4 fw-bold">Bàn</span>
 
 
@@ -39,7 +39,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link "  href="">
+                    <a class="nav-link " href="">
                         <span class="fs-4 fw-bold">Khách hàng</span>
 
 
@@ -59,11 +59,11 @@
                             <span class="path1"></span>
                             <span class="path2"></span>
                         </i>
-                        <input type="text" data-kt-user-table-filter="search"
-                            class="form-control form-control-solid w-250px ps-13" placeholder="Tìm kiếm " />
+                        <input type="text" data-kt-user-table-filter="search" class="form-control w-250px ps-13"
+                            placeholder="Tìm kiếm " />
                     </div>
                 </div>
-               
+
 
                 <div class="d-flex align-items-center me-lg-n2 ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
 
@@ -86,7 +86,7 @@
                                 <!--begin::Username-->
                                 <div class="d-flex flex-column">
                                     <div class="fw-bold d-flex align-items-center fs-5">Nguyễn Văn A
-                                      
+
                                     </div>
                                     <a href="#"
                                         class="fw-semibold text-muted text-hover-primary fs-7">a@gmail.com</a>
@@ -102,7 +102,7 @@
                         <div class="menu-item px-5">
                             <a href="#" class="menu-link px-5">Thông tin tài khoản</a>
                         </div>
-                       
+
                         <div class="menu-item px-5">
                             <a href="#l" class="menu-link px-5" onclick="confirmLogout()">Đăng xuất</a>
                         </div>
@@ -111,7 +111,7 @@
                     <!--end::User account menu-->
                     <!--end::Menu wrapper-->
                 </div>
-               
+
             </div>
             <!--end::Toolbar wrapper-->
         </div>

@@ -44,9 +44,9 @@
                         Kích hoạt license?
                     </a>
                     <!--begin::Link-->
-                    <a href="{{ route('forgot_password') }}" class="link-primary">
+                    {{-- <a href="{{ route('forgot_password') }}" class="link-primary">
                         Quên mật khẩu?
-                    </a>
+                    </a> --}}
                     <!--end::Link-->
                 </div>
                 <!--end::Wrapper-->

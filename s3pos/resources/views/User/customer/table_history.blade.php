@@ -2,7 +2,6 @@
     @php
         $paginate = $list->appends(request()->all())->links();
     @endphp
-
     @foreach ($list as $item)
         <tr>
             <td>
@@ -20,7 +19,6 @@
             <td>
                 {{ $item->note }}
             </td>
-
         </tr>
     @endforeach
     @if ($paginate != '')

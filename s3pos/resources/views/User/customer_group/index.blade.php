@@ -1,6 +1,6 @@
 @extends('User.layout.main')
 @section('style')
-    <link href="{{asset('user/assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('user/assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('content')
@@ -25,7 +25,7 @@
                         <!--end::Item-->
                         <!--begin::Item-->
                         <li class="breadcrumb-item text-white opacity-75">
-                          Khuyến mãi
+                            Khuyến mãi
                         </li>
                         <!--end::Item-->
                     </ul>
@@ -49,7 +49,7 @@
                                     <span class="path2"></span>
                                 </i>
                                 <input type="text" data-kt-ecommerce-order-filter="search"
-                                    class="form-control form-control-solid w-250px ps-12" placeholder="Nhập nội dung ..." />
+                                    class="form-control w-250px ps-12" placeholder="Nhập nội dung ..." />
                             </div>
                             <!--end::Search-->
                         </div>
@@ -58,9 +58,8 @@
 
                             <div class="w-200px ">
                                 <!--begin::Select2-->
-                                <select class="form-select form-select-solid" data-control="select2" data-hide-search="true"
-                                    name="status">
-                                    <option value="" selected> Chọn trạng thái</option>
+                                <select class="form-select" data-control="select2" data-hide-search="true" name="status">
+                                    <option value="" selected>-- Chọn trạng thái --</option>
                                     @foreach ($data['status'] as $key => $item)
                                         <option value="{{ $key }}"> {{ $item[0] }}</option>
                                     @endforeach
@@ -80,11 +79,11 @@
                     <table class="table align-middle table-bordered fs-6 gy-5">
                         <thead>
                             <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                     
+
                                 <th class="w-100px">Mã</th>
                                 <th class="w-300px">Tên nhóm</th>
                                 <th class="text-center">Mô tả</th>
-                                <th class="text-center w-100px">Trạng thái</th>
+                                <th class="text-center w-125px">Trạng thái</th>
                                 <th class="text-center w-100px">#</th>
                             </tr>
                         </thead>
@@ -125,7 +124,7 @@
                         <!--end::Close-->
                     </div>
 
-                    <div class="modal-body px-lg-10 ">
+                    <div class="modal-body">
                         <div class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid"
                             id="kt_modal_create_app_stepper">
 
@@ -259,8 +258,8 @@
             })
         })
     </script>
-    <script src="{{asset('user/assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
-    <script src="{{asset('user/assets/js/custom/apps/ecommerce/sales/listing.js')}}"></script>
-    <script src="{{asset('user/assets/js/widgets.bundle.js')}}"></script>
-    <script src="{{asset('user/assets/js/custom/widgets.js')}}"></script>
+    <script src="{{ asset('user/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+    <script src="{{ asset('user/assets/js/custom/apps/ecommerce/sales/listing.js') }}"></script>
+    <script src="{{ asset('user/assets/js/widgets.bundle.js') }}"></script>
+    <script src="{{ asset('user/assets/js/custom/widgets.js') }}"></script>
 @endsection

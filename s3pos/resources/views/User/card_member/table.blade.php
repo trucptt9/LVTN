@@ -2,7 +2,6 @@
     @php
         $paginate = $list->appends(request()->all())->links();
     @endphp
-
     @foreach ($list as $item)
         <tr>
             <td>
@@ -29,7 +28,6 @@
                         <span class="path2"></span>
                     </i>
                 </a>
-
                 <button class="btn btn-light btn-delete" style="padding: 0px"
                     onclick="confirmDelete('{{ $item->id }}')">
                     <i class="ki-duotone ki-trash fs-2qx text-danger">
@@ -40,7 +38,6 @@
                         <span class="path5"></span>
                     </i>
                 </button>
-
             </td>
         </tr>
     @endforeach

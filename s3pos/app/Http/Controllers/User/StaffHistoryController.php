@@ -7,6 +7,7 @@ use App\Models\Staff;
 use App\Models\StaffHistory;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Response as ResHTTP;
+
 class StaffHistoryController extends Controller
 {
     protected $limit_default;

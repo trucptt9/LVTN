@@ -8,7 +8,6 @@
               <div class="modal-header">
                   <!--begin::Modal title-->
                   <h2>Thêm khách hàng</h2>
-
                   <div class="btn btn-sm btn-icon btn-active-color-primary btn-close" data-bs-dismiss="modal">
                       <i class="ki-duotone ki-cross fs-1">
                           <span class="path1"></span>
@@ -17,50 +16,36 @@
                   </div>
                   <!--end::Close-->
               </div>
-
-              <div class="modal-body px-lg-10">
+              <div class="modal-body">
                   <!--begin::Stepper-->
                   <div class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid"
                       id="kt_modal_create_app_stepper">
-
                       <div class="flex-row-fluid py-lg-5 ">
                           <!--begin::Form-->
                           <form class="form" action="{{ route('customer.insert') }}" id="form-create" method="POST"
                               enctype="multipart/form-data">
                               <!--begin::Scroll-->
-                              <div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_user_scroll"
-                                  data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-max-height="auto"
-                                  data-kt-scroll-dependencies="#kt_modal_add_user_header"
-                                  data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
-
-
+                              <div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_user_scroll">
                                   <div class="fv-row mb-7">
                                       <!--begin::Label-->
                                       <label class="required fw-semibold fs-6 mb-2">Tên khách hàng</label>
                                       <!--end::Label-->
                                       <!--begin::Input-->
-                                      <input type="text" name="name"
-                                          class="form-control form-control-solid mb-3 mb-lg-0"
+                                      <input type="text" name="name" class="form-control mb-3 mb-lg-0"
                                           placeholder="Tên khách hàng" />
                                       <!--end::Input-->
                                   </div>
-
                                   <div class="fv-row mb-7">
-
                                       <label class="fw-semibold fs-6 mb-2">Mã</label>
-
-                                      <input type="text" name="code"
-                                          class="form-control form-control-solid mb-3 mb-lg-0"
+                                      <input type="text" name="code" class="form-control mb-3 mb-lg-0"
                                           placeholder="Để trống tự sinh" />
-
                                   </div>
                                   <div class="fv-row mb-7">
                                       <!--begin::Label-->
                                       <label class="required fw-semibold fs-6 mb-2">Số điện thoại</label>
                                       <!--end::Label-->
                                       <!--begin::Input-->
-                                      <input type="text" name="phone"
-                                          class="form-control form-control-solid mb-3 mb-lg-0"
+                                      <input type="text" name="phone" class="form-control mb-3 mb-lg-0"
                                           placeholder="0988 676 676" />
                                       <!--end::Input-->
                                   </div>
@@ -73,8 +58,6 @@
                                               @foreach ($data['group'] as $item)
                                                   <option value="{{ $item->id }}">{{ $item->name }}</option>
                                               @endforeach
-
-
                                           </select>
                                       </div>
                                       <div class="col">
@@ -85,8 +68,6 @@
                                               @foreach ($data['status'] as $key => $item)
                                                   <option value="{{ $key }}">{{ $item[0] }}</option>
                                               @endforeach
-
-
                                           </select>
                                       </div>
                                   </div>
@@ -98,8 +79,6 @@
                                       <textarea class="form-control" aria-label="With textarea" name="description" rows="2"></textarea>
                                       <!--end::Input-->
                                   </div>
-
-
                               </div>
                               <!--end::Scroll-->
                               <!--begin::Actions-->

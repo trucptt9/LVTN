@@ -1,8 +1,7 @@
 @extends('User.layout.main')
 @section('style')
-    <link href="{{asset('user/assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css" />
+    
 @endsection
-
 @section('content')
     <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
         <!--begin::Post-->
@@ -34,7 +33,6 @@
                     Tạo mới
                 </button>
             </div>
-
             <!--begin::Products-->
             <div class="card card-flush">
                 <!--begin::Card header-->
@@ -49,18 +47,15 @@
                                     <span class="path2"></span>
                                 </i>
                                 <input type="text" data-kt-ecommerce-order-filter="search"
-                                    class="form-control form-control-solid w-250px ps-12" placeholder="Nhập nội dung ..." />
+                                    class="form-control w-250px ps-12" placeholder="Nhập nội dung ..." />
                             </div>
                             <!--end::Search-->
                         </div>
-
                         <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
-
                             <div class="w-200px ">
                                 <!--begin::Select2-->
-                                <select class="form-select form-select-solid" data-control="select2" data-hide-search="true"
-                                    name="status">
-                                    <option value="" selected> Chọn trạng thái</option>
+                                <select class="form-select" data-control="select2" data-hide-search="true" name="status">
+                                    <option value="" selected>-- Chọn trạng thái --</option>
                                     @foreach ($data['status'] as $key => $item)
                                         <option value="{{ $key }}"> {{ $item[0] }}</option>
                                     @endforeach
@@ -68,9 +63,6 @@
                                 <!--end::Select2-->
                             </div>
                         </div>
-
-
-
                     </div>
                 </form>
                 <!--end::Card header-->
@@ -80,7 +72,6 @@
                     <table class="table align-middle table-bordered fs-6 gy-5">
                         <thead>
                             <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-
                                 <th class="w-125px">Hình ảnh</th>
                                 <th class="w-140px">Mã</th>
                                 <th class="">Tên topping</th>
@@ -98,19 +89,16 @@
                                 </td>
                             </tr>
                         </tbody>
-
                     </table>
                     <!--end::Table-->
                 </div>
                 <!--end::Card body-->
             </div>
-
             <!--end::Products-->
         </div>
         <!--end::Post-->
     </div>
     @include('User.topping.modal_add')
-
     <div class="modal fade" id="modal-edit" tabindex="-1" aria-hidden="true">
         <!--begin::Modal dialog-->
         <form action="{{ route('topping.update') }}" id="form-update" method="POST" enctype="multipart/form-data">
@@ -127,8 +115,7 @@
                         </div>
                         <!--end::Close-->
                     </div>
-
-                    <div class="modal-body px-lg-10 ">
+                    <div class="modal-body">
                         <div class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid"
                             id="kt_modal_create_app_stepper">
 
@@ -136,15 +123,11 @@
                                 <div class="d-flex flex-column scroll-y px-5 px-lg-10 content-update"
                                     id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="true"
                                     data-kt-scroll-max-height="auto" data-kt-scroll-offset="300px">
-
-
-
                                 </div>
                                 <div class="text-center pt-10">
                                     <button type="reset" class="btn btn-light me-3 close-btn2">Hủy</button>
                                     <button type="submit" class="btn btn-primary btn-create">
                                         <span class="indicator-label">Cập nhật </span>
-
                                     </button>
                                 </div>
                             </div>
@@ -154,12 +137,10 @@
                 </div>
                 <!--end::Modal body-->
             </div>
-
         </form>
         <!--end::Modal content-->
     </div>
 @endsection
-
 @section('script')
     <script>
         const routeList = "{{ route('topping.list') }}";
@@ -262,8 +243,4 @@
             })
         })
     </script>
-    <script src="{{asset('user/assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
-    <script src="{{asset('user/assets/js/custom/apps/ecommerce/sales/listing.js')}}"></script>
-    <script src="{{asset('user/assets/js/widgets.bundle.js')}}"></script>
-    <script src="{{asset('user/assets/js/custom/widgets.js')}}"></script>
 @endsection

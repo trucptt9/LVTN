@@ -67,7 +67,7 @@
                                             <span class="path2"></span>
                                         </i>
                                         <input type="text" data-kt-user-table-filter="search"
-                                            class="form-control form-control-solid w-250px ps-13" placeholder="Tìm kiếm " />
+                                            class="form-control w-250px ps-13" placeholder="Tìm kiếm " />
                                     </div>
                                     <!--end::Search-->
                                 </div>
@@ -98,10 +98,9 @@
                                                 <!--begin::Input group-->
                                                 <div class="mb-10">
                                                     <label class="form-label fs-6 fw-semibold">Nhân viên:</label>
-                                                    <select class="form-select form-select-solid fw-bold"
-                                                        data-kt-select2="true" data-placeholder="Chọn nhân viên"
-                                                        data-allow-clear="true" data-kt-user-table-filter="role"
-                                                        data-hide-search="true">
+                                                    <select class="form-select fw-bold" data-kt-select2="true"
+                                                        data-placeholder="Chọn nhân viên" data-allow-clear="true"
+                                                        data-kt-user-table-filter="role" data-hide-search="true">
                                                         <option></option>
                                                         <option value="Administrator">Administrator</option>
                                                         <option value="Analyst">Analyst</option>
@@ -114,10 +113,9 @@
                                                 <!--begin::Input group-->
                                                 <div class="mb-10">
                                                     <label class="form-label fs-6 fw-semibold">Ngày:</label>
-                                                    <select class="form-select form-select-solid fw-bold"
-                                                        data-kt-select2="true" data-placeholder="Select option"
-                                                        data-allow-clear="true" data-kt-user-table-filter="two-step"
-                                                        data-hide-search="true">
+                                                    <select class="form-select fw-bold" data-kt-select2="true"
+                                                        data-placeholder="Select option" data-allow-clear="true"
+                                                        data-kt-user-table-filter="two-step" data-hide-search="true">
                                                         <option></option>
                                                         <option value="Enabled">Enabled</option>
                                                     </select>
@@ -177,7 +175,7 @@
                                                             <!--begin::Input-->
                                                             <select name="role" data-control="select2"
                                                                 data-placeholder="Select a role" data-hide-search="true"
-                                                                class="form-select form-select-solid fw-bold">
+                                                                class="form-select fw-bold">
                                                                 <option></option>
                                                                 <option value="Administrator">Administrator</option>
                                                                 <option value="Analyst">Analyst</option>
@@ -197,7 +195,7 @@
                                                             <!--begin::Input-->
                                                             <select name="format" data-control="select2"
                                                                 data-placeholder="Select a format" data-hide-search="true"
-                                                                class="form-select form-select-solid fw-bold">
+                                                                class="form-select fw-bold">
                                                                 <option></option>
                                                                 <option value="excel">Excel</option>
                                                                 <option value="pdf">PDF</option>
@@ -237,8 +235,9 @@
                             <!--end::Card header-->
                             <!--begin::Card body-->
                             <div class="card-body py-4">
-                                <table class="table order_table align-middle table-row-dashed fs-6 gy-5" id="kt_table_order">
-                                   
+                                <table class="table order_table align-middle table-row-dashed fs-6 gy-5"
+                                    id="kt_table_order">
+
                                 </table>
                             </div>
                             <!--end::Card body-->
@@ -267,11 +266,11 @@
     <script>
         $(document).ready(function() {
 
-           
+
 
             loadData();
             loadReport();
-          
+
             function loadData() {
                 $.get("{{ route('order.table') }}", function(res) {
                     // alert(1)

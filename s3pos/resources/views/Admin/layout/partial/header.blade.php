@@ -21,7 +21,8 @@
         </div>
 
         <a href="{{ route('admin.index') }}" class="brand-logo">
-            <img src="{{ show_s3_file(get_option_admin('app-logo')) }}" class="invert-dark" alt="" />
+            <img src="{{ show_s3_file(get_option_admin('app-logo')) }}" class="invert-dark" alt=""
+                style="border-radius: 6px;" />
         </a>
     </div>
     <!-- END brand -->

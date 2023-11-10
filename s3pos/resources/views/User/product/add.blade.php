@@ -36,14 +36,14 @@
                         </li>
                         <li class="breadcrumb-item text-white opacity-75">
                             <a href="{{ route('product.index') }}" class="text-white text-hover-primary">
-                               Quản lý sản phẩm
+                                Quản lý sản phẩm
                             </a>
                         </li>
                         <!--end::Item-->
                     </ul>
                 </div>
                 <a class="btn btn-primary h-40px" href="{{ route('product.index') }}">
-                   Quay lại
+                    Quay lại
                 </a>
             </div>
 
@@ -135,25 +135,24 @@
                             <div class="card-title">
                                 <h2>Trạng thái</h2>
                             </div>
-                         
+
                         </div>
                         <!--end::Card header-->
                         <!--begin::Card body-->
                         <div class="card-body pt-0">
                             <!--begin::Select2-->
-                            <select class="form-select mb-2" data-control="select2" data-hide-search="true"
-                                name="status">
-                                <option value="" selected>Chọn trạng thái</option>
-                                @foreach ($data['status'] as $key=> $item )
-                                <option value="{{ $key }}" >{{ $item[0] }}</option>
+                            <select class="form-select mb-2" data-control="select2" data-hide-search="true" name="status">
+                                <option value="" selected>-- Chọn trạng thái --</option>
+                                @foreach ($data['status'] as $key => $item)
+                                    <option value="{{ $key }}">{{ $item[0] }}</option>
                                 @endforeach
-                               
-                               
+
+
 
                             </select>
                             <!--end::Select2-->
 
-                          
+
                         </div>
                         <!--end::Card body-->
                     </div>
@@ -176,17 +175,15 @@
                             <label class="form-label">Danh mục món</label>
                             <!--end::Label-->
                             <!--begin::Select2-->
-                            <select class="form-select mb-2" data-control="select2"
-                                 name="category_id">
+                            <select class="form-select mb-2" data-control="select2" name="category_id">
                                 <option value="" selected>Chọn danh mục</option>
-                                @foreach ($data['category'] as $item )
-                                
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @foreach ($data['category'] as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
                                 @endforeach
-                                
+
 
                             </select>
-                          
+
 
                         </div>
                         <!--end::Card body-->
@@ -236,8 +233,8 @@
                                                 <!--begin::Label-->
                                                 <label class="required form-label">Tên món</label>
                                                 <!--end::Label-->
-                                                <input type="text" class="form-control mb-2" value="" name="name"
-                                                    placeholder="Tên món" />
+                                                <input type="text" class="form-control mb-2" value=""
+                                                    name="name" placeholder="Tên món" />
 
                                             </div>
                                             <!--end::Input group-->
@@ -247,8 +244,8 @@
                                                 <label class="form-label">Mã món</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
-                                                <input type="text" class="form-control mb-2" value="" name="code"
-                                                    placeholder="Để trống mã tự sinh" />
+                                                <input type="text" class="form-control mb-2" value=""
+                                                    name="code" placeholder="Để trống mã tự sinh" />
                                                 <!--end::Input-->
 
                                             </div>
@@ -311,7 +308,7 @@
                                     <!--end::Card header-->
                                 </div>
                                 <!--end::Pricing-->
-                               
+
                             </div>
                         </div>
                         <!--end::Tab pane-->
@@ -338,24 +335,24 @@
 
                             </div>
                         </div>
-                      
+
 
                         <!--end::Tab pane-->
                     </div>
-                       <!--begin::Actions-->
-                <div class="text-center pt-10">
-                    <button type="reset" class="btn btn-light me-3 btn-cancle"
-                        data-kt-users-modal-action="cancel">Hủy</button>
-                    <button type="submit" class="btn btn-primary btn-create">
-                        <span class="indicator-label">Tạo mới</span>
-                        <span class="indicator-progress">Please wait...
-                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                    </button>
-                </div>
-                <!--end::Actions-->
+                    <!--begin::Actions-->
+                    <div class="text-center pt-10">
+                        <button type="reset" class="btn btn-light me-3 btn-cancle"
+                            data-kt-users-modal-action="cancel">Hủy</button>
+                        <button type="submit" class="btn btn-primary btn-create">
+                            <span class="indicator-label">Tạo mới</span>
+                            <span class="indicator-progress">Please wait...
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                        </button>
+                    </div>
+                    <!--end::Actions-->
 
                 </div>
-             
+
                 <!--end::Main column-->
             </form>
             <!--end::Form-->
@@ -366,7 +363,6 @@
 
 @section('script')
     <script>
-        
         const form_create = $('form#form-create');
         if (form_create) {
             const action = form_create.attr('action');

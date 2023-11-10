@@ -1,5 +1,4 @@
 <div class="row pt-3 row-header">
-
     <div class="col box">
         <div class="d-flex " style="align-items: center">
             <div class="box-icon">
@@ -13,7 +12,6 @@
                 <span>diễn giải</span>
             </div>
         </div>
-
     </div>
     <div class="col box">
         <div class="d-flex " style="align-items: center">
@@ -28,7 +26,6 @@
                 <span>diễn giải</span>
             </div>
         </div>
-
     </div>
     <div class="col box">
         <div class="d-flex " style="align-items: center">
@@ -43,7 +40,6 @@
                 <span>diễn giải</span>
             </div>
         </div>
-
     </div>
     <div class="col box">
         <div class="d-flex " style="align-items: center">
@@ -58,7 +54,5 @@
                 <span>diễn giải</span>
             </div>
         </div>
-
     </div>
-
 </div>

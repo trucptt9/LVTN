@@ -1,6 +1,5 @@
 @extends('User.layout.main')
 @section('style')
-    <link href="{{asset('user/assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('content')
@@ -25,7 +24,7 @@
                         <!--end::Item-->
                         <!--begin::Item-->
                         <li class="breadcrumb-item text-white opacity-75">
-                          Khuyến mãi
+                            Khuyến mãi
                         </li>
                         <!--end::Item-->
                     </ul>
@@ -40,7 +39,6 @@
                 <!--begin::Card header-->
                 <form action="" id="form-filter">
                     <div class="card-header align-items-center py-5 gap-2 gap-md-5">
-
                         <div class="card-title">
                             <!--begin::Search-->
                             <div class="d-flex align-items-center position-relative my-1">
@@ -48,19 +46,16 @@
                                     <span class="path1"></span>
                                     <span class="path2"></span>
                                 </i>
-                                <input type="text" name="search"
-                                    class="form-control form-control-solid w-250px ps-12" placeholder="Nhập nội dung ..." />
+                                <input type="text" name="search" class="form-control w-250px ps-12"
+                                    placeholder="Nhập nội dung ..." />
                             </div>
                             <!--end::Search-->
                         </div>
-
                         <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
-
                             <div class="w-200px ">
                                 <!--begin::Select2-->
-                                <select class="form-select form-select-solid" data-control="select2" data-hide-search="true"
-                                    name="status">
-                                    <option value="" selected> Chọn trạng thái</option>
+                                <select class="form-select" data-control="select2" data-hide-search="true" name="status">
+                                    <option value="" selected>-- Chọn trạng thái --</option>
                                     @foreach ($data['status'] as $key => $item)
                                         <option value="{{ $key }}"> {{ $item[0] }}</option>
                                     @endforeach
@@ -68,9 +63,6 @@
                                 <!--end::Select2-->
                             </div>
                         </div>
-
-
-
                     </div>
                 </form>
                 <!--end::Card header-->
@@ -80,14 +72,13 @@
                     <table class="table align-middle table-bordered fs-6 gy-5">
                         <thead>
                             <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                     
                                 <th class="w-100px">Mã</th>
                                 <th class="">Tên KH</th>
                                 <th class="w-300px text-center">Nhóm KH</th>
                                 <th class="w-150px text-center">Số điện thoại</th>
                                 <th class="w-100px text-center">Điểm</th>
                                 {{-- <th class="text-center">Mô tả</th> --}}
-                                <th class="text-center w-100px">Trạng thái</th>
+                                <th class="text-center w-125px">Trạng thái</th>
                                 <th class="text-center w-100px">#</th>
                             </tr>
                         </thead>
@@ -98,19 +89,16 @@
                                 </td>
                             </tr>
                         </tbody>
-
                     </table>
                     <!--end::Table-->
                 </div>
                 <!--end::Card body-->
             </div>
-
             <!--end::Products-->
         </div>
         <!--end::Post-->
     </div>
     @include('User.customer.modal_add')
-
     <div class="modal fade" id="modal-edit" tabindex="-1" aria-hidden="true">
         <!--begin::Modal dialog-->
         <form action="{{ route('customer.update') }}" id="form-update" method="POST" enctype="multipart/form-data">
@@ -127,18 +115,13 @@
                         </div>
                         <!--end::Close-->
                     </div>
-
-                    <div class="modal-body px-lg-10 ">
+                    <div class="modal-body">
                         <div class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid"
                             id="kt_modal_create_app_stepper">
-
                             <div class="flex-row-fluid py-lg-5 ">
                                 <div class="d-flex flex-column scroll-y px-5 px-lg-10 content-update"
                                     id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="true"
                                     data-kt-scroll-max-height="auto" data-kt-scroll-offset="300px">
-
-
-
                                 </div>
                                 <div class="text-center pt-10">
                                     <button type="reset" class="btn btn-light me-3 close-btn2">Hủy</button>
@@ -154,7 +137,6 @@
                 </div>
                 <!--end::Modal body-->
             </div>
-
         </form>
         <!--end::Modal content-->
     </div>
@@ -167,7 +149,7 @@
         filterTable();
 
         function filterTable() {
-            loadTable(routeList);   
+            loadTable(routeList);
         };
 
         $('.btn-add').click(function(e) {
@@ -262,8 +244,4 @@
             })
         })
     </script>
-    <script src="{{asset('user/assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
-    <script src="{{asset('user/assets/js/custom/apps/ecommerce/sales/listing.js')}}"></script>
-    <script src="{{asset('user/assets/js/widgets.bundle.js')}}"></script>
-    <script src="{{asset('user/assets/js/custom/widgets.js')}}"></script>
 @endsection

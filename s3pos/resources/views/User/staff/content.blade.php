@@ -47,8 +47,8 @@
                                 <span class="path1"></span>
                                 <span class="path2"></span>
                             </i>
-                            <input type="text" data-kt-ecommerce-order-filter="search"
-                                class="form-control form-control-solid w-250px ps-12" placeholder="Search Order" />
+                            <input type="text" data-kt-ecommerce-order-filter="search" class="form-control w-250px ps-12"
+                                placeholder="Search Order" />
                         </div>
                         <!--end::Search-->
                     </div>
@@ -57,13 +57,13 @@
                     <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
                         <!--begin::Flatpickr-->
                         <div class="w-250px">
-                            <input class="form-control form-control-solid rounded" placeholder="Pick date range"
+                            <input class="form-control rounded" placeholder="Pick date range"
                                 id="kt_ecommerce_sales_flatpickr" />
                         </div>
                         <!--end::Flatpickr-->
                         <div class="w-100 mw-150px">
                             <!--begin::Select2-->
-                            <select class="form-select form-select-solid" data-control="select2" data-hide-search="true"
+                            <select class="form-select" data-control="select2" data-hide-search="true"
                                 data-placeholder="Status" data-kt-ecommerce-order-filter="status">
                                 <option></option>
                                 <option value="all">All</option>
@@ -175,7 +175,7 @@
                                     <!--end::Menu-->
                                 </td>
                             </tr>
-                        
+
                         </tbody>
                     </table>
                     <!--end::Table-->

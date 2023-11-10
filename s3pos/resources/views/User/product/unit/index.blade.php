@@ -1,8 +1,5 @@
 @extends('user.layout')
 @section('style')
-    <!--begin::Vendor Stylesheets(used for this page only)-->
-    <link href="user/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
-    <!--end::Vendor Stylesheets-->
 @endsection
 @section('content')
     <!--begin::Toolbar-->
@@ -67,7 +64,7 @@
                                             <span class="path2"></span>
                                         </i>
                                         <input type="text" data-kt-user-table-filter="search"
-                                            class="form-control form-control-solid w-250px ps-13" placeholder="Tìm kiếm " />
+                                            class="form-control w-250px ps-13" placeholder="Tìm kiếm " />
                                     </div>
                                     <!--end::Search-->
                                 </div>
@@ -121,7 +118,7 @@
                                 <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
                                     <thead>
                                         <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
-                                           
+
                                             <th class="min-w-125px">Tên đơn vị</th>
                                             <th class="min-w-125px">Mã đơn vị</th>
                                             <th class="min-w-150px">Mô tả</th>
@@ -130,7 +127,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="text-gray-600 fw-semibold unit_table">
-                                       
+
 
 
 
@@ -190,16 +187,4 @@
             })
         })
     </script>
-    <!--begin::Custom Javascript(used for this page only)-->
-    <script src=""></script>
-    <script src="user/assets/js/custom/apps/user-management/users/list/table.js"></script>
-    <script src="user/assets/js/custom/apps/user-management/users/list/export-users.js"></script>
-    <script src="user/assets/js/custom/apps/user-management/users/list/add.js"></script>
-    <script src="user/assets/js/widgets.bundle.js"></script>
-    <script src="user/assets/js/custom/widgets.js"></script>
-    <script src="user/assets/js/custom/apps/chat/chat.js"></script>
-    <script src="user/assets/js/custom/utilities/modals/upgrade-plan.js"></script>
-    <script src="user/assets/js/custom/utilities/modals/create-app.js"></script>
-    <script src="user/assets/js/custom/utilities/modals/users-search.js"></script>
-    <!--end::Custom Javascript-->
 @endsection

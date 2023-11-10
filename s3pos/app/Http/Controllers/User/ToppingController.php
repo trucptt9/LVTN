@@ -24,31 +24,26 @@ class ToppingController extends Controller
             return $next($request);
         });
     }
+
     public function index()
     {
         $data = [
             'status' => Toppings::get_status(),
             'group_topping' => ToppingGroup::storeId($this->store_id)->get(),
         ];
-
         return view('user.topping.index', compact('data'));
     }
 
-
     public function list()
     {
-
         try {
             $limit = request('limit', $this->limit_default);
             $status = request('status', '');
             $search = request('search', '');
 
-            $group = ToppingGroup::storeId($this->store_id)->get();
-            $group_id = array();
-            foreach ($group as $val) {
-                $group_id[] = $val->id;
-            }
-            $list = Toppings::groupId($group_id);
+            $list = Toppings::whereHas('group', function ($q) {
+                $q->storeId($this->store_id);
+            });
             $list = $status != '' ? $list->ofStatus($status) : $list;
             $list = $search != '' ? $list->search($search) : $list;
 
@@ -67,7 +62,6 @@ class ToppingController extends Controller
         }
     }
 
-
     public function detail($id)
     {
         $data = [
@@ -76,8 +70,6 @@ class ToppingController extends Controller
         ];
         $topping = Toppings::findOrFail($id);
         return view('user.topping.modal_edit', compact('topping', 'data'))->render();
-
-
     }
 
     public function insert(ToppingInsertRequest $request)
@@ -124,7 +116,6 @@ class ToppingController extends Controller
                         $path = $request->file('image')->store('topping');
                         $data['image'] = $path;
                     }
-
                 }
                 $Toppings->update($data);
             } else {
@@ -171,5 +162,4 @@ class ToppingController extends Controller
             ]);
         }
     }
-
 }

@@ -5,8 +5,8 @@
     <label class="required fw-semibold fs-6 mb-2">Tên nhóm khách hàng</label>
     <!--end::Label-->
     <!--begin::Input-->
-    <input type="text" name="name" class="form-control form-control-solid mb-3 mb-lg-0"
-        placeholder="Tên nhóm khách hàng" value="{{ $customer_group->name }}" />
+    <input type="text" name="name" class="form-control mb-3 mb-lg-0" placeholder="Tên nhóm khách hàng"
+        value="{{ $customer_group->name }}" />
     <!--end::Input-->
 </div>
 
@@ -15,8 +15,8 @@
     <label class="fw-semibold fs-6 mb-2">Mã</label>
     <!--end::Label-->
     <!--begin::Input-->
-    <input type="text" name="code" class="form-control form-control-solid mb-3 mb-lg-0"
-        placeholder="Để trống tự sinh" value="{{ $customer_group->code }}" />
+    <input type="text" name="code" class="form-control mb-3 mb-lg-0" placeholder="Để trống tự sinh"
+        value="{{ $customer_group->code }}" />
     <!--end::Input-->
 </div>
 

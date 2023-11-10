@@ -23,15 +23,15 @@ class CouponController extends Controller
             return $next($request);
         });
     }
+
     public function index()
     {
         $data = [
             'status' => Coupon::get_status(),
-            // 'customer_group'=> CustomerGroup::storeId($this->store_id)->get(), 
         ];
-
         return view('user.coupon.index', compact('data'));
     }
+
     public function add()
     {
         return view('User.coupon.add');
@@ -63,9 +63,11 @@ class CouponController extends Controller
         }
     }
 
-    public function log(){
+    public function log()
+    {
         return view('User.coupon.log');
     }
+
     public function detail($id)
     {
         $data = [
@@ -76,9 +78,7 @@ class CouponController extends Controller
         if (request()->ajax()) {
             return view('user.coupon.modal_edit', compact('coupon', 'data'))->render();
         }
-        return view('user.coupon.detail', compact('coupon', 'data','status'))->render();
-
-
+        return view('user.coupon.detail', compact('coupon', 'data', 'status'))->render();
     }
     public function table_log($id)
     {
@@ -105,20 +105,21 @@ class CouponController extends Controller
             ]);
         }
     }
+
     public function insert(CouponInsertRequest $request)
     {
         try {
             $data = $request->all();
 
             $data['store_id'] = $this->store_id;
-           
+
             $data['start'] = date('Y-m-d', strtotime($request->start));
             $data['end'] = date('Y-m-d', strtotime($request->end));
             $quantity = $request->quantity;
-            for($i= 0 ; $i< $quantity; ++$i){
+            for ($i = 0; $i < $quantity; ++$i) {
                 Coupon::create($data);
             }
-          
+
             return Response::json([
                 'status' => ResHTTP::HTTP_OK,
                 'message' => 'Tạo mới thành công',
@@ -159,7 +160,7 @@ class CouponController extends Controller
                     'type' => 'success',
                     'status_update' => $status_update,
                     'status_cur' => $status_cur,
-                    
+
                 ]);
             }
             return redirect()->back()->with('success', 'Cập nhật thành công');
@@ -194,5 +195,4 @@ class CouponController extends Controller
             ]);
         }
     }
-
 }

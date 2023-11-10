@@ -20,84 +20,62 @@
                </div>
                <!--end::Modal header-->
                <!--begin::Modal body-->
-               <div class="modal-body px-5 my-7">
+               <div class="modal-body my-5">
                    <!--begin::Form-->
                    <form class="form" action="{{ route('table.insert') }}" id="form-create" method="POST"
                        enctype="multipart/form-data">
                        <!--begin::Scroll-->
-                       <div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_user_scroll"
-                           data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-max-height="auto"
-                           data-kt-scroll-dependencies="#kt_modal_add_user_header"
-                           data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
-
-                           <!--begin::Input group-->
-                           <div class="fv-row mb-7">
-                               <!--begin::Label-->
-                               <label class="required fw-semibold fs-6 mb-2">Tên bàn</label>
-                               <!--end::Label-->
-                               <!--begin::Input-->
-                               <input type="text" name="name" class="form-control form-control-solid mb-3 mb-lg-0"
-                                   placeholder="Tên bàn" />
-                               <!--end::Input-->
+                       <div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_user_scroll">
+                           <div class="row">
+                               <div class="col-md-6">
+                                   <div class="fv-row mb-7">
+                                       <!--begin::Label-->
+                                       <label class="required fw-semibold fs-6 mb-2">Tên bàn</label>
+                                       <!--end::Label-->
+                                       <!--begin::Input-->
+                                       <input type="text" name="name" class="form-control mb-3 mb-lg-0"
+                                           placeholder="Tên bàn" />
+                                       <!--end::Input-->
+                                   </div>
+                               </div>
+                               <div class="col-md-6">
+                                   <div class="fv-row mb-7">
+                                       <!--begin::Label-->
+                                       <label class=" fw-semibold fs-6 mb-2">Mã</label>
+                                       <!--end::Label-->
+                                       <!--begin::Input-->
+                                       <input type="text" name="code" class="form-control mb-3 mb-lg-0"
+                                           placeholder="Để trống tự sinh" />
+                                       <!--end::Input-->
+                                   </div>
+                               </div>
                            </div>
-                           <!--end::Input group-->
-                           <!--begin::Input group-->
-                           <div class="fv-row mb-7">
-                               <!--begin::Label-->
-                               <label class=" fw-semibold fs-6 mb-2">Mã</label>
-                               <!--end::Label-->
-                               <!--begin::Input-->
-                               <input type="text" name="code" class="form-control form-control-solid mb-3 mb-lg-0"
-                                   placeholder="Để trống tự sinh" />
-                               <!--end::Input-->
-                           </div>
-                           <div class="fv-row mb-7">
-                               <!--begin::Label-->
-                               <label class=" fw-semibold fs-6 mb-2">Số ghế</label>
-                               <!--end::Label-->
-                               <!--begin::Input-->
-                               <input type="text" name="seat" class="form-control form-control-solid mb-3 mb-lg-0"
-                                   placeholder="Số ghế của bàn" />
-                               <!--end::Input-->
-                           </div>
-                           <div class="fv-row mb-7">
-                               <!--begin::Label-->
-                               <label class=" fw-semibold fs-6 mb-2">Khu vực</label>
-                               <!--end::Label-->
-                               <select class="form-select w-50" aria-label="Select example" name="status">
-                                   <option selected value="">Chọn khu vực </option>
-                                   @foreach ($data['areas'] as  $item)
-                                       <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                   @endforeach
-
-
-                               </select>
-                           </div>
-                           <div class="fv-row mb-7">
-                               <!--begin::Label-->
-                               <label class=" fw-semibold fs-6 mb-2">Mô tả</label>
-                               <!--end::Label-->
-                               <!--begin::Input-->
-                               <textarea class="form-control" aria-label="With textarea" rows="2" name="description"></textarea>
-                               <!--end::Input-->
-                           </div>
-                           <!--end::Input group-->
-
-
-                           <!--end::Input group-->
-                           <div class="fv-row mb-7">
-                               <!--begin::Label-->
-                               <label class=" fw-semibold fs-6 mb-2">Trạng
-                                   thái</label>
-                               <!--end::Label-->
-                               <select class="form-select w-50" aria-label="Select example" name="status">
-                                   <option selected value="">Trạng thái </option>
-                                   @foreach ($data['status'] as $key => $item)
-                                       <option value="{{ $key }}">{{ $item[0] }}</option>
-                                   @endforeach
-
-
-                               </select>
+                           <div class="row">
+                               <div class="col-md-6">
+                                   <div class="fv-row mb-7">
+                                       <!--begin::Label-->
+                                       <label class=" fw-semibold fs-6 mb-2">Số ghế</label>
+                                       <!--end::Label-->
+                                       <!--begin::Input-->
+                                       <input type="text" name="seat" class="form-control mb-3 mb-lg-0"
+                                           placeholder="Số ghế của bàn" />
+                                       <!--end::Input-->
+                                   </div>
+                               </div>
+                               <div class="col-md-6">
+                                   <div class="fv-row mb-7">
+                                       <!--begin::Label-->
+                                       <label class=" fw-semibold fs-6 mb-2">Khu vực</label>
+                                       <!--end::Label-->
+                                       <select class="form-select" data-control="select2" aria-label="Select example"
+                                           name="status">
+                                           <option selected value="">Chọn khu vực </option>
+                                           @foreach ($data['areas'] as $item)
+                                               <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                           @endforeach
+                                       </select>
+                                   </div>
+                               </div>
                            </div>
                        </div>
                        <!--end::Scroll-->

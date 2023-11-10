@@ -5,8 +5,6 @@
         <th class="min-w-75px text-center ">Giờ</th>
         <th class="min-w-125px text-center">Mã khách hàng</th>
         <th class="min-w-150px">Ghi chú</th>
-
-
     </tr>
 </thead>
 <tbody class="text-gray-600 fw-semibold">
@@ -20,11 +18,7 @@
         </td>
         <td class="text-center"> Khách hàng vãng lai </td>
         <td>
-
+            -
         </td>
-
     </tr>
-
-
-
 </tbody>

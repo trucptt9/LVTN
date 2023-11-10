@@ -2,17 +2,14 @@
     @php
         $paginate = $list->appends(request()->all())->links();
     @endphp
-
     @foreach ($list as $item)
         <tr>
-
             <td>
                 {{ $item->code }}
             </td>
             <td>
                 {{ $item->name }}
             </td>
-            
             <td class="text-center">
                 {{ $item->description }}
             </td>
@@ -23,13 +20,12 @@
                 </div>
             </td>
             <td class="text-center d-flex">
-                <a class="btn btn-light btn-edit" style="padding: 0px" href="{{ route('department.detail',$item->id) }}">
+                <a class="btn btn-light btn-edit" style="padding: 0px" href="{{ route('department.detail', $item->id) }}">
                     <i class="ki-duotone ki-message-edit fs-2qx text-success">
                         <span class="path1"></span>
                         <span class="path2"></span>
                     </i>
                 </a>
-
                 <button class="btn btn-light btn-delete" style="padding: 0px"
                     onclick="confirmDelete('{{ $item->id }}')">
                     <i class="ki-duotone ki-trash fs-2qx text-danger">
@@ -40,7 +36,6 @@
                         <span class="path5"></span>
                     </i>
                 </button>
-
             </td>
         </tr>
     @endforeach

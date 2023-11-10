@@ -24,13 +24,13 @@ class ProductController extends Controller
             return $next($request);
         });
     }
+
     public function index()
     {
         $data = [
             'status' => Product::get_status(),
             'category' => CategoryProduct::storeId($this->store_id)->get(),
         ];
-
         return view('user.product.index', compact('data'));
     }
     public function add()
@@ -44,18 +44,14 @@ class ProductController extends Controller
 
     public function list()
     {
-
         try {
             $limit = request('limit', $this->limit_default);
             $status = request('status', '');
             $search = request('search', '');
 
-            $category = CategoryProduct::storeId($this->store_id)->get();
-            $category_id = array();
-            foreach ($category as $val) {
-                $category_id[] = $val->id;
-            }
-            $list = Product::categoryId($category_id);
+            $list = Product::whereHas('group', function ($q) {
+                $q->storeId($this->store_id);
+            });
             $list = $status != '' ? $list->ofStatus($status) : $list;
             $list = $search != '' ? $list->search($search) : $list;
 
@@ -74,7 +70,6 @@ class ProductController extends Controller
         }
     }
 
-
     public function detail($id)
     {
         $data = [
@@ -83,8 +78,6 @@ class ProductController extends Controller
         ];
         $product = Product::findOrFail($id);
         return view('user.product.modal_edit', compact('product', 'data'))->render();
-
-
     }
 
     public function insert(ProductInsertRequest $request)
@@ -132,14 +125,11 @@ class ProductController extends Controller
                         $path = $request->file('image')->store('product');
                         $data['image'] = $path;
                     }
-
                 }
                 $product->update($data);
-
             } else {
                 $product->status = $product->status == Product::STATUS_ACTIVE ? Product::STATUS_BLOCKED : Product::STATUS_ACTIVE;
                 $product->save();
-
             }
             DB::commit();
             if (request()->ajax()) {
@@ -148,12 +138,8 @@ class ProductController extends Controller
                     'message' => 'Cập nhật thành công',
                     'type' => 'success'
                 ]);
-               
-
             }
             return redirect()->back()->with('success', 'Cập nhật thành công');
-
-
         } catch (\Throwable $th) {
             showLog($th);
             DB::rollBack();
@@ -185,5 +171,4 @@ class ProductController extends Controller
             ]);
         }
     }
-
 }
