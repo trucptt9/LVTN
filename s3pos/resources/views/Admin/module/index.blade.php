@@ -5,7 +5,7 @@
         <h4>Module <span class="total-item">(0)</span></h4>
 
         <div class="d-flex align-items-center gap-2">
-            <a href="{{ previousUrl() }}" class="btn btn-secondary">
+            <a href="{{ previousUrl() }}" class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-primary">
                 <i class="fas fa-chevron-left"></i> Quay lại
             </a>
         </div>
