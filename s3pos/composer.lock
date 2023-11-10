@@ -4,7 +4,9 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "19dcb3d50221fc7fc140115eb9f89fc1",
+
+    "content-hash": "abe9f25276fad98fa022a310d61900f3",
+
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -394,21 +396,10 @@
                 "psr-4": {
                     "Dompdf\\": "src/"
                 },
-<<<<<<< HEAD
-                "classmap": [
-                    "lib/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "LGPL-2.1"
-            ],
-=======
                 "classmap": ["lib/"]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": ["LGPL-2.1"],
->>>>>>> 08b376c (update layout)
             "authors": [
                 {
                     "name": "The Dompdf Community",
@@ -2001,6 +1992,7 @@
             },
             "dist": {
                 "type": "zip",
+
                 "url": "https://api.github.com/repos/Seldaek/monolog/zipball/c915e2634718dbc8a4a15c61b0e62e7a44e14448",
                 "reference": "c915e2634718dbc8a4a15c61b0e62e7a44e14448",
                 "shasum": ""
@@ -2462,13 +2454,7 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-<<<<<<< HEAD
-            "license": [
-                "LGPL-3.0"
-            ],
-=======
             "license": ["LGPL-3.0"],
->>>>>>> 08b376c (update layout)
             "authors": [
                 {
                     "name": "Fabien Ménager",
@@ -3271,13 +3257,7 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-<<<<<<< HEAD
-            "license": [
-                "MIT"
-            ],
-=======
             "license": ["MIT"],
->>>>>>> 08b376c (update layout)
             "authors": [
                 {
                     "name": "Raphael Schweikert"
@@ -3285,15 +3265,7 @@
             ],
             "description": "Parser for CSS Files written in PHP",
             "homepage": "https://www.sabberworm.com/blog/2010/6/10/php-css-parser",
-<<<<<<< HEAD
-            "keywords": [
-                "css",
-                "parser",
-                "stylesheet"
-            ],
-=======
             "keywords": ["css", "parser", "stylesheet"],
->>>>>>> 08b376c (update layout)
             "support": {
                 "issues": "https://github.com/sabberworm/PHP-CSS-Parser/issues",
                 "source": "https://github.com/sabberworm/PHP-CSS-Parser/tree/8.4.0"
