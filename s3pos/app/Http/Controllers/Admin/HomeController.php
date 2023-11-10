@@ -42,7 +42,9 @@ class HomeController extends Controller
         $sql = "SELECT store_id, SUM(total) AS revenue, COUNT(*) AS order_count, stores.name
             FROM orders LEFT JOIN stores ON orders.store_id = stores.id
             WHERE orders.status = 'finish'
-            GROUP BY store_id, name ORDER BY revenue LIMIT 10";
+            GROUP BY store_id, name 
+            ORDER BY revenue DESC
+            LIMIT 10";
         $list = DB::select($sql);
         return view('Admin.home.store', compact('list'))->render();
     }
@@ -52,7 +54,9 @@ class HomeController extends Controller
         $sql = "SELECT product_id, product_name, SUM(order_details.total) AS revenue, SUM(quantity) as quantity 
         FROM order_details INNER JOIN orders ON order_details.order_id = orders.id 
         WHERE orders.status = 'finish'
-        GROUP BY product_id, product_name  LIMIT 10
+        GROUP BY product_id, product_name 
+        ORDER BY revenue DESC
+        LIMIT 10
         ";
         $list = DB::select($sql);
         return view('Admin.home.product', compact('list'))->render();
