@@ -56,10 +56,11 @@ Route::post('license', [AuthController::class, 'license_active'])->name('license
 Route::middleware(['auth', 'checkStaff'])->group(function () {
     Route::get('logout', [HomeController::class, 'logout'])->name('logout');
     // home
-
-
-
     Route::get('', [HomeController::class, 'index'])->name('index');
+    Route::prefix('home')->name('home.')->group(function () {
+        Route::get('revenue', [HomeController::class, 'revenue'])->name('revenue');
+    });
+
     Route::prefix('sale')->name('sale.')->group(function () {
         Route::get('', [SaleController::class, 'index'])->name('index');
         Route::get('category', [SaleController::class, 'category'])->name('category');
@@ -228,15 +229,27 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
     });
     Route::prefix('materials')->name('material.')->group(function () {
         Route::get('', [MaterialController::class, 'index'])->name('index');
-        Route::get('table', [MaterialController::class, 'table'])->name('table');
+        Route::get('detail/{id}', [MaterialController::class, 'detail'])->name('detail');
+        Route::get('list', [MaterialController::class, 'list'])->name('list');
+        Route::post('insert', [MaterialController::class, 'insert'])->name('insert');
+        Route::post('update', [MaterialController::class, 'update'])->name('update');
+        Route::get('delete', [MaterialController::class, 'delete'])->name('delete');
     });
     Route::prefix('suppliers')->name('supplier.')->group(function () {
         Route::get('', [SupplierController::class, 'index'])->name('index');
-        Route::get('table', [SupplierController::class, 'table'])->name('table');
+        Route::get('detail/{id}', [SupplierController::class, 'detail'])->name('detail');
+        Route::get('list', [SupplierController::class, 'list'])->name('list');
+        Route::post('insert', [SupplierController::class, 'insert'])->name('insert');
+        Route::post('update', [SupplierController::class, 'update'])->name('update');
+        Route::get('delete', [SupplierController::class, 'delete'])->name('delete');
     });
     Route::prefix('units')->name('unit.')->group(function () {
         Route::get('', [UnitController::class, 'index'])->name('index');
-        Route::get('table', [UnitController::class, 'table'])->name('table');
+        Route::get('detail/{id}', [UnitController::class, 'detail'])->name('detail');
+        Route::get('list', [UnitController::class, 'list'])->name('list');
+        Route::post('insert', [UnitController::class, 'insert'])->name('insert');
+        Route::post('update', [UnitController::class, 'update'])->name('update');
+        Route::get('delete', [UnitController::class, 'delete'])->name('delete');
     });
 
     // report
@@ -256,5 +269,7 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
     });
     Route::prefix('staff_history')->name('staff_history.')->group(function () {
         Route::get('', [StaffHistoryController::class, 'index'])->name('index');
+        Route::get('list', [StaffHistoryController::class, 'list'])->name('list');
+        Route::get('detail/{id}', [StaffHistoryController::class, 'detail'])->name('detail');
     });
 });

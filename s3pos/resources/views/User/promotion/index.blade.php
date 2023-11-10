@@ -61,6 +61,17 @@
                                 </select>
                                 <!--end::Select2-->
                             </div>
+                            <div class="btn-group" role="group">
+                                <button onclick="filterTable()" type="button" data-bs-toggle="tooltip"
+                                    title="Tải lại dữ liệu"
+                                    class="btn btn-sm btn-outline btn-outline-dashed btn-outline-primary btn-active-primary btn-reload">
+                                    <span class="indicator-label">
+                                        <i class="ki-outline ki-arrows-circle fs-2"></i>
+                                    </span>
+                                    <span class="indicator-progress">Đang tải ...
+                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </form>

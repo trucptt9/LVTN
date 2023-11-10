@@ -18,7 +18,7 @@
                 <div class="d-flex justify-content-end">
                     <div class="me-2 w-150px">
                         <select name="status" class="form-select filter-status form-filter select-picker">
-                            <option value="" selected>-- Trạng thái --</option>
+                            <option value="">-- Chọn --</option>
                             @foreach ($data['status'] as $key => $item)
                                 <option value="{{ $key }}">{{ $item[0] }}</option>
                             @endforeach

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -131,6 +132,13 @@ class Order extends Model
     public function store()
     {
         return $this->belongsTo(Store::class, 'store_id');
+    }
+
+    public function scopeBetween($query, $from, $to)
+    {
+        $_from = Carbon::parse($from)->startOfDay();
+        $_to = Carbon::parse($to)->endOfDay();
+        return $query->whereBetween('orders.order_start', [$_from, $_to]);
     }
 
     public function scopeOfCode($query, $code)

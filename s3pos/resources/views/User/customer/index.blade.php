@@ -62,6 +62,17 @@
                                 </select>
                                 <!--end::Select2-->
                             </div>
+                            <div class="btn-group" role="group">
+                                <button onclick="filterTable()" type="button" data-bs-toggle="tooltip"
+                                    title="Tải lại dữ liệu"
+                                    class="btn btn-sm btn-outline btn-outline-dashed btn-outline-primary btn-active-primary btn-reload">
+                                    <span class="indicator-label">
+                                        <i class="ki-outline ki-arrows-circle fs-2"></i>
+                                    </span>
+                                    <span class="indicator-progress">Đang tải ...
+                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -78,8 +89,8 @@
                                 <th class="w-150px text-center">Số điện thoại</th>
                                 <th class="w-100px text-center">Điểm</th>
                                 {{-- <th class="text-center">Mô tả</th> --}}
-                                <th class="text-center w-125px">Trạng thái</th>
-                                <th class="text-center w-100px">#</th>
+                                <th class="text-center w-150px">Trạng thái</th>
+                                <th class="text-center w-125px">#</th>
                             </tr>
                         </thead>
                         <tbody class="fw-semibold text-gray-600" id="load-table">

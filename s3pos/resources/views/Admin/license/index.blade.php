@@ -47,7 +47,7 @@
                 <div class="d-flex justify-content-end">
                     <div class="me-2 w-150px">
                         <select name="status" class="form-select filter-status form-filter select-picker">
-                            <option value="" selected>-- Trạng thái --</option>
+                            <option value="">-- Chọn --</option>
                             @foreach ($data['status'] as $key => $item)
                                 <option value="{{ $key }}">{{ $item[0] }}</option>
                             @endforeach
@@ -74,12 +74,12 @@
             <table class="table table-bordered table-striped table-sm">
                 <thead>
                     <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0 bg-light-primary">
-                        <th class="text-center w-100px">#</th>
+                        <th class="text-center w-125px">#</th>
                         <th class="text-center w-250px">Key</th>
                         <th class="text-center">Cửa hàng</th>
                         <th class="text-center w-200px">Gói dịch vụ</th>
                         <th class="text-center w-125px">Thời gian SD</th>
-                        <th class="text-center w-125px">Trạng thái</th>
+                        <th class="text-center w-150px">Trạng thái</th>
                     </tr>
                 </thead>
                 <tbody id="load-table" class="text-gray-600 fw-semibold">

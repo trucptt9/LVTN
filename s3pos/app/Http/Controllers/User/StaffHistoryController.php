@@ -10,19 +10,27 @@ use Illuminate\Http\Response as ResHTTP;
 
 class StaffHistoryController extends Controller
 {
-    protected $limit_default;
+    protected $limit_default, $store_id;
 
     public function __construct()
     {
         $this->limit_default = 10;
+        $this->middleware(function ($request, $next) {
+            $this->store_id = request()->user()->store_id;
+            return $next($request);
+        });
     }
 
     public function index()
     {
-        return view('user.staff_history.index');
+        $data = [
+            'staffs' => Staff::ofStatus(Staff::STATUS_ACTIVE)->get(),
+            'date' => get_date_string()
+        ];
+        return view('user.staff_history.index', compact('data'));
     }
 
-    public function table()
+    public function list()
     {
         try {
             $limit = request('limit', $this->limit_default);
@@ -30,7 +38,9 @@ class StaffHistoryController extends Controller
             $staff_id = request('staff_id', '');
             $date = request('date', date('Y-m-d'));
 
-            $list = StaffHistory::staffId($staff_id);
+            $list = StaffHistory::whereHas('staff', function ($q) {
+                $q->storeId($this->store_id);
+            })->staffId($staff_id);
             $list = $search != '' ? $list->search($search) : $list;
             $list = $staff_id != '' ? $list->staffId($staff_id) : $list;
             // $list = $date != '' ? $list->ofDate($date) : $list;
@@ -38,7 +48,7 @@ class StaffHistoryController extends Controller
             $list = $list->latest()->paginate($limit);
             return Response::json([
                 'status' => ResHTTP::HTTP_OK,
-                'data' => view('Uesr.staff.table_log', compact('list'))->render(),
+                'data' => view('User.staff_history.table', compact('list'))->render(),
                 'total' => $list->total(),
             ]);
         } catch (\Throwable $th) {
@@ -51,8 +61,9 @@ class StaffHistoryController extends Controller
     }
 
 
-    public function detail()
+    public function detail($id)
     {
-        return view('user.staff_history.detail');
+        $staff_history = StaffHistory::findOrFail($id);
+        return view('user.staff_history.detail', compact('staff_history'));
     }
 }

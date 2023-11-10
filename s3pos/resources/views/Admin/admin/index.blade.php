@@ -49,7 +49,7 @@
                         <th class="text-center w-200px">Mã</th>
                         <th class="text-center">Tên</th>
                         <th class="text-center w-200px">Email</th>
-                        <th class="text-center w-125px">Trạng thái</th>
+                        <th class="text-center w-150px">Trạng thái</th>
                     </tr>
                 </thead>
                 <tbody id="load-table" class="text-gray-600 fw-semibold">

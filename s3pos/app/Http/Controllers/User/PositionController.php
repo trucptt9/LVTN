@@ -6,7 +6,6 @@ use App\Http\Requests\Position\PositionDeleteRequest;
 use App\Http\Requests\Position\PositionInsertRequest;
 use App\Http\Requests\Position\PositionUpdateRequest;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Position;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Response as ResHTTP;
