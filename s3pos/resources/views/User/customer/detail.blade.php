@@ -1,7 +1,6 @@
 @extends('User.layout.main')
 @section('style')
 @endsection
-
 @section('content')
     <!--begin::Toolbar-->
     <div class="toolbar py-5 " id="kt_toolbar">
@@ -84,8 +83,7 @@
                                     <!--begin::Wrapper-->
                                     <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
                                         <!--begin::Container-->
-                                        <div id="kt_content_container"
-                                            class="d-flex flex-column-fluid align-items-start container-xxl">
+                                        <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start">
                                             <!--begin::Post-->
                                             <div class="content flex-row-fluid" id="kt_content">
                                                 <!--begin::Card-->

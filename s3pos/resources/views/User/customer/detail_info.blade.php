@@ -14,14 +14,14 @@
             <input type="hidden" name="type" value="all" id="">
             <div class="fw-bold mt-5">Tên khách hàng</div>
             <div class="text-gray-600">
-                <input type="text" class="form-control form-control-lg form-control-solid" name="name"
-                    placeholder="Tên khách hàng" value="{{ $customer->name }}">
+                <input type="text" class="form-control form-control-lg" name="name" placeholder="Tên khách hàng"
+                    value="{{ $customer->name }}">
             </div>
             <!--begin::Details item-->
             <!--begin::Details item-->
             <div class="fw-bold mt-5">Mã khách hàng</div>
-            <input type="text" class="form-control form-control-lg form-control-solid" name="code"
-                placeholder="Username" value="{{ $customer->code }}">
+            <input type="text" class="form-control form-control-lg" name="code" placeholder="Username"
+                value="{{ $customer->code }}">
             <!--begin::Details item-->
             <!--begin::Details item-->
             <div class="fw-bold mt-5">Nhóm khách hàng</div>
@@ -37,8 +37,8 @@
             <!--begin::Details item-->
             <!--begin::Details item-->
             <div class="fw-bold mt-5">Số điện thoại</div>
-            <input type="text" class="form-control form-control-lg form-control-solid" name="phone"
-                placeholder="Username" value="0766 877 776">
+            <input type="text" class="form-control form-control-lg" name="phone" placeholder="Username"
+                value="0766 877 776">
             <!--begin::Details item-->
             <!--begin::Details item-->
             <div class="fw-bold mt-5">Trạng thái</div>

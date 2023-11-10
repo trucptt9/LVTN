@@ -8,7 +8,6 @@
               <div class="modal-header">
                   <!--begin::Modal title-->
                   <h2>Thêm nhóm khách hàng</h2>
-
                   <div class="btn btn-sm btn-icon btn-active-color-primary btn-close" data-bs-dismiss="modal">
                       <i class="ki-duotone ki-cross fs-1">
                           <span class="path1"></span>
@@ -17,7 +16,6 @@
                   </div>
                   <!--end::Close-->
               </div>
-
               <div class="modal-body">
                   <!--begin::Stepper-->
                   <div class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid"
@@ -28,11 +26,7 @@
                           <form class="form" action="{{ route('customer_group.insert') }}" id="form-create"
                               method="POST" enctype="multipart/form-data">
                               <!--begin::Scroll-->
-                              <div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_user_scroll"
-                                  data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-max-height="auto"
-                                  data-kt-scroll-dependencies="#kt_modal_add_user_header"
-                                  data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
-
+                              <div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_user_scroll">
                                   <!--begin::Input group-->
                                   <div class="fv-row mb-7">
                                       <!--begin::Label-->
@@ -44,17 +38,6 @@
                                       <!--end::Input-->
                                   </div>
                                   <!--end::Input group-->
-                                  <!--begin::Input group-->
-                                  <div class="fv-row mb-7">
-                                      <!--begin::Label-->
-                                      <label class="fw-semibold fs-6 mb-2">Mã</label>
-                                      <!--end::Label-->
-                                      <!--begin::Input-->
-                                      <input type="text" name="code" class="form-control mb-3 mb-lg-0"
-                                          placeholder="Để trống tự sinh" />
-                                      <!--end::Input-->
-                                  </div>
-
                                   <div class="fv-row mb-7">
                                       <!--begin::Label-->
                                       <label class="fw-semibold fs-6 mb-2">Mô tả</label>
@@ -62,21 +45,6 @@
                                       <!--begin::Input-->
                                       <textarea class="form-control" aria-label="With textarea" rows="2"></textarea>
                                       <!--end::Input-->
-                                  </div>
-
-                                  <!--end::Input group-->
-                                  <div class="fv-row mb-7">
-                                      <!--begin::Label-->
-                                      <label class=" fw-semibold fs-6 mb-2">Trạng
-                                          thái</label>
-                                      <select class="form-select w-50" aria-label="Select example" name="status">
-                                          <option selected value="">Trạng thái </option>
-                                          @foreach ($data['status'] as $key => $item)
-                                              <option value="{{ $key }}">{{ $item[0] }}</option>
-                                          @endforeach
-
-
-                                      </select>
                                   </div>
                               </div>
                               <!--end::Scroll-->

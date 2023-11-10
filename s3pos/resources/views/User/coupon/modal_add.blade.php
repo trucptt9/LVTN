@@ -10,7 +10,7 @@
                 <h2>Thêm phiếu mua hàng</h2>
                 <!--end::Modal title-->
                 <!--begin::Close-->
-                <div class="btn btn-sm btn-icon btn-active-color-primary close-btn" data-bs-dismiss="modal">
+                <div class="btn btn-close btn-sm btn-icon btn-active-color-primary close-btn" data-bs-dismiss="modal">
                     <i class="ki-duotone ki-cross fs-1">
                         <span class="path1"></span>
                         <span class="path2"></span>
@@ -20,47 +20,38 @@
             </div>
             <!--end::Modal header-->
             <!--begin::Modal body-->
-            <div class="modal-body py-lg-10 px-lg-10">
+            <div class="modal-body py-lg-2">
                 <!--begin::Stepper-->
                 <form action="{{ route('coupon.insert') }}" method="POST" id="form-create">
                     <div class="row" id="kt_modal_create_app_stepper">
-
-
                         <div class="col-6">
                             <!--begin::Nav-->
                             <div class="stepper-nav ps-lg-10">
-
                                 <div class="fv-row mb-2">
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
                                         <span class="required">Tên</span>
-
                                     </label>
-                                    <input type="text" class="form-control form-control-lg form-control-solid"
-                                        name="name" placeholder="Tên " value="" />
+                                    <input type="text" class="form-control form-control-lg" name="name"
+                                        placeholder="Tên " value="" />
                                 </div>
-
-
                                 <div class="fv-row mb-2">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
                                         <span class="">Số lượng phiếu tạo</span>
-
                                     </label>
-                                    <input type="number" class="form-control form-control-lg form-control-solid"
-                                        name="quantity" placeholder="Số lượng phiếu" value="" />
+                                    <input type="number" class="form-control form-control-lg" name="quantity"
+                                        placeholder="Số lượng phiếu" value="1" />
                                 </div>
                                 <div class="fv-row mb-2" style="display: flex; align-items:center">
                                     <div class="">
                                         <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
                                             <span class="">Giá trị phiếu</span>
-
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <input type="number" class="form-control form-control-lg form-control-solid"
-                                            name="value" placeholder="Giá trị phiếu mua hàng" value="" />
+                                        <input type="number" class="form-control form-control-lg" name="value"
+                                            placeholder="Giá trị phiếu mua hàng" value="0" />
                                     </div>
-
                                     <div class="" style="margin-left:10px; position: relative; top:20px">
                                         <label class="form-check form-check-custom form-check-solid">
                                             <input class="form-check-input" type="radio" value="percent" checked
@@ -77,7 +68,6 @@
                                             </span>
                                         </label>
                                     </div>
-
                                 </div>
                                 <div class="fv-row mb-2">
                                     <!--begin::Label-->
@@ -93,30 +83,22 @@
                                         @foreach ($data['status'] as $key => $item)
                                             <option value="{{ $key }}">{{ $item[0] }}</option>
                                         @endforeach
-
                                     </select>
                                     <!--end::Input-->
                                 </div>
-
                             </div>
-
-
                             <!--end::Nav-->
                         </div>
-
                         <div class="col-6">
                             <!--begin::Nav-->
-
                             <div class="stepper-nav ps-lg-10">
                                 <div class="fv-row mb-2">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
                                         <span class="required">Bắt đầu</span>
                                     </label>
-
                                     <input class="form-control" placeholder="Chọn ngày" name="start"
                                         id="coupon_day_start" />
-
                                 </div>
                                 <div class="fv-row mb-2">
                                     <!--begin::Label-->
@@ -131,15 +113,12 @@
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                         <span class="">Mô tả</span>
-
                                     </label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
                                     <textarea class="form-control" name="description" aria-label="With textarea" rows="3"></textarea>
                                     <!--end::Input-->
                                 </div>
-
-
                             </div>
                             <!--end::Nav-->
                         </div>

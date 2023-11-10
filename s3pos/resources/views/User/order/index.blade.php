@@ -1,9 +1,4 @@
-@extends('user.layout')
-@section('style')
-    <!--begin::Vendor Stylesheets(used for this page only)-->
-    <link href="{{ asset('user/assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
-    <!--end::Vendor Stylesheets-->
-@endsection
+@extends('User.layout.main')
 @section('content')
     <!--begin::Toolbar-->
     <div class="toolbar py-5 " id="kt_toolbar">
@@ -254,12 +249,6 @@
         <!--end::Page-->
     </div>
     <!--end::Root-->
-
-
-
-
-
-    <!--end::Modals-->
 @endsection
 
 @section('script')
@@ -301,17 +290,4 @@
             })
         })
     </script>
-    <!--begin::Custom Javascript(used for this page only)-->
-    <script src="{{ asset('user/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
-
-    <script src="{{ asset('user/assets/js/custom/apps/user-management/users/list/table.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/apps/user-management/users/list/export-users.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/apps/user-management/users/list/add.js') }}"></script>
-    <script src="{{ asset('user/assets/js/widgets.bundle.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/widgets.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/apps/chat/chat.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/utilities/modals/upgrade-plan.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/utilities/modals/create-app.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/utilities/modals/users-search.js') }}"></script>
-    <!--end::Custom Javascript-->
 @endsection

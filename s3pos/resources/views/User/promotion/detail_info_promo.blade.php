@@ -16,8 +16,8 @@
                                 <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
                                     <span class="required">Tên chương trình</span>
                                 </label>
-                                <input type="text" class="form-control form-control-lg form-control-solid"
-                                    name="subject" placeholder="Tên chương trình" value="{{ $promotion->subject }}" />
+                                <input type="text" class="form-control form-control-lg" name="subject"
+                                    placeholder="Tên chương trình" value="{{ $promotion->subject }}" />
                             </div>
                             <div class="fv-row mb-2">
                                 <!--begin::Label-->
@@ -42,9 +42,8 @@
                                     </label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
-                                    <input type="number" class="form-control form-control-lg form-control-solid"
-                                        name="value" placeholder="Giá trị khuyến mãi"
-                                        value="{{ $promotion->value }}" />
+                                    <input type="number" class="form-control form-control-lg" name="value"
+                                        placeholder="Giá trị khuyến mãi" value="{{ $promotion->value }}" />
                                 </div>
                                 <div class="" style="margin-left:10px; position: relative; top:20px">
                                     <label class="form-check form-check-custom form-check-solid">
@@ -71,8 +70,8 @@
                                 <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
                                     <span class="">Tổng tiền đơn hàng >=</span>
                                 </label>
-                                <input type="number" class="form-control form-control-lg form-control-solid"
-                                    name="total_order" placeholder="" value="{{ $promotion->total_order }}" />
+                                <input type="number" class="form-control form-control-lg" name="total_order"
+                                    placeholder="" value="{{ $promotion->total_order }}" />
                                 <!--end::Input-->
                             </div>
                         </div>
