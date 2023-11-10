@@ -1,9 +1,5 @@
 @extends('user.layout.main')
 @section('style')
-    <!--begin::Vendor Stylesheets(used for this page only)-->
-    <link href="{{ asset('user/assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
-
-    <!--end::Vendor Stylesheets-->
 @endsection
 
 @section('content')
@@ -49,9 +45,7 @@
                 </a>
             </div>
         </div>
-
     </div>
-
     <!--begin::Container-->
     <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
         <!--begin::Post-->
@@ -64,8 +58,6 @@
                     <div class="card mb-5 mb-xl-8">
                         <!--begin::Card body-->
                         <div class="card-body">
-
-
                             <div class="separator"></div>
                             <!--begin::Details content-->
                             <div id="kt_user_view_details" class="collapse show">
@@ -83,26 +75,20 @@
                                             {{ $status[0] }}
                                         </div>
                                     </div>
-
-
                                     <!--begin::Details item-->
                                 </div>
-
                             </div>
                             <!--end::Details content-->
                         </div>
                         <!--end::Card body-->
                     </div>
                     <!--end::Card-->
-
                 </div>
                 <!--end::Sidebar-->
                 <!--begin::Content-->
                 <div class="flex-lg-row-fluid ms-lg-15">
                     <!--begin:::Tabs-->
                     <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-8">
-
-
                         <!--begin:::Tab item-->
                         <li class="nav-item">
                             <a class="nav-link active text-active-primary pb-4 fs-6" data-bs-toggle="tab"
@@ -118,7 +104,6 @@
                     <!--end:::Tabs-->
                     <!--begin:::Tab content-->
                     <div class="tab-content" id="myTabContent">
-
                         <!--begin:::Tab pane-->
                         <div class="tab-pane fade show active" id="info_detail" role="tabpanel">
                             <!--begin::Card-->
@@ -132,14 +117,11 @@
                                             @include('user.coupon.detail_info_promo')
                                         </div>
                                         <!--end::Container-->
-
                                     </div>
                                     <!--end::Wrapper-->
                                 </div>
                             </div>
                             <!--end::Card-->
-
-
                         </div>
                         <!--end:::Tab pane-->
                         <!--begin:::Tab pane-->
@@ -149,17 +131,13 @@
                                 <div class="page d-flex flex-row flex-column-fluid">
                                     <!--begin::Wrapper-->
                                     <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
-
-
                                         <!--begin::Container-->
-                                        <div id="kt_content_container"
-                                            class="d-flex flex-column-fluid align-items-start container-xxl">
+                                        <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start">
                                             <!--begin::Post-->
                                             <div class="content flex-row-fluid" id="kt_content">
                                                 <div class="card">
                                                     <form action="" id="form-filter">
                                                         <div class="card-header align-items-center py-5 gap-2 gap-md-5">
-
                                                             <div class="card-title">
                                                                 <!--begin::Search-->
                                                                 <div
@@ -175,10 +153,8 @@
                                                                 </div>
                                                                 <!--end::Search-->
                                                             </div>
-
                                                             <div
                                                                 class="card-toolbar flex-row-fluid justify-content-end gap-5">
-
                                                                 <div class="w-200px ">
                                                                     <!--begin::Select2-->
                                                                     <select class="form-select" data-control="select2"
@@ -232,11 +208,9 @@
                                 </div>
                             </div>
                             <!--end::Card-->
-
                         </div>
                         <!--end:::Tab pane-->
                     </div>
-
                 </div>
                 <!--end::Content-->
             </div>
@@ -304,23 +278,7 @@
                         });
                     }
                 });
-
             })
-
-
         })
     </script>
-
-    <!--end::Vendors Javascript-->
-    <!--begin::Custom Javascript(used for this page only)-->
-
-    <script src="{{ asset('user/assets/js/widgets.bundle.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/widgets.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/apps/chat/chat.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/utilities/modals/upgrade-plan.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/utilities/modals/create-app.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/utilities/modals/users-search.js') }}"></script>
-
-
-    <!--end::Custom Javascript-->
 @endsection

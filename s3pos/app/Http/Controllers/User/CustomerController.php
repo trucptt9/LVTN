@@ -89,13 +89,13 @@ class CustomerController extends Controller
     }
     public function detail($id)
     {
-        $customerr = Customer::storeId($this->store_id)->findOrFail($id);
+        $customer = Customer::storeId($this->store_id)->findOrFail($id);
         $data = [
             'status' => Customer::get_status(),
             'customer_group' => CustomerGroup::storeId($this->store_id)->get(),
             'type' => CustomerHistory::get_type()
         ];
-        $status = Customer::get_status($customerr->status);
+        $status = Customer::get_status($customer->status);
         if (request()->ajax()) {
             return view('user.customer.modal_edit', compact('customer', 'data'))->render();
         }

@@ -75,14 +75,13 @@
                                 <th class="">Tên chương trình</th>
                                 <th class="w-200px text-center">Thời gian áp dụng</th>
                                 <th class="w-140px text-center">Giá trị</th>
-                                <th class="w-240px">Mô tả</th>
                                 <th class="w-125px text-center">Trạng thái</th>
                                 <th class=" w-90px text-center">#</th>
                             </tr>
                         </thead>
                         <tbody class="fw-semibold text-gray-600" id="load-table">
                             <tr>
-                                <td colspan="9" class="text-center no-data">
+                                <td colspan="8" class="text-center no-data">
                                     Không tìm thấy dữ liệu!
                                 </td>
                             </tr>

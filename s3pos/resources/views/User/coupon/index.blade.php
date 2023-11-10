@@ -1,8 +1,6 @@
 @extends('User.layout.main')
 @section('style')
-    <link href="{{ asset('user/assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
 @endsection
-
 @section('content')
     <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
         <!--begin::Post-->
@@ -53,9 +51,7 @@
                             </div>
                             <!--end::Search-->
                         </div>
-
                         <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
-
                             <div class="w-200px ">
                                 <!--begin::Select2-->
                                 <select class="form-select" data-control="select2" data-hide-search="true" name="status">
@@ -76,7 +72,6 @@
                     <table class="table align-middle table-bordered fs-6 gy-5">
                         <thead>
                             <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-
                                 <th class="w-100px">Mã</th>
                                 <th class="">Tên</th>
                                 <th class="w-200px text-center">Thời gian áp dụng</th>
@@ -93,13 +88,11 @@
                                 </td>
                             </tr>
                         </tbody>
-
                     </table>
                     <!--end::Table-->
                 </div>
                 <!--end::Card body-->
             </div>
-
             <!--end::promotions-->
         </div>
         <!--end::Post-->
@@ -120,13 +113,9 @@
                         </div>
                         <!--end::Close-->
                     </div>
-
                     <div class="modal-body">
-
-
                         <div class="flex-row-fluid py-lg-5 ">
                             <div class="row content-update" id="kt_modal_create_app_stepper">
-
                             </div>
                             <div class="text-center pt-10">
                                 <button type="reset" class="btn btn-light me-3 close-btn2">Hủy</button>
@@ -136,13 +125,11 @@
                                 </button>
                             </div>
                         </div>
-
                         <!--end::Content-->
                     </div>
                 </div>
                 <!--end::Modal body-->
             </div>
-
         </form>
         <!--end::Modal content-->
     </div>
@@ -275,11 +262,4 @@
             })
         })
     </script>
-    <script src="{{ asset('user/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/apps/ecommerce/sales/listing.js') }}"></script>
-    <script src="{{ asset('user/assets/js/widgets.bundle.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/widgets.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/utilities/modals/upgrade-plan.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/utilities/modals/create-app.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/utilities/modals/users-search.js') }}"></script>
 @endsection
