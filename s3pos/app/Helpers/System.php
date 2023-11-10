@@ -48,7 +48,14 @@ if (!defined('COLORS')) {
 }
 if (!defined('ARRAY_COLORS')) {
     define('ARRAY_COLORS', [
-        '#0d6efd', '#dc3545', '#198754', '#0dcaf0', '#6c757d', '#f8f9fa', '#212529', '#ffc107'
+        '#0d6efd',
+        '#dc3545',
+        '#198754',
+        '#0dcaf0',
+        '#6c757d',
+        '#f8f9fa',
+        '#212529',
+        '#ffc107'
     ]);
 }
 function formatNumber($number)
@@ -58,7 +65,7 @@ function formatNumber($number)
 
 if (!function_exists('generateRandomString')) {
     // generate code
-    function generateRandomString($length = 10,  $is_number = false)
+    function generateRandomString($length = 10, $is_number = false)
     {
         if ($is_number == true) {
             $length -= 1;
@@ -106,7 +113,7 @@ if (!function_exists('get_phone_number')) {
     function get_phone_number($value, $condition = false)
     {
         if ($value) {
-            return $condition ? Str::mask($value, '*', - (strlen($value)), (strlen($value) - 3)) : $value;
+            return $condition ? Str::mask($value, '*', -(strlen($value)), (strlen($value) - 3)) : $value;
         }
         return '';
     }
@@ -126,12 +133,11 @@ if (!function_exists('get_option_admin')) {
     }
 }
 if (!function_exists('save_log_action')) {
-    function save_log_action($description, $action, $link = null)
+    function save_log_action($description, $action = '', $link = null)
     {
         $log = StaffHistory::create([
-            'staff_id' => auth('staff')->check() ? auth('staff')->user()->id : 0,
+            'staff_id' => auth()->check() ? auth()->user()->id : 0,
             'description' => $description,
-            'action' => $action,
             'link' => $link
         ]);
         return $log;
@@ -270,18 +276,6 @@ if (!function_exists('save_log_action_admin')) {
     {
         $log = AdminHistory::create([
             'admin_id' => auth('admin')->check() ? auth('admin')->user()->id : 0,
-            'note' => $content,
-            'link' => $link ? $link : request()->getUri()
-        ]);
-        return $log;
-    }
-}
-
-if (!function_exists('save_log_action')) {
-    function save_log_action($content, $link = '')
-    {
-        $log = StaffHistory::create([
-            'staff_id' => auth()->check() ? auth()->user()->id : 0,
             'note' => $content,
             'link' => $link ? $link : request()->getUri()
         ]);

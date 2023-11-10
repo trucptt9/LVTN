@@ -23,6 +23,12 @@ class ToppingCategoryController extends Controller
             return $next($request);
         });
     }
+    public function category_has_topping($id)
+    {
+        $toppings = ToppingGroup::where('id',$id)->toppings()->where('status', 'active');
+        return view('user.home.product', compact('toppings'))->render();
+
+    }
     public function index()
     {
         $data = [

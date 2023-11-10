@@ -22,7 +22,7 @@ class AuthController extends Controller
         try {
             DB::beginTransaction();
             $data = request()->all();
-           
+
             $rules = array(
                 'email' => 'required|email|exists:staffs,email',
                 'password' => 'required',
@@ -39,17 +39,20 @@ class AuthController extends Controller
                 $msg = array_shift($error);
                 return redirect()->back()->with('error', $msg);
             }
+
             $staff = Staff::ofEmail(request('email'))->ofStatus(Staff::STATUS_ACTIVE)->first();
             if (!$staff || !Hash::check(request('password'), $staff->password)) {
+
                 return redirect()->back()->with('error', 'Đăng nhập thất bại!');
             }
-            StaffLogin::dispatch($staff);
+            $staff->last_login = now();
+            $staff->save();
+            Auth::login($staff);
             DB::commit();
-            // return 1;
             return redirect()->route('index')->with('success', 'Đăng nhập thành công');
         } catch (\Throwable $th) {
             DB::rollBack();
-           
+
             showLog($th);
             return redirect()->back()->with('error', 'Đăng nhập thất bại!');
         }

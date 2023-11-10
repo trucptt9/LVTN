@@ -271,7 +271,7 @@
         }
     </script>
     @stack('js')
-    <!--end::Global Javascript Bundle-->
+  
     @yield('script')
     <!--end::Javascript-->
 </body>

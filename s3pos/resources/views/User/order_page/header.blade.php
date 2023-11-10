@@ -15,12 +15,7 @@
         <!--end::Heaeder menu toggle-->
         <!--begin::Header Logo-->
         <div class="header-logo me-5 me-md-10 flex-grow-1 flex-lg-grow-0">
-            <a href="../../demo2/dist/index.html">
-                <img alt="Logo" src="https://i.pinimg.com/236x/e0/50/54/e05054acb8e44b7b716f7e7c659ead35.jpg"
-                    class="logo-default h-25px" />
-                <img alt="Logo" src="https://i.pinimg.com/236x/e0/50/54/e05054acb8e44b7b716f7e7c659ead35.jpg"
-                    class="logo-sticky h-25px" />
-            </a>
+           logo
         </div>
         <!--end::Header Logo-->
         <!--begin::Wrapper-->
@@ -28,7 +23,7 @@
             <!--begin::Navbar-->
             <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
                 <li class="nav-item">
-                    <a class="nav-link active" data-bs-toggle="tab" href="#kt_vtab_pane_1">
+                    <a class="nav-link active"  href="">
                         <span class="fs-4 fw-bold">Thực đơn</span>
 
 
@@ -36,7 +31,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " data-bs-toggle="tab" href="#kt_vtab_pane_2">
+                    <a class="nav-link "  href="{{ route('admin.login') }}">
                         <span class="fs-4 fw-bold">Bàn</span>
 
 
@@ -44,7 +39,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " data-bs-toggle="tab" href="#kt_vtab_pane_3">
+                    <a class="nav-link "  href="">
                         <span class="fs-4 fw-bold">Khách hàng</span>
 
 
@@ -68,20 +63,8 @@
                             class="form-control form-control-solid w-250px ps-13" placeholder="Tìm kiếm " />
                     </div>
                 </div>
-                <!--begin::Chat-->
-                <div class="d-flex align-items-center ms-1 ms-lg-3">
-                    <!--begin::Menu wrapper-->
-                    <div class="position-relative btn btn-icon btn-active-light-primary btn-custom w-30px h-30px w-md-40px h-md-40px"
-                        id="kt_drawer_chat_toggle">
-                        <i class="ki-duotone ki-handcart fs-2x text-primary"></i>
-                        <span
-                            class="bullet bullet-dot bg-success h-6px w-6px position-absolute translate-middle top-0 start-50 animation-blink"></span>
-                    </div>
-                    <!--end::Menu wrapper-->
-                </div>
-                <!--end::Chat-->
+               
 
-                <!--begin::User-->
                 <div class="d-flex align-items-center me-lg-n2 ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
 
                     <!--begin::Menu wrapper-->
@@ -103,7 +86,7 @@
                                 <!--begin::Username-->
                                 <div class="d-flex flex-column">
                                     <div class="fw-bold d-flex align-items-center fs-5">Nguyễn Văn A
-                                        <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Pro</span>
+                                      
                                     </div>
                                     <a href="#"
                                         class="fw-semibold text-muted text-hover-primary fs-7">a@gmail.com</a>
@@ -119,21 +102,16 @@
                         <div class="menu-item px-5">
                             <a href="#" class="menu-link px-5">Thông tin tài khoản</a>
                         </div>
-                        <!--end::Menu item-->
-
-
-                        <!--begin::Menu item-->
+                       
                         <div class="menu-item px-5">
-                            <a href="#l" class="menu-link px-5">Đăng xuất</a>
+                            <a href="#l" class="menu-link px-5" onclick="confirmLogout()">Đăng xuất</a>
                         </div>
                         <!--end::Menu item-->
                     </div>
                     <!--end::User account menu-->
                     <!--end::Menu wrapper-->
                 </div>
-                <!--end::User -->
-                <!--begin::Aside mobile toggle-->
-                <!--end::Aside mobile toggle-->
+               
             </div>
             <!--end::Toolbar wrapper-->
         </div>

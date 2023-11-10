@@ -16,7 +16,7 @@
     <!--begin::Vendor Stylesheets(used for this page only)-->
     <link href="{{ asset('user/assets/plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet"
         type="text/css" />
-        @yield('style')
+    @yield('style')
     <!--end::Vendor Stylesheets-->
     <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
     <link href="{{ asset('user/assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
@@ -93,7 +93,7 @@
                             <!--begin::Cart-->
                             @include('user.order_page.cart')
                             @include('user.order_page.modal_topping')
-							@include('user.order_page.modal_table')
+                            @include('user.order_page.modal_table')
                             <!--end::Cart-->
                         </div>
                         <!--end::Layout-->
@@ -103,9 +103,7 @@
                 <!--end::Container-->
                 <!--begin::Footer-->
                 <div class="footer py-4 d-flex flex-lg-column" id="kt_footer">
-                    <!--begin::Container-->
 
-                    <!--end::Container-->
                 </div>
                 <!--end::Footer-->
             </div>
@@ -113,10 +111,7 @@
         </div>
         <!--end::Page-->
     </div>
-    <!--end::Root-->
 
-    <!--end::Drawers-->
-    <!--end::Main-->
     <script>
         $(document).ready(function() {
 
@@ -138,13 +133,21 @@
             })
 
             $('.choose-table').click(function(e) {
-				
+
                 e.preventDefault();
                 $('#modal_choose_table').trigger('reset');
                 $('#modal_choose_table').modal('show');
             })
         })
+
+        function confirmLogout() {
+            if (confirm("Xác nhận thoát khỏi hệ thống?")) {
+                location.href = "{{ route('logout') }}";
+            }
+            return;
+        }
     </script>
+
     @yield('script')
     <!--begin::Javascript-->
     <script>
@@ -161,10 +164,7 @@
     <script src="{{ asset('user/assets/js/custom/pages/general/pos.js') }}"></script>
     <script src="{{ asset('user/assets/js/widgets.bundle.js') }}"></script>
     <script src="{{ asset('user/assets/js/custom/widgets.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/apps/chat/chat.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/utilities/modals/upgrade-plan.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/utilities/modals/create-app.js') }}"></script>
-    <script src="{{ asset('user/assets/js/custom/utilities/modals/users-search.js') }}"></script>
+
     <!--end::Custom Javascript-->
     <!--end::Javascript-->
 </body>

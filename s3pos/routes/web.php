@@ -29,6 +29,7 @@ use App\Http\Controllers\User\SupplierController;
 use App\Http\Controllers\User\ToppingCategoryController;
 use App\Http\Controllers\User\ToppingController;
 use App\Http\Controllers\User\WarehouseController;
+use App\Http\Controllers\User\SaleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -51,11 +52,20 @@ Route::post('reset', [AuthController::class, 'reset_post'])->name('reset_post');
 Route::get('license', [AuthController::class, 'license'])->name('license');
 Route::post('license', [AuthController::class, 'license_active'])->name('license_active');
 
-Route::middleware(['auth','checkStaff'])->group(function () {
+Route::get('orderpage', [StoreController::class, 'orderpage'])->name('orderpage');
+Route::middleware(['auth', 'checkStaff'])->group(function () {
     Route::get('logout', [HomeController::class, 'logout'])->name('logout');
     // home
     Route::get('', [HomeController::class, 'index'])->name('index');
 
+    Route::prefix('sale')->name('sale.')->group(function () {
+        Route::get('', [SaleController::class, 'index'])->name('index');
+        Route::get('category', [SaleController::class, 'category'])->name('category');
+        Route::get('product', [SaleController::class, 'product'])->name('product');
+        Route::get('detail/{id}', [SaleController::class, 'detail'])->name('detail');
+        Route::get('add', [SaleController::class, 'add'])->name('add');
+       
+    });
     // store
     Route::prefix('stores')->name('store.')->group(function () {
         Route::get('', [StoreController::class, 'index'])->name('index');
@@ -71,6 +81,7 @@ Route::middleware(['auth','checkStaff'])->group(function () {
         Route::post('update', [StaffController::class, 'update'])->name('update');
         Route::get('delete', [StaffController::class, 'delete'])->name('delete');
         Route::get('permission', [StaffController::class, 'permission'])->name('permission');
+        Route::get('log/{id}', [StaffController::class, 'log'])->name('log');
     });
     Route::prefix('departments')->name('department.')->group(function () {
         Route::get('', [DepartmentController::class, 'index'])->name('index');
@@ -242,4 +253,6 @@ Route::middleware(['auth','checkStaff'])->group(function () {
     Route::prefix('staff_history')->name('staff_history.')->group(function () {
         Route::get('', [StaffHistoryController::class, 'index'])->name('index');
     });
+
+  
 });

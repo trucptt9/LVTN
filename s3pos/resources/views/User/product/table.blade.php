@@ -28,7 +28,7 @@
                 {{ number_format($item->cost, 0, ',', '.') . 'đ' }}
             </td>
             <td class="text-center">
-                {{ $item->name }}
+                {{ $item->category->name }}
             </td>
 
             <td class="text-center">

@@ -13,7 +13,7 @@ class StaffHistory extends Model
 
     protected $fillable = [
         'staff_id',
-        'note',
+        'description',
         'action',
         'link',
     ];
@@ -31,6 +31,8 @@ class StaffHistory extends Model
         parent::boot();
         self::creating(function ($model) {
             $model->staff_id = $model->staff_id ?? auth()->user()->id;
+            $model->action = $model->action ?? 0;
+
         });
         self::created(function ($model) {
         });

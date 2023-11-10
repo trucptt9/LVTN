@@ -59,7 +59,7 @@
         <!--begin::Label-->
         <label class="fs-6 required fw-semibold form-label mb-2">Danh mục sản phẩm</label>
         <!--end::Label-->
-        <select class="form-select" aria-label="Select example" name="group_id">
+        <select class="form-select" aria-label="Select example" name="category_id">
 
             @foreach ($data['category'] as $item)
                 <option value="{{ $item->id }}" {{ $product->category_id == $item->id ? 'selected' : '' }}>

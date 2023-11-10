@@ -19,14 +19,6 @@
             <input type="text" class="form-control form-control-lg form-control-solid" name="email"
                 placeholder="Email đăng nhập" value="{{ $staff->email }}" />
 
-            <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
-                <span class="">Mật khẩu</span>
-
-            </label>
-
-            <input type="text" class="form-control form-control-lg form-control-solid" name="password"
-                placeholder="Mật khẩu tài khoản" value="{{ $staff->password }}" />
-            <!--end::Input-->
         </div>
 
         <div class="fv-row mb-2">

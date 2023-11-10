@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Staff;
 use App\Models\Position;
 use App\Models\Department;
+use App\Models\StaffHistory;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Response as ResHTTP;
 use Illuminate\Support\Facades\DB;
@@ -35,10 +36,35 @@ class StaffController extends Controller
 
         return view('user.staff.index', compact('data'));
     }
-
     public function permission()
     {
-        return view('user.staff.permission')->render();
+      
+
+        return view('user.staff.permission', compact('data'));
+    }
+    public function log($id)
+    {
+        try {
+            $limit = request('limit', $this->limit_default);
+            $search = request('search', '');
+            // $search = request('date', '');
+            $list = StaffHistory::staffId($id);
+            // $list = $date != '' ? $list->ofDate($date) : $list;
+            $list = $search != '' ? $list->search($search) : $list;
+
+            $list = $list->latest()->paginate($limit);
+
+            return Response::json([
+                'status' => ResHTTP::HTTP_OK,
+                'data' => view('User.staff.table_log', compact('list'))->render(),
+            ]);
+        } catch (\Throwable $th) {
+            showLog($th);
+            return Response::json([
+                'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
+                'data' => '',
+            ]);
+        }
     }
     public function list()
     {
@@ -119,7 +145,7 @@ class StaffController extends Controller
             $type = request('type', 'one');
             $staff = Staff::storeId($this->store_id)->whereId($id)->first();
             if ($type == 'all') {
-                $data = $request->all();
+                $data = $request->only('name','email','avatar','code','phone','address','department_id','position_id','status');
                 if ($request->file('avatar') != null) {
                     if ($staff->avatar != null) {
                         \Storage::delete($staff->avatar);
@@ -127,26 +153,22 @@ class StaffController extends Controller
                         $path = $request->file('avatar')->store('staff');
                         $data['avatar'] = $path;
                     }
-
                 }
                 $staff->update($data);
 
-            } elseif($type == 'account'){
-               
-                $staff->email = $request->email;
-                $staff->password = $request->password;
-                $staff->save();
             }else {
                 $staff->status = $staff->status == Staff::STATUS_ACTIVE ? Staff::STATUS_UN_ACTIVE : Staff::STATUS_ACTIVE;
                 $staff->save();
 
             }
             DB::commit();
+            
             if (request()->ajax()) {
                 return Response::json([
-                    'status' => ResHTTP::HTTP_OK,
+                    'status' => ResHTTP::HTTP_OK,   
                     'message' => 'Cập nhật thành công',
-                    'type' => 'success'
+                    'type' => 'success',
+                    'staff_update' =>$staff
                 ]);
 
 
