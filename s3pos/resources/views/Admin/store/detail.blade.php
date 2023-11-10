@@ -84,7 +84,7 @@
                     <span>{{ $store->code }}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <<<<<<< HEAD=======- Tên: <span>{{ $store->name }}</span>
+                    - Tên: <span>{{ $store->name }}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     >>>>>>> 33dc2908c96ac78ce7f9e0f86e699d7dac34b851

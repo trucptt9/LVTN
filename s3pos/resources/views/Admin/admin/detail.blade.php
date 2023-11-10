@@ -2,23 +2,16 @@
 @section('title', 'Chi tiết quản trị viên')
 @section('content')
     <div class="d-flex justify-content-between mb-3">
-<<<<<<< HEAD
         <h4>Quản trị viên: #{{ $admin->name }}</h4>
-=======
-        <h3>Quản trị viên: #{{ $admin->name }}</h3>
->>>>>>> 33dc2908c96ac78ce7f9e0f86e699d7dac34b851
         <div class="btn-group" role="group">
             <a href="{{ route('admin.admin.index') }}"
                 class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-primary">
                 <i class="fas fa-chevron-left"></i> Danh sách
             </a>
-<<<<<<< HEAD
             <a href="{{ route('admin.admin.permission') }}"
                 class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-primary">
                 <i class="fas fa-user-tag"></i> Phân quyền
             </a>
-=======
->>>>>>> 33dc2908c96ac78ce7f9e0f86e699d7dac34b851
         </div>
     </div>
     <div class="row">

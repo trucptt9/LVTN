@@ -18,7 +18,13 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return view('Admin.home.index');
+        $data = [
+            'admins' => Admin::count(),
+            'licenses' => License::count(),
+            'stores' => Store::count(),
+            'packages' => Package::count(),
+        ];
+        return view('Admin.home.index', compact('data'));
     }
 
     public function logout(Request $request)
@@ -30,28 +36,37 @@ class HomeController extends Controller
         return redirect()->route('admin.login')->with('success', 'Đăng xuất thành công');
     }
 
-    public function total()
+    public function top_store()
     {
-        $data = [
-            'admins' => Admin::count(),
-            'licenses' => License::all(),
-            'stores' => Store::all(),
-            'packages' => Package::all(),
-        ];
-        return Response::json([
-            'status' => ResHTTP::HTTP_OK,
-            'data' => $data
-        ]);
+        $sql = "SELECT store_id, SUM(total) AS revenue, COUNT(*) AS order_count, stores.name
+            FROM orders LEFT JOIN stores ON orders.store_id = stores.id
+            WHERE orders.status = 'finish'
+            GROUP BY store_id, name ORDER BY revenue LIMIT 10";
+        $list = DB::select($sql);
+        return view('Admin.home.store', compact('list'))->render();
     }
 
-    public function revenue()
+    public function top_product()
     {
-        $sql = "SELECT store_id, SUM(total) AS amount, COUNT(*) as total, stores.name FROM orders INNER JOIN stores ON orders.store_id = stores.id GROUP BY store_id, name";
+        $sql = "SELECT product_id, product_name, SUM(order_details.total) AS revenue, SUM(quantity) as quantity 
+        FROM order_details INNER JOIN orders ON order_details.order_id = orders.id 
+        WHERE orders.status = 'finish'
+        GROUP BY product_id, product_name  LIMIT 10
+        ";
         $list = DB::select($sql);
-        return Response::json([
-            'status' => ResHTTP::HTTP_OK,
-            'data' => $list
-        ]);
+        return view('Admin.home.product', compact('list'))->render();
+    }
+
+    public function revenue_by_month()
+    {
+        $year = request('year', date('Y'));
+        $sql = "SELECT MONTH(orders.created_at) AS month, SUM(total) AS revenue, COUNT(*) AS order_count
+            FROM orders LEFT JOIN stores ON orders.store_id = stores.id
+            WHERE orders.status = 'finish'
+            AND YEAR(orders.created_at) = " . $year . "
+            GROUP BY month ORDER BY month";
+        $list = DB::select($sql);
+        return $list;
     }
 
     public function guide()

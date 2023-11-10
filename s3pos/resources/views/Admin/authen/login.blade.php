@@ -20,15 +20,16 @@
                         @endif
                         <div class="mb-3">
                             <label class="form-label">Email *</label>
-                            <input type="email" name="email" class="form-control form-control-lg fs-15px"
-                                placeholder="Nhập email" required value="{{ old('email') }}">
+                            <input type="email" name="email" value="admin@gmail.com"
+                                class="form-control form-control-lg fs-15px" placeholder="Nhập email" required
+                                value="{{ old('email') }}">
                         </div>
                         <div class="mb-3">
                             <div class="d-flex">
                                 <label class="form-label">Mật khẩu *</label>
                             </div>
-                            <input type="password" name="password" class="form-control form-control-lg fs-15px"
-                                placeholder="Nhập mật khẩu" required>
+                            <input type="password" name="password" value="123456"
+                                class="form-control form-control-lg fs-15px" placeholder="Nhập mật khẩu" required>
                         </div>
                         <button type="submit" class="btn btn-theme btn-lg d-block w-100 fw-500 mb-3">
                             Đăng nhập

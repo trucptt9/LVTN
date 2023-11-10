@@ -2,11 +2,7 @@
 @section('title', 'Quản trị viên')
 @section('content')
     <div class="d-flex justify-content-between mb-3">
-<<<<<<< HEAD
         <h4>Quản trị viên <span class="total-item">(0)</span></h4>
-=======
-        <h3>Quản trị viên <span class="total-item">(0)</span></h3>
->>>>>>> 33dc2908c96ac78ce7f9e0f86e699d7dac34b851
         <div class="d-flex align-items-center gap-2">
             <a href="{{ previousUrl() }}" class="btn btn-secondary">
                 <i class="fas fa-chevron-left"></i> Quay lại

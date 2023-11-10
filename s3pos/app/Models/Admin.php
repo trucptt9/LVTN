@@ -68,10 +68,7 @@ class Admin extends Authenticatable
         });
         self::deleted(function ($model) {
             save_log_action_admin("Xóa quản trị viên #$model->name");
-<<<<<<< HEAD
             remove_s3_file($model->avatar);
-=======
->>>>>>> 33dc2908c96ac78ce7f9e0f86e699d7dac34b851
         });
     }
 

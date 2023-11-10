@@ -36,9 +36,10 @@ Route::prefix('system')->name('admin.')->group(function () {
         Route::get('guide', [HomeController::class, 'guide'])->name('guide');
         // home
         Route::get('', [HomeController::class, 'index'])->name('index');
-        Route::prefix('stores')->name('store.')->group(function () {
-            Route::post('total', [HomeController::class, 'total'])->name('total');
-            Route::post('revenue', [HomeController::class, 'revenue'])->name('revenue');
+        Route::prefix('home')->name('home.')->group(function () {
+            Route::post('top_product', [HomeController::class, 'top_product'])->name('top_product');
+            Route::post('top_store', [HomeController::class, 'top_store'])->name('top_store');
+            Route::post('revenue_by_month', [HomeController::class, 'revenue_by_month'])->name('revenue_by_month');
         });
 
         // store

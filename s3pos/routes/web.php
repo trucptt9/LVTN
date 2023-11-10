@@ -64,7 +64,6 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
         Route::get('product', [SaleController::class, 'product'])->name('product');
         Route::get('detail/{id}', [SaleController::class, 'detail'])->name('detail');
         Route::get('add', [SaleController::class, 'add'])->name('add');
-       
     });
     // store
     Route::prefix('stores')->name('store.')->group(function () {
@@ -253,6 +252,4 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
     Route::prefix('staff_history')->name('staff_history.')->group(function () {
         Route::get('', [StaffHistoryController::class, 'index'])->name('index');
     });
-
-  
 });

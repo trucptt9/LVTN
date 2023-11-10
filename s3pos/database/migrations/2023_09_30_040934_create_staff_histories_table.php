@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -17,10 +18,6 @@ return new class extends Migration {
             $table->string('link')->nullable();
             $table->text('description');
             $table->timestamps();
-<<<<<<< HEAD
-=======
-            // $table->foreign('staff_id')->references('id')->on('staffs')->onDelete('cascade');
->>>>>>> 33dc2908c96ac78ce7f9e0f86e699d7dac34b851
         });
     }
 
