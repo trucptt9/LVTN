@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Api\VietQRController;
 use App\Http\Controllers\Controller;
 use App\Models\License;
 use App\Models\Module;
@@ -73,8 +74,17 @@ class LicenseController extends Controller
 
     public function invoice($id)
     {
+        $license = License::with('payment', 'store', 'package')->findOrFail($id);
+        $accountNo = get_option_admin('accountNo');
+        $bankCode = get_option_admin('bankCode');
+        $accountName = get_option_admin('accountName');
+        $qrcode = VietQRController::generateQrCode($accountNo, $bankCode, [
+            'addInfo' => $license->key,
+            'accountName' => $accountName,
+        ]);
         $data = [
-            'license' => License::with('payment', 'store', 'package')->findOrFail($id)
+            'license' => $license,
+            'qrcode' => $qrcode
         ];
         $pdf = PDF::loadView('Admin.license.invoice', $data);
         return $pdf->stream('invoice.pdf');

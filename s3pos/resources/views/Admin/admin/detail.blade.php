@@ -8,7 +8,7 @@
                 class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-primary">
                 <i class="fas fa-chevron-left"></i> Danh sách
             </a>
-            <a href="{{ route('admin.admin.permission') }}"
+            <a href="{{ route('admin.admin.permission', ['id' => $admin->id]) }}"
                 class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-primary">
                 <i class="fas fa-user-tag"></i> Phân quyền
             </a>

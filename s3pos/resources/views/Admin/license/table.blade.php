@@ -16,7 +16,7 @@
                     class="btn bg-gradient bg-gray-200 btn-sm data-item">
                     <i class="fas fa-eye"></i>
                 </a>
-                <a data-bs-toggle="tooltip" title="Xuất hóa đơn"
+                <a target="_blank" data-bs-toggle="tooltip" title="Xuất hóa đơn"
                     href="{{ route('admin.license.invoice', ['id' => $item->id]) }}"
                     class="btn bg-gradient-yellow-red btn-sm">
                     <i class="fas fa-receipt"></i>

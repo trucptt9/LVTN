@@ -3,8 +3,9 @@
 @section('content')
     <div class="d-flex justify-content-between mb-3">
         <h4>Module: #{{ $module->name }}</h4>
-        <div class="d-flex align-items-center gap-2">
-            <a href="{{ route('admin.module.index') }}" class="btn btn-secondary">
+        <div class="btn-group" role="group">
+            <a href="{{ route('admin.module.index') }}"
+                class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-primary">
                 <i class="fas fa-chevron-left"></i> Danh sách
             </a>
         </div>

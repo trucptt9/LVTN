@@ -87,7 +87,6 @@
                     - Tên: <span>{{ $store->name }}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    >>>>>>> 33dc2908c96ac78ce7f9e0f86e699d7dac34b851
                     - Loại doanh nghiệp:
                     <span>{{ $store->businessType ? $store->businessType->name : '-' }}</span>
                 </li>
@@ -227,34 +226,6 @@
                     </div>
                 </div>
             </form>
-        </div>
-        <div class="col-lg-7 col-sm-12 mb-2">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between">
-                    Top sản phẩm bán chạy nhất theo doanh thu
-                    <button onclick="loadDataProduct()" data-bs-toggle="tooltip" title="Tải lại dữ liệu"
-                        class="btn btn-sm load-product btn-outline btn-outline-dashed btn-outline-primary btn-active-primary">
-                        <i class="fas fa-sync"></i>
-                    </button>
-                </div>
-                <div class="card-body main-product">
-                    <canvas id="chartProduct" width="400" height="250"></canvas>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-12 mb-2 mt-3">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between">
-                    Doanh thu trong năm
-                    <button onclick="loadDataMonth()" data-bs-toggle="tooltip" title="Tải lại dữ liệu"
-                        class="btn btn-sm load-month btn-outline btn-outline-dashed btn-outline-primary btn-active-primary">
-                        <i class="fas fa-sync"></i>
-                    </button>
-                </div>
-                <div class="card-body main-month">
-                    <canvas id="chartMonth" width="800" height="400"></canvas>
-                </div>
-            </div>
         </div>
     </div>
     <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
