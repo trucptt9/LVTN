@@ -39,7 +39,7 @@ class CategoryProductController extends Controller
             $status = request('status', '');
             $search = request('search', '');
 
-            $list = CategoryProduct::storeId($this->store_id);
+            $list = CategoryProduct::withCount('products')->storeId($this->store_id);
             $list = $status != '' ? $list->ofStatus($status) : $list;
             $list = $search != '' ? $list->search($search) : $list;
 

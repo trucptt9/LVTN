@@ -66,14 +66,17 @@ class ModuleController extends Controller
             DB::beginTransaction();
             $id = request()->get('id', '');
             $module = Module::find($id);
-            $module->status = $module->status == Module::STATUS_ACTIVE ? Module::STATUS_BLOCKED : Module::STATUS_ACTIVE;
+            $module->status = $module->status == Module::STATUS_ACTIVE ? Module::STATUS_ACTIVE : Module::STATUS_BLOCKED;
             $module->save();
             DB::commit();
-            return Response::json([
-                'status' => ResHTTP::HTTP_OK,
-                'message' => 'Cập nhật thành công',
-                'type' => 'success'
-            ]);
+            if (request()->ajax()) {
+                return Response::json([
+                    'status' => ResHTTP::HTTP_OK,
+                    'message' => 'Cập nhật thành công',
+                    'type' => 'success'
+                ]);
+            }
+            return redirect()->back()->with('success', 'Cập nhật thành công');
         } catch (\Throwable $th) {
             showLog($th);
             DB::rollBack();

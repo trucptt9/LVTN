@@ -58,8 +58,8 @@
                     <div class="pos-menu">
                         <!-- BEGIN logo -->
                         <div class="logo">
-                            <a href="index.html">
-                                <div class="logo-img"><i class="fa fa-bowl-rice"></i></div>
+                            <a href="{{ route('index') }}">
+                                <img src="{{ asset('images/TTPos.png') }}" alt="" height="50" width="50">
                                 <div class="logo-text">Pine & Dine</div>
                             </a>
                         </div>
@@ -99,8 +99,8 @@
                                     </button>
                                 </div>
                                 <div class="icon"><i class="fa fa-plate-wheat"></i></div>
-                                <div class="title">Table 01</div>
-                                <div class="order small">Order: <span class="fw-semibold">#0056</span></div>
+                                <a class=" title table" href="{{ route('sale.table') }}">Bàn ...</a>
+                                <div class="order small">Mã đơn hàng: <span class="fw-semibold">#0056</span></div>
                             </div>
                             <!-- END pos-sidebar-header -->
 
@@ -109,11 +109,11 @@
                                 <ul class="nav nav-tabs nav-fill">
                                     <li class="nav-item">
                                         <a class="nav-link active" href="#" data-bs-toggle="tab"
-                                            data-bs-target="#newOrderTab">New Order (5)</a>
+                                            data-bs-target="#newOrderTab">Đơn hàng</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#" data-bs-toggle="tab"
-                                            data-bs-target="#orderHistoryTab">Order History (0)</a>
+                                            data-bs-target="#orderHistoryTab">Lịch sử đơn hàng</a>
                                     </li>
                                 </ul>
                             </div>
@@ -122,176 +122,8 @@
                             <!-- BEGIN pos-sidebar-body -->
                             <div class="pos-sidebar-body tab-content" data-scrollbar="true" data-height="100%">
                                 <!-- BEGIN #newOrderTab -->
-                                <div class="tab-pane fade h-100 show active" id="newOrderTab">
-                                    <!-- BEGIN pos-order -->
-                                    <div class="pos-order">
-                                        <div class="pos-order-product">
-                                            <div class="img"
-                                                style="background-image: url(assets/img/pos/product-2.jpg)"></div>
-                                            <div class="flex-1">
-                                                <div class="h6 mb-1">Grill Pork Chop</div>
-                                                <div class="small">$12.99</div>
-                                                <div class="small mb-2">- size: large</div>
-                                                <div class="d-flex">
-                                                    <a href="#" class="btn btn-secondary btn-sm"><i
-                                                            class="fa fa-minus"></i></a>
-                                                    <input type="text"
-                                                        class="form-control w-50px form-control-sm mx-2 bg-white bg-opacity-25 bg-white bg-opacity-25 text-center"
-                                                        value="01">
-                                                    <a href="#" class="btn btn-secondary btn-sm"><i
-                                                            class="fa fa-plus"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="pos-order-price d-flex flex-column">
-                                            <div class="flex-1">$12.99</div>
-                                            <div class="text-end">
-                                                <a href="#" class="btn btn-default btn-sm"><i
-                                                        class="fa fa-trash"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- END pos-order -->
-                                    <!-- BEGIN pos-order -->
-                                    <div class="pos-order">
-                                        <div class="pos-order-product">
-                                            <div class="img"
-                                                style="background-image: url(assets/img/pos/product-8.jpg)"></div>
-                                            <div class="flex-1">
-                                                <div class="h6 mb-1">Orange Juice</div>
-                                                <div class="small">$5.00</div>
-                                                <div class="small mb-2">
-                                                    - size: large<br>
-                                                    - less ice
-                                                </div>
-                                                <div class="d-flex">
-                                                    <a href="#" class="btn btn-secondary btn-sm"><i
-                                                            class="fa fa-minus"></i></a>
-                                                    <input type="text"
-                                                        class="form-control w-50px form-control-sm mx-2 bg-white bg-opacity-25 bg-white bg-opacity-25 text-center"
-                                                        value="02">
-                                                    <a href="#" class="btn btn-secondary btn-sm"><i
-                                                            class="fa fa-plus"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="pos-order-price d-flex flex-column">
-                                            <div class="flex-1">$10.00</div>
-                                            <div class="text-end">
-                                                <a href="#" class="btn btn-default btn-sm"><i
-                                                        class="fa fa-trash"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- END pos-order -->
-                                    <!-- BEGIN pos-order -->
-                                    <div class="pos-order">
-                                        <div class="pos-order-product">
-                                            <div class="img"
-                                                style="background-image: url(assets/img/pos/product-1.jpg)"></div>
-                                            <div class="flex-1">
-                                                <div class="h6 mb-1">Grill chicken chop</div>
-                                                <div class="small">$10.99</div>
-                                                <div class="small mb-2">
-                                                    - size: large<br>
-                                                    - spicy: medium
-                                                </div>
-                                                <div class="d-flex">
-                                                    <a href="#" class="btn btn-secondary btn-sm"><i
-                                                            class="fa fa-minus"></i></a>
-                                                    <input type="text"
-                                                        class="form-control w-50px form-control-sm mx-2 bg-white bg-opacity-25 bg-white bg-opacity-25 text-center"
-                                                        value="01">
-                                                    <a href="#" class="btn btn-secondary btn-sm"><i
-                                                            class="fa fa-plus"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="pos-order-price d-flex flex-column">
-                                            <div class="flex-1">$10.99</div>
-                                            <div class="text-end">
-                                                <a href="#" class="btn btn-default btn-sm"><i
-                                                        class="fa fa-trash"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- END pos-order -->
-                                    <!-- BEGIN pos-order -->
-                                    <div class="pos-order">
-                                        <div class="pos-order-product">
-                                            <div class="img"
-                                                style="background-image: url(assets/img/pos/product-5.jpg)"></div>
-                                            <div class="flex-1">
-                                                <div class="h6 mb-1">Hawaiian Pizza</div>
-                                                <div class="small">$15.00</div>
-                                                <div class="small mb-2">
-                                                    - size: large<br>
-                                                    - more onion
-                                                </div>
-                                                <div class="d-flex">
-                                                    <a href="#" class="btn btn-secondary btn-sm"><i
-                                                            class="fa fa-minus"></i></a>
-                                                    <input type="text"
-                                                        class="form-control w-50px form-control-sm mx-2 bg-white bg-opacity-25 bg-white bg-opacity-25 text-center"
-                                                        value="01">
-                                                    <a href="#" class="btn btn-secondary btn-sm"><i
-                                                            class="fa fa-plus"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="pos-order-price d-flex flex-column">
-                                            <div class="flex-1">$15.00</div>
-                                            <div class="text-end">
-                                                <a href="#" class="btn btn-default btn-sm"><i
-                                                        class="fa fa-trash"></i></a>
-                                            </div>
-                                        </div>
-                                        <div
-                                            class="pos-order-confirmation text-center d-flex flex-column justify-content-center">
-                                            <div class="mb-1">
-                                                <i class="fa fa-trash fs-36px lh-1 text-body text-opacity-25"></i>
-                                            </div>
-                                            <div class="mb-2">Remove this item?</div>
-                                            <div>
-                                                <a href="#"
-                                                    class="btn btn-default btn-sm ms-auto me-2 width-100px">No</a>
-                                                <a href="#" class="btn btn-danger btn-sm width-100px">Yes</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- END pos-order -->
-                                    <!-- BEGIN pos-order -->
-                                    <div class="pos-order">
-                                        <div class="pos-order-product">
-                                            <div class="img"
-                                                style="background-image: url(assets/img/pos/product-10.jpg)"></div>
-                                            <div class="flex-1">
-                                                <div class="h6 mb-1">Mushroom Soup</div>
-                                                <div class="small">$3.99</div>
-                                                <div class="small mb-2">
-                                                    - size: large<br>
-                                                    - more cheese
-                                                </div>
-                                                <div class="d-flex">
-                                                    <a href="#" class="btn btn-secondary btn-sm"><i
-                                                            class="fa fa-minus"></i></a>
-                                                    <input type="text"
-                                                        class="form-control w-50px form-control-sm mx-2 bg-white bg-opacity-25 bg-white bg-opacity-25 text-center"
-                                                        value="01">
-                                                    <a href="#" class="btn btn-secondary btn-sm"><i
-                                                            class="fa fa-plus"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="pos-order-price d-flex flex-column">
-                                            <div class="flex-1">$3.99</div>
-                                            <div class="text-end">
-                                                <a href="#" class="btn btn-default btn-sm"><i
-                                                        class="fa fa-trash"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- END pos-order -->
+                                <div class="tab-pane fade h-100 show active cart-product " id="newOrderTab">
+
                                 </div>
                                 <!-- END #orderHistoryTab -->
 
@@ -368,12 +200,42 @@
             <!-- END pos -->
             <div class="modal modal-pos fade" id="modalPosItem">
                 <div class="modal-dialog modal-lg">
-                    <div class="modal-content border-0 modal-order">
+                    <form action="{{ url('sale/cart_insert') }}" type="POST" id="form-add-product">
+                        @csrf
+                        <div class="modal-content border-0 ">
+                            <a href="#" data-bs-dismiss="modal"
+                                class="btn-close close-product position-absolute top-0 end-0 m-4"></a>
+                            <div class="modal-pos-product modal-order">
+
+                            </div>
+                            <hr class="opacity-1">
+                            <div class="row my-3">
+                                <div class="col-2">
+                                    <a href="#" class="btn btn-default fw-semibold mb-0 d-block"
+                                        data-bs-dismiss="modal">Hủy</a>
+                                </div>
+                                <div class="col-8">
+                                    <button type="submit" class="btn btn-add-product btn-theme fw-semibold  m-0">Thêm
+                                        vào
+                                        giỏ hàng</button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </form>
+
+                </div>
+            </div>
+            <!-- modal add table in order -->
+            <div class="modal modal-pos fade" id="modalTable">
+                <div class="modal-dialog modal-lg">
+
+                    <div class="modal-content border-0 modal-table">
 
                     </div>
                 </div>
             </div>
-
             <!-- BEGIN pos-mobile-sidebar-toggler -->
             <a href="#" class="pos-mobile-sidebar-toggler" data-toggle-class="pos-mobile-sidebar-toggled"
                 data-toggle-target="#pos">
@@ -461,60 +323,7 @@
         <!-- END btn-scroll-top -->
     </div>
 
-    <script>
-        $(document).ready(function() {
-
-
-            loadCategory();
-            loadProduct();
-
-            function loadCategory() {
-                $.get("{{ route('sale.category') }}", function(res) {
-                    $('.category_product').html(res);
-                })
-            }
-
-            function loadProduct() {
-                $.get("{{ route('sale.product') }}", function(res) {
-                    $('.product').html(res);
-                })
-            }
-
-
-            $(document).on("click", ".btn-minus", function(e) {
-
-                e.preventDefault();
-                $quantity = $('.quantity').val();
-                if ($quantity == 0) {
-                    $('.btn-minus').attr('disable')
-                } else {
-                    $quantity--;
-                    $('.quantity').val($quantity);
-                }
-            })
-            $(document).on("click", ".btn-add", function(e) {
-
-                e.preventDefault();
-                $quantity = $('.quantity').val();
-                $quantity++;
-                $('.quantity').val($quantity);
-
-            })
-            $(document).on("click", ".pos-product", function(e) {
-
-                e.preventDefault();
-                const url = $(this).attr('href');
-                console.log(url)
-                $.get(url, function(data) {
-
-                    console.log(data);
-                    $('.modal-order').html(data);
-                    $('#modalPosItem').modal('show');
-                })
-            })
-
-        })
-    </script>
+   @include('Sale.home.script')
     @yield('script')
     <!--begin::Javascript-->
     <script>

@@ -72,14 +72,14 @@
                                 <th class="w-100px">Hình ảnh</th>
                                 <th class="w-100px">Mã</th>
                                 <th class="w-200px">Tên danh mục</th>
-                                <th class="">Mô tả</th>
-                                <th class="text-center w-125px">Trạng thái</th>
+                                <th class="text-center w-150px">Tổng sản phẩm</th>
+                                <th class="text-center w-100px">Trạng thái</th>
                                 <th class="text-center w-100px">#</th>
                             </tr>
                         </thead>
                         <tbody class="fw-semibold text-gray-600" id="load-table">
                             <tr>
-                                <td colspan="5" class="text-center no-data">
+                                <td colspan="6" class="text-center no-data">
                                     Không tìm thấy dữ liệu!
                                 </td>
                             </tr>

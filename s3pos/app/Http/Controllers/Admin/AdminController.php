@@ -92,18 +92,21 @@ class AdminController extends Controller
             $admin = Admin::find($id);
             if ($type == 'all') {
                 $data = request()->all();
-                $data['status'] = $admin->status == Admin::STATUS_ACTIVE ? Admin::STATUS_SUSPEND : Admin::STATUS_ACTIVE;
+                $data['status'] = $admin->status == Admin::STATUS_ACTIVE ? Admin::STATUS_ACTIVE : Admin::STATUS_SUSPEND;
                 $admin->update($data);
             } else {
                 $admin->status = $admin->status == Admin::STATUS_ACTIVE ? Admin::STATUS_SUSPEND : Admin::STATUS_ACTIVE;
                 $admin->save();
             }
             DB::commit();
-            return Response::json([
-                'status' => ResHTTP::HTTP_OK,
-                'message' => 'Cập nhật thành công',
-                'type' => 'success'
-            ]);
+            if (request()->ajax()) {
+                return Response::json([
+                    'status' => ResHTTP::HTTP_OK,
+                    'message' => 'Cập nhật thành công',
+                    'type' => 'success'
+                ]);
+            }
+            return redirect()->back()->with('success', 'Cập nhật thành công');
         } catch (\Throwable $th) {
             showLog($th);
             DB::rollBack();

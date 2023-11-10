@@ -16,9 +16,9 @@
                 <input name="search" type="text" class="form-control w-250px ps-13"
                     placeholder="Nhấn enter để tìm ..." />
                 <div class="d-flex justify-content-end">
-                    <div class="me-2 w-150px">
+                    <div class="me-2 w-200px">
                         <select name="admin_id" class="form-select filter-admin_id form-filter select-picker">
-                            <option value="" selected>-- Admin --</option>
+                            <option value="" selected>-- Quản trị viên --</option>
                             @foreach ($data['admins'] as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach

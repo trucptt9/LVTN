@@ -52,18 +52,23 @@ Route::post('reset', [AuthController::class, 'reset_post'])->name('reset_post');
 Route::get('license', [AuthController::class, 'license'])->name('license');
 Route::post('license', [AuthController::class, 'license_active'])->name('license_active');
 
-Route::get('orderpage', [StoreController::class, 'orderpage'])->name('orderpage');
+
 Route::middleware(['auth', 'checkStaff'])->group(function () {
     Route::get('logout', [HomeController::class, 'logout'])->name('logout');
     // home
-    Route::get('', [HomeController::class, 'index'])->name('index');
 
+
+
+    Route::get('', [HomeController::class, 'index'])->name('index');
     Route::prefix('sale')->name('sale.')->group(function () {
         Route::get('', [SaleController::class, 'index'])->name('index');
         Route::get('category', [SaleController::class, 'category'])->name('category');
         Route::get('product', [SaleController::class, 'product'])->name('product');
         Route::get('detail/{id}', [SaleController::class, 'detail'])->name('detail');
-        Route::get('add', [SaleController::class, 'add'])->name('add');
+        Route::get('cart', [SaleController::class, 'cart'])->name('cart');
+        Route::get('table', [SaleController::class, 'table'])->name('table');
+        Route::post('cart_insert', [SaleController::class, 'add_cart'])->name('cart_insert');
+        Route::get('delete/{id}', [SaleController::class, 'delete_cart'])->name('delete');
     });
     // store
     Route::prefix('stores')->name('store.')->group(function () {
@@ -136,7 +141,7 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
     Route::prefix('products')->name('product.')->group(function () {
         Route::get('', [ProductController::class, 'index'])->name('index');
         Route::get('list', [ProductController::class, 'list'])->name('list');
-        Route::get('add', [ProductController::class, 'add'])->name('add');
+        // Route::get('add', [ProductController::class, 'add'])->name('add');
         Route::get('detail/{id}', [ProductController::class, 'detail'])->name('detail');
         Route::post('insert', [ProductController::class, 'insert'])->name('insert');
         Route::post('update', [ProductController::class, 'update'])->name('update');

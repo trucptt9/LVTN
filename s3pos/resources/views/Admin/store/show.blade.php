@@ -22,3 +22,12 @@
     <label class="col-form-label">Địa chỉ</label>
     <textarea name="address" rows="2" class="form-control">{{ $store->address }}</textarea>
 </div>
+<div class="my-3">
+    <div class="form-check form-switch">
+        <input class="form-check-input" name="status" value="active" type="checkbox" role="switch"
+            id="switch_status_update" {{ $store->status == 'active' ? 'checked' : '' }}>
+        <label class="form-check-label" for="switch_status_update">
+            Kích hoạt
+        </label>
+    </div>
+</div>

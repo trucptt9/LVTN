@@ -29,7 +29,7 @@
                         <label class="col-form-label">Địa chỉ</label>
                         <textarea name="address" rows="2" class="form-control"></textarea>
                     </div>
-                    <div class="my-3">
+                    {{-- <div class="my-3">
                         <div class="form-check form-switch">
                             <input class="form-check-input" name="generate_data" value="1" type="checkbox"
                                 role="switch" id="switch_auto_generate_data">
@@ -37,7 +37,7 @@
                                 Tự tạo dữ liệu mẫu
                             </label>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">

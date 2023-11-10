@@ -7,7 +7,7 @@
         <div class="col-xl-3">
             <!-- BEGIN card -->
             <a href="{{ route('admin.admin.index') }}" class="text-decoration-none">
-                <div class="card mb-3">
+                <div class="card mb-2">
                     <div class="card-body d-flex align-items-center">
                         <div
                             class="w-40px h-40px d-flex align-items-center justify-content-center bg-gradient-yellow-red text-white rounded-2 ms-n1">
@@ -28,7 +28,7 @@
 
             <!-- BEGIN card -->
             <a href="{{ route('admin.license.index') }}" class="text-decoration-none">
-                <div class="card mb-3">
+                <div class="card mb-2">
                     <div class="card-body d-flex align-items-center">
                         <div
                             class="w-40px h-40px d-flex align-items-center justify-content-center bg-gradient-custom-indigo text-white rounded-2 ms-n1">
@@ -49,7 +49,7 @@
 
             <!-- BEGIN card -->
             <a href="{{ route('admin.store.index') }}" class="text-decoration-none">
-                <div class="card mb-3">
+                <div class="card mb-2">
                     <div class="card-body d-flex align-items-center">
                         <div
                             class="w-40px h-40px d-flex align-items-center justify-content-center bg-gradient-custom-blue text-white rounded-2 ms-n1">
@@ -88,6 +88,25 @@
                 </div>
             </a>
             <!-- END card -->
+
+            <a href="{{ route('admin.module.index') }}" class="text-decoration-none">
+                <div class="card mb-2">
+                    <div class="card-body d-flex align-items-center">
+                        <div
+                            class="w-40px h-40px d-flex align-items-center justify-content-center bg-gradient-red-pink text-white rounded-2 ms-n1">
+                            <i class="fas fa-window-restore fa-lg"></i>
+                        </div>
+                        <div class="flex-fill px-3 py-1">
+                            <div class="fw-semibold text-danger">
+                                {{ number_format($data['modules']) }}
+                            </div>
+                            <div class="small text-body text-opacity-50">
+                                Tổng modules
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
         </div>
         <!-- END col-6 -->
 

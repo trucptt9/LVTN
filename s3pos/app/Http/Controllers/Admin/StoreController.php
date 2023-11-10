@@ -83,9 +83,7 @@ class StoreController extends Controller
             $data = request()->all();
             $store = Store::create($data);
             DB::commit();
-            if (request('generate_data', '') == '1') {
-                event(new GenerateDataStore($store));
-            }
+            event(new GenerateDataStore($store));
             return Response::json([
                 'status' => ResHTTP::HTTP_OK,
                 'message' => 'Tạo mới thành công',
@@ -109,13 +107,17 @@ class StoreController extends Controller
             $id = request()->get('id', '');
             $store = Store::find($id);
             $data = request()->all();
+            $data['status'] = $store->status == Store::STATUS_ACTIVE ? Store::STATUS_ACTIVE : Store::STATUS_BLOCKED;
             $store->update($data);
             DB::commit();
-            return Response::json([
-                'status' => ResHTTP::HTTP_OK,
-                'message' => 'Cập nhật thành công',
-                'type' => 'success'
-            ]);
+            if (request()->ajax()) {
+                return Response::json([
+                    'status' => ResHTTP::HTTP_OK,
+                    'message' => 'Cập nhật thành công',
+                    'type' => 'success'
+                ]);
+            }
+            return redirect()->back()->with('success', 'Cập nhật thành công');
         } catch (\Throwable $th) {
             showLog($th);
             DB::rollBack();

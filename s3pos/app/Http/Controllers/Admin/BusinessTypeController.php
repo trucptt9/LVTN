@@ -92,18 +92,21 @@ class BusinessTypeController extends Controller
             $business_type = BusinessType::find($id);
             if ($type == 'all') {
                 $data = request()->all();
-                $data['status'] = $business_type->status == BusinessType::STATUS_ACTIVE ? BusinessType::STATUS_BLOCKED : BusinessType::STATUS_ACTIVE;
+                $data['status'] = $business_type->status == BusinessType::STATUS_ACTIVE ? BusinessType::STATUS_ACTIVE : BusinessType::STATUS_BLOCKED;
                 $business_type->update($data);
             } else {
                 $business_type->status = $business_type->status == BusinessType::STATUS_ACTIVE ? BusinessType::STATUS_BLOCKED : BusinessType::STATUS_ACTIVE;
                 $business_type->save();
             }
             DB::commit();
-            return Response::json([
-                'status' => ResHTTP::HTTP_OK,
-                'message' => 'Cập nhật thành công',
-                'type' => 'success'
-            ]);
+            if (request()->ajax()) {
+                return Response::json([
+                    'status' => ResHTTP::HTTP_OK,
+                    'message' => 'Cập nhật thành công',
+                    'type' => 'success'
+                ]);
+            }
+            return redirect()->back()->with('success', 'Cập nhật thành công');
         } catch (\Throwable $th) {
             showLog($th);
             DB::rollBack();

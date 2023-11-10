@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\License;
+use App\Models\Module;
 use App\Models\Package;
 use App\Models\Store;
 use Illuminate\Http\Request;
@@ -23,6 +24,7 @@ class HomeController extends Controller
             'licenses' => License::count(),
             'stores' => Store::count(),
             'packages' => Package::count(),
+            'modules' => Module::count(),
         ];
         return view('Admin.home.index', compact('data'));
     }

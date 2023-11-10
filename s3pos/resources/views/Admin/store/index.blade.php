@@ -52,7 +52,7 @@
             <table class="table table-bordered table-striped table-sm">
                 <thead>
                     <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0 bg-light-primary">
-                        <th class="text-center w-100px">#</th>
+                        <th class="text-center w-150px">#</th>
                         <th class="text-center w-125px">Mã</th>
                         <th class="text-center">Tên</th>
                         <th class="text-center w-200px">Loại hình DN</th>
@@ -70,6 +70,9 @@
             </table>
         </div>
         <!--end::Card body-->
+    </div>
+    <div class="alert alert-danger mt-3" role="alert">
+        <i class="fas fa-exclamation-triangle"></i> Chỉ được phép xóa những cửa hàng chưa được kích hoạt!
     </div>
     @include('Admin.store.create')
     <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
@@ -106,6 +109,10 @@
         function filterTable() {
             loadTable(routeList);
         };
+
+        function confirmDelete(id) {
+            deleteData(id, "{{ route('admin.store.delete') }}");
+        }
 
         $(document).ready(function() {
             $(document).on("click", ".data-item", function(e) {

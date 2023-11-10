@@ -15,6 +15,12 @@
                     class="btn bg-gradient bg-gray-200 data-item btn-sm">
                     <i class="fas fa-edit"></i>
                 </a>
+                @if ($item->status == 'un_active')
+                    <button data-bs-toggle="tooltip" title="Xóa" class="btn bg-gradient-orange-red btn-sm btn-delete"
+                        onclick="confirmDelete('{{ $item->id }}')">
+                        <i class="fas fa-trash text-white"></i>
+                    </button>
+                @endif
                 <a href="{{ route('admin.store.detail', ['id' => $item->id]) }}" data-bs-toggle="tooltip"
                     title="Xem chi tiết" class="btn bg-gradient-cyan-blue btn-sm">
                     <i class="fas fa-eye"></i>

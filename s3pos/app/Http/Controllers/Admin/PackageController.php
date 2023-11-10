@@ -96,7 +96,7 @@ class PackageController extends Controller
             $package = Package::find($id);
             if ($type == 'all') {
                 $data = request()->all();
-                $data['status'] = $package->status == Package::STATUS_ACTIVE ? Package::STATUS_BLOCKED : Package::STATUS_ACTIVE;
+                $data['status'] = $package->status == Package::STATUS_ACTIVE ? Package::STATUS_ACTIVE : Package::STATUS_BLOCKED;
                 $data['modules'] = json_encode($data['modules']);
                 $package->update($data);
             } else {
