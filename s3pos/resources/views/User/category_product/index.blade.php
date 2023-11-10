@@ -84,6 +84,7 @@
                                 <th class="w-100px">Mã</th>
                                 <th class="w-200px">Tên danh mục</th>
                                 <th class="">Mô tả</th>
+                                <th class="text-center w-150px">Tổng sản phẩm</th>
                                 <th class="text-center w-100px">Trạng thái</th>
                                 <th class="text-center w-100px">#</th>
                             </tr>

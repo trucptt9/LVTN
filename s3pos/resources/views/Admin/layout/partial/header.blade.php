@@ -37,7 +37,7 @@
         <div class="menu-item dropdown">
             <a href="#" data-bs-toggle="dropdown" data-display="static" class="menu-link">
                 <div class="menu-img online">
-                    <img src="{{ $admin_staff->avatar ?? asset('admin/assets/img/favicon.png') }}" alt=""
+                    <img src="{{ $admin_staff->avatar ?? asset('images/user.jpg') }}" alt=""
                         class="ms-100 mh-100 rounded-circle" />
                 </div>
                 <div class="menu-text">

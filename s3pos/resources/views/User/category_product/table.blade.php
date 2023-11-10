@@ -1,6 +1,7 @@
 @if ($list->count() > 0)
     @php
         $paginate = $list->appends(request()->all())->links();
+        {{ $item->products()->get()->count() }}
     @endphp
 
     @foreach ($list as $item)
@@ -21,6 +22,9 @@
             </td>
             <td class="text-center">
                 {{ $item->description }}
+            </td>
+            <td class="text-center">
+               
             </td>
 
             <td class="text-center">
