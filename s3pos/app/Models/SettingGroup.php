@@ -66,7 +66,7 @@ class SettingGroup extends Model
 
     public function settings()
     {
-        return $this->hasMany(Settings::class, 'group_id', 'id')->active();
+        return $this->hasMany(Settings::class, 'group_id', 'id');
     }
 
     public static function getOrder()

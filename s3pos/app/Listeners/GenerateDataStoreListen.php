@@ -11,6 +11,7 @@ use App\Models\MethodPayment;
 use App\Models\Position;
 use App\Models\Product;
 use App\Models\SaleSource;
+use App\Models\SettingGroup;
 use App\Models\Settings;
 use App\Models\Staff;
 use App\Models\Table;
@@ -143,10 +144,11 @@ class GenerateDataStoreListen
                 'address' => $faker->address()
             ]);
             // settings
-            //======== notify
+            //======== notification
+            $notification = SettingGroup::ofCode('notification')->first();
             Settings::create([
                 'store_id' => $store_id,
-                'group_id' => 1,
+                'group_id' => $notification->id,
                 'code' => 'get-notify-by-email',
                 'name' => 'Nhận thông báo qua email',
                 'value' => 0,
@@ -154,14 +156,14 @@ class GenerateDataStoreListen
             ]);
             Settings::create([
                 'store_id' => $store_id,
-                'group_id' => 1,
+                'group_id' => $notification->id,
                 'code' => 'list-email-get-notify',
                 'name' => 'Danh sách email nhận thông báo',
                 'description' => 'Mỗi email cách nhau bởi dấu ;',
             ]);
             Settings::create([
                 'store_id' => $store_id,
-                'group_id' => 1,
+                'group_id' => $notification->id,
                 'code' => 'get-notify-by-telegram',
                 'name' => 'Nhận thông báo qua telegram',
                 'value' => 0,
@@ -169,14 +171,16 @@ class GenerateDataStoreListen
             ]);
             Settings::create([
                 'store_id' => $store_id,
-                'group_id' => 1,
+                'group_id' => $notification->id,
                 'code' => 'telegram-id-channel',
                 'name' => 'ID channel telegram nhận thông báo',
             ]);
+
             //======== order
+            $order = SettingGroup::ofCode('order')->first();
             Settings::create([
                 'store_id' => $store_id,
-                'group_id' => 1,
+                'group_id' => $order->id,
                 'code' => 'remove-order-tmp',
                 'name' => 'Cho phép hủy đơn tạm',
                 'value' => 0,
@@ -187,7 +191,7 @@ class GenerateDataStoreListen
                 'group_id' => 1,
                 'code' => 'remove-order-finish',
                 'name' => 'Cho phép hủy đơn kết thúc',
-                'value' => 0,
+                'group_id' => $order->id,
                 'type' => Settings::TYPE_RADIO,
             ]);
         } catch (\Throwable $th) {

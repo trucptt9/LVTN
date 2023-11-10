@@ -266,6 +266,7 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
     // other
     Route::prefix('settings')->name('setting.')->group(function () {
         Route::get('', [SettingController::class, 'index'])->name('index');
+        Route::post('update', [SettingController::class, 'update'])->name('update');
     });
     Route::prefix('staff_history')->name('staff_history.')->group(function () {
         Route::get('', [StaffHistoryController::class, 'index'])->name('index');
