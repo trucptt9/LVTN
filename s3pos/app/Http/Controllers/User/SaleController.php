@@ -59,6 +59,7 @@ class SaleController extends Controller
         return view('Sale.home.modal_add', compact('product', 'toppings'))->render();
     }
 
+
     public function add_cart(Request $request)
     {
         // Cart::destroy();
@@ -73,20 +74,22 @@ class SaleController extends Controller
         // return $request->all();
         return Response::json([
             'status' => ResHTTP::HTTP_OK,
-            'data'=>view('sale.home.cart')->render()
+            'data' => view('sale.home.cart')->render()
         ]);
 
     }
-    public function cart(){
+    public function cart()
+    {
         return view('sale.home.cart')->render();
     }
-    public function delete_cart($rowId){
-        Cart::remove($rowId);   
+    public function delete_cart($rowId)
+    {
+        Cart::remove($rowId);
         return Response::json([
             'status' => ResHTTP::HTTP_OK,
-            
+
         ]);
-        
+
     }
     public function table()
     {

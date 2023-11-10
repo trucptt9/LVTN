@@ -14,16 +14,16 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id()->index();
             $table->string('code')->unique()->index();
-            $table->unsignedBigInteger('table_id')->index();
-            $table->unsignedBigInteger('customer_id')->index();
-            $table->unsignedBigInteger('method_payment_id')->index();
-            $table->unsignedBigInteger('sale_source_id')->index();
-            $table->unsignedBigInteger('promotion_id')->index();
-            $table->unsignedBigInteger('staff_id')->index();
+            $table->unsignedBigInteger('table_id')->index()->nullable();
+            $table->unsignedBigInteger('customer_id')->index()->nullable();
+            $table->unsignedBigInteger('method_payment_id')->index()->nullable();
+            $table->unsignedBigInteger('sale_source_id')->index()->nullable();
+            $table->unsignedBigInteger('promotion_id')->index()->nullable();
+            $table->unsignedBigInteger('staff_id')->index()->nullable();
             $table->unsignedBigInteger('store_id')->index();
             $table->dateTime('order_start');
-            $table->dateTime('order_end');
-            $table->integer('vat');
+            $table->dateTime('order_end')->nullable();
+            $table->integer('vat')->nullable()->default(0);
             $table->integer('vat_total')->nullable()->default(0);
             $table->integer('discount')->nullable()->default(0);
             $table->enum('discount_type', ['vnd', 'percent'])->nullable()->default('percent');

@@ -17,10 +17,9 @@ return new class extends Migration {
             $table->string('link')->nullable();
             $table->text('description');
             $table->timestamps();
-<<<<<<< HEAD
             // $table->foreign('staff_id')->references('id')->on('staffs')->onDelete('cascade');
-=======
->>>>>>> 2006e77 (update reset password for manager store)
+
+
         });
     }
 

@@ -259,5 +259,4 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
         Route::get('', [StaffHistoryController::class, 'index'])->name('index');
     });
 
-
 });
