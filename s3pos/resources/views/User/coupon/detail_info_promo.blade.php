@@ -78,6 +78,10 @@
                                 <!--end::Label-->
                                 <input class="form-control" placeholder="Chọn ngày" id="coupon_day_start1"
                                     value="{{ date('d/m/Y', strtotime($coupon->start)) }}" />
+<<<<<<< HEAD
+=======
+
+>>>>>>> 86efb2d (update layout and controller)
                             </div>
                             <div class="fv-row mb-2">
                                 <!--begin::Label-->
@@ -87,6 +91,10 @@
                                 <!--end::Label-->
                                 <input class="form-control" placeholder="Chọn ngày" id="coupon_day_end2"
                                     value="{{ date('d/m/Y', strtotime($coupon->end)) }}" />
+<<<<<<< HEAD
+=======
+
+>>>>>>> 86efb2d (update layout and controller)
                             </div>
                             <div class="fv-row mb-2">
                                 <!--begin::Label-->

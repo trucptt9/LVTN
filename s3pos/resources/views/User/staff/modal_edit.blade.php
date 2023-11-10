@@ -11,8 +11,8 @@
             <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
                 <span class="">Email</span>
             </label>
-            <input type="text" class="form-control form-control-lg" name="email" placeholder="Email đăng nhập"
-                value="{{ $staff->email }}" />
+            <input type="text" class="form-control form-control-lg form-control-solid" name="email"
+                placeholder="Email đăng nhập" value="{{ $staff->email }}" />
         </div>
         <div class="fv-row mb-2">
             <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-3">
@@ -78,8 +78,8 @@
                 <span class="required">Số điện
                     thoại</span>
             </label>
-            <input type="text" class="form-control form-control-lg" name="phone" placeholder="0934 956 345"
-                value="{{ $staff->phone }}" />
+            <input type="text" class="form-control form-control-lg form-control-solid" name="phone"
+                placeholder="0934 956 345" value="{{ $staff->phone }}" />
             <!--end::Input-->
         </div>
         <div class="fv-row mb-2">
@@ -96,7 +96,8 @@
                     @endif
                 </div>
             </div>
-            <input type="file" class="form-control form-control-lg" name="avatar" value="" />
+            <input type="file" class="form-control form-control-lg form-control-solid" name="avatar"
+                value="" />
         </div>
         <div class="fv-row mb-2">
             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">

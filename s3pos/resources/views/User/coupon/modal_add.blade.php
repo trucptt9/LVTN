@@ -24,6 +24,8 @@
                 <!--begin::Stepper-->
                 <form action="{{ route('coupon.insert') }}" method="POST" id="form-create">
                     <div class="row" id="kt_modal_create_app_stepper">
+
+
                         <div class="col-6">
                             <!--begin::Nav-->
                             <div class="stepper-nav ps-lg-10">
@@ -34,13 +36,15 @@
                                     <input type="text" class="form-control form-control-lg" name="name"
                                         placeholder="Tên " value="" />
                                 </div>
+
+
                                 <div class="fv-row mb-2">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
                                         <span class="">Số lượng phiếu tạo</span>
                                     </label>
-                                    <input type="number" class="form-control form-control-lg" name="quantity"
-                                        placeholder="Số lượng phiếu" value="1" />
+                                    <input type="number" class="form-control form-control-lg form-control-solid"
+                                        name="quantity" placeholder="Số lượng phiếu" value="" />
                                 </div>
                                 <div class="fv-row mb-2" style="display: flex; align-items:center">
                                     <div class="">
@@ -89,6 +93,10 @@
                             </div>
                             <!--end::Nav-->
                         </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 86efb2d (update layout and controller)
                         <div class="col-6">
                             <!--begin::Nav-->
                             <div class="stepper-nav ps-lg-10">
@@ -97,8 +105,10 @@
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
                                         <span class="required">Bắt đầu</span>
                                     </label>
+
                                     <input class="form-control" placeholder="Chọn ngày" name="start"
                                         id="coupon_day_start" />
+
                                 </div>
                                 <div class="fv-row mb-2">
                                     <!--begin::Label-->
@@ -119,6 +129,8 @@
                                     <textarea class="form-control" name="description" aria-label="With textarea" rows="3"></textarea>
                                     <!--end::Input-->
                                 </div>
+
+
                             </div>
                             <!--end::Nav-->
                         </div>

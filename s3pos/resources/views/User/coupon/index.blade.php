@@ -123,9 +123,13 @@
                         </div>
                         <!--end::Close-->
                     </div>
+
                     <div class="modal-body">
+
+
                         <div class="flex-row-fluid py-lg-5 ">
                             <div class="row content-update" id="kt_modal_create_app_stepper">
+
                             </div>
                             <div class="text-center pt-10">
                                 <button type="reset" class="btn btn-light me-3 close-btn2">Hủy</button>
@@ -135,6 +139,10 @@
                                 </button>
                             </div>
                         </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 86efb2d (update layout and controller)
                         <!--end::Content-->
                     </div>
                 </div>

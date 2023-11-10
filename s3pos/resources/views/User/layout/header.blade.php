@@ -19,10 +19,10 @@
             <a href="{{ route('index') }}">
                 <img alt="Logo"
                     src="{{ $user_store && $user_store->logo ? $user_store->logo : show_s3_file(get_option_admin('app-logo')) }}"
-                    class="logo-default h-25px" />
+                    class="logo-default" />
                 <img alt="Logo"
                     src="{{ $user_store && $user_store->logo ? $user_store->logo : show_s3_file(get_option_admin('app-logo')) }}"
-                    class="logo-sticky h-25px" />
+                    class="logo-sticky" />
             </a>
         </div>
         <!--end::Header Logo-->

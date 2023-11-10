@@ -27,7 +27,7 @@
                         <div class="col-6">
                             <!--begin::Nav-->
                             <div class="stepper-nav ps-lg-10">
-                                <div class="fv-row mb-4">
+                                <div class="fv-row mb-2">
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
                                         <span class="required">Tên chương trình</span>
                                     </label>
@@ -36,7 +36,18 @@
                                     <!--begin::Label-->
                                     <!--end::Input-->
                                 </div>
-                                <div class="fv-row mb-4">
+                                <div class="fv-row mb-2">
+                                    <!--begin::Label-->
+                                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
+                                        <span class="">Mã</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <input type="text" class="form-control form-control-lg form-control-solid"
+                                        name="code" placeholder="Để trống tự sinh" value="" />
+                                    <!--end::Input-->
+                                </div>
+                                <div class="fv-row mb-2">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
                                         <span class="">Đối tượng áp dụng</span>
@@ -45,6 +56,10 @@
                                     <!--begin::Input-->
                                     <select name="customer_group_id" id="" class="form-select"
                                         data-control="select2" data-hide-search="true">
+<<<<<<< HEAD
+=======
+
+>>>>>>> 86efb2d (update layout and controller)
                                         <option value="0" selected>Tất cả
                                         </option>
                                         @foreach ($data['customer_group'] as $item)
@@ -80,13 +95,13 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="fv-row mt-5">
+                                <div class="fv-row mb-2">
                                     <p class="text-uppercase fw-bold required">Điều kiện áp dụng</p>
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
                                         <span class="">Tổng tiền đơn hàng >=</span>
                                     </label>
-                                    <input type="number" class="form-control form-control-lgUnit::" name="total_order"
-                                        placeholder="" value="" />
+                                    <input type="number" class="form-control form-control-lg form-control-solid"
+                                        name="total_order" placeholder="" value="" />
                                     <!--end::Input-->
                                 </div>
                             </div>
@@ -94,8 +109,8 @@
                         </div>
                         <div class="col-6">
                             <!--begin::Nav-->
-                            <div class="stepper-nav pe-lg-10">
-                                <div class="fv-row mb-4">
+                            <div class="stepper-nav ps-lg-10">
+                                <div class="fv-row mb-2">
                                     <!--begin::Label-->
                                     <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
                                         <span class="required">Bắt đầu</span>

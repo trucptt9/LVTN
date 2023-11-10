@@ -60,7 +60,7 @@
                                       <!--begin::Label-->
                                       <label class=" fw-semibold fs-6 mb-2">Trạng
                                           thái</label>
-                                      <select class="form-select" aria-label="Select example" name="status">
+                                      <select class="form-select w-50" aria-label="Select example" name="status">
                                           <option selected value="">Trạng thái </option>
                                           @foreach ($data['status'] as $key => $item)
                                               <option value="{{ $key }}">{{ $item[0] }}</option>

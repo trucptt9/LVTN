@@ -85,13 +85,8 @@
                                 <th class="">Tên bàn</th>
                                 <th class="w-300px text-center">Khu vực</th>
                                 <th class="w-200px text-center">Số ghế</th>
-<<<<<<< HEAD
-                                <th class="text-center w-150px">Trạng thái</th>
-                                <th class="text-center w-125px">#</th>
-=======
                                 <th class="text-center w-125px">Trạng thái</th>
                                 <th class="text-center w-100px">#</th>
->>>>>>> be89e0c5e296b39750352c4d6e3962191a2e67a7
                             </tr>
                         </thead>
                         <tbody class="fw-semibold text-gray-600" id="load-table">

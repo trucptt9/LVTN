@@ -1,9 +1,5 @@
 @extends('User.layout.main')
 @section('style')
-<<<<<<< HEAD
-=======
-    
->>>>>>> be89e0c5e296b39750352c4d6e3962191a2e67a7
 @endsection
 @section('content')
     <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">

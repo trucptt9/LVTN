@@ -26,7 +26,7 @@ class UnitController extends Controller
         $data = [
             'status' => Unit::get_status(),
         ];
-        return view('user.unit.index', compact('data'));
+        return view('user.topping_category.index', compact('data'));
     }
 
     public function list()
@@ -44,7 +44,7 @@ class UnitController extends Controller
 
             return Response::json([
                 'status' => ResHTTP::HTTP_OK,
-                'data' => view('User.unit.table', compact('list'))->render(),
+                'data' => view('User.topping_category.table', compact('list'))->render(),
             ]);
         } catch (\Throwable $th) {
             showLog($th);
@@ -55,13 +55,9 @@ class UnitController extends Controller
         }
     }
 
-    public function detail($id)
+    public function detail()
     {
-        $data = [
-            'status' => Unit::get_status(),
-        ];
-        $unit = Unit::findOrFail($id);
-        return view('user.unit.modal_edit', compact('unit', 'data'))->render();
+        return view('user.topping_category.detail');
     }
 
     public function insert(Request $request)
@@ -69,7 +65,7 @@ class UnitController extends Controller
         try {
             $data = $request->all();
             if ($request->file('image') != null) {
-                $path = $request->file('image')->store('unit');
+                $path = $request->file('image')->store('topping_category');
                 $data['image'] = $path;
             } else {
                 $data['image'] = null;

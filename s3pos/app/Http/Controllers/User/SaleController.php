@@ -31,6 +31,7 @@ class SaleController extends Controller
             return $next($request);
         });
     }
+
     public function index()
     {
         return view('Sale.table.index');
@@ -42,6 +43,7 @@ class SaleController extends Controller
         Cart::destroy();
         return view('Sale.home.index', compact('table','payment_method'));
     }
+
     public function category()
     {
         $categories = CategoryProduct::storeId($this->store_id)->where('status', CategoryProduct::STATUS_ACTIVE)->get();

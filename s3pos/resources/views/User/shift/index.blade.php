@@ -87,13 +87,8 @@
                                 <th class="text-center w-150px">Kết thúc</th>
                                 <th class="text-center w-200px">Tiền lương</th>
                                 <th class="text-center">Mô tả</th>
-<<<<<<< HEAD
-                                <th class="text-center w-150px">Trạng thái</th>
-                                <th class="text-center w-125px">#</th>
-=======
                                 <th class="text-center w-125px">Trạng thái</th>
                                 <th class="text-center w-100px">#</th>
->>>>>>> be89e0c5e296b39750352c4d6e3962191a2e67a7
                             </tr>
                         </thead>
                         <tbody class="fw-semibold text-gray-600" id="load-table">

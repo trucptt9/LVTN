@@ -26,29 +26,28 @@
                               enctype="multipart/form-data">
                               <!--begin::Scroll-->
                               <div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_user_scroll">
-                                  <div class="row">
-                                      <div class="col-md-6">
-                                          <div class="fv-row mb-7">
-                                              <!--begin::Label-->
-                                              <label class="required fw-semibold fs-6 mb-2">Tên khách hàng</label>
-                                              <!--end::Label-->
-                                              <!--begin::Input-->
-                                              <input type="text" name="name" class="form-control mb-3 mb-lg-0"
-                                                  placeholder="Tên khách hàng" />
-                                              <!--end::Input-->
-                                          </div>
-                                      </div>
-                                      <div class="col-md-6">
-                                          <div class="fv-row mb-7">
-                                              <!--begin::Label-->
-                                              <label class="required fw-semibold fs-6 mb-2">Số điện thoại</label>
-                                              <!--end::Label-->
-                                              <!--begin::Input-->
-                                              <input type="text" name="phone" class="form-control mb-3 mb-lg-0"
-                                                  placeholder="0988 676 676" />
-                                              <!--end::Input-->
-                                          </div>
-                                      </div>
+                                  <div class="fv-row mb-7">
+                                      <!--begin::Label-->
+                                      <label class="required fw-semibold fs-6 mb-2">Tên khách hàng</label>
+                                      <!--end::Label-->
+                                      <!--begin::Input-->
+                                      <input type="text" name="name" class="form-control mb-3 mb-lg-0"
+                                          placeholder="Tên khách hàng" />
+                                      <!--end::Input-->
+                                  </div>
+                                  <div class="fv-row mb-7">
+                                      <label class="fw-semibold fs-6 mb-2">Mã</label>
+                                      <input type="text" name="code" class="form-control mb-3 mb-lg-0"
+                                          placeholder="Để trống tự sinh" />
+                                  </div>
+                                  <div class="fv-row mb-7">
+                                      <!--begin::Label-->
+                                      <label class="required fw-semibold fs-6 mb-2">Số điện thoại</label>
+                                      <!--end::Label-->
+                                      <!--begin::Input-->
+                                      <input type="text" name="phone" class="form-control mb-3 mb-lg-0"
+                                          placeholder="0988 676 676" />
+                                      <!--end::Input-->
                                   </div>
                                   <div class="fv-row row mb-7">
                                       <!--begin::Label-->
