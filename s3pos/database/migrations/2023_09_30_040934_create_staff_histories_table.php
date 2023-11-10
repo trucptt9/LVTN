@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('link')->nullable();
             $table->text('description');
             $table->timestamps();
+            // $table->foreign('staff_id')->references('id')->on('staffs')->onDelete('cascade');
+
 
         });
     }

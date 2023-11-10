@@ -7,11 +7,7 @@
         <div class="col-xl-3">
             <!-- BEGIN card -->
             <a href="{{ route('admin.admin.index') }}" class="text-decoration-none">
-<<<<<<< HEAD
                 <div class="card mb-2">
-=======
-                <div class="card mb-3">
->>>>>>> be89e0c5e296b39750352c4d6e3962191a2e67a7
                     <div class="card-body d-flex align-items-center">
                         <div
                             class="w-40px h-40px d-flex align-items-center justify-content-center bg-gradient-yellow-red text-white rounded-2 ms-n1">
@@ -32,11 +28,7 @@
 
             <!-- BEGIN card -->
             <a href="{{ route('admin.license.index') }}" class="text-decoration-none">
-<<<<<<< HEAD
                 <div class="card mb-2">
-=======
-                <div class="card mb-3">
->>>>>>> be89e0c5e296b39750352c4d6e3962191a2e67a7
                     <div class="card-body d-flex align-items-center">
                         <div
                             class="w-40px h-40px d-flex align-items-center justify-content-center bg-gradient-custom-indigo text-white rounded-2 ms-n1">
@@ -57,11 +49,7 @@
 
             <!-- BEGIN card -->
             <a href="{{ route('admin.store.index') }}" class="text-decoration-none">
-<<<<<<< HEAD
                 <div class="card mb-2">
-=======
-                <div class="card mb-3">
->>>>>>> be89e0c5e296b39750352c4d6e3962191a2e67a7
                     <div class="card-body d-flex align-items-center">
                         <div
                             class="w-40px h-40px d-flex align-items-center justify-content-center bg-gradient-custom-blue text-white rounded-2 ms-n1">
