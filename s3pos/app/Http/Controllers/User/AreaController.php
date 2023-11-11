@@ -98,13 +98,13 @@ class AreaController extends Controller
       DB::beginTransaction();
       $id = $request->get('id', '');
       $type = request('type', 'one');
-      $Area = Area::storeId($this->store_id)->whereId($id)->first();
+      $area = Area::storeId($this->store_id)->whereId($id)->first();
       if ($type == 'all') {
         $data = $request->all();
-        $Area->update($data);
+        $area->update($data);
       } else {
-        $Area->status = $Area->status == Area::STATUS_ACTIVE ? Area::STATUS_BLOCKED : Area::STATUS_ACTIVE;
-        $Area->save();
+        $area->status = $area->status == Area::STATUS_ACTIVE ? Area::STATUS_BLOCKED : Area::STATUS_ACTIVE;
+        $area->save();
       }
       DB::commit();
       if (request()->ajax()) {
