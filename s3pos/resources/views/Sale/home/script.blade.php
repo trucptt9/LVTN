@@ -143,6 +143,34 @@
             $('.option-label').removeClass('active');
             $(this).addClass('active');
         })
+
+        $(document).on('click', '.sub-product', function(e) {
+            e.preventDefault();
+            const rowId = $(this).data('id');
+            $.get("{{ route('sale.update_item') }}", {
+                type: 'sub',
+                rowId: rowId
+            }, function(res) {
+                if (res.status == 200) {
+                    $('.cart-product').html(res.cart);
+                    $('.payment').html(res.payment);
+                }
+            })
+        })
+
+        $(document).on('click', '.add-product', function(e) {
+            e.preventDefault();
+            const rowId = $(this).data('id');
+            $.get("{{ route('sale.update_item') }}", {
+                type: 'add',
+                rowId: rowId
+            }, function(res) {
+                if (res.status == 200) {
+                    $('.cart-product').html(res.cart);
+                    $('.payment').html(res.payment);
+                }
+            })
+        })
     })
 
     function DestroyCart() {

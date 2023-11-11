@@ -158,4 +158,18 @@ class SaleController extends Controller
         $list = Order::storeId($this->store_id)->ofStatus(Order::STATUS_FINISH)->whereDate('created_at', date('Y-m-d'))->latest()->get();
         return view('Sale.home.history_order', compact('list'))->render();
     }
+
+    public function update_item()
+    {
+        $type = request('type', 'add');
+        $rowId = request('rowId', '');
+        $item = Cart::get($rowId);
+        $qty = $type == 'add' ? $item->qty + 1 : $item->qty - 1;
+        Cart::update($rowId, ['qty' => $qty]);
+        return Response::json([
+            'status' => ResHTTP::HTTP_OK,
+            'cart' => view('Sale.home.cart')->render(),
+            'payment' => view('Sale.home.payment')->render()
+        ]);
+    }
 }

@@ -74,6 +74,7 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
         Route::get('destroy', [SaleController::class, 'destroy'])->name('destroy');
         Route::get('acceptPayment', [SaleController::class, 'acceptPayment'])->name('acceptPayment');
         Route::get('load_history_order', [SaleController::class, 'load_history_order'])->name('load_history_order');
+        Route::get('update_item', [SaleController::class, 'update_item'])->name('update_item');
     });
     // store
     Route::prefix('stores')->name('store.')->group(function () {
