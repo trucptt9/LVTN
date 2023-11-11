@@ -211,4 +211,24 @@
             $('.order-history-content').html(res);
         })
     }
+
+    // Hàm để cập nhật thời gian
+    function updateClock() {
+        var now = new Date();
+        var hours = now.getHours();
+        var minutes = now.getMinutes();
+        var seconds = now.getSeconds();
+
+        // Định dạng giờ, phút, giây thành chuỗi
+        var timeString = hours + ':' + minutes + ':' + seconds;
+
+        // Hiển thị chuỗi thời gian trong phần tử có id là "clock"
+        $('#clock').text(timeString);
+    }
+
+    // Gọi hàm updateClock mỗi giây
+    setInterval(updateClock, 1000);
+
+    // Gọi hàm để hiển thị thời gian ban đầu
+    updateClock();
 </script>

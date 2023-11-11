@@ -27,10 +27,10 @@
             background: rgb(159, 159, 225);
         }
 
-        /* .select-table>span {
-            padding: 5px;
-            cursor: pointer;
-        } */
+        .category_product .nav-item {
+            padding: 0px !important;
+            margin-bottom: 7px;
+        }
     </style>
 </head>
 <!--end::Head-->
@@ -110,7 +110,9 @@
                                         <i class="fa fa-chevron-left"></i>
                                     </button>
                                 </div>
-                                <div class="icon"><i class="fa fa-plate-wheat"></i></div>
+                                <div class="icon">
+                                    <i class="fas fa-table"></i>
+                                </div>
                                 <a class="title select-table text-decoration-none" href="{{ route('sale.table') }}">
                                     <span>
                                         Chọn bàn
@@ -119,7 +121,9 @@
 
                                     </span>
                                 </a>
-                                <div class="order small">Mã đơn hàng: <span class="fw-semibold">#0056</span></div>
+                                <div class="order small"><i class="fas fa-clock"></i> <span id="clock"
+                                        class="fw-semibold"></span>
+                                </div>
                             </div>
                             <!-- END pos-sidebar-header -->
 
@@ -128,11 +132,11 @@
                                 <ul class="nav nav-tabs nav-fill">
                                     <li class="nav-item">
                                         <a class="nav-link active" href="#" data-bs-toggle="tab"
-                                            data-bs-target="#newOrderTab">Đơn hàng</a>
+                                            data-bs-target="#newOrderTab">Giỏ hàng</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#" data-bs-toggle="tab"
-                                            data-bs-target="#orderHistoryTab">Đơn hàng trong ngày</a>
+                                            data-bs-target="#orderHistoryTab">Đơn đã bán trong ngày</a>
                                     </li>
                                 </ul>
                             </div>

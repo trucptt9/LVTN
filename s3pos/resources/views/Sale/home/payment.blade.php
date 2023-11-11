@@ -21,11 +21,15 @@ if ($cart) {
 </div>
 <div class="d-flex align-items-center">
     <div>Thuế</div>
-    <div class="flex-1 text-end h6 mb-0">{{ number_format(Cart::tax()) }} đ</div>
+    <div class="flex-1 text-end h6 mb-0">{{ number_format(Cart::tax()) }} %</div>
+</div>
+<div class="d-flex align-items-center">
+    <div>Giảm giá</div>
+    <div class="flex-1 text-end h6 mb-0">0 đ</div>
 </div>
 <hr class="opacity-1 my-10px">
 <div class="d-flex align-items-center mb-2">
-    <div>Thanh toán</div>
+    <div class="text-uppercase">Thanh toán</div>
     <div class="flex-1 text-end h4 mb-0">
         {{ number_format(Cart::subTotal()) }} đ
     </div>
@@ -35,7 +39,7 @@ if ($cart) {
         <a href="#"
             class="btn btn-default disabled w-70px me-10px d-flex align-items-center justify-content-center">
             <span>
-                <i class="fa fa-bell fa-lg my-10px d-block"></i>
+                <i class="fas fa-cloud-download-alt fa-lg my-10px d-block"></i>
                 <span class="small fw-semibold">Lưu</span>
             </span>
         </a>
