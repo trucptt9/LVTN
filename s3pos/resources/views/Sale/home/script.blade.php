@@ -1,7 +1,6 @@
 <script>
+    let tableSelect = null;
     $(document).ready(function() {
-
-
         loadCategory();
         loadProduct();
 
@@ -16,14 +15,15 @@
                 $('.product').html(res);
             })
         }
-        loadCart()
+        loadCart();
 
         function loadCart() {
             $.get("{{ url('/sale/cart') }}", function(res) {
                 $('.cart-product').html(res);
+                loadPayment();
             })
         }
-        loadPayment()
+        loadPayment();
 
         function loadPayment() {
             $.get("{{ route('sale.payment') }}", function(res) {
@@ -31,9 +31,7 @@
             })
         }
 
-
         $(document).on("click", ".btn-minus", function(e) {
-
             e.preventDefault();
             $quantity = $('.quantity').val();
             if ($quantity == 0) {
@@ -44,44 +42,39 @@
             }
         })
         $(document).on("click", ".btn-add", function(e) {
-
             e.preventDefault();
             $quantity = $('.quantity').val();
             $quantity++;
             $('.quantity').val($quantity);
-
         })
-        $(document).on("click", ".pos-product", function(e) {
 
+        $(document).on("click", ".pos-product", function(e) {
             e.preventDefault();
             const url = $(this).attr('href');
-            console.log(url)
             $.get(url, function(data) {
-
-                console.log(data);
                 $('.modal-order').html(data);
                 $('#modalPosItem').modal('show');
             })
         })
 
-        $(document).on("click", ".table", function(e) {
-
+        $(document).on("click", ".select-table", function(e) {
             e.preventDefault();
             const url = $(this).attr('href');
-            console.log(url)
             $.get(url, function(data) {
-
-                console.log(data);
                 $('.modal-table').html(data);
                 $('#modalTable').modal('show');
             })
         })
 
-        $(document).on('click', '.btn-add-table', function(e) {
+        $(document).on('click', '.option-table', function(e) {
             e.preventDefault();
-            alert(1)
+            tableSelect = {
+                id: $(this).data('id'),
+                name: $(this).data('name'),
+            };
+            $('.info-table').html(`(${tableSelect.name})`);
+            $('#modalTable').modal('hide');
         })
-
 
         $(document).on('click', '.btn-add-product', function(e) {
             const form_create = $('form#form-add-product');
@@ -124,21 +117,62 @@
                     });
                 });
             }
-
-
         })
 
         //delete
         $(document).on('click', '.btn-delete', function(e) {
             e.preventDefault();
             $url = $(this).attr('href');
-            console.log($url);
             $.get($url, function(res) {
                 if (res.status == 200) {
                     loadCart();
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Đã xóa sản phẩm'
+                    });
                 }
             })
 
         })
     })
+
+    $(document).ready(function() {
+        $(document).on('click', '.option-label', function(e) {
+            e.preventDefault();
+            $('.option-label').removeClass('active');
+            $(this).addClass('active');
+        })
+    })
+
+    function DestroyCart() {
+        if (confirm('Xác nhận xóa giỏ hàng?')) {
+            $.get("{{ route('sale.destroy') }}", function(res) {
+                if (res.status == 200) {
+                    $('.cart-product').html('');
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Đã xóa giỏ hàng'
+                    });
+                }
+            })
+        }
+    }
+
+    function acceptPayment() {
+        if (confirm('Xác nhận thanh toán?')) {
+            $.get("{{ route('sale.acceptPayment') }}", {
+                table_id: tableSelect?.id
+            }, function(res) {
+                if (res.status == 200) {
+                    tableSelect = null;
+                    $('.cart-product').html('');
+                    $('.payment').html(res.payment);
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Thanh toán thành công'
+                    });
+                }
+            })
+        }
+    }
 </script>

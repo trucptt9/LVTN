@@ -5,6 +5,8 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Area;
 use App\Models\CategoryProduct;
+use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Models\Table;
 use App\Models\ToppingGroup;
@@ -16,25 +18,27 @@ use Illuminate\Http\Response as ResHTTP;
 
 class SaleController extends Controller
 {
-    protected $limit_default, $store_id;
+    protected $store_id;
 
     public function __construct()
     {
-
         $this->middleware(function ($request, $next) {
             $this->store_id = request()->user()->store_id;
             return $next($request);
         });
     }
+
     public function index()
     {
         return view('Sale.home.index');
     }
+
     public function category()
     {
         $categories = CategoryProduct::storeId($this->store_id)->where('status', CategoryProduct::STATUS_ACTIVE)->get();
         return view('Sale.home.category', compact('categories'));
     }
+
     public function product()
     {
         $cat = CategoryProduct::storeId($this->store_id)->where('status', CategoryProduct::STATUS_ACTIVE)->get();
@@ -43,9 +47,9 @@ class SaleController extends Controller
             $category_id[] = $val->id;
         }
         $products = Product::categoryId($category_id)->where('status', CategoryProduct::STATUS_ACTIVE)->get();
-
         return view('Sale.home.product', compact('products'));
     }
+
     public function detail($id)
     {
         $topping_group = ToppingGroup::storeId($this->store_id)->where('status', ToppingGroup::STATUS_ACTIVE)->get();
@@ -55,13 +59,11 @@ class SaleController extends Controller
         }
         $toppings = Toppings::groupId($group_id)->where('status', Toppings::STATUS_ACTIVE)->get();
         $product = Product::find($id);
-
         return view('Sale.home.modal_add', compact('product', 'toppings'))->render();
     }
 
     public function add_cart(Request $request)
     {
-        // Cart::destroy();
         $data['id'] = $request->id;
         $data['name'] = $request->name;
         $data['qty'] = $request->quantity;
@@ -69,21 +71,22 @@ class SaleController extends Controller
         $data['options']['image'] = $request->image;
         $data['options']['topping'] = $request->addon;
         Cart::add($data);
-        //return Cart::Content();
-        // return $request->all();
         return Response::json([
             'status' => ResHTTP::HTTP_OK,
             'data' => view('sale.home.cart')->render()
         ]);
     }
+
     public function cart()
     {
         return view('sale.home.cart')->render();
     }
+
     public function payment()
     {
         return view('sale.home.payment')->render();
     }
+
     public function delete_cart($rowId)
     {
         Cart::remove($rowId);
@@ -92,15 +95,55 @@ class SaleController extends Controller
 
         ]);
     }
+
     public function table()
     {
         $area = Area::storeId($this->store_id)->get();
-
         $area_id = array();
         foreach ($area as $val) {
             $area_id[] = $val->id;
         }
         $table = Table::areaId($area_id)->get();
         return view('sale.home.modal_table', compact('area', 'table'))->render();
+    }
+
+    public function destroy()
+    {
+        Cart::destroy();
+        return Response::json([
+            'status' => ResHTTP::HTTP_OK,
+            'data' => 'Đã hủy giỏ hàng'
+        ]);
+    }
+
+    public function acceptPayment()
+    {
+        $table_id = request('table_id', null);
+        $cart = Cart::content();
+        $order = Order::create([
+            'staff_id' => auth()->user()->id,
+            'store_id' => $this->store_id,
+            'sub_total' => Cart::total(),
+            'total' => Cart::subTotal(),
+            'table_id' => $table_id
+        ]);
+        foreach ($cart as $item) {
+            OrderDetail::create([
+                'order_id' => $order->id,
+                'product_id' => $item->id,
+                'product_name' => $item->name,
+                'quantity' => $item->qty,
+                'price' => $item->price,
+                'toppings' => json_encode($item->options),
+                'total' => $item->subtotal
+            ]);
+        }
+        $order->status = Order::STATUS_FINISH;
+        $order->save();
+        Cart::destroy();
+        return Response::json([
+            'status' => ResHTTP::HTTP_OK,
+            'payment' => view('sale.home.payment')->render(),
+        ]);
     }
 }

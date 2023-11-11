@@ -71,6 +71,8 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
         Route::post('cart_insert', [SaleController::class, 'add_cart'])->name('cart_insert');
         Route::get('delete/{id}', [SaleController::class, 'delete_cart'])->name('delete');
         Route::get('payment', [SaleController::class, 'payment'])->name('payment');
+        Route::get('destroy', [SaleController::class, 'destroy'])->name('destroy');
+        Route::get('acceptPayment', [SaleController::class, 'acceptPayment'])->name('acceptPayment');
     });
     // store
     Route::prefix('stores')->name('store.')->group(function () {

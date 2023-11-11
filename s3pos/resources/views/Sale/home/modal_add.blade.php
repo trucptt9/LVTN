@@ -1,5 +1,3 @@
-
-
 <div class="modal-pos-product-img">
     @if ($product->image == null)
         <div class="img" style="background-image: url({{ asset('images/meo.jpg') }})">
@@ -20,16 +18,13 @@
     </div>
     <div class="fs-3 fw-bold mb-3">{{ number_format($product->price, 0, ',', '.') . 'đ' }}</div>
     <div class="d-flex mb-3">
-
         <button class="btn btn-secondary btn-minus"><i class="fa fa-minus"></i></button>
         <input type="text" class="form-control w-50px fw-bold mx-2 text-center quantity" name="quantity"
             value="1">
         <button class="btn btn-secondary btn-add"><i class="fa fa-plus"></i></button>
 
-
     </div>
     <hr class="opacity-1">
-
     <div class="mb-2">
         <div class="fw-bold">Topping:</div>
         <div class="option-list">
@@ -49,8 +44,6 @@
                     Không có topping nào được hiển thị
                 </div>
             @endif
-
         </div>
     </div>
-
 </div>

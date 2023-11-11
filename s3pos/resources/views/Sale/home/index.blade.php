@@ -1,26 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <!--begin::Head-->
 
 <head>
-    <base href="../" />
-    <title>TTPOS</title>
+    <base href="{{ route('sale.index') }}" />
+    <title>{{ get_option_admin('short-name') }}</title>
     <meta charset="utf-8" />
-
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="{{ asset('admin/assets/css/vendor.min.css') }}" rel="stylesheet">
     <link href="{{ asset('admin/assets/css/app.min.css') }}" rel="stylesheet">
     @yield('style')
-    <!--end::Vendor Stylesheets-->
-    <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <!--end::Global Stylesheets Bundle-->
-    <script>
-        // Frame-busting to prevent site from being loaded within a frame without permission (click-jacking) if (window.top != window.self) { window.top.location.replace(window.self.location.href); }
-    </script>
+    <style>
+        .logo-sale {
+            width: 60px;
+            border-radius: 40px;
+        }
 
+        .option-label {
+            cursor: pointer;
+        }
 
+        .option-label:hover,
+        .option-label.active {
+            background: rgb(159, 159, 225);
+        }
+
+        /* .select-table>span {
+            padding: 5px;
+            cursor: pointer;
+        } */
+    </style>
 </head>
 <!--end::Head-->
 <!--begin::Body-->
@@ -58,9 +68,10 @@
                     <div class="pos-menu">
                         <!-- BEGIN logo -->
                         <div class="logo">
-                            <a href="{{ route('index') }}">
-                                <img src="{{ asset('images/TTPos.png') }}" alt="" height="50" width="50">
-                                <div class="logo-text">Pine & Dine</div>
+                            <a href="{{ route('sale.index') }}">
+                                <img class="logo-sale" src="{{ asset(show_s3_file(get_option_admin('app-favicon'))) }}"
+                                    alt="">
+                                <div class="logo-text">{{ get_option_admin('short-name') }}</div>
                             </a>
                         </div>
                         <!-- END logo -->
@@ -99,7 +110,14 @@
                                     </button>
                                 </div>
                                 <div class="icon"><i class="fa fa-plate-wheat"></i></div>
-                                <a class=" title table" href="{{ route('sale.table') }}">Bàn ...</a>
+                                <a class="title select-table text-decoration-none" href="{{ route('sale.table') }}">
+                                    <span>
+                                        Chọn bàn
+                                    </span>
+                                    <span class="info-table">
+
+                                    </span>
+                                </a>
                                 <div class="order small">Mã đơn hàng: <span class="fw-semibold">#0056</span></div>
                             </div>
                             <!-- END pos-sidebar-header -->
@@ -152,7 +170,7 @@
 
                             <!-- BEGIN pos-sidebar-footer -->
                             <div class="pos-sidebar-footer payment">
-                                
+
                             </div>
                             <!-- END pos-sidebar-footer -->
                         </div>
@@ -172,30 +190,25 @@
 
                             </div>
                             <hr class="opacity-1">
-                            <div class="row my-3">
+                            <div class="row mx-2 pb-3">
                                 <div class="col-2">
                                     <a href="#" class="btn btn-default fw-semibold mb-0 d-block"
-                                        data-bs-dismiss="modal">Hủy</a>
+                                        data-bs-dismiss="modal">Thoát</a>
                                 </div>
                                 <div class="col-8">
-                                    <button type="submit" class="btn btn-add-product btn-theme fw-semibold  m-0">Thêm
-                                        vào
-                                        giỏ hàng</button>
+                                    <button type="submit" class="btn btn-add-product btn-theme fw-semibold  m-0">
+                                        Thêm vào giỏ hàng
+                                    </button>
                                 </div>
                             </div>
                         </div>
-
-
                     </form>
-
                 </div>
             </div>
             <!-- modal add table in order -->
             <div class="modal modal-pos fade" id="modalTable">
                 <div class="modal-dialog modal-lg">
-
                     <div class="modal-content border-0 modal-table">
-
                     </div>
                 </div>
             </div>
@@ -208,7 +221,6 @@
             <!-- END pos-mobile-sidebar-toggler -->
         </div>
         <!-- END #content -->
-
         <!-- BEGIN theme-panel -->
         <div class="theme-panel">
             <a href="javascript:;" data-click="theme-panel-expand" class="theme-collapse-btn"><i
@@ -285,8 +297,21 @@
         <a href="#" data-click="scroll-top" class="btn-scroll-top fade"><i class="fa fa-arrow-up"></i></a>
         <!-- END btn-scroll-top -->
     </div>
-
-   @include('Sale.home.script')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+        });
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+        })
+    </script>
+    @include('Sale.home.script')
     @yield('script')
     <!--begin::Javascript-->
     <script>
@@ -296,16 +321,12 @@
     <script src="{{ asset('user/assets/plugins/global/plugins.bundle.js') }}"></script>
     <script src="{{ asset('user/assets/js/scripts.bundle.js') }}"></script>
     <!--end::Global Javascript Bundle-->
-    <!--begin::Vendors Javascript(used for this page only)-->
-    <script src="{{ asset('user/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
-    <!--end::Vendors Javascript-->
     <!--begin::Custom Javascript(used for this page only)-->
-    <script src="{{ asset('user/assets/js/custom/pages/general/pos.js') }}"></script>
+    {{-- <script src="{{ asset('user/assets/js/custom/pages/general/pos.js') }}"></script> --}}
     <!-- ================== BEGIN core-js ================== -->
     <script src="{{ asset('admin/assets/js/vendor.min.js') }}"></script>
     <script src="{{ asset('admin/assets/js/app.min.js') }}"></script>
     <!-- ================== END core-js ================== -->
-
     <!-- ================== BEGIN page-js ================== -->
     <script src="{{ asset('admin/assets/js/demo/pos-customer-order.demo.js') }}"></script>
     <!-- ================== END page-js ================== -->

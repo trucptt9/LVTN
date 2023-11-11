@@ -15,33 +15,39 @@ if ($cart) {
 
 <div class="d-flex align-items-center mb-2">
     <div>Tổng tiền</div>
-    <div class="flex-1 text-end h6 mb-0">{{ number_format(Cart::subTotal() + $total_topping, 0, ',', '.') . ' đ' }} 
+    <div class="flex-1 text-end h6 mb-0">
+        {{ number_format(Cart::total()) }} đ
     </div>
 </div>
 <div class="d-flex align-items-center">
     <div>Thuế</div>
-    <div class="flex-1 text-end h6 mb-0">0</div>
+    <div class="flex-1 text-end h6 mb-0">{{ number_format(Cart::tax()) }} đ</div>
 </div>
 <hr class="opacity-1 my-10px">
 <div class="d-flex align-items-center mb-2">
     <div>Thanh toán</div>
-    <div class="flex-1 text-end h4 mb-0">{{ number_format(Cart::subTotal() + $total_topping, 0, ',', '.') . ' đ' }} </div>
+    <div class="flex-1 text-end h4 mb-0">
+        {{ number_format(Cart::subTotal()) }} đ
+    </div>
 </div>
 <div class="mt-3">
     <div class="d-flex">
-        <a href="#" class="btn btn-default w-70px me-10px d-flex align-items-center justify-content-center">
+        <a href="#"
+            class="btn btn-default disabled w-70px me-10px d-flex align-items-center justify-content-center">
             <span>
                 <i class="fa fa-bell fa-lg my-10px d-block"></i>
-                <span class="small fw-semibold">Lưu tạm</span>
+                <span class="small fw-semibold">Lưu</span>
             </span>
         </a>
-        <a href="#" class="btn btn-default w-70px me-10px d-flex align-items-center justify-content-center">
+        <a href="#" class="btn btn-danger w-70px me-10px d-flex align-items-center justify-content-center"
+            onclick="DestroyCart()">
             <span>
-                <i class="fa fa-receipt fa-fw fa-lg my-10px d-block"></i>
-                <span class="small fw-semibold">In hóa đơn</span>
+                <i class="fas fa-trash fa-fw fa-lg my-10px d-block"></i>
+                <span class="small fw-semibold">Hủy</span>
             </span>
         </a>
-        <a href="#" class="btn btn-theme flex-fill d-flex align-items-center justify-content-center">
+        <a href="#" onclick="acceptPayment()"
+            class="btn btn-theme flex-fill d-flex align-items-center justify-content-center">
             <span>
                 <i class="fa fa-cash-register fa-lg my-10px d-block"></i>
                 <span class="small fw-semibold">Thanh toán</span>

@@ -92,15 +92,10 @@
             <div class="topbar d-flex align-items-stretch flex-shrink-0">
                 <div class="d-flex align-items-center ms-1 ms-lg-3">
                     <!--begin::Drawer toggle-->
-                    <div class="btn btn-icon btn-active-light-primary btn-custom w-30px h-30px w-md-40px h-md-40px"
-                        id="kt_activities_toggle">
-                        <i class="ki-duotone ki-chart-simple fs-1">
-                            <span class="path1"></span>
-                            <span class="path2"></span>
-                            <span class="path3"></span>
-                            <span class="path4"></span>
-                        </i>
-                    </div>
+                    <a href="{{ route('sale.index') }}"
+                        class="btn btn-icon btn-active-light-primary btn-custom w-30px h-30px w-md-40px h-md-40px">
+                        <i class="ki-duotone ki-handcart fs-1"></i>
+                    </a>
                     <!--end::Drawer toggle-->
                 </div>
                 <div class="d-flex align-items-center me-lg-n2 ms-1 ms-lg-3" id="kt_header_user_menu_toggle">

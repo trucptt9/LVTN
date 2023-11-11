@@ -49,7 +49,7 @@ class ProductController extends Controller
             $status = request('status', '');
             $search = request('search', '');
 
-            $list = Product::whereHas('group', function ($q) {
+            $list = Product::whereHas('category', function ($q) {
                 $q->storeId($this->store_id);
             });
             $list = $status != '' ? $list->ofStatus($status) : $list;
