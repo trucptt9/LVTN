@@ -73,18 +73,18 @@ class SaleController extends Controller
         Cart::add($data);
         return Response::json([
             'status' => ResHTTP::HTTP_OK,
-            'data' => view('sale.home.cart')->render()
+            'data' => view('Sale.home.cart')->render()
         ]);
     }
 
     public function cart()
     {
-        return view('sale.home.cart')->render();
+        return view('Sale.home.cart')->render();
     }
 
     public function payment()
     {
-        return view('sale.home.payment')->render();
+        return view('Sale.home.payment')->render();
     }
 
     public function delete_cart($rowId)
@@ -104,7 +104,7 @@ class SaleController extends Controller
             $area_id[] = $val->id;
         }
         $table = Table::areaId($area_id)->get();
-        return view('sale.home.modal_table', compact('area', 'table'))->render();
+        return view('Sale.home.modal_table', compact('area', 'table'))->render();
     }
 
     public function destroy()
@@ -143,7 +143,19 @@ class SaleController extends Controller
         Cart::destroy();
         return Response::json([
             'status' => ResHTTP::HTTP_OK,
-            'payment' => view('sale.home.payment')->render(),
+            'payment' => view('Sale.home.payment')->render(),
+            'new_item' => '<li class="list-group-item d-flex justify-content-between align-items-center">
+                ' . $order->code . '
+                <span class="badge bg-primary rounded-pill">
+                    ' . number_format($order->total) . '
+                </span>
+            </li>'
         ]);
+    }
+
+    public function load_history_order()
+    {
+        $list = Order::storeId($this->store_id)->ofStatus(Order::STATUS_FINISH)->whereDate('created_at', date('Y-m-d'))->latest()->get();
+        return view('Sale.home.history_order', compact('list'))->render();
     }
 }

@@ -7,6 +7,7 @@
     <title>{{ get_option_admin('short-name') }}</title>
     <meta charset="utf-8" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="shortcut icon"href="{{ show_s3_file(get_option_admin('app-favicon')) }}" />
     <link href="{{ asset('admin/assets/css/vendor.min.css') }}" rel="stylesheet">
     <link href="{{ asset('admin/assets/css/app.min.css') }}" rel="stylesheet">
     @yield('style')
@@ -131,7 +132,7 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#" data-bs-toggle="tab"
-                                            data-bs-target="#orderHistoryTab">Lịch sử đơn hàng</a>
+                                            data-bs-target="#orderHistoryTab">Đơn hàng trong ngày</a>
                                     </li>
                                 </ul>
                             </div>
@@ -146,23 +147,10 @@
                                 <!-- END #orderHistoryTab -->
 
                                 <!-- BEGIN #orderHistoryTab -->
-                                <div class="tab-pane fade h-100" id="orderHistoryTab">
-                                    <div
-                                        class="h-100 d-flex align-items-center justify-content-center text-center p-20">
-                                        <div>
-                                            <div class="mb-3 mt-n5">
-                                                <svg width="6em" height="6em" viewBox="0 0 16 16"
-                                                    class="text-gray-300" fill="currentColor"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd"
-                                                        d="M14 5H2v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V5zM1 4v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4H1z" />
-                                                    <path
-                                                        d="M8 1.5A2.5 2.5 0 0 0 5.5 4h-1a3.5 3.5 0 1 1 7 0h-1A2.5 2.5 0 0 0 8 1.5z" />
-                                                </svg>
-                                            </div>
-                                            <h5>No order history found</h5>
-                                        </div>
-                                    </div>
+                                <div class="tab-pane fade h-100 py-1" id="orderHistoryTab">
+                                    <ul class="list-group order-history-content">
+
+                                    </ul>
                                 </div>
                                 <!-- END #orderHistoryTab -->
                             </div>

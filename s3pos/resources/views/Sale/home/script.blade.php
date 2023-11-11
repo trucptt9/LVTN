@@ -3,6 +3,7 @@
     $(document).ready(function() {
         loadCategory();
         loadProduct();
+        load_history_order();
 
         function loadCategory() {
             $.get("{{ route('sale.category') }}", function(res) {
@@ -167,6 +168,7 @@
                     tableSelect = null;
                     $('.cart-product').html('');
                     $('.payment').html(res.payment);
+                    $('.order-history-content').append(res.new_item);
                     Toast.fire({
                         icon: 'success',
                         title: 'Thanh toán thành công'
@@ -174,5 +176,11 @@
                 }
             })
         }
+    }
+
+    function load_history_order() {
+        $.get("{{ route('sale.load_history_order') }}", function(res) {
+            $('.order-history-content').html(res);
+        })
     }
 </script>
