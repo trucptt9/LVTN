@@ -80,6 +80,10 @@ class SaleController extends Controller
     {
         return view('sale.home.cart')->render();
     }
+    public function payment()
+    {
+        return view('sale.home.payment')->render();
+    }
     public function delete_cart($rowId)
     {
         Cart::remove($rowId);

@@ -70,6 +70,7 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
         Route::get('table', [SaleController::class, 'table'])->name('table');
         Route::post('cart_insert', [SaleController::class, 'add_cart'])->name('cart_insert');
         Route::get('delete/{id}', [SaleController::class, 'delete_cart'])->name('delete');
+        Route::get('payment', [SaleController::class, 'payment'])->name('payment');
     });
     // store
     Route::prefix('stores')->name('store.')->group(function () {

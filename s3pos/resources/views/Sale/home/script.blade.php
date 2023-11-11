@@ -23,6 +23,14 @@
                 $('.cart-product').html(res);
             })
         }
+        loadPayment()
+
+        function loadPayment() {
+            $.get("{{ route('sale.payment') }}", function(res) {
+                $('.payment').html(res);
+            })
+        }
+
 
         $(document).on("click", ".btn-minus", function(e) {
 
@@ -97,9 +105,7 @@
                             if (rs.status == 200) {
                                 form_create[0].reset();
                                 loadCart();
-
                                 $('#modalPosItem').modal('hide');
-
                             }
                             Toast.fire({
                                 icon: rs?.type,

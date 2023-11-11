@@ -151,45 +151,8 @@
                             <!-- END pos-sidebar-body -->
 
                             <!-- BEGIN pos-sidebar-footer -->
-                            <div class="pos-sidebar-footer">
-                                <div class="d-flex align-items-center mb-2">
-                                    <div>Subtotal</div>
-                                    <div class="flex-1 text-end h6 mb-0">$30.98</div>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <div>Taxes (6%)</div>
-                                    <div class="flex-1 text-end h6 mb-0">$2.12</div>
-                                </div>
-                                <hr class="opacity-1 my-10px">
-                                <div class="d-flex align-items-center mb-2">
-                                    <div>Total</div>
-                                    <div class="flex-1 text-end h4 mb-0">$33.10</div>
-                                </div>
-                                <div class="mt-3">
-                                    <div class="d-flex">
-                                        <a href="#"
-                                            class="btn btn-default w-70px me-10px d-flex align-items-center justify-content-center">
-                                            <span>
-                                                <i class="fa fa-bell fa-lg my-10px d-block"></i>
-                                                <span class="small fw-semibold">Service</span>
-                                            </span>
-                                        </a>
-                                        <a href="#"
-                                            class="btn btn-default w-70px me-10px d-flex align-items-center justify-content-center">
-                                            <span>
-                                                <i class="fa fa-receipt fa-fw fa-lg my-10px d-block"></i>
-                                                <span class="small fw-semibold">Bill</span>
-                                            </span>
-                                        </a>
-                                        <a href="#"
-                                            class="btn btn-theme flex-fill d-flex align-items-center justify-content-center">
-                                            <span>
-                                                <i class="fa fa-cash-register fa-lg my-10px d-block"></i>
-                                                <span class="small fw-semibold">Submit Order</span>
-                                            </span>
-                                        </a>
-                                    </div>
-                                </div>
+                            <div class="pos-sidebar-footer payment">
+                                
                             </div>
                             <!-- END pos-sidebar-footer -->
                         </div>
@@ -200,7 +163,7 @@
             <!-- END pos -->
             <div class="modal modal-pos fade" id="modalPosItem">
                 <div class="modal-dialog modal-lg">
-                    <form action="{{ url('sale/cart_insert') }}" type="POST" id="form-add-product">
+                    <form action="{{ route('sale.cart_insert') }}" type="POST" id="form-add-product">
                         @csrf
                         <div class="modal-content border-0 ">
                             <a href="#" data-bs-dismiss="modal"

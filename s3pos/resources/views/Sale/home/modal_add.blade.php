@@ -36,7 +36,7 @@
             @if ($toppings->count() > 0)
                 @foreach ($toppings as $top)
                     <div class="option" style="max-width:33%; width:33%">
-                        <input type="checkbox" name="addon[{{ $top->id }}]" value="{{ $top->name }}"
+                        <input type="checkbox" name="addon[{{ $top->id }}]" value="{{ $top }}"
                             class="option-input toppings-add" id="{{ 'addon' . $top->id }}">
                         <label class="option-label" for="{{ 'addon' . $top->id }}">
                             <span class="option-text">{{ $top->name }}</span>

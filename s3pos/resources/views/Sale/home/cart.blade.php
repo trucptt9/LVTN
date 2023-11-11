@@ -19,7 +19,11 @@ $cart = Cart::Content();
 
                     @if ($item->options->topping)
                         @foreach ($item->options->topping as $topping)
-                            <div class="small">{{ $topping }}</div>
+                            <div class="small">{{ json_decode($topping, true)['name'] }}
+                                <span>
+                                    ({{ number_format(json_decode($topping, true)['price'], 0, ',', '.') . ' đ' }} x1)
+                                </span>
+                            </div>
                         @endforeach
                     @endif
                     <div class="d-flex mt-2">
@@ -31,10 +35,23 @@ $cart = Cart::Content();
                     </div>
                 </div>
             </div>
+
+            <?php 
+                 $total_topping  = 0 ;
+                 if ($item->options->topping){
+                    foreach ($item->options->topping  as $topping){
+                        $total_topping += json_decode($topping, true)['price'];
+                    }
+                  
+                 }
+                        
+            ?>
+
+            
             <div class="pos-order-price d-flex flex-column">
-                <div class="flex-1">{{ number_format($item->qty * $item->price, 0, ',', '.') . ' đ' }}</div>
+                <div class="flex-1 title">{{ number_format($item->qty * $item->price + $total_topping , 0, ',', '.') . ' đ' }}</div>
                 <div class="text-end">
-                    <a href="{{ url('/sale/delete/'. $item->rowId) }}" class="btn btn-default btn-sm btn-delete"><i
+                    <a href="{{ url('/sale/delete/' . $item->rowId) }}" class="btn btn-default btn-sm btn-delete"><i
                             class="fa fa-trash"></i></a>
                 </div>
             </div>
