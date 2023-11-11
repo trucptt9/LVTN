@@ -5,7 +5,7 @@
         <div class="content flex-row-fluid" id="kt_content">
             <div class="d-flex justify-content-between py-5">
                 <div class="">
-                    <h1 class="d-flex text-white fw-bold my-1 fs-3">Quản lý đơn hàng</h1>
+                    <h1 class="d-flex text-white fw-bold my-1 fs-3">Báo cáo tổng hợp</h1>
                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-1">
                         <!--begin::Item-->
                         <li class="breadcrumb-item text-white opacity-75">

@@ -216,12 +216,20 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
         Route::get('table', [BookingController::class, 'table'])->name('table');
         Route::get('report', [BookingController::class, 'report'])->name('report');
         Route::get('detail/{id}', [BookingController::class, 'detail'])->name('detail');
+        Route::post('insert', [BookingController::class, 'insert'])->name('insert');
+        Route::post('update', [BookingController::class, 'update'])->name('update');
+        Route::get('delete', [BookingController::class, 'delete'])->name('delete');
     });
 
     // warehouse
     Route::prefix('warehouses')->name('warehouse.')->group(function () {
         Route::get('', [WarehouseController::class, 'index'])->name('index');
         Route::get('table', [WarehouseController::class, 'table'])->name('table');
+        Route::get('detail/{id}', [WarehouseController::class, 'detail'])->name('detail');
+        Route::get('list', [WarehouseController::class, 'list'])->name('list');
+        Route::post('insert', [WarehouseController::class, 'insert'])->name('insert');
+        Route::post('update', [WarehouseController::class, 'update'])->name('update');
+        Route::get('delete', [WarehouseController::class, 'delete'])->name('delete');
     });
     Route::prefix('imports')->name('import.')->group(function () {
         Route::get('', [ImportController::class, 'index'])->name('index');

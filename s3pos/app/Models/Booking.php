@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Booking extends Model
 {
     use HasFactory;
-    protected $table = 'booking';
+    protected $table = 'bookings';
 
     protected $fillable = [
         'store_id',
@@ -84,52 +84,52 @@ class Booking extends Model
 
     public function scopeOfCode($query, $code)
     {
-        return $query->where('booking.code', $code);
+        return $query->where('bookings.code', $code);
     }
 
     public function scopeOfStatus($query, $status)
     {
         if (is_array($status)) {
-            return $query->whereIn('booking.status', $status);
+            return $query->whereIn('bookings.status', $status);
         }
-        return $query->where('booking.status', $status);
+        return $query->where('bookings.status', $status);
     }
 
     public function scopeStoreId($query, $store_id)
     {
         if (is_array($store_id)) {
-            return $query->whereIn('booking.store_id', $store_id);
+            return $query->whereIn('bookings.store_id', $store_id);
         }
-        return $query->where('booking.store_id', $store_id);
+        return $query->where('bookings.store_id', $store_id);
     }
 
     public function scopeTableId($query, $table_id)
     {
         if (is_array($table_id)) {
-            return $query->whereIn('booking.table_id', $table_id);
+            return $query->whereIn('bookings.table_id', $table_id);
         }
-        return $query->where('booking.table_id', $table_id);
+        return $query->where('bookings.table_id', $table_id);
     }
 
     public function scopeCustomerId($query, $customer_id)
     {
         if (is_array($customer_id)) {
-            return $query->whereIn('booking.customer_id', $customer_id);
+            return $query->whereIn('bookings.customer_id', $customer_id);
         }
-        return $query->where('booking.customer_id', $customer_id);
+        return $query->where('bookings.customer_id', $customer_id);
     }
 
     public function scopeSearch($query, $search)
     {
         return $query->where(function ($query) use ($search) {
-            $query->where('booking.code', 'LIKE', "%$search%")
-                ->orWhere('booking.name', 'LIKE', "%$search%")
-                ->orWhere('booking.phone', 'LIKE', "%$search%");
+            $query->where('bookings.code', 'LIKE', "%$search%")
+                ->orWhere('bookings.name', 'LIKE', "%$search%")
+                ->orWhere('bookings.phone', 'LIKE', "%$search%");
         });
     }
 
     public function scopeExpired($query)
     {
-        return $query->where('booking.date_start', '<=', now())->where('status', Booking::STATUS_TMP);
+        return $query->where('bookings.date_start', '<=', now())->where('status', Booking::STATUS_TMP);
     }
 }
