@@ -31,7 +31,6 @@ class SaleController extends Controller
             return $next($request);
         });
     }
-
     public function index()
     {
         return view('Sale.table.index');
@@ -43,7 +42,6 @@ class SaleController extends Controller
         Cart::destroy();
         return view('Sale.home.index', compact('table','payment_method'));
     }
-
     public function category()
     {
         $categories = CategoryProduct::storeId($this->store_id)->where('status', CategoryProduct::STATUS_ACTIVE)->get();
@@ -120,13 +118,15 @@ class SaleController extends Controller
         return view('Sale.home.modal_add', compact('product', 'toppings'))->render();
     }
 
-    public function add_cart(Request $request)
+    public function add_promotion(){    
+    }
+    public function add_cart(Request $request, $id)
     {
         $data['id'] = $request->id;
         $data['name'] = $request->name;
         $data['qty'] = $request->quantity;
         $data['price'] = $request->price;
-        $data['options']['image'] = $request->image;  
+        $data['options']['image'] = $request->image;
         $data['options']['topping'] = $request->addon;
         Cart::add($data);
         $table = Table::find($id);
@@ -422,7 +422,7 @@ class SaleController extends Controller
             'status' => ResHTTP::HTTP_OK,
             'message' => 'Hủy đặt bàn thành công',
             'type' => 'success'
-        ]); 
+        ]);
        }catch (\Throwable $th) {
         showLog($th);
         return Response::json([

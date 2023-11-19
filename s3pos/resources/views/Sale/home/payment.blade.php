@@ -1,4 +1,5 @@
 <?php
+
 $cart = Cart::Content();
 $total_topping = 0;
 $topping_cost = 0;

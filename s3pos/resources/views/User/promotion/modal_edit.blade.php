@@ -64,7 +64,7 @@
                 <span class="">Tổng tiền đơn hàng >=</span>
             </label>
             <input type="number" class="form-control form-control-lg" name="total_order" placeholder=""
-                value="{{ $promotion->order_total }}" />
+                value="{{ $promotion->total_order }}" />
             <!--end::Input-->
         </div>
     </div>
@@ -108,8 +108,7 @@
             <!--end::Label-->
             <!--begin::Input-->
             <select name="status" id="" class="form-select" data-control="select2" data-hide-search="true">
-                <option value="" selected>Chọn trạng thái
-                </option>
+               
                 @foreach ($data['status'] as $key => $item)
                     <option value="{{ $key }}" {{ $key == $promotion->status ?? 'selected' }}>
                         {{ $item[0] }}</option>

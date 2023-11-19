@@ -112,9 +112,12 @@ class Table extends Model
     {
         return $this->hasOne(Order::class, 'id', 'order_id');
     }
+<<<<<<< HEAD
     public function booking()
     {
         return $this->hasOne(Booking::class, 'id', 'booking_id');
     }
     
+=======
+>>>>>>> 7ab6c6a (trang bán hàng)
 }
