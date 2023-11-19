@@ -63,18 +63,28 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
 
     Route::prefix('sale')->name('sale.')->group(function () {
         Route::get('', [SaleController::class, 'index'])->name('index');
+        Route::get('choose_product/{id}', [SaleController::class, 'choose_product'])->name('choose_product');
         Route::get('category', [SaleController::class, 'category'])->name('category');
         Route::get('product', [SaleController::class, 'product'])->name('product');
-        Route::get('detail/{id}', [SaleController::class, 'detail'])->name('detail');
+       
         Route::get('cart', [SaleController::class, 'cart'])->name('cart');
         Route::get('table', [SaleController::class, 'table'])->name('table');
+        Route::get('detail/{id}', [SaleController::class, 'detail'])->name('detail');
         Route::post('cart_insert', [SaleController::class, 'add_cart'])->name('cart_insert');
         Route::get('delete/{id}', [SaleController::class, 'delete_cart'])->name('delete');
         Route::get('payment', [SaleController::class, 'payment'])->name('payment');
         Route::get('destroy', [SaleController::class, 'destroy'])->name('destroy');
         Route::get('acceptPayment', [SaleController::class, 'acceptPayment'])->name('acceptPayment');
-        Route::get('load_history_order', [SaleController::class, 'load_history_order'])->name('load_history_order');
+        Route::get('saveOrder', [SaleController::class, 'saveOrder'])->name('saveOrder');
+        Route::get('customer', [SaleController::class,'customer'])->name('customer');
         Route::get('update_item', [SaleController::class, 'update_item'])->name('update_item');
+        Route::post('order', [SaleController::class, 'order'])->name('order');
+        //area -table
+        Route::get('area', [SaleController::class, 'area'])->name('area');
+        Route::get('table', [SaleController::class, 'table'])->name('table');
+        //promotion
+        Route::post('promotion', [SaleController::class, 'promotion'])->name('promotion');
+        // Route::post('promotion', [SaleController::class, 'add_promotion'])->name('add_promotion');
     });
     // store
     Route::prefix('stores')->name('store.')->group(function () {

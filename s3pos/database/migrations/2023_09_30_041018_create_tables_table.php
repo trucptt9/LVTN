@@ -19,8 +19,10 @@ return new class extends Migration
             $table->string('name');
             $table->integer('seat')->nullable()->default(1);
             $table->enum('status', ['active', 'blocked'])->index()->nullable()->default('blocked');
+            $table->enum('status_order', ['active', 'un_active'])->index()->nullable()->default('un_active');
             $table->timestamps();
             $table->foreign('area_id')->references('id')->on('areas')->onDelete('cascade');
+            
         });
     }
 

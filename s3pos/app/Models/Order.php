@@ -15,6 +15,7 @@ class Order extends Model
         'code',
         'table_id',
         'customer_id',
+        'customer_name',
         'method_payment_id',
         'sale_source_id',
         'promotion_id',
@@ -40,6 +41,7 @@ class Order extends Model
         'updated_at' => 'datetime:Y-m-d H:i:s',
         'table_id' => 'integer',
         'customer_id' => 'integer',
+        'customer_name' => 'string',
         'method_payment_id' => 'integer',
         'sale_source_id' => 'integer',
         'promotion_id' => 'integer',
@@ -92,7 +94,7 @@ class Order extends Model
     public static function get_status($status = '')
     {
         $types = [
-            self::STATUS_TMP => ['Đơn tạm', 'secondary', COLOR_SECONDARY],
+            self::STATUS_TMP => ['Đơn tạm', 'secondary', COLOR_SECONDARY],  
             self::STATUS_FINISH => ['Đã kết thúc', 'success', COLOR_SUCCESS],
             self::STATUS_DESTROY => ['Đã hủy', 'danger', COLOR_DANGER],
         ];

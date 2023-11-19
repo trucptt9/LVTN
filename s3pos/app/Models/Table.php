@@ -52,6 +52,8 @@ class Table extends Model
     const STATUS_ACTIVE = 'active';
     const STATUS_BLOCKED = 'blocked';
 
+    const STATUS_ORDER_ACTIVE = 'active';
+    const STATUS_ORDER_UN_ACTIVE = 'un_active';
     public static function get_status($status = '')
     {
         $types = [

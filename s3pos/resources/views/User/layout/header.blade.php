@@ -18,10 +18,10 @@
         <div class="header-logo me-5 me-md-10 flex-grow-1 flex-lg-grow-0">
             <a href="{{ route('index') }}">
                 <img alt="Logo"
-                    src="{{ $user_store && $user_store->logo ? $user_store->logo : show_s3_file(get_option_admin('app-logo')) }}"
+                    src="{{ $user_store && $user_store->logo ? $user_store->logo : asset('images/TTPos.png') }}"
                     class="logo-default" />
                 <img alt="Logo"
-                    src="{{ $user_store && $user_store->logo ? $user_store->logo : show_s3_file(get_option_admin('app-logo')) }}"
+                    src="{{ $user_store && $user_store->logo ? $user_store->logo : asset('images/TTPos.png')  }}"
                     class="logo-sticky" />
             </a>
         </div>
@@ -103,7 +103,7 @@
                     <div class="btn btn-icon btn-active-light-primary btn-custom w-30px h-30px w-md-40px h-md-40px"
                         data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
                         <img class="h-30px w-30px rounded"
-                            src="{{ $user_staff->avatar ?? show_s3_file(get_option_admin('app-favicon')) }}"
+                            src="{{ $user_staff->avatar ?? asset('images/avatar.jpg') }}"
                             alt="">
                     </div>
                     <!--begin::User account menu-->

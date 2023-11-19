@@ -58,7 +58,7 @@
             document.documentElement.setAttribute("data-bs-theme", themeMode);
         }
     </script>
-    <!-- BEGIN #app -->
+
     <div id="app" class="app app-content-full-height app-without-sidebar app-without-header">
         <!-- BEGIN #content -->
         <div id="content" class="app-content p-0">
@@ -86,9 +86,6 @@
                         </div>
                         <!-- END nav-container -->
                     </div>
-                    <!-- END pos-menu -->
-
-                    <!-- BEGIN pos-content -->
                     <div class="pos-content">
                         <div class="pos-content-container h-100">
                             <div class="row gx-4 product">
@@ -97,11 +94,10 @@
                             </div>
                         </div>
                     </div>
-                    <!-- END pos-content -->
 
-                    <!-- BEGIN pos-sidebar -->
                     <div class="pos-sidebar" id="pos-sidebar">
                         <div class="h-100 d-flex flex-column p-0">
+
                             <!-- BEGIN pos-sidebar-header -->
                             <div class="pos-sidebar-header">
                                 <div class="back-btn">
@@ -113,21 +109,23 @@
                                 <div class="icon">
                                     <i class="fas fa-table"></i>
                                 </div>
-                                <a class="title select-table text-decoration-none" href="{{ route('sale.table') }}">
+                                <a class="title text-decoration-none" href="{{ route('sale.index') }}">
                                     <span>
-                                        Chọn bàn
+                                        Bàn: {{ $table->name }}
                                     </span>
-                                    <span class="info-table">
+                                    <input type="hidden" name="table" value="{{ $table->id }}" id=""
+                                        class="table">
 
-                                    </span>
+
                                 </a>
-                                <div class="order small"><i class="fas fa-clock"></i> <span id="clock"
+                                <div class="order small me-5"><i class="fas fa-clock"></i> <span id="clock"
                                         class="fw-semibold"></span>
                                 </div>
+                                <span class="info-table">
+                                    <button class="btn btn-warning btn-sm btn-booking">Đặt trước</button>
+                                </span>
                             </div>
-                            <!-- END pos-sidebar-header -->
 
-                            <!-- BEGIN pos-sidebar-nav -->
                             <div class="pos-sidebar-nav small">
                                 <ul class="nav nav-tabs nav-fill">
                                     <li class="nav-item">
@@ -136,41 +134,38 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#" data-bs-toggle="tab"
-                                            data-bs-target="#orderHistoryTab">Đơn đã bán trong ngày</a>
+                                            data-bs-target="#customer">Khách hàng</a>
                                     </li>
                                 </ul>
                             </div>
-                            <!-- END pos-sidebar-nav -->
 
-                            <!-- BEGIN pos-sidebar-body -->
+
                             <div class="pos-sidebar-body tab-content" data-scrollbar="true" data-height="100%">
-                                <!-- BEGIN #newOrderTab -->
                                 <div class="tab-pane fade h-100 show active cart-product " id="newOrderTab">
+                                    @include('sale.home.cart')
+                                </div>
+                                <div class="tab-pane fade h-100 py-1" id="customer">
+
+                                    <div class="d-flex align-items-center my-3 px-3">
+                                        <input type="text" class="form-control phone"
+                                            placeholder="Nhập số điện thoại" name="phone">
+                                        <button class="btn btn-primary btn-search-customer">Tìm</button>
+                                    </div>
+                                    <p class="customer-info px-3 fw-bold" data-value=""></p>
+                                    <input type="hidden" name="" class="customer_name" value="">
 
                                 </div>
-                                <!-- END #orderHistoryTab -->
-
-                                <!-- BEGIN #orderHistoryTab -->
-                                <div class="tab-pane fade h-100 py-1" id="orderHistoryTab">
-                                    <ul class="list-group order-history-content">
-
-                                    </ul>
-                                </div>
-                                <!-- END #orderHistoryTab -->
                             </div>
-                            <!-- END pos-sidebar-body -->
-
-                            <!-- BEGIN pos-sidebar-footer -->
                             <div class="pos-sidebar-footer payment">
-
+                                @include('Sale.home.payment')
                             </div>
-                            <!-- END pos-sidebar-footer -->
+
                         </div>
                     </div>
-                    <!-- END pos-sidebar -->
+
                 </div>
             </div>
-            <!-- END pos -->
+            {{-- modal add product in cart --}}
             <div class="modal modal-pos fade" id="modalPosItem">
                 <div class="modal-dialog modal-lg">
                     <form action="{{ route('sale.cart_insert') }}" type="POST" id="form-add-product">
@@ -197,23 +192,126 @@
                     </form>
                 </div>
             </div>
-            <!-- modal add table in order -->
-            <div class="modal modal-pos fade" id="modalTable">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content border-0 modal-table">
+            {{-- modal add promotion --}}
+            <?php
+            $cart = Cart::Content();
+            $total_topping = 0;
+            if ($cart) {
+                foreach ($cart as $item) {
+                    if ($item->options->topping) {
+                        foreach ($item->options->topping as $topping) {
+                            $total_topping += json_decode($topping, true)['price'];
+                        }
+                    }
+                }
+            }
+            ?>
+            <div class="modal modal-pos fade" id="modal-add-promotion">
+                <div class="modal-dialog modal-md">
+                    @csrf
+                    <div class="modal-content border-0 ">
+                        <a href="#" data-bs-dismiss="modal"
+                            class="btn-close close-product position-absolute top-0 end-0 m-4"></a>
+                        <div class="modal-pos-promotion modal-promotion">
+                            <div class="modal-header title text-uppercase fw-bold">Khuyến mãi</div>
+                            <div class="modal-pos-product-info px-5 mb-3"
+                                style="width:100% ; flex:0 0 100%;max-width:100%">
+                                <div class="d-flex align-items-center my-3">
+                                    <input type="text" class="form-control search" placeholder="Nhập mã"
+                                        name="search">
+                                    <input type="hidden" name="total"
+                                        value="{{ Cart::total() + $total_topping }}" id="">
+                                </div>
+                                <p class="promotion-none small text-center"></p>
+                            </div>
+                        </div>
+                        <hr class="opacity-1">
+                        <div class="row mx-2 pb-3">
+                            <div class="col-2">
+                                <a href="#" class="btn btn-default fw-semibold mb-0 d-block"
+                                    data-bs-dismiss="modal">Thoát</a>
+                            </div>
+                            <div class="col-8">
+                                <button type="submit" class="btn btn-add-promtotion btn-theme fw-semibold  m-0">
+                                    Xác nhận
+                                </button>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
             </div>
-            <!-- BEGIN pos-mobile-sidebar-toggler -->
+
+            <!-- modal add payment-->
+            <div class="modal modal-pos fade" id="modal_payment">
+                <div class="modal-dialog modal-md">
+                    @csrf
+                    <div class="modal-content border-0" style="background:#7abb8e">
+                        {{-- <a href="#" data-bs-dismiss="modal"
+                            class="btn-close close-product position-absolute top-0 end-0 m-4"></a> --}}
+                        <div class="modal-pos-promotion modal-promotion">
+                            {{-- <div class="modal-header title text-uppercase fw-bold">Thanh toán</div> --}}
+                            <div class="modal-pos-product-info px-5 py-3 mb-3"
+                                style="width:100% ; flex:0 0 100%;max-width:100%">
+
+                                @csrf
+                                <div class="d-flex align-items-center justify-content-between my-3">
+                                    <span class="fw-bold fs-5 text-light">Tổng thanh toán</span>
+                                    <span class="payment_total fs-5 text-light"></span>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between my-3">
+                                    <span class="fw-bold fs-5 text-light">Khách đưa</span>
+                                    <input type="text" name="" id=""
+                                        class="customer-payment form-control w-50" onkeyup="handleCalculate()">
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between my-3">
+                                    <span class="fw-bold fs-5 text-light">Tiền thừa</span>
+                                    <span class="payment_change fs-5 text-light" data-value=""></span>
+
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between my-3">
+                                    <span class="fw-bold fs-5 text-light">Thanh toán bằng</span>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        @if ($payment_method->count() > 0)
+                                            @foreach ($payment_method as $item)
+                                                <div class="p-2 me-2 ">
+                                                    <input type="radio" name="payment_method"
+                                                        {{ $item->default === true ? 'checked' : '' }}
+                                                        value="{{ $item->id }}" class="form-check-input">
+                                                    <label for=""
+                                                        class="text-dark fw-bold">{{ $item->name }}</label>
+                                                </div>
+                                            @endforeach
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="opacity-1">
+                        <div class="d-flex justify-content-center mx-2 pb-3">
+                            <div class="me-3">
+                                <a href="#" class="btn text-light fw-semibold mb-0 d-block"
+                                    data-bs-dismiss="modal" style="background: #464b55">Thoát</a>
+                            </div>
+                            <div class="">
+                                <button type=""
+                                    class="btn btn-payment btn-warning text-light fw-semibold  m-0">
+                                    Xác nhận
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
             <a href="#" class="pos-mobile-sidebar-toggler" data-toggle-class="pos-mobile-sidebar-toggled"
                 data-toggle-target="#pos">
                 <i class="fa fa-shopping-bag"></i>
                 <span class="badge">5</span>
             </a>
-            <!-- END pos-mobile-sidebar-toggler -->
+
         </div>
-        <!-- END #content -->
-        <!-- BEGIN theme-panel -->
         <div class="theme-panel">
             <a href="javascript:;" data-click="theme-panel-expand" class="theme-collapse-btn"><i
                     class="fa fa-cog"></i></a>
@@ -284,10 +382,7 @@
                 </div>
             </div>
         </div>
-        <!-- END theme-panel -->
-        <!-- BEGIN btn-scroll-top -->
         <a href="#" data-click="scroll-top" class="btn-scroll-top fade"><i class="fa fa-arrow-up"></i></a>
-        <!-- END btn-scroll-top -->
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>

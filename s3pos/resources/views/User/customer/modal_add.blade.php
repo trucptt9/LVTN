@@ -54,7 +54,7 @@
                                       <!--begin::Label-->
                                       <div class="col">
                                           <label class=" fw-semibold fs-6 mb-2">Nhóm khách hàng</label>
-                                          <select class="form-select" aria-label="Select example" name="status">
+                                          <select class="form-select" aria-label="Select example" name="group_id">
                                               <option selected value="">Nhóm khách hàng </option>
                                               @foreach ($data['group'] as $item)
                                                   <option value="{{ $item->id }}">{{ $item->name }}</option>

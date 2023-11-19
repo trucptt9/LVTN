@@ -97,7 +97,7 @@ class Area extends Model
     {
         return $query->where(function ($query) use ($search) {
             $query->where('areas.code', 'LIKE', "%$search%")
-                ->orWhere('areas.name', 'LIKE', "%$search%");
+                ->orWhere('areas.name', 'LIKE', "%$search%"); 
         });
     }
 

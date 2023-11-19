@@ -1,6 +1,7 @@
 <?php
-$cart = Cart::Content();
+    $cart = Cart::Content();
 ?>
+
 @if ($cart)
     @foreach ($cart as $item)
         <div class="pos-order">
@@ -19,7 +20,8 @@ $cart = Cart::Content();
                         @foreach ($item->options->topping as $topping)
                             <div class="small">{{ json_decode($topping, true)['name'] }}
                                 <span>
-                                    ({{ number_format(json_decode($topping, true)['price'], 0, ',', '.') . ' đ' }} x1)
+                                    ({{ number_format(json_decode($topping, true)['price'], 0, ',', '.') . ' đ' }}
+                                    x{{ $item->qty }})
                                 </span>
                             </div>
                         @endforeach
@@ -27,7 +29,7 @@ $cart = Cart::Content();
                     <div class="d-flex mt-2">
                         <a href="#" class="btn btn-secondary btn-sm sub-product" data-id="{{ $item->rowId }}"><i
                                 class="fa fa-minus"></i></a>
-                        <input type="text"
+                        <input type="text" disabled
                             class="form-control w-50px form-control-sm mx-2 bg-white bg-opacity-25 bg-white bg-opacity-25 text-center"
                             value="{{ $item->qty }}">
                         <a href="#" class="btn btn-secondary btn-sm add-product" data-id="{{ $item->rowId }}"><i
@@ -39,7 +41,7 @@ $cart = Cart::Content();
             $total_topping = 0;
             if ($item->options->topping) {
                 foreach ($item->options->topping as $topping) {
-                    $total_topping += json_decode($topping, true)['price'];
+                    $total_topping += json_decode($topping, true)['price'] * $item->qty;
                 }
             }
             ?>

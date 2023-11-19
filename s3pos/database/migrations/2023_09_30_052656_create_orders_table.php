@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('code')->unique()->index();
             $table->unsignedBigInteger('table_id')->index()->nullable();
             $table->unsignedBigInteger('customer_id')->index()->nullable();
+            $table->string('customer_name')->nullable();
             $table->unsignedBigInteger('method_payment_id')->index()->nullable();
             $table->unsignedBigInteger('sale_source_id')->index()->nullable();
             $table->unsignedBigInteger('promotion_id')->index()->nullable();
