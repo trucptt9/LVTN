@@ -289,9 +289,4 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
         Route::get('list', [StaffHistoryController::class, 'list'])->name('list');
         Route::get('detail/{id}', [StaffHistoryController::class, 'detail'])->name('detail');
     });
-<<<<<<< HEAD
 });
-=======
-
-});
->>>>>>> be89e0c5e296b39750352c4d6e3962191a2e67a7

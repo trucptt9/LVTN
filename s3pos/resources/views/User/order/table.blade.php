@@ -28,7 +28,7 @@
                 </span>
             </td>
             <td class="text-center">
-                <a class="btn btn-light btn-edit" style="padding: 0px" href="{{ route('material.detail', $item->id) }}">
+                <a class="btn btn-light btn-edit" style="padding: 0px" href="{{ route('order.detail', $item->id) }}">
                     <i class="ki-duotone ki-message-edit fs-2qx text-success">
                         <span class="path1"></span>
                         <span class="path2"></span>
