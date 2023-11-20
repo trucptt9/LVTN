@@ -133,6 +133,18 @@ if (!function_exists('get_option_admin')) {
         return $option->value ?? $default;
     }
 }
+if (!function_exists('save_log_action')) {
+    function save_log_action($description, $action = '', $link = null)
+    {
+        $log = StaffHistory::create([
+            'staff_id' => auth()->check() ? auth()->user()->id : 0,
+            'description' => $description,
+            'link' => $link
+        ]);
+        return $log;
+    }
+}
+
 if (!function_exists('get_avatar_api')) {
     function get_avatar_api($name = '')
     {
@@ -176,6 +188,13 @@ if (!function_exists('showLog')) {
         ]);
     }
 }
+if (!function_exists('show_s3_file')) {
+    function show_s3_file($link)
+    {
+        return asset("storage/$link");
+    }
+}
+
 if (!function_exists('renderSubMenu')) {
     // generate code
     function renderSubMenu($value, $currentUrl = '/')
@@ -261,6 +280,7 @@ if (!function_exists('previousUrl')) {
     }
 }
 
+
 if (!function_exists('save_log_action_admin')) {
     function save_log_action_admin($content, $link = '')
     {
@@ -270,33 +290,5 @@ if (!function_exists('save_log_action_admin')) {
             'link' => $link ? $link : request()->getUri()
         ]);
         return $log;
-    }
-}
-
-if (!function_exists('save_log_action')) {
-    function save_log_action($content, $link = '')
-    {
-        $log = StaffHistory::create([
-            'staff_id' => auth()->check() ? auth()->user()->id : 0,
-            'description' => $content,
-            'link' => $link ? $link : request()->getUri()
-        ]);
-        return $log;
-    }
-}
-
-if (!function_exists('show_s3_file')) {
-    function show_s3_file($link)
-    {
-        return asset("storage/$link");
-    }
-}
-
-if (!function_exists('remove_s3_file')) {
-    function remove_s3_file($link)
-    {
-        if ($link) {
-            return Storage::disk('public')->delete($link);
-        }
     }
 }

@@ -62,6 +62,7 @@ class SaleController extends Controller
         return view('Sale.home.modal_add', compact('product', 'toppings'))->render();
     }
 
+
     public function add_cart(Request $request)
     {
         $data['id'] = $request->id;

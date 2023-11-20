@@ -10,6 +10,7 @@
                     class="btn bg-gradient bg-gray-200 btn-sm data-item">
                     <i class="fas fa-edit"></i>
                 </a>
+
             </td>
             <td class="text-center">
                 {{ $item->code }}

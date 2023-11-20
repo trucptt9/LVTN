@@ -125,6 +125,10 @@
                         </div>
                         <!--end::Close-->
                     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> be89e0c5e296b39750352c4d6e3962191a2e67a7
                     <div class="modal-body">
                         <div class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid"
                             id="kt_modal_create_app_stepper">

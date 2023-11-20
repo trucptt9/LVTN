@@ -67,6 +67,7 @@ class LicenseController extends Controller
     public function detail($id)
     {
         $license = License::with('payment', 'store', 'package')->findOrFail($id);
+
         $status = License::get_status($license->status);
         $modules = Module::ofStatus(Module::STATUS_ACTIVE)->get();
         return view('Admin.license.detail', compact('license', 'status', 'modules'));
@@ -88,6 +89,7 @@ class LicenseController extends Controller
         ];
         $pdf = PDF::loadView('Admin.license.invoice', $data);
         return $pdf->stream('invoice.pdf');
+
     }
 
     public function insert()

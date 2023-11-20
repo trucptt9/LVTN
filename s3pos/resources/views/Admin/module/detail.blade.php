@@ -28,6 +28,7 @@
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     - Trạng thái:
                     <span>
+
                         @if ($module->status == 'active')
                             <i class="fa fa-circle fs-8px fa-fw text-success me-1"></i> Đang kích hoạt
                         @else

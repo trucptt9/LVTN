@@ -48,7 +48,6 @@ class Product extends Model
         });
         self::deleted(function ($model) {
             save_log_action("Xóa sản phẩm #$model->name");
-            remove_s3_file($model->image);
         });
     }
 

@@ -29,6 +29,7 @@
                             class="btn btn-outline btn-outline-dashed btn-outline-primary btn-active-primary btn-reload">
                             <i class="fas fa-sync"></i>
                         </button>
+
                     </div>
                 </div>
             </div>
@@ -40,6 +41,7 @@
                 <thead>
                     <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0 bg-light-primary">
                         <th class="text-center w-75px">#</th>
+
                         <th class="text-center w-200px">Mã</th>
                         <th class="text-center">Tên</th>
                         <th class="text-center w-150px">Trạng thái</th>
@@ -56,6 +58,7 @@
         </div>
         <!--end::Card body-->
     </div>
+
     <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <form action="{{ route('admin.module.update') }}" id="form-update" method="POST" enctype="multipart/form-data">
@@ -90,7 +93,6 @@
         function filterTable(page) {
             loadTable(page, routeList);
         };
-
         $(document).ready(function() {
             $(document).on("click", ".data-item", function(e) {
                 showSpiner(".table-loading");

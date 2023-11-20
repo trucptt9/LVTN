@@ -87,4 +87,5 @@ class SettingController extends Controller
             return redirect()->back()->with('error', 'Cập nhật thất bại!');
         }
     }
+
 }

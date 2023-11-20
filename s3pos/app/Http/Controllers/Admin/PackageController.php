@@ -129,7 +129,9 @@ class PackageController extends Controller
             DB::beginTransaction();
             $id = request()->get('id', '');
             $package = Package::withCount('licenses')->find($id);
+
             if ($package && $package->licenses_count == 0) {
+
                 $package->delete();
                 DB::commit();
                 return Response::json([

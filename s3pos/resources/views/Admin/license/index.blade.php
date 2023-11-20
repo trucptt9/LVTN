@@ -1,7 +1,6 @@
 @php
     use App\Models\License;
 @endphp
-
 @extends('Admin.layout.default')
 @section('title', 'Bản quyền')
 @section('content')
@@ -74,7 +73,11 @@
             <table class="table table-bordered table-striped table-sm">
                 <thead>
                     <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0 bg-light-primary">
+<<<<<<< HEAD
                         <th class="text-center w-125px">#</th>
+=======
+
+>>>>>>> be89e0c5e296b39750352c4d6e3962191a2e67a7
                         <th class="text-center w-250px">Key</th>
                         <th class="text-center">Cửa hàng</th>
                         <th class="text-center w-200px">Gói dịch vụ</th>
