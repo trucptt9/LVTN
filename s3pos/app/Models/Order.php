@@ -30,6 +30,8 @@ class Order extends Model
         'discount_total',
         'sub_total',
         'total',
+        'cost',
+        'profit',
         'description',
         'status'
     ];
@@ -52,7 +54,9 @@ class Order extends Model
         'discount' => 'integer',
         'discount_total' => 'integer',
         'sub_total' => 'integer',
+        'cost' => 'integer',
         'total' => 'integer',
+        'profit' => 'integer',
     ];
 
     public static function boot()

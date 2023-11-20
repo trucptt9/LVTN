@@ -30,10 +30,8 @@ class SaleController extends Controller
             return $next($request);
         });
     }
-
     public function index()
     {
-       
         return view('Sale.table.index');
     }
     public function choose_product($id)
@@ -47,7 +45,7 @@ class SaleController extends Controller
         $categories = CategoryProduct::storeId($this->store_id)->where('status', CategoryProduct::STATUS_ACTIVE)->get();
         return view('Sale.home.category', compact('categories'));
     }
-    public function payment()
+    public function payment($id)
     {
         $search = request('search' ,'');
         $condition = request('total' ,'');
@@ -67,12 +65,17 @@ class SaleController extends Controller
         AND promotions.code = '$search'  AND  '$current_day' BETWEEN (promotions.start) AND promotions.`end` 
         ";
         $promotion = \DB::select($sql);
+
+        $table = Table::find($id);
+        $sql1 = "select orders.*, order_details.product_id, order_details.product_name, order_details.quantity,
+        order_details.price, order_details.toppings,order_details.topping_total, products.image from `tables` JOIN orders ON tables.order_id = orders.id  
+        JOIN order_details on orders.id = order_details.order_id JOIN products on product_id = products.id WHERE tables.status_order = 'active' AND tables.id = $id";
+        $order_detail = \DB::select($sql1);
         return Response::json([
             'status' => ResHTTP::HTTP_OK,
             'promotion' => $promotion,
             'payment' => view('Sale.home.payment', compact('promotion',))->render(),
-            'cart' => view('Sale.home.cart')->render(),
-            
+            'cart' => view('Sale.home.cart',compact('table', 'order_detail'))->render(),
         ]);
     }
     public function product()   
@@ -116,22 +119,28 @@ class SaleController extends Controller
         $data['options']['image'] = $request->image;  
         $data['options']['topping'] = $request->addon;
         Cart::add($data);
-        
+        $table = Table::find($id);
+        $sql = "select orders.*, order_details.product_id, order_details.product_name, order_details.quantity,
+        order_details.price, order_details.toppings, order_details.topping_total,products.image from `tables` JOIN orders ON tables.order_id = orders.id  
+        JOIN order_details on orders.id = order_details.order_id join products on product_id = products.id WHERE tables.status_order = 'active' AND tables.id = $id";
+        $order_detail = \DB::select($sql);
         return Response::json([
             'status' => ResHTTP::HTTP_OK,
             'message'=>'Thêm mới thành công',
             'type' => 'success',
-            'data' => view('Sale.home.cart')->render(),
+            'data' => view('Sale.home.cart', compact('table', 'order_detail'))->render(),
         ]);
     }
 
-    public function cart()
+    public function cart($id)
     {
-        return view('Sale.home.cart')->render();
+        $table = Table::find($id);
+        $sql = "select orders.*, order_details.product_id, order_details.product_name, order_details.quantity,
+        order_details.price, order_details.toppings, order_details.topping_total, products.image from `tables` JOIN orders ON tables.order_id = orders.id  
+        JOIN order_details on orders.id = order_details.order_id JOIN products on product_id = products.id WHERE tables.status_order = 'active' AND tables.id = $id";
+        $order_detail = \DB::select($sql);
+        return view('Sale.home.cart',compact('table', 'order_detail'))->render();
     }
-
-  
-
     public function delete_cart($rowId)
     {
         Cart::remove($rowId);
@@ -162,6 +171,8 @@ class SaleController extends Controller
         $total = request('total', 0);
         $sub_total = request('sub_total', 0);
         $payment_method = request('payment_method',null);
+        $cost = request('total_cost',0);
+        $topping_total = request('topping_total' ,0);
         $cart = Cart::content();
         $order = Order::create([
             'staff_id' => auth()->user()->id,
@@ -176,6 +187,8 @@ class SaleController extends Controller
             'discount_total' => $discount_total,
             'sub_total' =>$sub_total,
             'method_payment_id' => $payment_method,
+            'cost'=>$cost,
+            'profit' => $total - $cost
         ]);
         foreach ($cart as $item) {
             OrderDetail::create([
@@ -184,8 +197,9 @@ class SaleController extends Controller
                 'product_name' => $item->name,
                 'quantity' => $item->qty,
                 'price' => $item->price,
-                'toppings' => json_encode($item->options),
-                'total' => $item->subtotal
+                'toppings' => json_encode($item->options->topping),
+                'total' => $item->subtotal,
+                'topping_total' => $topping_total,
             ]);
         }
         $order->status = Order::STATUS_FINISH;
@@ -217,6 +231,8 @@ class SaleController extends Controller
         $total = request('total', 0);
         $sub_total = request('sub_total', 0);
         $customer_name = request('customer_name','');
+        $cost = request('total_cost',0);
+        $topping_total =  request('topping_total',0);
         $cart = Cart::content();
         $order = Order::create([
             'staff_id' => auth()->user()->id,
@@ -230,7 +246,9 @@ class SaleController extends Controller
             'discount_type' => $type_discount,
             'discount_total' => $discount_total,
             'sub_total' =>$sub_total,
-            'customer_name' =>$customer_name
+            'customer_name' =>$customer_name,
+            'cost'=>$cost,
+            'profit' => $total - $cost
         ]);
         foreach ($cart as $item) {
             OrderDetail::create([
@@ -239,8 +257,9 @@ class SaleController extends Controller
                 'product_name' => $item->name,
                 'quantity' => $item->qty,
                 'price' => $item->price,
-                'toppings' => json_encode($item->options),
-                'total' => $item->subtotal
+                'toppings' => json_encode($item->options->topping),
+                'total' => $item->subtotal,
+                'topping_total' => $topping_total,
             ]);
         }
         $order->status = Order::STATUS_TMP;
@@ -249,7 +268,7 @@ class SaleController extends Controller
         $table->status_order = Table::STATUS_ORDER_ACTIVE;
         $table->order_id = $order->id;
         $table->update();
-        // Cart::destroy();
+        Cart::destroy();
         return redirect()->route('sale.index')->with('success', 'Cập nhật thành công');
     }   
     public function customer()

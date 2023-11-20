@@ -170,7 +170,6 @@
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
             },
-
         });
         $(document).ready(function() {
             loadArea();
@@ -181,7 +180,6 @@
                     $('.area').html(res);
                 })
             }
-
             function loadTable() {
                 $.get("{{ route('sale.table') }}", function(res) {
                     $('.table').html(res);

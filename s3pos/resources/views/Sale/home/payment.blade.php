@@ -2,22 +2,24 @@
 
 $cart = Cart::Content();
 $total_topping = 0;
+$topping_cost = 0;
 if ($cart) {
     foreach ($cart as $item) {
         if ($item->options->topping) {
             foreach ($item->options->topping as $topping) {
                 $total_topping += json_decode($topping, true)['price'] * $item->qty;
+                $topping_cost += json_decode($topping, true)['cost'] * $item->qty;    
             }
         }
     }
 }
 ?>
-
 <div class="d-flex align-items-center mb-2">
     <div>Tổng tiền</div>
     <div class="flex-1 text-end h6 mb-0 subtotal" data-value="{{ Cart::total() + $total_topping }}">
         {{ number_format(Cart::total() + $total_topping) }} đ
     </div>
+    <input type="hidden" name="" class="total-cost" value="{{ Cart::total() + $topping_cost }}">
 </div>
 <div class="d-flex align-items-center">
     <div>Thuế</div>

@@ -142,7 +142,7 @@
 
                             <div class="pos-sidebar-body tab-content" data-scrollbar="true" data-height="100%">
                                 <div class="tab-pane fade h-100 show active cart-product " id="newOrderTab">
-                                    @include('sale.home.cart')
+                                   
                                 </div>
                                 <div class="tab-pane fade h-100 py-1" id="customer">
 
@@ -168,7 +168,7 @@
             {{-- modal add product in cart --}}
             <div class="modal modal-pos fade" id="modalPosItem">
                 <div class="modal-dialog modal-lg">
-                    <form action="{{ route('sale.cart_insert') }}" type="POST" id="form-add-product">
+                    <form action="{{ route('sale.cart_insert',$table->id) }}" type="POST" id="form-add-product">
                         @csrf
                         <div class="modal-content border-0 ">
                             <a href="#" data-bs-dismiss="modal"

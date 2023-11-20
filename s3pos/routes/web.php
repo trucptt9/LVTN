@@ -67,12 +67,12 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
         Route::get('category', [SaleController::class, 'category'])->name('category');
         Route::get('product', [SaleController::class, 'product'])->name('product');
        
-        Route::get('cart', [SaleController::class, 'cart'])->name('cart');
+        Route::get('cart/{id}', [SaleController::class, 'cart'])->name('cart');
         Route::get('table', [SaleController::class, 'table'])->name('table');
         Route::get('detail/{id}', [SaleController::class, 'detail'])->name('detail');
-        Route::post('cart_insert', [SaleController::class, 'add_cart'])->name('cart_insert');
+        Route::post('cart_insert/{id}', [SaleController::class, 'add_cart'])->name('cart_insert');
         Route::get('delete/{id}', [SaleController::class, 'delete_cart'])->name('delete');
-        Route::get('payment', [SaleController::class, 'payment'])->name('payment');
+        Route::get('payment/{id}', [SaleController::class, 'payment'])->name('payment');
         Route::get('destroy', [SaleController::class, 'destroy'])->name('destroy');
         Route::get('acceptPayment', [SaleController::class, 'acceptPayment'])->name('acceptPayment');
         Route::get('saveOrder', [SaleController::class, 'saveOrder'])->name('saveOrder');
@@ -286,7 +286,7 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
     Route::prefix('reports')->name('report.')->group(function () {
         Route::get('', [ReportController::class, 'index'])->name('index');
         Route::get('report_all', [ReportController::class, 'report_all'])->name('report_all');
-        Route::get('report_chart', [ReportController::class, 'report_chart'])->name('report_chart');
+        Route::post('report_chart', [ReportController::class, 'report_chart'])->name('report_chart');
     });
 
     // other

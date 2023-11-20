@@ -61,7 +61,7 @@ if (!defined('ARRAY_COLORS')) {
 }
 function formatNumber($number)
 {
-    return number_format($number, 0, ',', ',');
+    return number_format($number, 0, ',', ',') + ' đ';
 }
 
 if (!function_exists('generateRandomString')) {

@@ -23,7 +23,8 @@
         loadCart();
 
         function loadCart() {
-            $.get("{{ url('/sale/cart') }}", function(res) {
+            const url = "{{ route('sale.cart', $table->id) }}"
+            $.get(url, function(res) {
                 $('.cart-product').html(res);
                 loadPayment();
             })
@@ -31,7 +32,8 @@
         loadPayment();
 
         function loadPayment() {
-            $.get("{{ route('sale.payment') }}", function(res) {
+            const url = "{{ route('sale.payment', $table->id) }}"
+            $.get(url, function(res) {
                 $('.payment').html(res.payment);
             })
         }
@@ -83,7 +85,7 @@
         $(document).on('click', '.btn-add-promtotion', function(e) {
             e.preventDefault();
             const search = $('.search').val();
-            $.get("{{ route('sale.payment') }}", {
+            $.get("{{ route('sale.payment', $table->id) }}", {
                 search: search,
             }, function(res) {
                 if (res.status == 200) {
@@ -147,7 +149,7 @@
                     },
                     error: function(XMLHttpRequest, textStatus, errorThrown) {
                         $('.btn-add-product').html(
-                            `<i class="fas fa-plus"></i> Tạo mới`);
+                            `<i class="fas fa-plus"></i> Thêm vào giỏ hàng`);
                         $('button[type=submit]').removeAttr('disabled');
                         Toast.fire({
                             icon: 'error',
@@ -178,7 +180,7 @@
             e.preventDefault();
             const search = $('.search').val();
             const rowId = $(this).data('id');
-            $.get("{{ route('sale.payment') }}", {
+            $.get("{{ route('sale.payment', $table->id) }}", {
                 type: 'sub',
                 rowId: rowId,
                 search: search
@@ -205,7 +207,7 @@
             e.preventDefault();
             const rowId = $(this).data('id');
             const search = $('.search').val();
-            $.get("{{ route('sale.payment') }}", {
+            $.get("{{ route('sale.payment', $table->id) }}", {
                 type: 'add',
                 rowId: rowId,
                 search: search
@@ -266,33 +268,36 @@
                 $total = $('.total-payment').val();
                 $sub_total = $('.subtotal').attr('data-value');
                 $payment_method = $('[name="payment_method"]:radio:checked').val();
-                $status = 'finish',
-                    $.get("{{ route('sale.acceptPayment') }}", {
-                        table: $table_id,
-                        customer: $customer_id,
-                        promotion: $promotion_id,
-                        discount: $discount,
-                        type_discount: $type_discount,
-                        discount_total: $discount_total,
-                        total: $total,
-                        sub_total: $sub_total,
-                        payment_method: $payment_method,
-                    }, function(res) {
-                        if (res.status == 200) {
-                            // tableSelect = null;
-                            $('.cart-product').html('');
-                            $('.payment').html(res.payment);
-                            $('.customer-payment').val('');
-                            $('.payment_change').html('');
-                            $('.phone').val('');
-                            $('.customer-info').html('');
-                            $('#modal_payment').modal('hide');
-                            Toast.fire({
-                                icon: 'success',
-                                title: 'Thanh toán thành công'
-                            });
-                        }
-                    })
+                $total_cost = $('.total-cost').val();
+                $topping_total = $('.topping_total').val();
+                $.get("{{ route('sale.acceptPayment') }}", {
+                    table: $table_id,
+                    customer: $customer_id,
+                    promotion: $promotion_id,
+                    discount: $discount,
+                    type_discount: $type_discount,
+                    discount_total: $discount_total,
+                    total: $total,
+                    sub_total: $sub_total,
+                    payment_method: $payment_method,
+                    total_cost: $total_cost,
+                    topping_total: $topping_total
+                }, function(res) {
+                    if (res.status == 200) {
+                        // tableSelect = null;
+                        $('.cart-product').html('');
+                        $('.payment').html(res.payment);
+                        $('.customer-payment').val('');
+                        $('.payment_change').html('');
+                        $('.phone').val('');
+                        $('.customer-info').html('');
+                        $('#modal_payment').modal('hide');
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Thanh toán thành công'
+                        });
+                    }
+                })
             }
         })
     }
@@ -307,6 +312,8 @@
         $total = $('.total-payment').val();
         $sub_total = $('.subtotal').attr('data-value');
         $customer_name = $('.customer_name').val();
+        $total_cost = $('.total-cost').val();
+        $topping_total = $('.topping_total').val();
         $.get("{{ route('sale.saveOrder') }}", {
             table: $table_id,
             customer: $customer_id,
@@ -316,7 +323,9 @@
             discount_total: $discount_total,
             total: $total,
             sub_total: $sub_total,
-            customer_name: $customer_name
+            customer_name: $customer_name,
+            total_cost: $total_cost,
+            topping_total:$topping_total
         }, function(res) {
             $('.cart-product').html('');
             $('.payment').html(res.payment);

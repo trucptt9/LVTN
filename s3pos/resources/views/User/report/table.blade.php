@@ -7,7 +7,7 @@
             $status = Order::get_status($item->status);
         @endphp
         <tr>
-            <td class="text-center">
+            <td class="">
                 @if ($status)
                     <div class="badge badge-{{ $status[1] }} fw-bold">
                         {{ $status[0] }}
@@ -20,7 +20,7 @@
                 {{ number_format($item->total) }}
             </td>
             <td class="text-center">
-                {{ number_format($item->revenue) }}
+                {{ number_format($item->revenue) + ' đ' }}
             </td>
         </tr>
     @endforeach

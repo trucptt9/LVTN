@@ -31,6 +31,8 @@ return new class extends Migration
             $table->float('discount_total')->nullable()->default(0);
             $table->integer('sub_total')->nullable()->default(0);
             $table->integer('total')->nullable()->default(0);
+            $table->integer('cost')->nullable()->default(0);
+            $table->integer('profit')->nullable()->default(0);
             $table->string('description')->nullable();
             $table->enum('status', ['tmp', 'finish', 'destroy'])->index()->nullable()->default('tmp');
             $table->timestamps();
