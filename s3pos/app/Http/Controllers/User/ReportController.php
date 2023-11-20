@@ -58,18 +58,36 @@ class ReportController extends Controller
 
     public function report_chart()
     {
-        $data = [];
-        $category = [];
-        $status = [];
-        try {
-            $date = request('date', '');
-            if ($date != '') {
-                $_array = explode('to', $date);
-                $from = trim($_array[0]);
-                $to = isset($_array[1]) ? trim($_array[1]) : $_array[0];
+        try{
+            $type_time = request('type_time', '');
+            $start = request('start');
+            $end = request('end');
+            $start = date_format(date_create($start), 'Y-m-d');
+            $end = date_format(date_create($end), 'Y-m-d');
+            if (!$type_time || $type_time == 'hour') {
+                $sql_hour = "SELECT DATE_FORMAT(orders.created_at, '%H:00') AS hour_range, SUM(total) AS revenue,
+                    SUM(profit) as profit, SUM(discount_total) as discount, SUM(cost) as cost ,
+                     COUNT(*) AS order_count
+                    FROM orders LEFT JOIN stores ON orders.store_id = stores.id
+                    WHERE stores.id = " . $this->store_id . " 
+                    AND orders.created_at BETWEEN  '$start' AND '$end' GROUP BY hour_range ORDER BY hour_range";
+                $list = DB::select($sql_hour);
+            } else if ($type_time == 'date') {
+                $sql_day = "SELECT DATE_FORMAT(orders.created_at,'%Y-%m-%d') AS day, SUM(total) AS revenue,
+                    SUM(profit) as profit, SUM(discount_total) as discount, SUM(cost) as cost ,
+                    COUNT(*) AS order_count, stores.name
+                    FROM orders LEFT JOIN stores ON orders.store_id = stores.id 
+                    WHERE stores.id = " . $this->store_id . " 
+                    AND orders.created_at BETWEEN  '$start' AND '$end' GROUP BY day ORDER BY day";
+                $list = DB::select($sql_day);
             } else {
-                $to = now();
-                $from = now()->subDays(30);
+                $sql_month = "SELECT DATE_FORMAT(orders.created_at,'%c') AS month, SUM(total) AS revenue, 
+                    SUM(profit) as profit, SUM(discount_amount) as discount, SUM(cost) as cost ,
+                   COUNT(*) AS order_count
+                    FROM orders LEFT JOIN stores ON orders.store_id = stores.id
+                    WHERE stores.id = " . $this->store_id . " AND YEAR(orders.created_at) BETWEEN YEAR('$start')  AND YEAR('$end')
+                    AND orders.created_at BETWEEN  '$start' AND '$end' GROUP BY month ORDER BY CAST(month as INT) ASC ";
+                $list = DB::select($sql_month);
             }
             $start = date_format(date_create($from), 'Y-m-d');
             $end = date_format(date_create($to), 'Y-m-d');

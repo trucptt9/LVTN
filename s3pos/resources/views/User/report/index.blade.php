@@ -82,8 +82,19 @@
                                     <!--end::Display range-->
                                     <i class="ki-outline ki-calendar-8 fs-1 ms-2 me-0"></i>
                                 </div>
+                                <div class="card-toolbar">
+                                    <button class="btn btn-sm btn-primary mt-9 bnt-report"> Báo cáo</button>
+                                </div>
+                                <!--end::Toolbar-->
                             </div>
-                            <!--end::Toolbar-->
+                        </form>
+
+                        <div class="card-title align-items-start flex-column px-7 mt-3">
+                            <!--begin::Description-->
+                            <span class="fs-6 fw-bold text-uppercase type-report">
+                                <i class="ki-outline ki-verify"></i> Sơ đồ doanh thu cửa hàng theo thời gian
+                            </span>
+                            <!--end::Description-->
                         </div>
                         <!--end::Header-->
                         <!--begin::Body-->
@@ -100,8 +111,7 @@
                 </div>
                 <!--end::Col-->
             </div>
-            <!--end::Row-->
-            <!--begin::Row-->
+
             <div class="row gx-5 gx-xl-10">
                 <!--begin::Col-->
                 <div class="col-xl-6 mb-5 mb-xl-8">
@@ -172,12 +182,36 @@
                 <!--end::Col-->
             </div>
             <!--end::Row-->
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-loading">
+                    <thead>
+                        <tr>
+                            <td class="text-uppercase text-bold  type-title">Giờ</td>
+                            <td class="text-uppercase text-bold text-center">Tổng đơn</td>
+                            <td class="text-uppercase text-bold text-center">Giảm giá</td>
+                            <td class="text-uppercase text-bold">Doanh thu</td>
+                            <td class="text-uppercase text-bold text-center">Chi phí</td>
+                            <td class="text-uppercase text-bold text-center">Lợi nhuận</td>
+                        </tr>
+                    </thead>
+                    <tbody id="load-table" class="detail-table-time">
+                        <tr>
+                            <td colspan="6" class="text-center">
+                                Không tìm thấy dữ liệu!
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         <!--end::Content container-->
     </div>
 @endsection
 @section('script')
     <script>
+        $('.datepicker').flatpickr({
+            dateFormat: 'd-m-Y'
+        });
         let chartData = [];
         let chartCategory = [];
         let chartDataPercent = [];
@@ -343,13 +377,124 @@
                             e.self.render(), (e.rendered = !0);
                         }, 200);
                     }
-                };
-            return {
-                init: function() {
-                    t(e);
-                },
-            };
-        })();
+                    $('.type-report').html($title)
+                    $('.type-title').html($title_table)
+                    let order = 0;
+                    let revenue = 0;
+                    let expense = 0;
+                    let profit = 0
+                    let string = '';
+                    if (data[0].length > 0) {
+                        data[0].forEach(element => {
+                            order += element?.order_count;
+                            revenue += parseInt(element?.revenue);
+                            expense += parseInt(element?.cost);
+                            profit += parseInt(element?.profit);
+                            let profit_ele = parseInt(element?.profit);
+                            let text_class = profit_ele >= 0 ? 'text-success' : 'text-danger';
+                            $('.text-profit').removeClass('text-success');
+                            $('.text-profit').removeClass('text-danger');
+                            if (element.day) {
+                                let subDateStr = (element?.day).split("-");
+                                element.day = subDateStr[2] + '-' + subDateStr[1] + '-' + subDateStr[0];
+                                console.log(element.day)
+                            }
+                            string += `<tr>
+                            <td class="text-center">
+                                        <div class="text-center">${element.hour_range ? element.hour_range :(element.day? element.day : element?.month) }</div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="text-center">${element?.order_count}</div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="text-center"> ${element?.discount} </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="text-center">${element?.revenue}</div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="text-center">${element?.cost}</div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="text-center fw-bold text-profit ${text_class}"> ${profit_ele >0 ? '+'+profit_ele: profit_ele}</div>
+                                    </td>
+                            </tr>`;
+                        });
+                    } else {
+                        string = `<tr>
+                            <td colspan="6" class="text-center empty-data">
+                                <div class="text-center">
+                                    <i class="fas fa-sad-cry fs-s2"></i> Không có dữ liệu
+                                </div>
+                            </td>
+                        </tr>`;
+                    }
+
+                    $('.total-profit').removeClass('text-danger')
+                    $('.total-profit').removeClass('text-success')
+                    if (profit > 0) {
+                        $('.total-profit').addClass('text-success')
+                    } else if (profit < 0) {
+                        $('.total-profit').addClass('text-danger')
+                    }
+                    revenue = revenue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' đ'
+                    expense = expense.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' đ'
+                    profit = profit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' đ'
+                    $('.total-order').html(order);
+                    $('.total-revenue').html(revenue);
+                    $('.total-expense').html(expense);
+                    $('.total-profit').html(profit);
+                    $('.detail-table-time').html(string);
+                    // Kiểm tra nếu biểu đồ đã được tạo, thì hủy nó trước khi vẽ lại
+                    if (chartMonth) {
+                        chartMonth.destroy();
+                    }
+                    // Lấy thẻ canvas
+                    var ctx = document.getElementById('chartTime').getContext('2d');
+                    chartMonth = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: data[0].map(function(row) {
+                                if (row.hour_range) {
+                                    return row.hour_range + " h";
+                                } else if (row.day) {
+                                    return row.day;
+                                } else {
+                                    return 'Tháng ' + row.month
+                                }
+                            }),
+                            datasets: [{
+                                label: 'Tổng đơn',
+                                data: data[0].map(function(row) {
+                                    return row.order_count;
+                                }),
+                                backgroundColor: colorOrder,
+                                borderColor: 'rgba(255, 206, 86, 1)',
+                            }]
+                        },
+                    });
+                    chartMonth.options.scales.y = {
+                        ...chartMonth.options.scales.y,
+                        right: {
+                            type: 'linear',
+                            position: 'right',
+                            beginAtZero: true
+                        }
+                    };
+                    chartMonth.data.datasets.push({
+                        label: 'Doanh thu',
+                        data: data[0].map(function(row) {
+                            return row.revenue;
+                        }),
+                        type: 'line',
+                        backgroundColor: colorRevenue,
+                        borderColor: colorRevenue,
+                        yAxisID: 'right-y-axis'
+                    });
+                    chartMonth.update();
+                }
+            });
+        }
 
         var KTChartsWidget22 = (function() {
             var e = function(data, category) {

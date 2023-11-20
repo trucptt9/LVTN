@@ -294,7 +294,7 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
     Route::prefix('reports')->name('report.')->group(function () {
         Route::get('', [ReportController::class, 'index'])->name('index');
         Route::get('report_all', [ReportController::class, 'report_all'])->name('report_all');
-        Route::get('report_chart', [ReportController::class, 'report_chart'])->name('report_chart');
+        Route::post('report_chart', [ReportController::class, 'report_chart'])->name('report_chart');
     });
 
     // other

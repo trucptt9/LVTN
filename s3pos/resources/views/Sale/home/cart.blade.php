@@ -1,5 +1,5 @@
 <?php
-    $cart = Cart::Content();
+$cart = Cart::Content();
 ?>
 @if ($table->status_order == 'un_active')
     @if ($cart)
