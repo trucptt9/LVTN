@@ -31,12 +31,13 @@
             @if ($toppings->count() > 0)
                 @foreach ($toppings as $top)
                     <div class="option" style="max-width:33%; width:33%">
-                        <input type="checkbox" name="addon[{{ $top->id }}]" value="{{ $top }}" class="option-input"
-                            id="addon{{ $top->id }}">
+                        <input type="checkbox" name="addon[{{ $top->id }}]"
+                            value=" {{ $top }} "
+                            class="option-input" id="addon{{ $top->id }}">
                         <label class="option-label" for="addon{{ $top->id }}">
                             <span class="option-text">{{ $top->name }}</span>
                             <span class="option-price">{{ number_format($top->price, 0, ',', '.') . 'đ' }}</span>
-                        </label>
+                        </label>    
                     </div>
                 @endforeach
             @else

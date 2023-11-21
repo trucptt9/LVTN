@@ -62,7 +62,7 @@ $cart = Cart::Content();
             </div>
         @endforeach
     @endif
-@elseif(count($order_detail) > 0)
+@elseif($order_detail)
     @foreach ($order_detail as $item)
         <div class="pos-order">
             <div class="pos-order-product">
@@ -76,13 +76,16 @@ $cart = Cart::Content();
                 <div class="flex-1">
                     <div class="h6 mb-1">{{ $item->product_name }} </div>
                     <div class="small title">{{ number_format($item->price, 0, ',', '.') . ' đ' }}</div>
-                    <?php
-                    
-                    var_dump(json_decode($item->toppings, true));
-                    ?>
                     @if ($item->toppings)
-                    
-                @endif
+                        @foreach (json_decode($item->toppings, true) as $topping)
+                            <div class="small">{{ json_decode($topping, true)['name'] }}
+                                <span>
+                                    ({{ number_format(json_decode($topping, true)['price'], 0, ',', '.') . ' đ' }}
+                                    x{{ $item->quantity }})
+                                </span>
+                            </div>
+                        @endforeach
+                    @endif
                     <div class="d-flex mt-2">
                         <a href="#" class="btn btn-secondary btn-sm sub-product" data-id=""><i
                                 class="fa fa-minus"></i></a>

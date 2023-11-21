@@ -38,6 +38,7 @@ class SaleController extends Controller
     {
         $payment_method = MethodPayment::storeId($this->store_id)->get();
         $table = Table::find($id); 
+        Cart::destroy();
         return view('Sale.home.index', compact('table','payment_method'));
     }
     public function category()
@@ -65,16 +66,11 @@ class SaleController extends Controller
         AND promotions.code = '$search'  AND  '$current_day' BETWEEN (promotions.start) AND promotions.`end` 
         ";
         $promotion = \DB::select($sql);
-
-        $table = Table::find($id);
-        $sql1 = "select orders.*, order_details.product_id, order_details.product_name, order_details.quantity,
-        order_details.price, order_details.toppings,order_details.topping_total, products.image from `tables` JOIN orders ON tables.order_id = orders.id  
-        JOIN order_details on orders.id = order_details.order_id JOIN products on product_id = products.id WHERE tables.status_order = 'active' AND tables.id = $id";
-        $order_detail = \DB::select($sql1);
+        $detail_payment = null;
         return Response::json([
             'status' => ResHTTP::HTTP_OK,
             'promotion' => $promotion,
-            'payment' => view('Sale.home.payment', compact('promotion',))->render(),
+            'payment' => view('Sale.home.payment', compact('promotion','detail_payment'))->render(),
             'cart' => view('Sale.home.cart',compact('table', 'order_detail'))->render(),
         ]);
     }
@@ -124,6 +120,7 @@ class SaleController extends Controller
         order_details.price, order_details.toppings, order_details.topping_total,products.image from `tables` JOIN orders ON tables.order_id = orders.id  
         JOIN order_details on orders.id = order_details.order_id join products on product_id = products.id WHERE tables.status_order = 'active' AND tables.id = $id";
         $order_detail = \DB::select($sql);
+        
         return Response::json([
             'status' => ResHTTP::HTTP_OK,
             'message'=>'Thêm mới thành công',
@@ -209,9 +206,14 @@ class SaleController extends Controller
         $table->order_id = $order->id;
         $table->update();
         Cart::destroy();
+      
+        $sql1 = "select orders.promotion_id, orders.total, orders.sub_total, promotions.`value`, promotions.type_value from `tables` JOIN orders ON tables.order_id = orders.id  
+        LEFT JOIN promotions on orders.promotion_id = promotions.id
+        WHERE tables.status_order = 'active' AND tables.id = $table_id";
+        $detail_payment = \DB::select($sql1);
         return Response::json([
             'status' => ResHTTP::HTTP_OK,
-            'payment' => view('Sale.home.payment')->render(),
+            'payment' => view('Sale.home.payment', compact('detail_payment'))->render(),
             'new_item' => '<li class="list-group-item d-flex justify-content-between align-items-center">
                 ' . $order->code . '
                 <span class="badge bg-primary rounded-pill">
