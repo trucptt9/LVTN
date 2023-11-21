@@ -63,28 +63,34 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
 
     Route::prefix('sale')->name('sale.')->group(function () {
         Route::get('', [SaleController::class, 'index'])->name('index');
+        Route::get('detail/{id}', [SaleController::class, 'detail'])->name('detail');
+       //customer
+        Route::get('customer', [SaleController::class,'customer'])->name('customer');
+        //area -table
+        Route::get('area', [SaleController::class, 'area'])->name('area');
+        Route::get('table', [SaleController::class, 'table'])->name('table');
+        //category-produc-topping
         Route::get('choose_product/{id}', [SaleController::class, 'choose_product'])->name('choose_product');
         Route::get('category', [SaleController::class, 'category'])->name('category');
         Route::get('product', [SaleController::class, 'product'])->name('product');
-       
+        //promotion
+        Route::post('promotion', [SaleController::class, 'promotion'])->name('promotion');
+        // cart
         Route::get('cart/{id}', [SaleController::class, 'cart'])->name('cart');
-        Route::get('table', [SaleController::class, 'table'])->name('table');
-        Route::get('detail/{id}', [SaleController::class, 'detail'])->name('detail');
         Route::post('cart_insert/{id}', [SaleController::class, 'add_cart'])->name('cart_insert');
         Route::get('delete/{id}', [SaleController::class, 'delete_cart'])->name('delete');
+        //order -payment
         Route::get('payment/{id}', [SaleController::class, 'payment'])->name('payment');
         Route::get('destroy', [SaleController::class, 'destroy'])->name('destroy');
         Route::get('acceptPayment', [SaleController::class, 'acceptPayment'])->name('acceptPayment');
         Route::get('saveOrder', [SaleController::class, 'saveOrder'])->name('saveOrder');
-        Route::get('customer', [SaleController::class,'customer'])->name('customer');
         Route::get('update_item', [SaleController::class, 'update_item'])->name('update_item');
         Route::post('order', [SaleController::class, 'order'])->name('order');
-        //area -table
-        Route::get('area', [SaleController::class, 'area'])->name('area');
-        Route::get('table', [SaleController::class, 'table'])->name('table');
-        //promotion
-        Route::post('promotion', [SaleController::class, 'promotion'])->name('promotion');
-        // Route::post('promotion', [SaleController::class, 'add_promotion'])->name('add_promotion');
+        Route::post('payment_tmp', [SaleController::class, 'paymentOrderTmp'])->name('paymentOrderTmp');
+        Route::get('delete_order', [SaleController::class,'delete_order'])->name('delete_order');
+        //booking
+        Route::post('booking', [BookingController::class, 'booking'])->name('booking');
+        
     });
     // store
     Route::prefix('stores')->name('store.')->group(function () {

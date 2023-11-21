@@ -76,7 +76,7 @@ $cart = Cart::Content();
                 <div class="flex-1">
                     <div class="h6 mb-1">{{ $item->product_name }} </div>
                     <div class="small title">{{ number_format($item->price, 0, ',', '.') . ' đ' }}</div>
-                    @if ($item->toppings)
+                    @if ($item->topping_total > 0)
                         @foreach (json_decode($item->toppings, true) as $topping)
                             <div class="small">{{ json_decode($topping, true)['name'] }}
                                 <span>

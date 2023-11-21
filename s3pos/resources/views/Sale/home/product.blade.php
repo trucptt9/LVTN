@@ -8,7 +8,6 @@
                 <div class="img" style="background-image: url({{ asset('storage/' . $item->image) }})">
                 </div>
             @endif
-
             <div class="info">
                 <div class="title">{{ $item->name }}</div>
                 <div class="desc">{{ $item->description }}</div>

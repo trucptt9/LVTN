@@ -22,7 +22,6 @@
         <input type="text" class="form-control w-50px fw-bold mx-2 text-center quantity" name="quantity"
             value="1">
         <button class="btn btn-secondary btn-add"><i class="fa fa-plus"></i></button>
-
     </div>
     <hr class="opacity-1">
     <div class="mb-2">

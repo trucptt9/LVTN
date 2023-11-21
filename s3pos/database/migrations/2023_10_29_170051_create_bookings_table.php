@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('customer_id')->index()->nullable();
             $table->string('code')->unique()->index();
             $table->string('name')->nullable();
+            $table->integer('quantity')->nullable();
             $table->string('phone')->nullable();
             $table->string('note')->nullable();
             $table->timestamp('date_start')->nullable();

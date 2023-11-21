@@ -34,7 +34,7 @@
                 </div>
                 <!--begin::Actions-->
                 <div class="d-flex flex-wrap justify-content-center pb-lg-0">
-                    <button type="submit" class="btn btn-primary me-4">
+                    <button  type="submit" class="btn btn-primary me-4">
                         <!--begin::Indicator label-->
                         <span class="indicator-label">Kích hoạt</span>
                         <!--end::Indicator label-->

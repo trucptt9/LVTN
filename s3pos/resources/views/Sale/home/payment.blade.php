@@ -40,18 +40,14 @@ if ($cart) {
             </div>
         </div>
     </div>
-
     <hr class="opacity-1 my-10px">
-
     <div class="d-flex align-items-center mb-2">
         <div class="text-uppercase">Thanh toán</div>
         <div class="flex-1 text-end h4 mb-0 payment-total">
             {{ number_format(Cart::subTotal() + $total_topping) }} đ
-
         </div>
         <input type="hidden" class="total-payment" name="total-payment" id=""
             value="{{ Cart::subTotal() + $total_topping }}">
-
     </div>
     <div class="mt-3">
         <div class="d-flex">
@@ -98,29 +94,25 @@ if ($cart) {
                 <i class="fas fa-tags fa-lg"></i>
             </a>
             <div class="flex-1 text-end h6 mb-0 ">
-                <span class="discount-value" data-value="0">{{ $order_detail[0]->value ?? 0 }}</span>
+                <span class="discount-value" data-value="0">{{ $detail_payment[0]->value ?? 0 }}</span>
                 <span class="discount-type"
-                    data-value="">{{ $order_detail[0]->type_value ? ($order_detail[0]->type_value == 'percent' ? '%' : 'đ') : '%' }}</span>
-
+                    data-value="">{{ $detail_payment[0]->type_value ? ($detail_payment[0]->type_value == 'percent' ? '%' : 'đ') : '%' }}</span>
             </div>
         </div>
     </div>
-
     <hr class="opacity-1 my-10px">
-
     <div class="d-flex align-items-center mb-2">
         <div class="text-uppercase">Thanh toán</div>
         <div class="flex-1 text-end h4 mb-0 payment-total">
-            {{ number_format($order_detail[0]->total) }} đ
-
+            {{ number_format($detail_payment[0]->total) }} đ
         </div>
         <input type="hidden" class="total-payment" name="total-payment" id=""
-            value="{{ $order_detail[0]->total }}">
-
+            value="{{ $detail_payment[0]->total }}">
+        <input type="hidden" class="order-id" value="{{ $detail_payment[0]->id }}">
     </div>
     <div class="mt-3">
         <div class="d-flex">
-            <button onclick="saveOrderTmp()"
+            <button onclick="saveOrderTmp()" disabled
                 class="btn btn-default w-70px me-10px d-flex align-items-center justify-content-cente btn-save-tmp">
                 <span>
                     <i class="fas fa-cloud-download-alt fa-lg my-10px d-block"></i>
@@ -128,13 +120,13 @@ if ($cart) {
                 </span>
             </button>
             <button class="btn btn-danger w-70px me-10px d-flex align-items-center justify-content-center"
-                onclick="DestroyCart()">
+                onclick="deleteOrder()">
                 <span>
                     <i class="fas fa-trash fa-fw fa-lg my-10px d-block"></i>
                     <span class="small fw-semibold">Hủy</span>
                 </span>
             </button>
-            <button onclick="acceptPayment()"
+            <button onclick="paymentOrderTmp()"
                 class="btn btn-theme flex-fill d-flex align-items-center justify-content-center">
                 <span>
                     <i class="fa fa-cash-register fa-lg my-10px d-block"></i>
@@ -144,3 +136,5 @@ if ($cart) {
         </div>
     </div>
 @endif
+
+

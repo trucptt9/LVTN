@@ -17,7 +17,7 @@
                     <div class="row">
                         <div class="col-6 d-flex justify-content-center">
                             <div class="w-20px"><i class="far fa-user text-body text-opacity-50"></i></div>
-                            <div class="w-60px">{{ $item->order->customer_name ?? '' }}</div>
+                            <div class="w-120px">{{ $item->order->customer_name ?? '' }}</div>
                         </div>
                         <div class="col-6 d-flex justify-content-center">
                             <div class="w-20px"><i class="far fa-clock text-body text-opacity-50"></i></div>
@@ -29,7 +29,7 @@
                     <div class="row">
                         <div class="col-6 d-flex justify-content-center">
                             <div class="w-20px"><i class="fa fa-receipt text-body text-opacity-50"></i></div>
-                            <div class="w-60px">
+                            <div class="w-120px">
                                 {{ $item->order && $item->status_order == 'active'? number_format($item->order->total, 0, ',', '.') . ' đ' : '' }}</div>
                         </div>
                         <div class="col-6 d-flex justify-content-center">
@@ -39,8 +39,6 @@
                     </div>
                 </div>
             </a>
-           
         </div>
-        
     </div>
 @endforeach

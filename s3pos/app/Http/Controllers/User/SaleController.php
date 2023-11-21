@@ -66,12 +66,22 @@ class SaleController extends Controller
         AND promotions.code = '$search'  AND  '$current_day' BETWEEN (promotions.start) AND promotions.`end` 
         ";
         $promotion = \DB::select($sql);
-        $detail_payment = null;
+        $sql1 = "select orders.id, orders.promotion_id, orders.total, orders.sub_total, promotions.`value`, promotions.type_value from `tables` JOIN orders ON tables.order_id = orders.id  
+        LEFT JOIN promotions on orders.promotion_id = promotions.id
+        WHERE tables.status_order = 'active' AND tables.id = $id";
+        $detail_payment = \DB::select($sql1);
+        $table = Table::find($id);
+        $sql2 = "select orders.*, order_details.product_id, order_details.product_name, order_details.quantity,
+        order_details.price, order_details.toppings, order_details.topping_total, products.image 
+        from `tables` JOIN orders ON tables.order_id = orders.id JOIN order_details on orders.id = order_details.order_id 
+        JOIN products on product_id = products.id WHERE tables.status_order = 'active' AND tables.id = $id";
+        $order_detail = \DB::select($sql2);
         return Response::json([
             'status' => ResHTTP::HTTP_OK,
             'promotion' => $promotion,
-            'payment' => view('Sale.home.payment', compact('promotion','detail_payment'))->render(),
-            'cart' => view('Sale.home.cart',compact('table', 'order_detail'))->render(),
+            'payment' => view('Sale.home.payment', compact('promotion','detail_payment','table'))->render(),
+            'cart' => view('Sale.home.cart',compact('table','order_detail'))->render(),
+            'detail_payment' => $detail_payment
         ]);
     }
     public function product()   
@@ -154,6 +164,30 @@ class SaleController extends Controller
             'data' => 'Đã hủy giỏ hàng'
         ]);
     }
+    public function delete_order(){
+       try{
+            $id = request('id', 0);
+            $order = Order::find($id);           
+            $table = Table::find($order->table_id);
+            $table->status_order = Table::STATUS_ORDER_UN_ACTIVE;
+            $table->order_id = null;
+            $order->delete();
+            $table->update();
+            return Response::json([
+                'status' => ResHTTP::HTTP_OK,
+                'message' => 'Đã hủy giỏ hàng!',
+                'type' => 'success'
+            ]);
+       }catch (\Throwable $th) {
+        showLog($th);
+        return Response::json([
+            'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
+            'message' => 'Không thể xóa giỏ hàng!',
+            'type' => 'error'
+        ]);
+    }
+        
+    }
     public function order(){
         
     }
@@ -206,14 +240,13 @@ class SaleController extends Controller
         $table->order_id = $order->id;
         $table->update();
         Cart::destroy();
-      
-        $sql1 = "select orders.promotion_id, orders.total, orders.sub_total, promotions.`value`, promotions.type_value from `tables` JOIN orders ON tables.order_id = orders.id  
+        $sql1 = "select orders.id,orders.promotion_id, orders.total, orders.sub_total, promotions.`value`, promotions.type_value from `tables` JOIN orders ON tables.order_id = orders.id  
         LEFT JOIN promotions on orders.promotion_id = promotions.id
         WHERE tables.status_order = 'active' AND tables.id = $table_id";
         $detail_payment = \DB::select($sql1);
         return Response::json([
             'status' => ResHTTP::HTTP_OK,
-            'payment' => view('Sale.home.payment', compact('detail_payment'))->render(),
+            'payment' => view('Sale.home.payment', compact('detail_payment','table'))->render(),
             'new_item' => '<li class="list-group-item d-flex justify-content-between align-items-center">
                 ' . $order->code . '
                 <span class="badge bg-primary rounded-pill">
@@ -270,9 +303,33 @@ class SaleController extends Controller
         $table->status_order = Table::STATUS_ORDER_ACTIVE;
         $table->order_id = $order->id;
         $table->update();
-        Cart::destroy();
+        // Cart::destroy();
         return redirect()->route('sale.index')->with('success', 'Cập nhật thành công');
     }   
+    public function try(){
+        return to_route('index');
+    }
+    public function paymentOrderTmp(Request $request){
+        try{
+            $id = $request->order_id;
+            $order = Order::find($id);
+            $order->status = Order::STATUS_FINISH;
+            $table = Table::find($order->table_id);
+            $table->status_order = Table::STATUS_ORDER_UN_ACTIVE;
+            $table->order_id = null;
+            $order->update();
+            $table->update();
+            return redirect('/sale');
+            
+        }catch (\Throwable $th) {
+                showLog($th);
+                return Response::json([
+                    'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
+                    'data' => '',
+                ]);
+            }
+        
+    }
     public function customer()
     {
         $search = request('phone','');

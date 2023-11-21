@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Response as ResHTTP;
 use Illuminate\Support\Facades\DB;
-
+use App\Http\Requests\Booking\BookingInsertRequest;
 class BookingController extends Controller
 {
     protected $limit_default, $store_id;
@@ -65,21 +65,22 @@ class BookingController extends Controller
         return view('user.booking.modal_edit', compact('booking', 'data'))->render();
     }
 
-    public function insert(Request $request)
+    public function insert(BookingInsertRequest $request)
     {
         try {
             $data = $request->all();
+            $data['store_id'] = $this->store_id;
             Booking::create($data);
             return Response::json([
                 'status' => ResHTTP::HTTP_OK,
-                'message' => 'Tạo mới thành công',
+                'message' => 'Đặt bàn thành công',
                 'type' => 'success'
             ]);
         } catch (\Throwable $th) {
             showLog($th);
             return Response::json([
                 'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
-                'message' => 'Lỗi tạo mới',
+                'message' => 'Không thể đặt bàn này !',
                 'type' => 'error'
             ]);
         }
