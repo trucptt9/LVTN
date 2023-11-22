@@ -87,14 +87,17 @@
                                 </div>
                                 <!--end::Toolbar-->
                             </div>
-                        </form>
-
-                        <div class="card-title align-items-start flex-column px-7 mt-3">
-                            <!--begin::Description-->
-                            <span class="fs-6 fw-bold text-uppercase type-report">
-                                <i class="ki-outline ki-verify"></i> Sơ đồ doanh thu cửa hàng theo thời gian
-                            </span>
-                            <!--end::Description-->
+                            <div class="text-center loading"></div>
+                            <div class="card-toolbar">
+                                <div data-kt-daterangepicker="true" data-kt-daterangepicker-opens="left" data-kt-indicator=""
+                                    class="btn btn-sm btn-light filter-date d-flex align-items-center px-4">
+                                    <!--begin::Display range-->
+                                    <div class="text-gray-600 fw-bold">Loading date range...</div>
+                                    <!--end::Display range-->
+                                    <i class="ki-outline ki-calendar-8 fs-1 ms-2 me-0"></i>
+                                </div>
+                            </div>
+                            <!--end::Toolbar-->
                         </div>
                         <!--end::Header-->
                         <!--begin::Body-->
@@ -111,7 +114,8 @@
                 </div>
                 <!--end::Col-->
             </div>
-
+            <!--end::Row-->
+            <!--begin::Row-->
             <div class="row gx-5 gx-xl-10">
                 <!--begin::Col-->
                 <div class="col-xl-6 mb-5 mb-xl-8">
@@ -182,36 +186,12 @@
                 <!--end::Col-->
             </div>
             <!--end::Row-->
-            <div class="table-responsive">
-                <table class="table table-striped table-bordered table-loading">
-                    <thead>
-                        <tr>
-                            <td class="text-uppercase text-bold  type-title">Giờ</td>
-                            <td class="text-uppercase text-bold text-center">Tổng đơn</td>
-                            <td class="text-uppercase text-bold text-center">Giảm giá</td>
-                            <td class="text-uppercase text-bold">Doanh thu</td>
-                            <td class="text-uppercase text-bold text-center">Chi phí</td>
-                            <td class="text-uppercase text-bold text-center">Lợi nhuận</td>
-                        </tr>
-                    </thead>
-                    <tbody id="load-table" class="detail-table-time">
-                        <tr>
-                            <td colspan="6" class="text-center">
-                                Không tìm thấy dữ liệu!
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
         </div>
         <!--end::Content container-->
     </div>
 @endsection
 @section('script')
     <script>
-        $('.datepicker').flatpickr({
-            dateFormat: 'd-m-Y'
-        });
         let chartData = [];
         let chartCategory = [];
         let chartDataPercent = [];
@@ -495,6 +475,161 @@
                 }
             });
         }
+
+
+        var KTChartLogAccess = (function() {
+            var e = {
+                    self: null,
+                    rendered: !1
+                },
+                t = function(e) {
+                    var t = document.getElementById("kt_charts_revenue");
+                    if (t) {
+                        var a = parseInt(KTUtil.css(t, "height")),
+                            l = KTUtil.getCssVariableValue("--bs-gray-500"),
+                            r = KTUtil.getCssVariableValue("--bs-border-dashed-color"),
+                            o = KTUtil.getCssVariableValue("--bs-warning"),
+                            i = {
+                                series: [{
+                                    name: "Doanh thu",
+                                    data: chartData,
+                                }, ],
+                                chart: {
+                                    fontFamily: "inherit",
+                                    type: "bar",
+                                    height: a,
+                                    toolbar: {
+                                        show: !1
+                                    },
+                                },
+                                legend: {
+                                    show: !1
+                                },
+                                dataLabels: {
+                                    enabled: !1
+                                },
+                                fill: {
+                                    type: "gradient",
+                                    gradient: {
+                                        shadeIntensity: 1,
+                                        opacityFrom: 0.4,
+                                        opacityTo: 0,
+                                        stops: [0, 80, 100],
+                                    },
+                                },
+                                stroke: {
+                                    curve: "smooth",
+                                    show: !0,
+                                    width: 3,
+                                    colors: [o],
+                                },
+                                xaxis: {
+                                    categories: chartCategory,
+                                    axisBorder: {
+                                        show: !1
+                                    },
+                                    axisTicks: {
+                                        show: !1
+                                    },
+                                    offsetX: 20,
+                                    tickAmount: 4,
+                                    labels: {
+                                        rotate: 0,
+                                        rotateAlways: !1,
+                                        style: {
+                                            colors: l,
+                                            fontSize: "12px"
+                                        },
+                                    },
+                                    crosshairs: {
+                                        position: "front",
+                                        stroke: {
+                                            color: o,
+                                            width: 1,
+                                            dashArray: 3
+                                        },
+                                    },
+                                    tooltip: {
+                                        enabled: !0,
+                                        formatter: void 0,
+                                        offsetY: 0,
+                                        style: {
+                                            fontSize: "12px"
+                                        },
+                                    },
+                                },
+                                yaxis: {
+                                    tickAmount: 4,
+                                    // max: 10,
+                                    min: 0,
+                                    labels: {
+                                        style: {
+                                            colors: l,
+                                            fontSize: "12px"
+                                        },
+                                        formatter: function(e) {
+                                            return e;
+                                        },
+                                    },
+                                },
+                                states: {
+                                    normal: {
+                                        filter: {
+                                            type: "none",
+                                            value: 0
+                                        }
+                                    },
+                                    hover: {
+                                        filter: {
+                                            type: "none",
+                                            value: 0
+                                        }
+                                    },
+                                    active: {
+                                        allowMultipleDataPointsSelection: !1,
+                                        filter: {
+                                            type: "none",
+                                            value: 0
+                                        },
+                                    },
+                                },
+                                tooltip: {
+                                    style: {
+                                        fontSize: "12px"
+                                    },
+                                    y: {
+                                        formatter: function(e) {
+                                            return e;
+                                        },
+                                    },
+                                },
+                                colors: [o],
+                                grid: {
+                                    borderColor: r,
+                                    strokeDashArray: 4,
+                                    yaxis: {
+                                        lines: {
+                                            show: !0
+                                        }
+                                    },
+                                },
+                                markers: {
+                                    strokeColor: o,
+                                    strokeWidth: 3
+                                },
+                            };
+                        (e.self = new ApexCharts(t, i)),
+                        setTimeout(function() {
+                            e.self.render(), (e.rendered = !0);
+                        }, 200);
+                    }
+                };
+            return {
+                init: function() {
+                    t(e);
+                },
+            };
+        })();
 
         var KTChartsWidget22 = (function() {
             var e = function(data, category) {
