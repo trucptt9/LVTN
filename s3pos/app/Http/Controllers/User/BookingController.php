@@ -70,7 +70,8 @@ class BookingController extends Controller
         try {
             $data = $request->all();
             $data['store_id'] = $this->store_id;
-            Booking::create($data);
+            $booking = Booking::create($data);
+            return $booking;
             return Response::json([
                 'status' => ResHTTP::HTTP_OK,
                 'message' => 'Đặt bàn thành công',

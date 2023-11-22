@@ -42,15 +42,9 @@
             const phone = $('.phone').val();
             $.get("{{ route('sale.customer') }}", {
                 phone: phone,
+                type: 'show'
             }, function(res) {
-                if (res) {
-                    $('.customer-info').html(res.name);
-                    $('.customer-info').attr('data-value', res.id);
-                    $('.customer_name').val(res.name)
-                } else {
-                    $('.customer-info').html("Số điện thoại không tồn tại!")
-                }
-
+                $('.customer-list').html(res);
             })
         })
         $(document).on("click", ".btn-minus", function(e) {
@@ -226,68 +220,96 @@
             })
         })
         //booking
+        //choose customer
+        $(document).on('click', '.customer-choose', function(e) {
+            e.preventDefault();
+            const phone = $(this).attr('data-value');
+            $.get("{{ route('sale.customer') }}", {
+                phone: phone,
+            }, function(res) {
+                $('#customer').html(res);
+            })
+        })
+        $(document).on('click', '.btn-cancle-customer', function(e) {
+            e.preventDefault();
 
+            $string = `<div class="d-flex align-items-center my-3 px-3">
+                            <input type="text" class="form-control phone" placeholder="Nhập số điện thoại" name="phone">
+                            <button class="btn ms-2 btn-primary btn-search-customer">Tìm</button>
+                        </div>
+                        <div class="customer-list">
+                                        
+                        </div>`
+            $('#customer').html($string);
+
+        })
     })
 
     function addBooking() {
         $('#modal-add-booking').modal('show');
-        $('.btn-search').click(function(e) {
-            e.preventDefault();
-            const phone = $('.phone_customer').val();
-            $.get("{{ route('sale.customer') }}", {
-                phone: phone,
-            }, function(res) {
-                if (res) {
-                    $('.info-customer').html(res.name);
-                    $('.customer_id').val(res.id);
-
-                } else {
-                    $('.info-customer').html("Số điện thoại không tồn tại!")
-                }
-            })
-        })
         $('.btn-booking').click(function(e) {
             e.preventDefault();
-            const form_create = $('form#form-add-booking');
-            if (form_create) {
-                const action = form_create.attr('action');
-                $('.btn-booking').html(`<span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+            $customer_id = $('.customer-id').val();
+            $customer_name = $('.customer-name').val();
+            $name = $('.name-booking').val();
+            $phone = $('.phone-booking').val();
+            $quantity = $('.quantity-booking').val();
+            $note = $('.note-booking').val();
+            $table_id = $('.table').val();
+            $('.btn-booking').html(`<span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
                      <span role="status">Loading...</span>`);
-                const data = new FormData(form_create[0]);
-                console.log(data)
-                $.ajax({
-                    url: action,
-                    data: data,
-                    processData: false,
-                    contentType: false,
-                    type: 'POST',
-                    success: function(rs) {
-                        $('.btn-booking').html(
-                            `Xác nhận`);
-                        $('button[type=submit]').removeAttr('disabled');
-                        if (rs.status == 200) {
-                            form_create[0].reset();
-                            $('#modal-add-booking').modal('hide');
-                        }
+
+            if ($name != '' && $phone != '' && $quantity != '') {
+                $.get("{{ route('sale.booking') }}", {
+                    customer_id: $customer_id,
+                    table_id: $table_id,
+                    name: $name,
+                    phone: $phone,
+                    quantity: $quantity,
+                    note: $note,
+                }, function(res) {
+                    if (res.status == 200) {
+                        $('.btn-booking').html(`Xác nhận`);
+                        $('#modal-add-booking').modal('hide');
                         Toast.fire({
-                            icon: rs?.type,
-                            title: rs.message
+                            icon: 'success',
+                            title: 'Đặt bàn thành công'
                         });
-                    },
-                    error: function(XMLHttpRequest, textStatus, errorThrown) {
-                        $('.btn-booking').html(
-                            `Xác nhận`);
-                        $('button[type=submit]').removeAttr('disabled');
+                        location.href = "{{ route('sale.index') }}"
+                    } else {
+                        $('.btn-booking').html(`Xác nhận`);
                         Toast.fire({
                             icon: 'error',
-                            title: 'Không thể thêm'
+                            title: 'Không thể đặt bàn'
                         });
                     }
-                });
+                })
+            } else {
+                $('.btn-booking').html(`Xác nhận`);
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Vui lòng nhập thông tin còn thiếu!'
+                })
             }
+
+
         })
 
 
+    }
+
+    function destroyBooking() {
+        if (confirm('Xác nhận hủy đặt bàn ?')) {
+            $.get("{{ route('sale.destroy_booking', $table->id) }}", function(res) {
+                if (res.status == 200) {
+                    Toast.fire({
+                        icon: res?.type,
+                        title: res.message
+                    });
+                    location.href = "{{ route('sale.index') }}"
+                }
+            })
+        }
     }
 
     function DestroyCart() {
@@ -333,8 +355,10 @@
     function acceptPayment() {
         $('#modal_payment').modal('show');
         $total = ($('.total-payment').val());
+        $('.customer-payment').val($total);
         $total = $total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' đ';
         $('.payment_total').html($total);
+        $('.payment_change').html('0 đ');
         $('.btn-payment').click(function(e) {
             e.preventDefault();
             const payment_change = parseInt($('.payment_change').attr('data-value'));
@@ -344,7 +368,8 @@
                 alert("Số tiền khách đưa chưa đủ!")
             } else {
                 $table_id = $('.table').val();
-                $customer_id = $('.customer-info').attr('data-value');
+                $customer_id = $('.customer-id').val();
+                $customer_name = $('.customer-name').val();
                 $promotion_id = $('.promotion-id').val();
                 $discount = $('.discount-value').attr('data-value');
                 $type_discount = $('.discount-type').attr('data-value');
@@ -357,6 +382,7 @@
                 $.get("{{ route('sale.acceptPayment') }}", {
                     table: $table_id,
                     customer: $customer_id,
+                    customer_name: $customer_name,
                     promotion: $promotion_id,
                     discount: $discount,
                     type_discount: $type_discount,
@@ -365,7 +391,8 @@
                     sub_total: $sub_total,
                     payment_method: $payment_method,
                     total_cost: $total_cost,
-                    topping_total: $topping_total
+                    topping_total: $topping_total,
+
                 }, function(res) {
                     if (res.status == 200) {
                         // tableSelect = null;
@@ -380,6 +407,7 @@
                             icon: 'success',
                             title: 'Thanh toán thành công'
                         });
+                        location.href = "{{ route('sale.index') }}"
                     }
                 })
             }
@@ -389,8 +417,10 @@
     function paymentOrderTmp() {
         $('#modal_payment').modal('show');
         $total = ($('.total-payment').val());
+        $('.customer-payment').val($total);
         $total = $total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' đ';
         $('.payment_total').html($total);
+        $('.payment_change').html('0 đ');
         const id = $('.order-id').val();
         $('.order-id-payment').val(id)
         $('.btn-payment').click(function(e) {
@@ -429,6 +459,7 @@
                             icon: 'success',
                             title: 'Thanh toán thành công'
                         });
+                        location.href = "{{ route('sale.index') }}"
                     },
                     error: function(XMLHttpRequest, textStatus, errorThrown) {
                         $('.btn-create').html(`Xác nhận`);
@@ -446,14 +477,14 @@
 
     function saveOrderTmp() {
         $table_id = $('.table').val();
-        $customer_id = $('.customer-info').attr('data-value');
+        $customer_id = $('.customer-id').val();
+        $customer_name = $('.customer-name').val();
         $promotion_id = $('.promotion-id').val();
         $discount = $('.discount-value').attr('data-value');
         $type_discount = $('.discount-type').attr('data-value');
         $discount_total = $('.discount-total').val();
         $total = $('.total-payment').val();
         $sub_total = $('.subtotal').attr('data-value');
-        $customer_name = $('.customer_name').val();
         $total_cost = $('.total-cost').val();
         $topping_total = $('.topping_total').val();
         $.get("{{ route('sale.saveOrder') }}", {
@@ -474,6 +505,7 @@
                 icon: 'success',
                 title: 'Lưu đơn thành công'
             });
+            location.href = "{{ route('sale.index') }}"
         })
 
     }
@@ -484,7 +516,7 @@
         $total_change = (Math.round($customer_paid - $total)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' đ'
         $('.payment_change').html($total_change);
         $total_paid = Math.round($customer_paid - $total);
-       
+
         $('.payment_change').attr('data-value', $total_paid);
     }
     // Hàm để cập nhật thời gian

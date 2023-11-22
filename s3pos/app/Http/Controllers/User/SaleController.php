@@ -12,6 +12,7 @@ use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Models\Promotion;
 use App\Models\Table;
+use App\Models\Booking;
 use App\Models\ToppingGroup;
 use App\Models\Toppings;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -102,6 +103,7 @@ class SaleController extends Controller
         $tables = Table::whereHas('area', function ($q) {
             $q->storeId($this->store_id);
         })->where('status', Table::STATUS_ACTIVE)->get();
+       
         return view('Sale.table.table', compact('tables'));
     }
     public function detail($id)
@@ -130,7 +132,7 @@ class SaleController extends Controller
         order_details.price, order_details.toppings, order_details.topping_total,products.image from `tables` JOIN orders ON tables.order_id = orders.id  
         JOIN order_details on orders.id = order_details.order_id join products on product_id = products.id WHERE tables.status_order = 'active' AND tables.id = $id";
         $order_detail = \DB::select($sql);
-        
+        // return Cart::content();
         return Response::json([
             'status' => ResHTTP::HTTP_OK,
             'message'=>'Thêm mới thành công',
@@ -171,6 +173,7 @@ class SaleController extends Controller
             $table = Table::find($order->table_id);
             $table->status_order = Table::STATUS_ORDER_UN_ACTIVE;
             $table->order_id = null;
+            $table->booking_id = null;
             $order->delete();
             $table->update();
             return Response::json([
@@ -195,6 +198,8 @@ class SaleController extends Controller
     {
         $table_id = request('table', null);
         $customer_id = request('customer', null);
+        $customer_name = request('customer_name', null);
+        
         $promotion_id = request('promotion', null);
         $discount = request('discount', null);
         $type_discount = request('type_discount', null);
@@ -203,7 +208,6 @@ class SaleController extends Controller
         $sub_total = request('sub_total', 0);
         $payment_method = request('payment_method',null);
         $cost = request('total_cost',0);
-        $topping_total = request('topping_total' ,0);
         $cart = Cart::content();
         $order = Order::create([
             'staff_id' => auth()->user()->id,
@@ -211,6 +215,7 @@ class SaleController extends Controller
             'sub_total' => Cart::total(),
             'total' => $total,
             'customer_id' => $customer_id,
+            'customer_name'=> $customer_name,
             'table_id' => $table_id,
             'promotion_id' => $promotion_id,
             'discount' => $discount,
@@ -222,6 +227,14 @@ class SaleController extends Controller
             'profit' => $total - $cost
         ]);
         foreach ($cart as $item) {
+            $total_topping = 0;
+            $quantity = $item->qty;
+            if($item->options->topping){
+                foreach($item->options->topping as $top){
+                    $tmp = json_decode($top);
+                    $total_topping+= ($tmp->price *$quantity);
+                }
+            }
             OrderDetail::create([
                 'order_id' => $order->id,
                 'product_id' => $item->id,
@@ -230,7 +243,7 @@ class SaleController extends Controller
                 'price' => $item->price,
                 'toppings' => json_encode($item->options->topping),
                 'total' => $item->subtotal,
-                'topping_total' => $topping_total,
+                'topping_total' => $total_topping,
             ]);
         }
         $order->status = Order::STATUS_FINISH;
@@ -238,6 +251,7 @@ class SaleController extends Controller
         $table = Table::find($table_id);
         $table->status_order = Table::STATUS_ORDER_UN_ACTIVE;
         $table->order_id = $order->id;
+        $table->booking_id = null;
         $table->update();
         Cart::destroy();
         $sql1 = "select orders.id,orders.promotion_id, orders.total, orders.sub_total, promotions.`value`, promotions.type_value from `tables` JOIN orders ON tables.order_id = orders.id  
@@ -267,7 +281,7 @@ class SaleController extends Controller
         $sub_total = request('sub_total', 0);
         $customer_name = request('customer_name','');
         $cost = request('total_cost',0);
-        $topping_total =  request('topping_total',0);
+        // $topping_total =  request('topping_total',0);
         $cart = Cart::content();
         $order = Order::create([
             'staff_id' => auth()->user()->id,
@@ -286,6 +300,14 @@ class SaleController extends Controller
             'profit' => $total - $cost
         ]);
         foreach ($cart as $item) {
+            $total_topping = 0;
+            $quantity = $item->qty;
+            if($item->options->topping){
+                foreach($item->options->topping as $top){
+                    $tmp = json_decode($top);
+                    $total_topping+= ($tmp->price *$quantity);
+                }
+            }
             OrderDetail::create([
                 'order_id' => $order->id,
                 'product_id' => $item->id,
@@ -294,7 +316,7 @@ class SaleController extends Controller
                 'price' => $item->price,
                 'toppings' => json_encode($item->options->topping),
                 'total' => $item->subtotal,
-                'topping_total' => $topping_total,
+                'topping_total' => $total_topping,
             ]);
         }
         $order->status = Order::STATUS_TMP;
@@ -302,9 +324,10 @@ class SaleController extends Controller
         $table = Table::find($table_id);
         $table->status_order = Table::STATUS_ORDER_ACTIVE;
         $table->order_id = $order->id;
+        $table->booking_id = null;
         $table->update();
         // Cart::destroy();
-        return redirect()->route('sale.index')->with('success', 'Cập nhật thành công');
+       return redirect()->route('sale.index')->with('success', 'Cập nhật thành công');
     }   
     public function try(){
         return to_route('index');
@@ -317,6 +340,7 @@ class SaleController extends Controller
             $table = Table::find($order->table_id);
             $table->status_order = Table::STATUS_ORDER_UN_ACTIVE;
             $table->order_id = null;
+            $table->booking_id = null;
             $order->update();
             $table->update();
             return redirect('/sale');
@@ -332,10 +356,78 @@ class SaleController extends Controller
     }
     public function customer()
     {
-        $search = request('phone','');
-        $customer = Customer::storeId($this->store_id)->where('status',Customer::STATUS_ACTIVE)->where('phone','like',$search)->first();
-        return $customer;
+        try{
+            $search = request('phone','');
+            $type = request('type','choose');
+            $customer = Customer::storeId($this->store_id)->where('status',Customer::STATUS_ACTIVE)->where('phone','like',"%$search%")->get();
+            return view('Sale.home.customer', compact('customer', 'type'));
+        }catch (\Throwable $th) {
+            showLog($th);
+            return Response::json([
+                'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
+                'message' => 'Lỗi',
+                'type' => 'error'
+            ]);
+        }
+       
     }
 
-    
+    public function booking()
+    {
+        try{
+           $customer_id = request('customer_id',null);
+           $table_id = request('table_id', '');
+           $name = request('name', '');
+           $phone = request('phone');
+           $quantity = request('quantity', '');
+            $note = request('note', '');
+            $booking = Booking::create([
+                'table_id'=> $table_id,
+                'store_id'=> $this->store_id,
+                'customer_id' =>$customer_id,
+                'name' => $name,
+                'phone' => $phone,
+                'quantity' => $quantity,
+                'note'=> $note 
+            ]);
+            
+            $table = Table::find($table_id);
+            $table->booking_id = $booking->id;
+            $table->update();
+            return Response::json([
+                'status' => ResHTTP::HTTP_OK,
+                'message' => 'Đặt bàn thành công',
+                'type' => 'success'
+            ]);
+        }catch (\Throwable $th) {
+            showLog($th);
+            return Response::json([
+                'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
+                'message' => 'Lỗi',
+                'type' => 'error'
+            ]);
+        }
+       
+    }
+    public function destroy_booking($id){
+       try{
+        $table = Table::find($id);
+        $booking = Booking::find($table->booking_id);
+        $booking->delete();
+        $table->booking_id = null;
+        $table->update();
+        return Response::json([
+            'status' => ResHTTP::HTTP_OK,
+            'message' => 'Hủy đặt bàn thành công',
+            'type' => 'success'
+        ]);
+       }catch (\Throwable $th) {
+        showLog($th);
+        return Response::json([
+            'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
+            'message' => 'Lỗi',
+            'type' => 'error'
+        ]);
+        }
+    }
 }

@@ -110,9 +110,15 @@
                                 <div class="order small me-5"><i class="fas fa-clock"></i> <span id="clock"
                                         class="fw-semibold"></span>
                                 </div>
-                                <span class="info-table">
-                                    <button onclick="addBooking()" class="btn btn-warning btn-sm">Đặt trước</button>
-                                </span>
+                                @if ($table->booking_id)
+                                    <span class="info-table">
+                                        <button onclick="destroyBooking()" class="btn btn-danger btn-sm">Hủy đặt bàn</button>
+                                    </span>
+                                @else
+                                    <span class="info-table">
+                                        <button onclick="addBooking()" class="btn btn-warning text-light btn-sm">Đặt bàn</button>
+                                    </span>
+                                @endif
                             </div>
                             <div class="pos-sidebar-nav small">
                                 <ul class="nav nav-tabs nav-fill">
@@ -123,7 +129,7 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="#" data-bs-toggle="tab"
                                             data-bs-target="#customer">Khách hàng</a>
-                                           
+
                                     </li>
                                 </ul>
                             </div>
@@ -136,7 +142,10 @@
                                             placeholder="Nhập số điện thoại" name="phone">
                                         <button class="btn ms-2 btn-primary btn-search-customer">Tìm</button>
                                     </div>
-                                    <p class="customer-info px-3 fw-bold" data-value=""></p>
+                                    <div class="customer-list">
+
+                                    </div>
+                                    {{-- <p class="customer-info px-3 fw-bold" data-value=""></p> --}}
                                 </div>
                             </div>
                             <div class="pos-sidebar-footer payment">
@@ -225,26 +234,27 @@
                 <div class="modal-dialog modal-md">
                     <form action="{{ route('sale.paymentOrderTmp') }}" type="POST" id="form-payment">
                         @csrf
-                        <div class="modal-content border-0" style="background:#7abb8e">
+                        <div class="modal-content border-0">
                             <div class="modal-pos-promotion modal-promotion">
                                 <input type="hidden" name="order_id" class="order-id-payment" value="">
                                 <div class="modal-pos-product-info px-5 py-3 mb-3"
                                     style="width:100% ; flex:0 0 100%;max-width:100%">
                                     <div class="d-flex align-items-center justify-content-between my-3">
-                                        <span class="fw-bold fs-5 text-light">Tổng thanh toán</span>
-                                        <span class="payment_total fs-5 text-light"></span>
+                                        <span class="fw-bold fs-5 ">Tổng thanh toán</span>
+                                        <span class="payment_total fs-5 "></span>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between my-3">
-                                        <span class="fw-bold fs-5 text-light">Khách đưa</span>
-                                        <input type="text" name="" id=""
-                                            class="customer-payment form-control w-50" onkeyup="handleCalculate()">
+                                        <span class="fw-bold fs-5 ">Khách đưa</span>
+                                        <input type="text" style="text-align:end"
+                                            class="customer-payment form-control w-120px fs-5"
+                                            onkeyup="handleCalculate()">
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between my-3">
-                                        <span class="fw-bold fs-5 text-light">Tiền thừa</span>
-                                        <span class="payment_change fs-5 text-light" data-value=""></span>
+                                        <span class="fw-bold fs-5 ">Tiền thừa</span>
+                                        <span class="payment_change fs-5 " data-value=""></span>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between my-3">
-                                        <span class="fw-bold fs-5 text-light">Thanh toán bằng</span>
+                                        <span class="fw-bold fs-5 ">Thanh toán bằng</span>
                                         <div class="d-flex align-items-center justify-content-between">
                                             @if ($payment_method->count() > 0)
                                                 @foreach ($payment_method as $item)
@@ -281,7 +291,7 @@
             <!-- modal booking-->
             <div class="modal modal-pos fade" id="modal-add-booking">
                 <div class="modal-dialog modal-md">
-                    <form action="{{ route('booking.insert') }}" type="POST" id="form-add-booking">
+                    <form action="{{ route('sale.booking') }}" id="form-add-booking">
                         @csrf
                         <div class="modal-content border-0 ">
                             <a href="#" data-bs-dismiss="modal"
@@ -291,39 +301,26 @@
                                 <div class="modal-pos-product-info px-5 mb-3"
                                     style="width:100% ; flex:0 0 100%;max-width:100%">
                                     <div class="my-3">
-                                        <label for="" class="fw-semibold mb-2">Thông tin khách hàng (nếu
-                                            có)</label>
-                                        <div class="d-flex align-items-center">
-                                            <input type="text" class="form-control phone_customer"
-                                                placeholder="Nhập số điện thoại để tìm" name="phone_customer">
-                                            <button class="btn ms-2 btn-primary btn-outline btn-search">Tìm</button>
-                                        </div>
-                                        <h5 class="info-customer fw-bold text-center mt-2" data-value=""></h5>
-                                        <input type="hidden" name="customer_id" class="customer_id" value="">
-                                        <input type="hidden" name="table_id" id=""
-                                            value="{{ $table->id }}">
+                                        <label for="" class="fw-semibold mb-2">Tên người đặt</label>
+                                        <span class="text-danger"> *</span>
+                                        <input type="text" class="form-control name-booking" name="name"
+                                            required placeholder="Tên người đặt bàn">
                                     </div>
                                     <div class="my-3">
-                                        <label for="" class="fw-semibold mb-2">Tên người liên hệ</label>
+                                        <label for="" class="fw-semibold mb-2">Số điện thoại</label>
                                         <span class="text-danger"> *</span>
-                                        <input type="text" class="form-control" name="name"
-                                            placeholder="Nhập tên">
-                                    </div>
-                                    <div class="my-3">
-                                        <label for="" class="fw-semibold mb-2">Số điện thoại liên hệ</label>
-                                        <span class="text-danger"> *</span>
-                                        <input type="text" class="form-control" placeholder="Nhập số điện thoại"
-                                            name="phone">
+                                        <input type="text" class="form-control phone-booking" name="phone"
+                                            required placeholder="0987 877 776">
                                     </div>
                                     <div class="my-3">
                                         <label for="" class="fw-semibold mb-2">Số người</label>
                                         <span class="text-danger"> *</span>
-                                        <input type="number" class="form-control" name="quantity"
-                                            placeholder="Số người đến">
+                                        <input type="number" class="form-control quantity-booking" name="quantity"
+                                            required placeholder="Số người đến">
                                     </div>
                                     <div class="my-3">
                                         <label for="" class="fw-semibold mb-2">Ghi chú</label>
-                                        <textarea name="note" id="" rows="2" class="form-control"></textarea>
+                                        <textarea name="note" class="form-control note-booking"></textarea>
                                     </div>
                                 </div>
                             </div>

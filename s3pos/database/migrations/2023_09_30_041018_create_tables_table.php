@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id()->index();
             $table->unsignedBigInteger('area_id')->index();
             $table->unsignedBigInteger('order_id')->nullable();
+            $table->unsignedBigInteger('booking_id')->nullable();
             $table->string('code')->unique()->index();
             $table->string('name');
             $table->integer('seat')->nullable()->default(1);

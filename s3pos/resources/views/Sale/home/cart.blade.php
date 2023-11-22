@@ -99,7 +99,7 @@ $cart = Cart::Content();
             </div>
             <div class="pos-order-price d-flex flex-column">
                 <div class="flex-1 title">
-                    {{ number_format($item->total, 0, ',', '.') . ' đ' }}</div>
+                    {{ number_format($item->price*$item->quantity + $item->topping_total, 0, ',', '.') . ' đ' }}</div>
 
                 <div class="text-end">
                     <a href="{{ url('/sale/delete/' . $item->id) }}" class="btn btn-default btn-sm btn-delete"><i

@@ -76,8 +76,6 @@
                         </div>
                     </div>
                 </form>
-                <!--end::Card header-->
-                <!--begin::Card body-->
                 <div class="card-body pt-0 table-loading">
                     <!--begin::Table-->
                     <table class="table align-middle table-bordered fs-6 gy-5">
@@ -108,7 +106,6 @@
                     </table>
                     <!--end::Table-->
                 </div>
-                <!--end::Card body-->
             </div>
             <!--end::Products-->
         </div>

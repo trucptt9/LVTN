@@ -17,7 +17,8 @@ class Table extends Model
         'name',
         'status',
         'seat',
-        'order_id'
+        'order_id',
+        'booking_id'
     ];
 
     protected $hidden = [];
@@ -101,7 +102,7 @@ class Table extends Model
     {
         return $query->where('tables.order_id', $order_id);
     }
-
+ 
     public function area()
     {
         return $this->belongsTo(Area::class, 'area_id');
@@ -111,4 +112,9 @@ class Table extends Model
     {
         return $this->hasOne(Order::class, 'id', 'order_id');
     }
+    public function booking()
+    {
+        return $this->hasOne(Booking::class, 'id', 'booking_id');
+    }
+    
 }

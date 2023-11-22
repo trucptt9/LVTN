@@ -89,7 +89,8 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
         Route::post('payment_tmp', [SaleController::class, 'paymentOrderTmp'])->name('paymentOrderTmp');
         Route::get('delete_order', [SaleController::class,'delete_order'])->name('delete_order');
         //booking
-        Route::post('booking', [BookingController::class, 'booking'])->name('booking');
+        Route::get('booking', [SaleController::class, 'booking'])->name('booking');
+        Route::get('destroy_booking/{id}', [SaleController::class, 'destroy_booking'])->name('destroy_booking');
         
     });
     // store
