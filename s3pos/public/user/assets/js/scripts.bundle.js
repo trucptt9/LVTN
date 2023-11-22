@@ -356,11 +356,11 @@ var KTApp = (function () {
                                             (n.isSame(e, "day") &&
                                             n.isSame(t, "day")
                                                 ? (i.innerHTML =
-                                                      e.format("D MMM YYYY"))
+                                                      e.format("DD/MM/YYYY"))
                                                 : (i.innerHTML =
-                                                      e.format("D MMM YYYY") +
+                                                      e.format("DD/MM/YYYY") +
                                                       " - " +
-                                                      t.format("D MMM YYYY")));
+                                                      t.format("DD/MM/YYYY")));
                                     };
                                 "today" ===
                                     e.getAttribute(
@@ -372,8 +372,8 @@ var KTApp = (function () {
                                             endDate: n,
                                             opens: r,
                                             ranges: {
-                                                Today: [moment(), moment()],
-                                                Yesterday: [
+                                                "Hôm nay": [moment(), moment()],
+                                                "Hôm qua": [
                                                     moment().subtract(
                                                         1,
                                                         "days"
@@ -383,25 +383,25 @@ var KTApp = (function () {
                                                         "days"
                                                     ),
                                                 ],
-                                                "Last 7 Days": [
+                                                "7 ngày trước": [
                                                     moment().subtract(
                                                         6,
                                                         "days"
                                                     ),
                                                     moment(),
                                                 ],
-                                                "Last 30 Days": [
+                                                "30 ngày trước": [
                                                     moment().subtract(
                                                         29,
                                                         "days"
                                                     ),
                                                     moment(),
                                                 ],
-                                                "This Month": [
+                                                "Tháng này": [
                                                     moment().startOf("month"),
                                                     moment().endOf("month"),
                                                 ],
-                                                "Last Month": [
+                                                "Tháng trước": [
                                                     moment()
                                                         .subtract(1, "month")
                                                         .startOf("month"),

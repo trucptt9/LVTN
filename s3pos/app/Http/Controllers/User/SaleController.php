@@ -420,7 +420,7 @@ class SaleController extends Controller
             'status' => ResHTTP::HTTP_OK,
             'message' => 'Hủy đặt bàn thành công',
             'type' => 'success'
-        ]);
+        ]); 
        }catch (\Throwable $th) {
         showLog($th);
         return Response::json([

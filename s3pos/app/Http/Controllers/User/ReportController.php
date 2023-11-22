@@ -27,15 +27,29 @@ class ReportController extends Controller
 
     public function report_all()
     {
+        $date = request('date', '');
+            if ($date != '') {
+                $_array = explode('to', $date);
+                $from = trim($_array[0]);
+                $to = isset($_array[1]) ? trim($_array[1]) : $_array[0];
+            } else {
+                $to = now();
+                $from = now()->subDays(30);
+            }
+            $start = date_format(date_create($from), 'Y-m-d');
+            $end = date_format(date_create($to), 'Y-m-d');
         $query = Order::storeId($this->store_id);
-        $sql = "select count(orders.id) as count_order from orders where orders.status != 'destroy'";
-        $sql1 = "select sum(orders.total) as total from orders where orders.status == 'finish'";
+        $sql = "select count(orders.id) as count_order from orders where orders.status != 'destroy'
+         and orders.store_id = ".$this->store_id." AND DATE_FORMAT(orders.created_at,'%Y-%m-%d') BETWEEN  '$start' AND '$end'";
+        
+        $sql1 = "select sum(orders.total) as total from orders where orders.status = 'finish'
+        and orders.store_id = ".$this->store_id." AND DATE_FORMAT(orders.created_at,'%Y-%m-%d') BETWEEN  '$start' AND '$end' ";
         $count = DB::select($sql);
         $total =  DB::select($sql1);
         $data = [
             'total' => $count[0]->count_order ,
             'revenue' => number_format( $total[0]->total),
-        ];
+        ];  
         return Response::json([
             'status' => ResHTTP::HTTP_OK,
             'data' => $data
@@ -44,58 +58,57 @@ class ReportController extends Controller
 
     public function report_chart()
     {
-        try{
-            $type_time = request('type_time', '');
-            $start = request('start');
-            $end = request('end');
-            $start = date_format(date_create($start), 'Y-m-d');
-            $end = date_format(date_create($end), 'Y-m-d');
-            if (!$type_time || $type_time == 'hour') {
-                $sql_hour = "SELECT DATE_FORMAT(orders.created_at, '%H:00') AS hour_range, SUM(total) AS revenue,
-                    SUM(profit) as profit, SUM(discount_total) as discount, SUM(cost) as cost ,
-                     COUNT(*) AS order_count
-                    FROM orders LEFT JOIN stores ON orders.store_id = stores.id
-                    WHERE stores.id = " . $this->store_id . " 
-                    AND orders.created_at BETWEEN  '$start' AND '$end' GROUP BY hour_range ORDER BY hour_range";
-                $list = DB::select($sql_hour);
-            } else if ($type_time == 'date') {
-                $sql_day = "SELECT DATE_FORMAT(orders.created_at,'%Y-%m-%d') AS day, SUM(total) AS revenue,
-                    SUM(profit) as profit, SUM(discount_total) as discount, SUM(cost) as cost ,
-                    COUNT(*) AS order_count, stores.name
-                    FROM orders LEFT JOIN stores ON orders.store_id = stores.id 
-                    WHERE stores.id = " . $this->store_id . " 
-                    AND orders.created_at BETWEEN  '$start' AND '$end' GROUP BY day ORDER BY day";
-                $list = DB::select($sql_day);
+        $data = [];
+        $category = [];
+        $status = [];
+        try {
+            $date = request('date', '');
+            if ($date != '') {
+                $_array = explode('to', $date);
+                $from = trim($_array[0]);
+                $to = isset($_array[1]) ? trim($_array[1]) : $_array[0];
             } else {
-                $sql_month = "SELECT DATE_FORMAT(orders.created_at,'%c') AS month, SUM(total) AS revenue, 
-                    SUM(profit) as profit, SUM(discount_amount) as discount, SUM(cost) as cost ,
-                   COUNT(*) AS order_count
-                    FROM orders LEFT JOIN stores ON orders.store_id = stores.id
-                    WHERE stores.id = " . $this->store_id . " AND YEAR(orders.created_at) BETWEEN YEAR('$start')  AND YEAR('$end')
-                    AND orders.created_at BETWEEN  '$start' AND '$end' GROUP BY month ORDER BY CAST(month as INT) ASC ";
-                $list = DB::select($sql_month);
+                $to = now();
+                $from = now()->subDays(30);
             }
-            $data = [
-                $list,
-                $type_time
-            ];
-             return $data;
-        }catch (\Throwable $th) {
+            $start = date_format(date_create($from), 'Y-m-d');
+            $end = date_format(date_create($to), 'Y-m-d');
+            $sql_day = "SELECT DATE_FORMAT(orders.created_at,'%Y-%m-%d') AS day, SUM(total) AS revenue,
+            SUM(profit) as profit, SUM(discount_total) as discount, SUM(cost) as cost , COUNT(*) AS order_count
+            FROM orders LEFT JOIN stores ON orders.store_id = stores.id  WHERE stores.id = " . $this->store_id . " 
+            AND  DATE_FORMAT(orders.created_at,'%Y-%m-%d') BETWEEN  '$start' AND '$end' GROUP BY day ORDER BY day";
+            $list = DB::select($sql_day);
+            $sql_status = "SELECT orders.`status` as `status`, SUM(total) AS revenue,count(orders.id) as total,
+            SUM(profit) as profit, SUM(discount_total) as discount, SUM(cost) as cost ,
+            COUNT(*) AS order_count FROM orders LEFT JOIN stores ON orders.store_id = stores.id 
+            WHERE stores.id = " . $this->store_id . "  
+            AND  DATE_FORMAT(orders.created_at,'%Y-%m-%d') BETWEEN  '$start' AND '$end' GROUP BY status ORDER BY status";
+             $status = self::report_by_status($sql_status);
+           
+            foreach ($list as $value) {
+                array_push($data, $value->revenue);
+                array_push($category, date('d/m/Y', strtotime($value->day)));
+            }
+             
+        return Response::json([
+            'status' => ResHTTP::HTTP_OK,
+            'chart' => [
+                'data' => $data,
+                'category' => $category,
+            ],
+            'content' => $status
+        ]); 
+        } catch (\Throwable $th) {
             showLog($th);
-            return Response::json([
-                'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
-                'data' => '',
-            ]);
         }
-
+       
     }
 
     public static function report_by_status($query)
     {
         $category = [];
         $data = [];
-        $list = $query->select(DB::raw("count(*) as total"), DB::raw("sum(total) as revenue"), 'status')
-            ->groupBy('status')->orderBy('total', 'desc')->get();
+        $list = DB::select($query);
         if (!is_null($list)) {
             foreach ($list as $item) {
                 array_push($data, $item->revenue);
@@ -103,7 +116,7 @@ class ReportController extends Controller
             }
         }
         return [
-            'table' => view('User.report.table', ['list' => $list])->render(),
+            'table' => view('User.report.table', compact('list'))->render(),
             'data' => $data,
             'category' => $category
         ];

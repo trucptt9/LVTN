@@ -17,10 +17,10 @@
                 {{ $item->staff->name }}
             </td>
             <td class="text-center">
-                {{ number_format($item->total_discount) }}
+                {{ number_format($item->total_discount) }} đ
             </td>
             <td class="text-center">
-                {{ number_format($item->total) }}
+                {{ number_format($item->total) }} đ
             </td>
             <td class="text-center">
                 <span class="badge bg-{{ $status[1] }}">
@@ -29,9 +29,10 @@
             </td>
             <td class="text-center">
                 <a class="btn btn-light btn-edit" style="padding: 0px" href="{{ route('order.detail', $item->id) }}">
-                    <i class="ki-duotone ki-message-edit fs-2qx text-success">
+                    <i class="ki-duotone ki-eye text-success fs-2qx">
                         <span class="path1"></span>
                         <span class="path2"></span>
+                        <span class="path3"></span>
                     </i>
                 </a>
                 @if ($item->status == 'tmp')

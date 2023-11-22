@@ -105,7 +105,7 @@
     <script src="{{ asset('user/assets/plugins/global/plugins.bundle.js') }}"></script>
     <script src="{{ asset('user/assets/js/scripts.bundle.js') }}"></script>
     <script src="{{ asset('user/assets/plugins/select-picker/dist/picker.min.js') }}"></script>
-
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.0.1/chart.js" integrity="sha512-zulXrCFpnkALZBNUHe4E6rTUt7IhNLDUuLTLqTyKb93z7CrEVzFdL8KfPV6VPplL8+b4MZGOdh00+d2nzGiveg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
     <script>
         let page = 1;
         $.ajaxSetup({
@@ -276,6 +276,7 @@
             }
         }
     </script>
+
     @stack('js')
 
     @yield('script')

@@ -110,7 +110,7 @@ class Order extends Model
         return $this->belongsTo(Table::class, 'table_id');
     }
 
-    public function customer_id()
+    public function customer()
     {
         return $this->belongsTo(Customer::class, 'customer_id');
     }

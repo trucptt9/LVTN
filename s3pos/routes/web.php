@@ -288,12 +288,13 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
         Route::get('table', [OrderController::class, 'table'])->name('table');
         Route::get('report', [OrderController::class, 'report'])->name('report');
         Route::get('detail/{id}', [OrderController::class, 'detail'])->name('detail');
+        Route::get('table_detail/{id}', [OrderController::class, 'table_detail'])->name('table_detail');
         Route::get('delete', [OrderController::class, 'delete'])->name('delete');
     });
     Route::prefix('reports')->name('report.')->group(function () {
         Route::get('', [ReportController::class, 'index'])->name('index');
         Route::get('report_all', [ReportController::class, 'report_all'])->name('report_all');
-        Route::post('report_chart', [ReportController::class, 'report_chart'])->name('report_chart');
+        Route::get('report_chart', [ReportController::class, 'report_chart'])->name('report_chart');
     });
 
     // other

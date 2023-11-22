@@ -21,11 +21,12 @@
                         <!--end::Item-->
                         <!--begin::Item-->
                         <li class="breadcrumb-item text-white opacity-75">
-                            Thống kê
+                           Báo cáo
                         </li>
                         <!--end::Item-->
                     </ul>
                 </div>
+                
             </div>
             <!--begin::Products-->
             <div class="card card-flush">

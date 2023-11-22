@@ -1,7 +1,7 @@
 @php
     use App\Models\Order;
 @endphp
-@if ($list->count() > 0)
+@if (count($list) > 0)
     @foreach ($list as $item)
         @php
             $status = Order::get_status($item->status);
@@ -20,7 +20,7 @@
                 {{ number_format($item->total) }}
             </td>
             <td class="text-center">
-                {{ number_format($item->revenue) + ' đ' }}
+                {{ number_format($item->revenue).' đ' }}
             </td>
         </tr>
     @endforeach

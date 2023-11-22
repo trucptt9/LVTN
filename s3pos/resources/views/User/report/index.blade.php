@@ -33,7 +33,7 @@
                     <!--begin::Card widget 2-->
                     <div class="card">
                         <!--begin::Body-->
-                        <div class="card-body d-flex justify-content-between justify-content-center text-info">
+                        <div class="card-body fw-semibold d-flex justify-content-between justify-content-center text-info">
                             <span class="fw-semibold fs-3x text-gray-800 lh-1 ls-n2 header-order">
                                 0
                             </span>
@@ -47,7 +47,7 @@
                     <!--begin::Card widget 2-->
                     <div class="card">
                         <!--begin::Body-->
-                        <div class="card-body d-flex justify-content-between justify-content-center text-danger">
+                        <div class="card-body d-flex fw-semibold justify-content-between justify-content-center text-danger">
                             <span class="fw-semibold fs-3x text-gray-800 lh-1 ls-n2 header-revenue">
                                 0
                             </span>
@@ -63,46 +63,36 @@
                 <div class="col-md-12 mb-5">
                     <!--begin::Chart widget 28-->
                     <div class="card card-flush h-xl-100">
-                        <form action="" id="form-search">
-                            <div class="card-header pt-7">
-                                <div class="card-title row d-flex justify-content-between align-items-center">
-                                    <div class="col mb-0">
-                                        <label class="form-label">Bắt đầu</label>
-                                        <input class="form-control form-control-solid datepicker" name="start"
-                                            value="{{ now()->format('d-m-Y') }}" />
-                                    </div>
-                                    <div class="col mb-0">
-                                        <label class="form-label">Kết thúc</label>
-                                        <input class="form-control form-control-solid datepicker" name="end"
-                                            value="{{ now()->format('d-m-Y') }}" />
-                                    </div>
-                                    <div class="col mb-0">
-                                        <label class="form-label">Loại báo cáo</label>
-                                        <select class="form-select" data-control="select2">
-                                            <option value="hour" selected>Báo cáo theo giờ</option>
-                                            <option value="date">Báo cáo theo ngày</option>
-                                            <option value="month">Báo cáo theo tháng</option>
-                                        </select>
-                                    </div>
-
-                                </div>
-                                <div class="card-toolbar">
-                                    <button class="btn btn-sm btn-primary mt-9 bnt-report"> Báo cáo</button>
-                                </div>
-                                <!--end::Toolbar-->
+                        <!--begin::Header-->
+                        <div class="card-header pt-7">
+                            <!--begin::Statistics-->
+                            <div class="card-title align-items-start flex-column">
+                                <!--begin::Description-->
+                                <span class="fs-6 fw-semibold text-uppercase">
+                                    <i class="ki-outline ki-verify"></i> Sơ đồ doanh thu theo thời gian
+                                </span>
+                                <!--end::Description-->
                             </div>
-                        </form>
-
-                        <div class="card-title align-items-start flex-column px-7 mt-3">
-                            <!--begin::Description-->
-                            <span class="fs-6 fw-bold text-uppercase type-report">
-                                <i class="ki-outline ki-verify"></i> Sơ đồ doanh thu cửa hàng theo thời gian
-                            </span>
-                            <!--end::Description-->
+                            <div class="text-center loading"></div>
+                            <div class="card-toolbar">
+                                <div data-kt-daterangepicker="true" data-kt-daterangepicker-opens="left" data-kt-indicator=""
+                                    class="btn btn-sm btn-light filter-date d-flex align-items-center px-4">
+                                    <!--begin::Display range-->
+                                    <div class="text-gray-600 fw-bold">Loading date range...</div>
+                                    <!--end::Display range-->
+                                    <i class="ki-outline ki-calendar-8 fs-1 ms-2 me-0"></i>
+                                </div>
+                            </div>
+                            <!--end::Toolbar-->
                         </div>
-                        <div class="card-body revenue-content d-flex align-items-end ps-4 pe-0 pb-4">
-
-                            <canvas id="chartTime" class="mh-400px"></canvas>
+                        <!--end::Header-->
+                        <!--begin::Body-->
+                        
+                        <div class="card-body d-flex align-items-end ps-4 pe-0 pb-4" >
+                            <!--begin::Chart-->
+                            
+                            <div id="kt_charts_revenue" class="h-400px w-100 min-h-auto "></div>
+                            <!--end::Chart-->
                         </div>
                         <!--end::Body-->
                     </div>
@@ -110,7 +100,8 @@
                 </div>
                 <!--end::Col-->
             </div>
-
+            <!--end::Row-->
+            <!--begin::Row-->
             <div class="row gx-5 gx-xl-10">
                 <!--begin::Col-->
                 <div class="col-xl-6 mb-5 mb-xl-8">
@@ -135,7 +126,7 @@
                                     <thead>
                                         <tr>
                                             <td class="text-uppercase text-bold">Trạng thái</td>
-                                            <td class="text-uppercase text-bold text-center">Số lượng</td>
+                                            <td class="text-uppercase text-bold text-center">Số lượng đơn</td>
                                             <td class="text-uppercase text-bold text-center">Doanh thu</td>
                                         </tr>
                                     </thead>
@@ -181,193 +172,184 @@
                 <!--end::Col-->
             </div>
             <!--end::Row-->
-            <div class="table-responsive">
-                <table class="table table-striped table-bordered table-loading">
-                    <thead>
-                        <tr>
-                            <td class="text-uppercase text-bold  type-title">Giờ</td>
-                            <td class="text-uppercase text-bold text-center">Tổng đơn</td>
-                            <td class="text-uppercase text-bold text-center">Giảm giá</td>
-                            <td class="text-uppercase text-bold">Doanh thu</td>
-                            <td class="text-uppercase text-bold text-center">Chi phí</td>
-                            <td class="text-uppercase text-bold text-center">Lợi nhuận</td>
-                        </tr>
-                    </thead>
-                    <tbody id="load-table" class="detail-table-time">
-                        <tr>
-                            <td colspan="6" class="text-center">
-                                Không tìm thấy dữ liệu!
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
         </div>
         <!--end::Content container-->
     </div>
 @endsection
 @section('script')
     <script>
-        $('.datepicker').flatpickr({
-            dateFormat: 'd-m-Y'
-        });
         let chartData = [];
         let chartCategory = [];
         let chartDataPercent = [];
         let chartCategoryPercent = [];
         let _date = '';
-
-        $.get("{{ route('report.report_all') }}", function(rs) {
-            if (rs.status == 200) {
-                $('.header-order').text(rs?.data?.total);
-                $('.header-revenue').text(rs?.data?.revenue + ' đ');
-            }
-        });
-        loadRevenue();
-
-        function loadRevenue() {
-            showSniper('.revenue-content');
-            showSniper('.table-loading');
-            $('.title-report').html($('.type :selected').text());
-            var data = new FormData($('#form-search')[0]);
-            $.ajax({
-                url: "{{ route('report.report_chart') }}",
-                type: 'POST',
-                async: true,
-                data: data,
-                processData: false,
-                contentType: false,
-                success: function(data) {
+        loadTotal();
+        function loadTotal(date) {
+            const __date = date ? date : _date;
+            const url = "{{ route('report.report_all') }}?date=" + __date + "&withcontent=1";
+            $.get(url, function(rs) {
+                if (rs.status == 200) {
+                    $('.header-order').text(rs?.data?.total);
+                    $('.header-revenue').text(rs?.data?.revenue);
                     $(".sniper-content").remove();
-                    $(".sniper-content").remove();
-                    if (data[1] == 'hour') {
-                        $title = "Doanh thu cửa hàng theo giờ";
-                        $title_table = "Giờ"
-                    } else if (data[1] == 'date') {
-                        $title = "Doanh thu cửa hàng theo ngày";
-                        $title_table = "Ngày"
-                    } else {
-                        $title = "Doanh thu cửa hàng theo tháng";
-                        $title_table = "Tháng"
-                    }
-                    $('.type-report').html($title)
-                    $('.type-title').html($title_table)
-                    let order = 0;
-                    let revenue = 0;
-                    let expense = 0;
-                    let profit = 0
-                    let string = '';
-                    if (data[0].length > 0) {
-                        data[0].forEach(element => {
-                            order += element?.order_count;
-                            revenue += parseInt(element?.revenue);
-                            expense += parseInt(element?.cost);
-                            profit += parseInt(element?.profit);
-                            let profit_ele = parseInt(element?.profit);
-                            let text_class = profit_ele >= 0 ? 'text-success' : 'text-danger';
-                            $('.text-profit').removeClass('text-success');
-                            $('.text-profit').removeClass('text-danger');
-                            if (element.day) {
-                                let subDateStr = (element?.day).split("-");
-                                element.day = subDateStr[2] + '-' + subDateStr[1] + '-' + subDateStr[0];
-                                console.log(element.day)
-                            }
-                            string += `<tr>
-                            <td class="text-center">
-                                        <div class="text-center">${element.hour_range ? element.hour_range :(element.day? element.day : element?.month) }</div>
-                                    </td>
-                                    <td class="text-center">
-                                        <div class="text-center">${element?.order_count}</div>
-                                    </td>
-                                    <td class="text-center">
-                                        <div class="text-center"> ${element?.discount} </div>
-                                    </td>
-                                    <td class="text-center">
-                                        <div class="text-center">${element?.revenue}</div>
-                                    </td>
-                                    <td class="text-center">
-                                        <div class="text-center">${element?.cost}</div>
-                                    </td>
-                                    <td class="text-center">
-                                        <div class="text-center fw-bold text-profit ${text_class}"> ${profit_ele >0 ? '+'+profit_ele: profit_ele}</div>
-                                    </td>
-                            </tr>`;
-                        });
-                    } else {
-                        string = `<tr>
-                            <td colspan="6" class="text-center empty-data">
-                                <div class="text-center">
-                                    <i class="fas fa-sad-cry fs-s2"></i> Không có dữ liệu
-                                </div>
-                            </td>
-                        </tr>`;
-                    }
-
-                    $('.total-profit').removeClass('text-danger')
-                    $('.total-profit').removeClass('text-success')
-                    if (profit > 0) {
-                        $('.total-profit').addClass('text-success')
-                    } else if (profit < 0) {
-                        $('.total-profit').addClass('text-danger')
-                    }
-                    revenue = revenue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' đ'
-                    expense = expense.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' đ'
-                    profit = profit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' đ'
-                    $('.total-order').html(order);
-                    $('.total-revenue').html(revenue);
-                    $('.total-expense').html(expense);
-                    $('.total-profit').html(profit);
-                    $('.detail-table-time').html(string);
-                    // Kiểm tra nếu biểu đồ đã được tạo, thì hủy nó trước khi vẽ lại
-                    if (chartMonth) {
-                        chartMonth.destroy();
-                    }
-                    // Lấy thẻ canvas
-                    var ctx = document.getElementById('chartTime').getContext('2d');
-                    chartMonth = new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: data[0].map(function(row) {
-                                if (row.hour_range) {
-                                    return row.hour_range + " h";
-                                } else if (row.day) {
-                                    return row.day;
-                                } else {
-                                    return 'Tháng ' + row.month
-                                }
-                            }),
-                            datasets: [{
-                                label: 'Tổng đơn',
-                                data: data[0].map(function(row) {
-                                    return row.order_count;
-                                }),
-                                backgroundColor: colorOrder,
-                                borderColor: 'rgba(255, 206, 86, 1)',
-                            }]
-                        },
-                    });
-                    chartMonth.options.scales.y = {
-                        ...chartMonth.options.scales.y,
-                        right: {
-                            type: 'linear',
-                            position: 'right',
-                            beginAtZero: true
-                        }
-                    };
-                    chartMonth.data.datasets.push({
-                        label: 'Doanh thu',
-                        data: data[0].map(function(row) {
-                            return row.revenue;
-                        }),
-                        type: 'line',
-                        backgroundColor: colorRevenue,
-                        borderColor: colorRevenue,
-                        yAxisID: 'right-y-axis'
-                    });
-                    chartMonth.update();
                 }
             });
         }
+
+
+        var KTChartLogAccess = (function() {
+            var e = {
+                    self: null,
+                    rendered: !1
+                },
+                t = function(e) {
+                    var t = document.getElementById("kt_charts_revenue");
+                    if (t) {
+                        var a = parseInt(KTUtil.css(t, "height")),
+                            l = KTUtil.getCssVariableValue("--bs-gray-500"),
+                            r = KTUtil.getCssVariableValue("--bs-border-dashed-color"),
+                            o = KTUtil.getCssVariableValue("--bs-warning"),
+                            i = {
+                                series: [{
+                                    name: "Doanh thu",
+                                    data: chartData,
+                                }, ],
+                                chart: {
+                                    fontFamily: "inherit",
+                                    type: "bar",
+                                    height: a,
+                                    toolbar: {
+                                        show: !1
+                                    },
+                                },
+                                legend: {
+                                    show: !1
+                                },
+                                dataLabels: {
+                                    enabled: !1
+                                },
+                                fill: {
+                                    type: "gradient",
+                                    gradient: {
+                                        shadeIntensity: 1,
+                                        opacityFrom: 0.4,
+                                        opacityTo: 0,
+                                        stops: [0, 80, 100],
+                                    },
+                                },
+                                stroke: {
+                                    curve: "smooth",
+                                    show: !0,
+                                    width: 3,
+                                    colors: [o],
+                                },
+                                xaxis: {
+                                    categories: chartCategory,
+                                    axisBorder: {
+                                        show: !1
+                                    },
+                                    axisTicks: {
+                                        show: !1
+                                    },
+                                    offsetX: 20,
+                                    tickAmount: 4,
+                                    labels: {
+                                        rotate: 0,
+                                        rotateAlways: !1,
+                                        style: {
+                                            colors: l,
+                                            fontSize: "12px"
+                                        },
+                                    },
+                                    crosshairs: {
+                                        position: "front",
+                                        stroke: {
+                                            color: o,
+                                            width: 1,
+                                            dashArray: 3
+                                        },
+                                    },
+                                    tooltip: {
+                                        enabled: !0,
+                                        formatter: void 0,
+                                        offsetY: 0,
+                                        style: {
+                                            fontSize: "12px"
+                                        },
+                                    },
+                                },
+                                yaxis: {
+                                    tickAmount: 4,
+                                    // max: 10,
+                                    min: 0,
+                                    labels: {
+                                        style: {
+                                            colors: l,
+                                            fontSize: "12px"
+                                        },
+                                        formatter: function(e) {
+                                            return e;
+                                        },
+                                    },
+                                },
+                                states: {
+                                    normal: {
+                                        filter: {
+                                            type: "none",
+                                            value: 0
+                                        }
+                                    },
+                                    hover: {
+                                        filter: {
+                                            type: "none",
+                                            value: 0
+                                        }
+                                    },
+                                    active: {
+                                        allowMultipleDataPointsSelection: !1,
+                                        filter: {
+                                            type: "none",
+                                            value: 0
+                                        },
+                                    },
+                                },
+                                tooltip: {
+                                    style: {
+                                        fontSize: "12px"
+                                    },
+                                    y: {
+                                        formatter: function(e) {
+                                            return e;
+                                        },
+                                    },
+                                },
+                                colors: [o],
+                                grid: {
+                                    borderColor: r,
+                                    strokeDashArray: 4,
+                                    yaxis: {
+                                        lines: {
+                                            show: !0
+                                        }
+                                    },
+                                },
+                                markers: {
+                                    strokeColor: o,
+                                    strokeWidth: 3
+                                },
+                            };
+                        (e.self = new ApexCharts(t, i)),
+                        setTimeout(function() {
+                            e.self.render(), (e.rendered = !0);
+                        }, 200);
+                    }
+                };
+            return {
+                init: function() {
+                    t(e);
+                },
+            };
+        })();
 
         var KTChartsWidget22 = (function() {
             var e = function(data, category) {
@@ -417,6 +399,7 @@
             };
             return {
                 init: function(data, category) {
+                    console.log(data)
                     e(data, category);
                 },
             };
@@ -428,7 +411,9 @@
             day_from = picker.startDate.format('YYYY-MM-DD');
             day_to = picker.endDate.format('YYYY-MM-DD');
             _date = day_from + ' to ' + day_to;
+            showSpinner(".loading")
             load_chart(_date);
+            loadTotal(_date);
         });
 
         function load_chart(date) {
@@ -438,6 +423,7 @@
             $.get(url, function(rs) {
                 $('.btn-reload').removeAttr('data-kt-indicator');
                 if (rs.status == 200) {
+                    $(".sniper-content").remove();
                     chartData = rs?.chart?.data || [];
                     chartCategory = rs?.chart?.category || [];
                     chartDataPercent = rs?.content?.data || [];
