@@ -125,7 +125,7 @@
                         <!--begin:::Tab item-->
                         <li class="nav-item">
                             <a class="nav-link text-active-primary pb-4 fs-6 staff-log" data-bs-toggle="tab"
-                                href="#log">Log</a>
+                                href="#log">Lịch sử thao tác</a>
                         </li>
                         <!--end:::Tab item-->
                     </ul>
@@ -293,52 +293,15 @@
                         <div class="tab-pane fade" id="permission" role="tabpanel">
                             <!--begin::Card-->
                             <div class="card pt-4 mb-6 mb-xl-9">
-                                <!--begin::Card header-->
                                 <div class="card-header border-0">
-                                    <!--begin::Card toolbar-->
                                     <div class="card-toolbar">
-                                        <!--begin::Filter-->
                                         <button type="button" class="btn btn-sm btn-flex btn-primary">
                                             Cập nhật</button>
-                                        <!--end::Filter-->
                                     </div>
-                                    <!--end::Card toolbar-->
                                 </div>
-                                <!--end::Card header-->
-                                <!--begin::Card body-->
                                 <div class="card-body pt-0 pb-5">
-                                    <!--begin::Table wrapper-->
-                                    <div class="table-responsive">
-                                        <!--begin::Table-->
-                                        <table class="table align-middle table-bordered gy-5 ">
-                                            <thead class="border-bottom border-gray-200 fs-7 fw-bold">
-                                                <tr class="text-start text-muted text-uppercase gs-0">
-
-                                                    <th class="w-300px">Tính năng</th>
-                                                    <th class="text-center" colspan="6">Quyền cụ thể</th>
-                                                </tr>
-                                                <tr class="text-start text-muted text-uppercase gs-0">
-                                                    <th colspan="2"></th>
-                                                    <th class="text-center">Tất cả</th>
-                                                    <th class="text-center">Thêm</th>
-                                                    <th class="text-center">Sửa</th>
-                                                    <th class="text-center">Xóa</th>
-                                                    <th class="text-center">Phân quyền</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="fs-6 fw-semibold text-gray-600 permition_table ">
-                                                <tr>
-                                                    <td colspan="3">
-                                                        Không tìm thấy dữ liệu
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <!--end::Table-->
-                                    </div>
-                                    <!--end::Table wrapper-->
+                                  @include('user.staff.permission')
                                 </div>
-                                <!--end::Card body-->
                             </div>
                             <!--end::Card-->
                         </div>
@@ -503,22 +466,18 @@
                                                             </div>
                                                         </div>
                                                     </form>
-                                                    <div class="card-body py-4">
+                                                    <div class="card-body py-4 table-loading">
                                                         <!--begin::Table-->
                                                         <table class="table align-middle table-row-dashed fs-6 gy-5"
                                                             id="kt_table_users">
                                                             <thead>
                                                                 <tr
                                                                     class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
-
-
                                                                     <th class="min-w-125px">Thời gian</th>
                                                                     <th class="min-w-125px">Nội dung</th>
-
-
                                                                 </tr>
                                                             </thead>
-                                                            <tbody class="text-gray-600 fw-semibold" id="table-log">
+                                                            <tbody class="text-gray-600 fw-semibold" id="load-table">
                                                                 <tr>
                                                                     <td class="text-center" colspan="2">
                                                                         Không có dữ liệu !
@@ -556,6 +515,12 @@
 
 @section('script')
     <script>
+        const routeList = "{{ route('staff.log', $staff->id) }}";
+        filterTable();
+
+        function filterTable() {
+            loadTable(routeList);
+        };
         $(document).ready(function() {
             $("#start_modal_add_schedule_datepicker").flatpickr({
                 enableTime: true,
@@ -569,24 +534,16 @@
             });
 
             $("#kt_datepicker_1").flatpickr();
-
             $('.permision').click(function(e) {
                 e.preventDefault();
-
-                $.get("{{ route('staff.permission') }}", function(res) {
-                    $('.permition_table').html(res)
-                })
-
+                // $.get("{{ route('staff.permission') }}", function(res) {
+                //     $('.permition_table').html(res)
+                // })
             })
-
             $('.staff-log').click(function(e) {
                 e.preventDefault();
-                $.get("{{ route('staff.log', $staff->id) }}", function(res) {
-                    $('#table-log').html(res.data)
-                })
-
+                filterTable();
             })
-
             $('.btn-create').click(function(e) {
                 e.preventDefault();
                 $('.btn-create').html(`<span class="spinner-border spinner-border-sm" aria-hidden="true"></span>

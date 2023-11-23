@@ -212,7 +212,11 @@
                 }
             });
         }
-
+        $(document).on("click", ".pagination a", function(event) {
+            event.preventDefault();
+            page = $(this).attr("href").split("page=")[1];
+            filterTable();
+        });
 
         const form_update = $('form#form-update');
         if (form_update) {

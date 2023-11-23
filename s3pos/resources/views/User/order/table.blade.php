@@ -17,7 +17,7 @@
                 {{ $item->staff->name }}
             </td>
             <td class="text-center">
-                {{ number_format($item->total_discount) }} đ
+                {{ number_format($item->discount_total) }} đ
             </td>
             <td class="text-center">
                 {{ number_format($item->total) }} đ

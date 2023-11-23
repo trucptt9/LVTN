@@ -17,7 +17,7 @@
     @endforeach
     @if ($paginate != '')
         <tr>
-            <td colspan="2">
+            <td colspan="2"  class="text-end">
                 <div class="mt-2">
                     {{ $paginate }}
                 </div>
