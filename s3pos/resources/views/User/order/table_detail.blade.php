@@ -7,7 +7,7 @@
                 ({{ number_format($item->price) . 'đ x ' . $item->quantity }})
             </td>
             <td>
-                @if ($item->toppings)
+                @if ($item->topping_total > 0)
                     @foreach (json_decode($item->toppings, true) as $topping)
                         <div class="">{{ json_decode($topping, true)['name'] }}
                             <span>
@@ -16,6 +16,7 @@
                             </span>
                         </div>
                     @endforeach
+               
                 @endif
             </td>
             <td class="text-end">
