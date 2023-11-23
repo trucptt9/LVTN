@@ -293,12 +293,7 @@
                         <div class="tab-pane fade" id="permission" role="tabpanel">
                             <!--begin::Card-->
                             <div class="card pt-4 mb-6 mb-xl-9">
-                                <div class="card-header border-0">
-                                    <div class="card-toolbar">
-                                        <button type="button" class="btn btn-sm btn-flex btn-primary">
-                                            Cập nhật</button>
-                                    </div>
-                                </div>
+                                
                                 <div class="card-body pt-0 pb-5">
                                   @include('user.staff.permission')
                                 </div>
@@ -517,7 +512,6 @@
     <script>
         const routeList = "{{ route('staff.log', $staff->id) }}";
         filterTable();
-
         function filterTable() {
             loadTable(routeList);
         };
@@ -585,13 +579,14 @@
             })
 
             $(document).on('click','.check-all', function(e){
-                e.preventDefault();
-                // alert($(this).attr('data-id'));
+                let id = '#check-all-' +$(this).attr('data-id');
                 let moclass = '.module-'+ $(this).attr('data-id');
-                console.log(moclass);
-                $(this).prop('checked', $(this).prop('checked')); 
                 $(moclass).prop('checked', $(this).prop('checked')); 
+                $(moclass).click(function(e){
+                    $(id).prop('checked', false);
+                })
             }) 
+            
 
         })
     </script>

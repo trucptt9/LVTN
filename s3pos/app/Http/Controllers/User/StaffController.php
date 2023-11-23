@@ -5,11 +5,13 @@ namespace App\Http\Controllers\User;
 use App\Http\Requests\Staff\StaffDeleteRequest;
 use App\Http\Requests\Staff\StaffInsertRequest;
 use App\Http\Requests\Staff\StaffUpdateRequest;
+use App\Http\Requests\Staff\StaffPermissionRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Staff;
 use App\Models\Position;
 use App\Models\Module;
 use App\Models\Department;
+use App\Models\Permission;
 use App\Models\StaffHistory;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Response as ResHTTP;
@@ -99,12 +101,39 @@ class StaffController extends Controller
         ];
         $staff = Staff::storeId($this->store_id)->findOrFail($id);
         $modules = Module::where('status','active')->orderBy('name','asc')->get();
+        $permissions = Permission::staffId($id)->get();
         if (request()->ajax()) {
             return view('user.staff.modal_edit', compact('staff', 'data'))->render();
         }
-        return view('user.staff.detail', compact('staff', 'data','modules'));
+        return view('user.staff.detail', compact('staff', 'data','modules','permissions'));
     }
 
+    public function update_permission(StaffPermissionRequest $request){
+        try {
+            DB::beginTransaction();
+            $id = $request->get('staff_id', '');
+            $staff = Staff::storeId($this->store_id)->whereId($id)->first();
+            if ($staff) {
+                // xóa tất cả các permission cũ
+                Permission::staffId($id)->delete();
+                // thêm quyền mới
+                $actions = request('actions', []);
+                foreach ($actions as $key => $action) {
+                    Permission::create([
+                        'staff_id' => $id,
+                        'module' => $key,   
+                        'actions' => json_encode($action)
+                    ]);
+                }
+                DB::commit();
+                return redirect()->back()->with('success', 'Phân quyền thành công');
+            }
+        } catch (\Throwable $th) {
+            showLog($th);
+            DB::rollBack();
+        }
+        return redirect()->back()->with('error', 'Lỗi phân quyền!');
+    }
     public function insert(StaffInsertRequest $request)
     {
         try {

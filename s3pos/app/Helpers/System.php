@@ -4,6 +4,7 @@ use App\Models\AdminHistory;
 use App\Models\AdminMenu;
 use App\Models\AdminSetting;
 use App\Models\Settings;
+use App\Models\Permission;
 use App\Models\StaffHistory;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -290,5 +291,10 @@ if (!function_exists('save_log_action_admin')) {
             'link' => $link ? $link : request()->getUri()
         ]);
         return $log;
+    }
+}if (!function_exists('permission_detail')) {
+    function permission_detail($staff_id, $module)
+    {
+        return Permission::staffId($staff_id)->ofModule($module)->first();
     }
 }

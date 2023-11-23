@@ -108,6 +108,7 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
         Route::post('update', [StaffController::class, 'update'])->name('update');
         Route::get('delete', [StaffController::class, 'delete'])->name('delete');
         Route::get('permission', [StaffController::class, 'permission'])->name('permission');
+        Route::post('update_permission', [StaffController::class, 'update_permission'])->name('update_permission');
         Route::get('log/{id}', [StaffController::class, 'log'])->name('log');
     });
     Route::prefix('departments')->name('department.')->group(function () {
