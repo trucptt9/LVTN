@@ -149,7 +149,7 @@
                                 </div>
                             </div>
                             <div class="pos-sidebar-footer payment">
-                                @include('Sale.home.payment')
+                               
                             </div>
                         </div>
                     </div>

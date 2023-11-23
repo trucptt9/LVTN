@@ -8,6 +8,7 @@ use App\Http\Requests\Staff\StaffUpdateRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Staff;
 use App\Models\Position;
+use App\Models\Module;
 use App\Models\Department;
 use App\Models\StaffHistory;
 use Illuminate\Support\Facades\Response;
@@ -74,9 +75,8 @@ class StaffController extends Controller
             $list = Staff::storeId($this->store_id);
             $list = $status != '' ? $list->ofStatus($status) : $list;
             $list = $search != '' ? $list->search($search) : $list;
-
             $list = $list->latest()->paginate($limit);
-
+           
             return Response::json([
                 'status' => ResHTTP::HTTP_OK,
                 'data' => view('User.staff.table', compact('list'))->render(),
@@ -98,10 +98,11 @@ class StaffController extends Controller
             'positions' => Position::storeId($this->store_id)->get(),
         ];
         $staff = Staff::storeId($this->store_id)->findOrFail($id);
+        $modules = Module::where('status','active')->orderBy('name','asc')->get();
         if (request()->ajax()) {
             return view('user.staff.modal_edit', compact('staff', 'data'))->render();
         }
-        return view('user.staff.detail', compact('staff', 'data'));
+        return view('user.staff.detail', compact('staff', 'data','modules'));
     }
 
     public function insert(StaffInsertRequest $request)

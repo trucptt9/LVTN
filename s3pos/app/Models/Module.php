@@ -13,7 +13,8 @@ class Module extends Model
     protected $fillable = [
         'code',
         'name',
-        'status'
+        'status',
+        'action'
     ];
 
     protected $hidden = [];
@@ -55,7 +56,7 @@ class Module extends Model
     {
         return $query->where('modules.code', $code);
     }
-
+  
     public function scopeOfStatus($query, $status)
     {
         if (is_array($status)) {

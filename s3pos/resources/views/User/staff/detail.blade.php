@@ -584,6 +584,15 @@
                 });
             })
 
+            $(document).on('click','.check-all', function(e){
+                e.preventDefault();
+                // alert($(this).attr('data-id'));
+                let moclass = '.module-'+ $(this).attr('data-id');
+                console.log(moclass);
+                $(this).prop('checked', $(this).prop('checked')); 
+                $(moclass).prop('checked', $(this).prop('checked')); 
+            }) 
+
         })
     </script>
 @endsection
