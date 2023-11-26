@@ -15,8 +15,7 @@
 
                         <div class="symbol-label">
                             @if ($item->avatar == null)
-                                <img src="{{ asset('images/avatar.jpg') }} " alt=""
-                                    class="w-100" />
+                                <img src="{{ asset('images/avatar.jpg') }} " alt="" class="w-100" />
                             @else
                                 <img src="{{ asset('storage/' . $item->avatar) }} " alt="{{ $item->name }}"
                                     class="w-100" />
@@ -57,13 +56,14 @@
                         <span class="path3"></span>
                     </i>
                 </a>
-                <a class="btn btn-light btn-edit" style="padding: 0px" href="{{ route('staff.detail', $item->id) }}">
-                    <i class="ki-duotone ki-message-edit fs-2qx text-success">
-                        <span class="path1"></span>
-                        <span class="path2"></span>
-                    </i>
-                </a>
 
+                    <a class="btn btn-light btn-edit" style="padding: 0px" href="{{ route('staff.detail', $item->id) }}">
+                        <i class="ki-duotone ki-message-edit fs-2qx text-success">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                    </a>
+              
                 <button class="btn btn-light btn-delete" style="padding: 0px"
                     onclick="confirmDelete('{{ $item->id }}')">
                     <i class="ki-duotone ki-trash fs-2qx text-danger">
@@ -74,7 +74,7 @@
                         <span class="path5"></span>
                     </i>
                 </button>
-
+             
             </td>
         </tr>
     @endforeach

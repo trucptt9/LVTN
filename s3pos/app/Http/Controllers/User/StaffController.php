@@ -78,16 +78,18 @@ class StaffController extends Controller
             $list = $status != '' ? $list->ofStatus($status) : $list;
             $list = $search != '' ? $list->search($search) : $list;
             $list = $list->latest()->paginate($limit);
-           
+        
             return Response::json([
                 'status' => ResHTTP::HTTP_OK,
                 'data' => view('User.staff.table', compact('list'))->render(),
+                
             ]);
         } catch (\Throwable $th) {
             showLog($th);
             return Response::json([
                 'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
                 'data' => '',
+              
             ]);
         }
     }

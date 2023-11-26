@@ -17,11 +17,11 @@
         <!--begin::Header Logo-->
         <div class="header-logo me-5 me-md-10 flex-grow-1 flex-lg-grow-0">
             <a href="{{ route('index') }}">
-                <img alt="Logo"
-                    src="{{ $user_store && $user_store->logo ? $user_store->logo : asset('images/TTPos.png') }}"
+                <img alt="Logo" style="height: 150px"
+                    src="{{ $user_store && $user_store->logo ? $user_store->logo : asset('images/ttpos-logos_transparent.png') }}"
                     class="logo-default" />
                 <img alt="Logo"
-                    src="{{ $user_store && $user_store->logo ? $user_store->logo : asset('images/TTPos.png')  }}"
+                    src="{{ $user_store && $user_store->logo ? $user_store->logo : asset('images/ttpos-logos_transparent.png') }}"
                     class="logo-sticky" />
             </a>
         </div>
@@ -115,7 +115,7 @@
                                 <!--begin::Avatar-->
                                 <div class="symbol symbol-50px me-5">
                                     <img alt="Logo"
-                                        src="{{ $user_staff->avatar ?? show_s3_file(get_option_admin('app-favicon')) }}">
+                                        src="{{ $user_staff->avatar ?? asset('images/avatar.jpg') }}">
                                 </div>
                                 <!--end::Avatar-->
                                 <!--begin::Username-->

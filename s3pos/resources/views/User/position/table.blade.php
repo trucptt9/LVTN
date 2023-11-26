@@ -22,14 +22,16 @@
                         {{ $item->status == 'active' ? 'checked' : '' }} onclick="changeStatus('{{ $item->id }}')" />
                 </div>
             </td>
+
             <td class="text-center d-flex">
+                @can('position-update')
                 <a class="btn btn-light btn-edit" style="padding: 0px" href="{{ route('position.detail',$item->id) }}">
                     <i class="ki-duotone ki-message-edit fs-2qx text-success">
                         <span class="path1"></span>
                         <span class="path2"></span>
                     </i>
                 </a>
-
+                @endcan
                 <button class="btn btn-light btn-delete" style="padding: 0px"
                     onclick="confirmDelete('{{ $item->id }}')">
                     <i class="ki-duotone ki-trash fs-2qx text-danger">

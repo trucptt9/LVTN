@@ -73,20 +73,8 @@
                                 </span>
                                 <!--end::Description-->
                             </div>
-                            <div class="text-center loading"></div>
-                            <div class="card-toolbar">
-                                <div data-kt-daterangepicker="true" data-kt-daterangepicker-opens="left" data-kt-indicator=""
-                                    class="btn btn-sm btn-light filter-date d-flex align-items-center px-4">
-                                    <!--begin::Display range-->
-                                    <div class="text-gray-600 fw-bold">Loading date range...</div>
-                                    <!--end::Display range-->
-                                    <i class="ki-outline ki-calendar-8 fs-1 ms-2 me-0"></i>
-                                </div>
-                                <div class="card-toolbar">
-                                    <button class="btn btn-sm btn-primary mt-9 bnt-report"> Báo cáo</button>
-                                </div>
-                                <!--end::Toolbar-->
-                            </div>
+                          
+                           
                             <div class="text-center loading"></div>
                             <div class="card-toolbar">
                                 <div data-kt-daterangepicker="true" data-kt-daterangepicker-opens="left" data-kt-indicator=""
@@ -211,270 +199,156 @@
         }
 
 
-        var KTChartLogAccess = (function() {
-            var e = {
-                    self: null,
-                    rendered: !1
-                },
-                t = function(e) {
-                    var t = document.getElementById("kt_charts_revenue");
-                    if (t) {
-                        var a = parseInt(KTUtil.css(t, "height")),
-                            l = KTUtil.getCssVariableValue("--bs-gray-500"),
-                            r = KTUtil.getCssVariableValue("--bs-border-dashed-color"),
-                            o = KTUtil.getCssVariableValue("--bs-warning"),
-                            i = {
-                                series: [{
-                                    name: "Doanh thu",
-                                    data: chartData,
-                                }, ],
-                                chart: {
-                                    fontFamily: "inherit",
-                                    type: "bar",
-                                    height: a,
-                                    toolbar: {
-                                        show: !1
-                                    },
-                                },
-                                legend: {
-                                    show: !1
-                                },
-                                dataLabels: {
-                                    enabled: !1
-                                },
-                                fill: {
-                                    type: "gradient",
-                                    gradient: {
-                                        shadeIntensity: 1,
-                                        opacityFrom: 0.4,
-                                        opacityTo: 0,
-                                        stops: [0, 80, 100],
-                                    },
-                                },
-                                stroke: {
-                                    curve: "smooth",
-                                    show: !0,
-                                    width: 3,
-                                    colors: [o],
-                                },
-                                xaxis: {
-                                    categories: chartCategory,
-                                    axisBorder: {
-                                        show: !1
-                                    },
-                                    axisTicks: {
-                                        show: !1
-                                    },
-                                    offsetX: 20,
-                                    tickAmount: 4,
-                                    labels: {
-                                        rotate: 0,
-                                        rotateAlways: !1,
-                                        style: {
-                                            colors: l,
-                                            fontSize: "12px"
-                                        },
-                                    },
-                                    crosshairs: {
-                                        position: "front",
-                                        stroke: {
-                                            color: o,
-                                            width: 1,
-                                            dashArray: 3
-                                        },
-                                    },
-                                    tooltip: {
-                                        enabled: !0,
-                                        formatter: void 0,
-                                        offsetY: 0,
-                                        style: {
-                                            fontSize: "12px"
-                                        },
-                                    },
-                                },
-                                yaxis: {
-                                    tickAmount: 4,
-                                    // max: 10,
-                                    min: 0,
-                                    labels: {
-                                        style: {
-                                            colors: l,
-                                            fontSize: "12px"
-                                        },
-                                        formatter: function(e) {
-                                            return e;
-                                        },
-                                    },
-                                },
-                                states: {
-                                    normal: {
-                                        filter: {
-                                            type: "none",
-                                            value: 0
-                                        }
-                                    },
-                                    hover: {
-                                        filter: {
-                                            type: "none",
-                                            value: 0
-                                        }
-                                    },
-                                    active: {
-                                        allowMultipleDataPointsSelection: !1,
-                                        filter: {
-                                            type: "none",
-                                            value: 0
-                                        },
-                                    },
-                                },
-                                tooltip: {
-                                    style: {
-                                        fontSize: "12px"
-                                    },
-                                    y: {
-                                        formatter: function(e) {
-                                            return e;
-                                        },
-                                    },
-                                },
-                                colors: [o],
-                                grid: {
-                                    borderColor: r,
-                                    strokeDashArray: 4,
-                                    yaxis: {
-                                        lines: {
-                                            show: !0
-                                        }
-                                    },
-                                },
-                                markers: {
-                                    strokeColor: o,
-                                    strokeWidth: 3
-                                },
-                            };
-                        (e.self = new ApexCharts(t, i)),
-                        setTimeout(function() {
-                            e.self.render(), (e.rendered = !0);
-                        }, 200);
-                    }
-                    $('.type-report').html($title)
-                    $('.type-title').html($title_table)
-                    let order = 0;
-                    let revenue = 0;
-                    let expense = 0;
-                    let profit = 0
-                    let string = '';
-                    if (data[0].length > 0) {
-                        data[0].forEach(element => {
-                            order += element?.order_count;
-                            revenue += parseInt(element?.revenue);
-                            expense += parseInt(element?.cost);
-                            profit += parseInt(element?.profit);
-                            let profit_ele = parseInt(element?.profit);
-                            let text_class = profit_ele >= 0 ? 'text-success' : 'text-danger';
-                            $('.text-profit').removeClass('text-success');
-                            $('.text-profit').removeClass('text-danger');
-                            if (element.day) {
-                                let subDateStr = (element?.day).split("-");
-                                element.day = subDateStr[2] + '-' + subDateStr[1] + '-' + subDateStr[0];
-                                console.log(element.day)
-                            }
-                            string += `<tr>
-                            <td class="text-center">
-                                        <div class="text-center">${element.hour_range ? element.hour_range :(element.day? element.day : element?.month) }</div>
-                                    </td>
-                                    <td class="text-center">
-                                        <div class="text-center">${element?.order_count}</div>
-                                    </td>
-                                    <td class="text-center">
-                                        <div class="text-center"> ${element?.discount} </div>
-                                    </td>
-                                    <td class="text-center">
-                                        <div class="text-center">${element?.revenue}</div>
-                                    </td>
-                                    <td class="text-center">
-                                        <div class="text-center">${element?.cost}</div>
-                                    </td>
-                                    <td class="text-center">
-                                        <div class="text-center fw-bold text-profit ${text_class}"> ${profit_ele >0 ? '+'+profit_ele: profit_ele}</div>
-                                    </td>
-                            </tr>`;
-                        });
-                    } else {
-                        string = `<tr>
-                            <td colspan="6" class="text-center empty-data">
-                                <div class="text-center">
-                                    <i class="fas fa-sad-cry fs-s2"></i> Không có dữ liệu
-                                </div>
-                            </td>
-                        </tr>`;
-                    }
-
-                    $('.total-profit').removeClass('text-danger')
-                    $('.total-profit').removeClass('text-success')
-                    if (profit > 0) {
-                        $('.total-profit').addClass('text-success')
-                    } else if (profit < 0) {
-                        $('.total-profit').addClass('text-danger')
-                    }
-                    revenue = revenue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' đ'
-                    expense = expense.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' đ'
-                    profit = profit.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' đ'
-                    $('.total-order').html(order);
-                    $('.total-revenue').html(revenue);
-                    $('.total-expense').html(expense);
-                    $('.total-profit').html(profit);
-                    $('.detail-table-time').html(string);
-                    // Kiểm tra nếu biểu đồ đã được tạo, thì hủy nó trước khi vẽ lại
-                    if (chartMonth) {
-                        chartMonth.destroy();
-                    }
-                    // Lấy thẻ canvas
-                    var ctx = document.getElementById('chartTime').getContext('2d');
-                    chartMonth = new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: data[0].map(function(row) {
-                                if (row.hour_range) {
-                                    return row.hour_range + " h";
-                                } else if (row.day) {
-                                    return row.day;
-                                } else {
-                                    return 'Tháng ' + row.month
-                                }
-                            }),
-                            datasets: [{
-                                label: 'Tổng đơn',
-                                data: data[0].map(function(row) {
-                                    return row.order_count;
-                                }),
-                                backgroundColor: colorOrder,
-                                borderColor: 'rgba(255, 206, 86, 1)',
-                            }]
-                        },
-                    });
-                    chartMonth.options.scales.y = {
-                        ...chartMonth.options.scales.y,
-                        right: {
-                            type: 'linear',
-                            position: 'right',
-                            beginAtZero: true
-                        }
-                    };
-                    chartMonth.data.datasets.push({
-                        label: 'Doanh thu',
-                        data: data[0].map(function(row) {
-                            return row.revenue;
-                        }),
-                        type: 'line',
-                        backgroundColor: colorRevenue,
-                        borderColor: colorRevenue,
-                        yAxisID: 'right-y-axis'
-                    });
-                    chartMonth.update();
-                }
-            });
-        }
+        // var KTChartLogAccess = (function() {
+        //     var e = {
+        //             self: null,
+        //             rendered: !1
+        //         },
+        //         t = function(e) {
+        //             var t = document.getElementById("kt_charts_revenue");
+        //             if (t) {
+        //                 var a = parseInt(KTUtil.css(t, "height")),
+        //                     l = KTUtil.getCssVariableValue("--bs-gray-500"),
+        //                     r = KTUtil.getCssVariableValue("--bs-border-dashed-color"),
+        //                     o = KTUtil.getCssVariableValue("--bs-warning"),
+        //                     i = {
+        //                         series: [{
+        //                             name: "Doanh thu",
+        //                             data: chartData,
+        //                         }, ],
+        //                         chart: {
+        //                             fontFamily: "inherit",
+        //                             type: "bar",
+        //                             height: a,
+        //                             toolbar: {
+        //                                 show: !1
+        //                             },
+        //                         },
+        //                         legend: {
+        //                             show: !1
+        //                         },
+        //                         dataLabels: {
+        //                             enabled: !1
+        //                         },
+        //                         fill: {
+        //                             type: "gradient",
+        //                             gradient: {
+        //                                 shadeIntensity: 1,
+        //                                 opacityFrom: 0.4,
+        //                                 opacityTo: 0,
+        //                                 stops: [0, 80, 100],
+        //                             },
+        //                         },
+        //                         stroke: {
+        //                             curve: "smooth",
+        //                             show: !0,
+        //                             width: 3,
+        //                             colors: [o],
+        //                         },
+        //                         xaxis: {
+        //                             categories: chartCategory,
+        //                             axisBorder: {
+        //                                 show: !1
+        //                             },
+        //                             axisTicks: {
+        //                                 show: !1
+        //                             },
+        //                             offsetX: 20,
+        //                             tickAmount: 4,
+        //                             labels: {
+        //                                 rotate: 0,
+        //                                 rotateAlways: !1,
+        //                                 style: {
+        //                                     colors: l,
+        //                                     fontSize: "12px"
+        //                                 },
+        //                             },
+        //                             crosshairs: {
+        //                                 position: "front",
+        //                                 stroke: {
+        //                                     color: o,
+        //                                     width: 1,
+        //                                     dashArray: 3
+        //                                 },
+        //                             },
+        //                             tooltip: {
+        //                                 enabled: !0,
+        //                                 formatter: void 0,
+        //                                 offsetY: 0,
+        //                                 style: {
+        //                                     fontSize: "12px"
+        //                                 },
+        //                             },
+        //                         },
+        //                         yaxis: {
+        //                             tickAmount: 4,
+        //                             // max: 10,
+        //                             min: 0,
+        //                             labels: {
+        //                                 style: {
+        //                                     colors: l,
+        //                                     fontSize: "12px"
+        //                                 },
+        //                                 formatter: function(e) {
+        //                                     return e;
+        //                                 },
+        //                             },
+        //                         },
+        //                         states: {
+        //                             normal: {
+        //                                 filter: {
+        //                                     type: "none",
+        //                                     value: 0
+        //                                 }
+        //                             },
+        //                             hover: {
+        //                                 filter: {
+        //                                     type: "none",
+        //                                     value: 0
+        //                                 }
+        //                             },
+        //                             active: {
+        //                                 allowMultipleDataPointsSelection: !1,
+        //                                 filter: {
+        //                                     type: "none",
+        //                                     value: 0
+        //                                 },
+        //                             },
+        //                         },
+        //                         tooltip: {
+        //                             style: {
+        //                                 fontSize: "12px"
+        //                             },
+        //                             y: {
+        //                                 formatter: function(e) {
+        //                                     return e;
+        //                                 },
+        //                             },
+        //                         },
+        //                         colors: [o],
+        //                         grid: {
+        //                             borderColor: r,
+        //                             strokeDashArray: 4,
+        //                             yaxis: {
+        //                                 lines: {
+        //                                     show: !0
+        //                                 }
+        //                             },
+        //                         },
+        //                         markers: {
+        //                             strokeColor: o,
+        //                             strokeWidth: 3
+        //                         },
+        //                     };
+        //                 (e.self = new ApexCharts(t, i)),
+        //                 setTimeout(function() {
+        //                     e.self.render(), (e.rendered = !0);
+        //                 }, 200);
+        //             }
+                    
+                
+        //     });
+        // }
 
 
         var KTChartLogAccess = (function() {

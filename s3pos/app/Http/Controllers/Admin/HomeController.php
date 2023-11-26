@@ -24,6 +24,7 @@ class HomeController extends Controller
             'licenses' => License::count(),
             'stores' => Store::count(),
             'packages' => Package::count(),
+            'modules' => Module::count(),
         ];
         return view('Admin.home.index', compact('data'));
     }

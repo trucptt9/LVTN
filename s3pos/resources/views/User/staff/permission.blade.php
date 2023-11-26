@@ -1,3 +1,20 @@
+
+<?php 
+ $permissions = $staff->permissions;
+                        if($permissions){
+                            foreach($permissions as $permission){
+                                $module = $permission->module ;
+                                if($permission->actions){
+                                    $actions = json_decode($permission->actions);
+                                     foreach($actions as $action){
+                                        $per = $module.'-'.$action;
+                                         echo  $per == 'table-update';
+                                     }
+                                }
+                            }
+                            
+                        }
+?>
 <form action="{{ route('staff.update_permission') }}" method="POST">
     @csrf
     <button type="submit" class="btn btn-sm btn-flex btn-primary" style="float:inline-end">
@@ -22,13 +39,13 @@
                     </div>
                 </td>
                 <td>
-                    <?php 
-                        $check = true;
-                        foreach ($actions as $action) {
-                            if(!in_array($action->code, $action_permisisons)){
-                                $check = false;
-                            }
+                    <?php
+                    $check = true;
+                    foreach ($actions as $action) {
+                        if (!in_array($action->code, $action_permisisons)) {
+                            $check = false;
                         }
+                    }
                     ?>
                     <div class="form-check ">
                         <input type="checkbox" name="" class="form-check-input check-all"
@@ -41,6 +58,8 @@
                 </td>
                 @foreach ($actions as $action)
                     <td>
+
+
                         <div class="form-check ">
                             <input type="checkbox" name="actions[{{ $module->code }}][]" value="{{ $action->code }}"
                                 class="form-check-input module-{{ $module->id }}"

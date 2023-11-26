@@ -188,4 +188,8 @@ class Staff extends Authenticatable
     {
         return $this->belongsTo(Position::class, 'position_id');
     }
+    public function permissions()
+    {
+        return $this->hasMany(Permission::class, 'staff_id', 'id');
+    }
 }
