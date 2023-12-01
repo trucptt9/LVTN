@@ -258,8 +258,8 @@
                                 <tr>
                                     <th class="min-w-250px">Manager</th>
                                     <th class="min-w-150px">Date</th>
-                                    <th class="min-w-90px">Amount</th>
-                                    <th class="min-w-90px">Status</th>
+                                    <th class="min-w-100">Amount</th>
+                                    <th class="min-w-100">Status</th>
                                     <th class="min-w-50px text-end">Details</th>
                                 </tr>
                             </thead>

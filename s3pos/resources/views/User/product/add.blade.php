@@ -142,7 +142,7 @@
                         <div class="card-body pt-0">
                             <!--begin::Select2-->
                             <select class="form-select mb-2" data-control="select2" data-hide-search="true" name="status">
-                                <option value="" selected>-- Chọn trạng thái --</option>
+                                <option value="" selected>-- Trạng thái --</option>
                                 @foreach ($data['status'] as $key => $item)
                                     <option value="{{ $key }}">{{ $item[0] }}</option>
                                 @endforeach

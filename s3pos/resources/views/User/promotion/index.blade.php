@@ -55,7 +55,7 @@
                             <div class="w-200px ">
                                 <!--begin::Select2-->
                                 <select class="form-select" data-control="select2" data-hide-search="true" name="status">
-                                    <option value="" selected>-- Chọn trạng thái --</option>
+                                    <option value="" selected>-- Trạng thái --</option>
                                     @foreach ($data['status'] as $key => $item)
                                         <option value="{{ $key }}"> {{ $item[0] }}</option>
                                     @endforeach
@@ -88,7 +88,7 @@
                                 <th class="w-200px text-center">Thời gian áp dụng</th>
                                 <th class="w-125px text-center">Giá trị</th>
                                 <th class="w-125px text-center">Trạng thái</th>
-                                <th class=" w-90px text-center">#</th>
+                                <th class="w-100px text-center">#</th>
                             </tr>
                         </thead>
                         <tbody class="fw-semibold text-gray-600" id="load-table">
@@ -255,7 +255,7 @@
                 const url = $(this).attr('href');
                 $.get(url, function(data) {
                     hideSniper(".table-loading");
-                    
+
                     $('.content-update').html(data);
                     $('#modal-edit').modal('show');
                     $("#promotion_day_start").flatpickr({

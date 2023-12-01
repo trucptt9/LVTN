@@ -2,12 +2,12 @@
 @if ($list->count() > 0)
     @foreach ($list as $item)
         <tr id="tr-{{ $item->id }}">
-            <td class="text-center">
+            {{-- <td class="text-center">
                 <a href="{{ route('staff_history.detail', ['id' => $item->id]) }}"
-                    class="btn btn-outline btn-outline-dashed btn-outline-dark btn-active-light-dark btn-sm">
+                    class="btn btn-sm btn-outline btn-outline-dashed btn-outline-dark btn-active-light-dark btn-sm">
                     <i class="ki-outline ki-eye fs-4 ms-1"></i>
                 </a>
-            </td>
+            </td> --}}
             <td>
                 @if (!is_null($item->staff))
                     <a href="{{ route('staff.detail', ['id' => $item->staff_id]) }}" target="_blank"
@@ -28,13 +28,13 @@
     @endforeach
 @else
     <tr>
-        <td colspan="54" class="text-center">
+        <td colspan="3" class="text-center">
             Không tìm thấy dữ liệu!
         </td>
     </tr>
 @endif
 <tr>
-    <td colspan="4">
+    <td colspan="3">
         <div class="mt-2">
             {{ $list->appends(request()->all())->links() }}
         </div>

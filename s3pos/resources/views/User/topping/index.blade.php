@@ -54,10 +54,19 @@
                             <!--end::Search-->
                         </div>
                         <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
+                            <div class="min-w-200px">
+                                <select name="group_id" data-hide-search="true" data-control="select2"
+                                    class="form-select form-filter">
+                                    <option value="">-- Nhóm --</option>
+                                    @foreach ($data['group_topping'] as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="w-200px ">
                                 <!--begin::Select2-->
                                 <select class="form-select" data-control="select2" data-hide-search="true" name="status">
-                                    <option value="" selected>-- Chọn trạng thái --</option>
+                                    <option value="" selected>-- Trạng thái --</option>
                                     @foreach ($data['status'] as $key => $item)
                                         <option value="{{ $key }}"> {{ $item[0] }}</option>
                                     @endforeach
@@ -131,7 +140,6 @@
                     <div class="modal-body">
                         <div class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid"
                             id="kt_modal_create_app_stepper">
-
                             <div class="flex-row-fluid py-lg-5 ">
                                 <div class="d-flex flex-column scroll-y px-5 content-update">
                                 </div>

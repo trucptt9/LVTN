@@ -77,7 +77,7 @@
         </div>
         <div class="fv-row mb-2">
             <div class="symbol symbol-circle symbol-100px overflow-hidden me-3">
-                <div class="symbol-label w-90px h-90px">
+                <div class="symbol-label w-100 h-90px">
                     @if ($staff->avatar == null)
                         <img src="{{ asset('images/avatar.jpg') }} " alt="" class="w-100" />
                     @else

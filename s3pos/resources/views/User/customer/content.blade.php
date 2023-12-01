@@ -33,7 +33,7 @@
                     <th class="w-125px text-center">Số điện thoại</th>
                     <th class="w-75px text-center">Điểm</th>
                     <th class="w-125px text-center">Trạng thái</th>
-                    <th class="w-90px text-center">#</th>
+                    <th class="w-100px text-center">#</th>
                 </tr>
             </thead>
             <tbody class="text-gray-600 fw-semibold" id="load-table">

@@ -31,7 +31,7 @@ class CustomerController extends Controller
         $this->authorize('customer-view');
         $data = [
             'status' => Customer::get_status(),
-            'group' => CustomerGroup::storeId($this->store_id)->get(),
+            'group' => CustomerGroup::storeId($this->store_id)->select('id', 'name')->get(),
         ];
 
         return view('user.customer.index', compact('data'));

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Staff;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Response as ResHTTP;
@@ -26,6 +27,7 @@ class OrderController extends Controller
     $this->authorize('order-view');
     $data = [
       'status' => Order::get_status(),
+      'staffs' => Staff::storeId($this->store_id)->ofStatus(Staff::STATUS_ACTIVE)->select('id', 'name')->get(),
     ];
     return view('user.order.index', compact('data'));
   }
@@ -70,7 +72,7 @@ class OrderController extends Controller
     $sql = "select order_details.product_id, order_details.product_name, order_details.quantity,
     order_details.price, order_details.toppings, order_details.topping_total from orders JOIN 
     order_details ON orders.id = order_details.order_id where orders.id = $id ";
-      $order_detail = \DB::select($sql);
+    $order_detail = \DB::select($sql);
     return view('user.order.table_detail', compact('order_detail'));
   }
   public function delete(Request $request)

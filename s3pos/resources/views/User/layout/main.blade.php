@@ -58,6 +58,10 @@
             height: 40px;
             border-radius: 6px;
         }
+
+        #kt_content .card {
+            min-height: 400px;
+        }
     </style>
 </head>
 <!--end::Head-->

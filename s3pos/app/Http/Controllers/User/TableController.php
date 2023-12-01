@@ -30,7 +30,7 @@ class TableController extends Controller
     $this->authorize('table-view');
     $data = [
       'status' => Table::get_status(),
-      'areas' => Area::storeId($this->store_id)->get(),
+      'areas' => Area::storeId($this->store_id)->select('id', 'name')->get(),
     ];
     return view('User.tables.index', compact('data'));
   }
@@ -45,7 +45,7 @@ class TableController extends Controller
       $area = Area::storeId($this->store_id)->get();
       $list = Table::whereHas('area', function ($q) {
         $q->storeId($this->store_id);
-    });
+      });
       $list = $status != '' ? $list->ofStatus($status) : $list;
       $list = $search != '' ? $list->search($search) : $list;
 

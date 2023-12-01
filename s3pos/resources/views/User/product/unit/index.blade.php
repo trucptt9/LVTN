@@ -123,7 +123,7 @@
                                             <th class="min-w-125px">Mã đơn vị</th>
                                             <th class="min-w-150px">Mô tả</th>
                                             <th class="w-100px text-center">Trạng thái</th>
-                                            <th class="text-center w-90px">#</th>
+                                            <th class="text-center w-100">#</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-gray-600 fw-semibold unit_table">

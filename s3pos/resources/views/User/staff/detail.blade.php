@@ -460,7 +460,8 @@
                                                 <!--begin::Card-->
                                                 <div class="card">
                                                     <form action="" id="form-filter">
-                                                        <div class="card-header align-items-center py-5 gap-2 gap-md-5">
+                                                        <div
+                                                            class="card-header align-items-center px-0 py-5 gap-2 gap-md-5">
                                                             <div class="card-title">
                                                                 <!--begin::Search-->
                                                                 <div
@@ -502,7 +503,7 @@
                                                             <thead>
                                                                 <tr
                                                                     class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
-                                                                    <th class="min-w-125px">Thời gian</th>
+                                                                    <th class="w-150px text-center">Thời gian</th>
                                                                     <th class="min-w-125px">Nội dung</th>
                                                                 </tr>
                                                             </thead>

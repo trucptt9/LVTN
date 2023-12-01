@@ -109,15 +109,15 @@
                         <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_data">
                             <thead>
                                 <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0 bg-light-primary">
-                                    <th class="min-w-45px text-center">#</th>
-                                    <th class="min-w-100px">Tài khoản</th>
-                                    <th class="min-w-175px text-center">Thời gian</th>
+                                    {{-- <th class="w-50px text-center">#</th> --}}
+                                    <th class="w-200px">Tài khoản</th>
+                                    <th class="w-175px text-center">Thời gian</th>
                                     <th class="text-center">Nội dung</th>
                                 </tr>
                             </thead>
                             <tbody id="load-table" class="text-gray-600 fw-semibold">
                                 <tr>
-                                    <td colspan="4" class="text-center">
+                                    <td colspan="3" class="text-center">
                                         Không tìm thấy dữ liệu!
                                     </td>
                                 </tr>

@@ -30,7 +30,7 @@ class ToppingController extends Controller
         $this->authorize('topping-view');
         $data = [
             'status' => Toppings::get_status(),
-            'group_topping' => ToppingGroup::storeId($this->store_id)->get(),
+            'group_topping' => ToppingGroup::storeId($this->store_id)->select('id', 'name')->get(),
         ];
         return view('user.topping.index', compact('data'));
     }

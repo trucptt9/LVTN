@@ -30,7 +30,7 @@
                     <th class="">Tên nhóm </th>
                     <th class=" text-center w-450px">Mô tả</th>
                     <th class="w-125px text-center">Trạng thái</th>
-                    <th class="text-end w-90px text-center">#</th>
+                    <th class="w-100px text-center">#</th>
                 </tr>
             </thead>
             <tbody class="text-gray-600 fw-semibold" id="load-table">

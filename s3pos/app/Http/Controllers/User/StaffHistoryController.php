@@ -42,7 +42,7 @@ class StaffHistoryController extends Controller
 
             $list = StaffHistory::whereHas('staff', function ($q) {
                 $q->storeId($this->store_id);
-            })->staffId($staff_id);
+            });
             $list = $search != '' ? $list->search($search) : $list;
             $list = $staff_id != '' ? $list->staffId($staff_id) : $list;
             // $list = $date != '' ? $list->ofDate($date) : $list;

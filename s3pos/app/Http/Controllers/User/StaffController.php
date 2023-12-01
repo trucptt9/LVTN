@@ -35,13 +35,13 @@ class StaffController extends Controller
         $this->authorize('staff-view');
         $data = [
             'status' => Staff::get_status(),
-            'departments' => Department::storeId($this->store_id)->get(),
-            'positions' => Position::storeId($this->store_id)->get(),
+            'departments' => Department::storeId($this->store_id)->select('id', 'name')->get(),
+            'positions' => Position::storeId($this->store_id)->select('id', 'name')->get(),
         ];
         return view('user.staff.index', compact('data'));
     }
     public function permission()
-    {     
+    {
         return view('user.staff.permission', compact('data'));
     }
 
@@ -81,40 +81,41 @@ class StaffController extends Controller
             $list = $status != '' ? $list->ofStatus($status) : $list;
             $list = $search != '' ? $list->search($search) : $list;
             $list = $list->latest()->paginate($limit);
-        
+
             return Response::json([
                 'status' => ResHTTP::HTTP_OK,
                 'data' => view('User.staff.table', compact('list'))->render(),
-                
+
             ]);
         } catch (\Throwable $th) {
             showLog($th);
             return Response::json([
                 'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
                 'data' => '',
-              
+
             ]);
         }
     }
 
     public function detail($id)
     {
-         $this->authorize('staff-view');
+        $this->authorize('staff-view');
         $data = [
             'status' => Staff::get_status(),
             'departments' => Department::storeId($this->store_id)->get(),
             'positions' => Position::storeId($this->store_id)->get(),
         ];
         $staff = Staff::storeId($this->store_id)->findOrFail($id);
-        $modules = Module::where('status','active')->orderBy('name','asc')->get();
+        $modules = Module::where('status', 'active')->orderBy('name', 'asc')->get();
         $permissions = Permission::staffId($id)->get();
         if (request()->ajax()) {
             return view('user.staff.modal_edit', compact('staff', 'data'))->render();
         }
-        return view('user.staff.detail', compact('staff', 'data','modules','permissions'));
+        return view('user.staff.detail', compact('staff', 'data', 'modules', 'permissions'));
     }
 
-    public function update_permission(StaffPermissionRequest $request){
+    public function update_permission(StaffPermissionRequest $request)
+    {
         try {
             DB::beginTransaction();
             $id = $request->get('staff_id', '');
@@ -128,8 +129,8 @@ class StaffController extends Controller
                 foreach ($actions as $key => $action) {
                     Permission::create([
                         'staff_id' => $id,
-                        'name'=>$name,
-                        'module' => $key,   
+                        'name' => $name,
+                        'module' => $key,
                         'actions' => json_encode($action)
                     ]);
                 }
@@ -179,7 +180,7 @@ class StaffController extends Controller
             $type = request('type', 'one');
             $staff = Staff::storeId($this->store_id)->whereId($id)->first();
             if ($type == 'all') {
-                $data = $request->only('name','email','avatar','code','phone','address','department_id','position_id','status');
+                $data = $request->only('name', 'email', 'avatar', 'code', 'phone', 'address', 'department_id', 'position_id', 'status');
                 if ($request->file('avatar') != null) {
                     if ($staff->avatar != null) {
                         \Storage::delete($staff->avatar);
@@ -189,18 +190,17 @@ class StaffController extends Controller
                     }
                 }
                 $staff->update($data);
-            }else {
+            } else {
                 $staff->status = $staff->status == Staff::STATUS_ACTIVE ? Staff::STATUS_UN_ACTIVE : Staff::STATUS_ACTIVE;
                 $staff->save();
-
             }
-            DB::commit();            
+            DB::commit();
             if (request()->ajax()) {
                 return Response::json([
-                    'status' => ResHTTP::HTTP_OK,   
+                    'status' => ResHTTP::HTTP_OK,
                     'message' => 'Cập nhật thành công',
                     'type' => 'success',
-                    'staff_update' =>$staff
+                    'staff_update' => $staff
                 ]);
             }
             return redirect()->back()->with('success', 'Cập nhật thành công');
@@ -214,7 +214,7 @@ class StaffController extends Controller
             ]);
         }
     }
- 
+
     public function delete(StaffDeleteRequest $request)
     {
         try {
@@ -235,5 +235,4 @@ class StaffController extends Controller
             ]);
         }
     }
-
 }

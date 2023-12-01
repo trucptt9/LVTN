@@ -7,7 +7,7 @@
     <div class="card-header border-0 pt-6">
         <!--begin::Card title-->
         <div class="card-title">
-            
+
         </div>
         <!--begin::Card title-->
         <!--begin::Card toolbar-->
@@ -37,7 +37,7 @@
                     <th class="">Tên danh mục</th>
                     <th class=" text-center w-450px">Mô tả</th>
                     <th class="w-125px text-center">Trạng thái</th>
-                    <th class="text-end w-90px text-center">#</th>
+                    <th class="w-100px text-center">#</th>
                 </tr>
             </thead>
             <tbody class="text-gray-600 fw-semibold" id="load-table">

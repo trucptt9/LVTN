@@ -30,7 +30,7 @@ class ProductController extends Controller
         $this->authorize('product-view');
         $data = [
             'status' => Product::get_status(),
-            'category' => CategoryProduct::storeId($this->store_id)->get(),
+            'category' => CategoryProduct::storeId($this->store_id)->select('id', 'name')->get(),
         ];
         return view('user.product.index', compact('data'));
     }
