@@ -20,9 +20,6 @@
             <td class="text-center">
                 {{ number_format($item->salary, 0, ',', ',') }} đ
             </td>
-            <td class="">
-                {{ $item->description }}
-            </td>
             <td class="text-center">
                 <div class="form-check form-check-sm form-check-custom form-check-solid justify-content-center">
                     @can('shift-update')
@@ -61,7 +58,7 @@
     @endforeach
     @if ($paginate != '')
         <tr>
-            <td colspan="8">
+            <td colspan="7">
                 <div class="mt-2">
                     {{ $paginate }}
                 </div>
@@ -70,7 +67,7 @@
     @endif
 @else
     <tr>
-        <td colspan="8" class="text-center no-data">
+        <td colspan="7" class="text-center no-data">
             Không tìm thấy dữ liệu!
         </td>
     </tr>

@@ -41,20 +41,6 @@
                                <div class="col-md-6">
                                    <div class="fv-row mb-7">
                                        <!--begin::Label-->
-                                       <label class=" fw-semibold fs-6 mb-2">Mã</label>
-                                       <!--end::Label-->
-                                       <!--begin::Input-->
-                                       <input type="text" name="code" class="form-control mb-3 mb-lg-0"
-                                           placeholder="Để trống tự sinh" />
-                                       <!--end::Input-->
-                                   </div>
-                               </div>
-                           </div>
-                           <div class="row">
-                              
-                               <div class="col-md-6">
-                                   <div class="fv-row mb-7">
-                                       <!--begin::Label-->
                                        <label class=" fw-semibold fs-6 mb-2">Trạng
                                            thái</label>
                                        <!--end::Label-->
@@ -74,7 +60,8 @@
                        <div class="text-center pt-10">
                            <button type="reset" class="btn btn-light me-3 btn-cancle"
                                data-kt-users-modal-action="cancel">Hủy</button>
-                           <button type="submit" class="btn btn-primary btn-create" data-kt-users-modal-action="submit">
+                           <button type="submit" class="btn btn-primary btn-create"
+                               data-kt-users-modal-action="submit">
                                <span class="indicator-label"><i class="fas fa-plus"></i> Tạo mới</span>
                                <span class="indicator-progress">Please wait...
                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>

@@ -48,7 +48,7 @@
                                       <div class="col-md-6">
                                           <div class="fv-row mb-7">
                                               <div class="card-title">
-                                                  <span class=" fw-semibold fs-6 mb-2">Hình ảnh</span>
+                                                  <label class=" fw-semibold fs-6 mb-2">Hình ảnh</label>
                                               </div>
                                               <!--begin::Label-->
                                               <input type="file" class="form-control" name="image"

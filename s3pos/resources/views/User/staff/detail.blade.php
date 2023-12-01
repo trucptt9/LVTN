@@ -132,7 +132,6 @@
                                     href="#log">Lịch sử thao tác</a>
                             </li>
                         @endcan
-
                     </ul>
                     <div class="tab-content" id="myTabContent">
                         <!--begin:::Tab pane-->
@@ -143,7 +142,7 @@
                                 <div class="card-header border-0">
                                     <!--begin::Card title-->
                                     <div class="card-title">
-                                        <h2>Thông tin chi tiết</h2>
+                                        <h2>Thông tin nhân viên</h2>
                                     </div>
                                     <!--end::Card title-->
                                 </div>
@@ -153,13 +152,10 @@
                                             hidden>
                                         <input type="hidden" name="type" value="all">
                                         <div class="row">
-                                            <div class="col-6">
+                                            <div class="col-md-6 mb-2">
                                                 <!--begin::Nav-->
-                                                <div class="stepper-nav ps-lg-10">
+                                                <div class="">
                                                     <div class="fv-row mb-2">
-                                                        <label class="d-flex align-items-center fs-5 fw-semibold mb-2">
-                                                            <h4 class="">Thông tin liên hệ </h4>
-                                                        </label>
                                                         <!--begin::Label-->
                                                         <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                                             <span class="required">Họ tên</span>
@@ -209,22 +205,11 @@
                                                         <input type="file" class="form-control form-control-lg"
                                                             name="avatar" value="" />
                                                     </div>
-                                                    <div class="fv-row mb-2">
-                                                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                                            <span class="">Địa
-                                                                chỉ</span>
-                                                        </label>
-                                                        <textarea name="description" id="" cols="" rows="2" class="form-control">{{ $staff->description }}</textarea>
-                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-6">
+                                            <div class="col-md-6 mb-2">
                                                 <!--begin::Nav-->
-                                                <div class="stepper-nav ps-lg-1">
-                                                    <label class="d-flex align-items-center fs-5 fw-semibold mb-2">
-                                                        <h4 class="">Thông tin khác</h4>
-                                                    </label>
-
+                                                <div class="">
                                                     <div class="fv-row mb-2">
                                                         <label
                                                             class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-3">
@@ -274,7 +259,15 @@
                                                     </div>
                                                 </div>
                                             </div>
-
+                                            <div class="col-md-12 mb-2">
+                                                <div class="fv-row">
+                                                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                                        <span class="">Địa
+                                                            chỉ</span>
+                                                    </label>
+                                                    <textarea name="description" id="" cols="" rows="2" class="form-control">{{ $staff->description }}</textarea>
+                                                </div>
+                                            </div>
                                         </div>
                                         @can('staff-update')
                                             <button class="btn btn-success mt-3 btn-create" style="float:inline-end"
@@ -288,17 +281,16 @@
                         </div>
                         <div class="tab-pane fade" id="update_account" role="tabpanel">
                             <!--begin::Card-->
-                            <div class="card pt-4 mb-6 mb-xl-9">
-
-                                <div class="card-body pt-0 pb-5">
+                            <div class="card">
+                                <div class="card-body">
                                     <button type="submit" class="btn btn-sm btn-flex btn-primary"
                                         style="float:inline-end">
                                         Cập nhật</button>
-                                    <div class="stepper-nav ps-lg-10">
+                                    <div class="">
                                         <label class="d-flex align-items-center fs-5 fw-semibold mb-2">
                                             <h4 class="">Cập nhật thông tin tài khoản</h4>
                                         </label>
-                                        <div class="fv-row mb-2">
+                                        <div class="fv-row mb-2 mt-3">
                                             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                                                 <span class="required">Email</span>
                                             </label>
@@ -309,16 +301,23 @@
                                                 value="{{ $staff->email }}" />
                                             <!--end::Input-->
                                         </div>
-                                        <div class="fv-row mb-2">
-                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                                <span class="fw-bold">Cập nhật lại mật khẩu</span>
-                                            </label>
-
-                                            <input type="text" class="form-control form-control-lg w-50"
-                                                name="password" placeholder="Nhập mật khẩu mới" />
-
-                                            <input type="text" class="form-control form-control-lg mt-3 w-50"
-                                                name="password" placeholder="Nhập lại mật khẩu" />
+                                        <div class="fv-row mb-2 mt-5">
+                                            <div class="row">
+                                                <div class="col-md-6 mb-2">
+                                                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                                        <span class="required">Mật khẩu mới</span>
+                                                    </label>
+                                                    <input type="password" class="form-control form-control-lg"
+                                                        name="password" placeholder="Nhập mật khẩu mới" />
+                                                </div>
+                                                <div class="col-md-6 mb-2">
+                                                    <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                                        <span class="required">Xác nhận mật khẩu</span>
+                                                    </label>
+                                                    <input type="password" class="form-control form-control-lg mt-"
+                                                        name="password" placeholder="Nhập lại mật khẩu" />
+                                                </div>
+                                            </div>
                                         </div>
 
                                     </div>
@@ -329,7 +328,6 @@
                         <div class="tab-pane fade" id="permission" role="tabpanel">
                             <!--begin::Card-->
                             <div class="card pt-4 mb-6 mb-xl-9">
-
                                 <div class="card-body pt-0 pb-5">
                                     @include('user.staff.permission')
                                 </div>
@@ -340,7 +338,7 @@
                         <!--begin:::Tab pane-->
                         <div class="tab-pane fade" id="shift" role="tabpanel">
                             <!--begin::Card-->
-                            <div class="card card-flush mb-6 mb-xl-9">
+                            <div class="card card-flush mb-6">
                                 <div class="page d-flex flex-row flex-column-fluid">
                                     <!--begin::Wrapper-->
                                     <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
@@ -352,7 +350,7 @@
                                                 <!--begin::Card-->
                                                 <div class="card">
                                                     <!--begin::Card header-->
-                                                    <div class="card-header border-0 pt-6">
+                                                    <div class="card-header card-header border-0 px-0">
                                                         <!--begin::Card title-->
                                                         <div class="card-title">
                                                             <!--begin::Search-->
@@ -381,9 +379,9 @@
                                                     </div>
                                                     <!--end::Card header-->
                                                     <!--begin::Card body-->
-                                                    <div class="card-body py-4">
+                                                    <div class="card-body p-0">
                                                         <!--begin::Table-->
-                                                        <table class="table align-middle table-row-dashed fs-6 gy-5"
+                                                        <table class="table align-middle table-row-dashed"
                                                             id="kt_table_users">
                                                             <thead>
                                                                 <tr
@@ -450,7 +448,7 @@
                         <!--begin:::Tab pane-->
                         <div class="tab-pane fade" id="log" role="tabpanel">
                             <!--begin::Card-->
-                            <div class="card card-flush mb-6 mb-xl-9">
+                            <div class="card card-flush mb-6">
                                 <div class="page d-flex flex-row flex-column-fluid">
                                     <!--begin::Wrapper-->
                                     <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
@@ -497,9 +495,9 @@
                                                             </div>
                                                         </div>
                                                     </form>
-                                                    <div class="card-body py-4 table-loading">
+                                                    <div class="card-body px-0 pt-0 table-loading">
                                                         <!--begin::Table-->
-                                                        <table class="table align-middle table-row-dashed fs-6 gy-5"
+                                                        <table class="table align-middle table-row-dashed"
                                                             id="kt_table_users">
                                                             <thead>
                                                                 <tr
@@ -554,17 +552,18 @@
         };
         $(document).ready(function() {
             // triggerClick();
-            function triggerClick(){
-                $classTrigger = localStorage.getItem('staff-info') || localStorage.getItem('staff-account') || localStorage.getItem('staff-log')
-                                || localStorage.getItem('staff-permission') || localStorage.getItem('staff-shift');
-                $classTrigger = "." + $classTrigger ;
-                if($classTrigger){
+            function triggerClick() {
+                $classTrigger = localStorage.getItem('staff-info') || localStorage.getItem('staff-account') ||
+                    localStorage.getItem('staff-log') ||
+                    localStorage.getItem('staff-permission') || localStorage.getItem('staff-shift');
+                $classTrigger = "." + $classTrigger;
+                if ($classTrigger) {
                     $('.info_account').removeClass('active');
                 }
                 $('.update_account').removeClass('active');
                 $('.permission').removeClass('active');
                 $('.shift').removeClass('active');
-                $('.staff-log').removeClass('active');   
+                $('.staff-log').removeClass('active');
                 $($classTrigger).trigger("click");
                 $($classTrigger).addClass('active');
             }
@@ -661,7 +660,7 @@
                     }
                 });
             })
-           
+
             $(document).on('click', '.check-all', function(e) {
                 let id = '#check-all-' + $(this).attr('data-id');
                 let moclass = '.module-' + $(this).attr('data-id');
@@ -673,6 +672,5 @@
 
 
         })
-       
     </script>
 @endsection

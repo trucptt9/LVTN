@@ -1,12 +1,8 @@
 <input type="hidden" name="id" value="{{ $staff->id }}">
 <input type="hidden" name="type" value="all">
-<div class="col-5">
+<div class="col-md-6 mb-2">
     <!--begin::Nav-->
-    <div class="stepper-nav ps-lg-10">
-        <label class="d-flex align-items-center fs-5 fw-semibold mb-2">
-            <h4 class="">Thông tin tài
-                khoản</h4>
-        </label>
+    <div class="">
         <div class="fv-row mb-2 account_staff">
             <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
                 <span class="">Email</span>
@@ -55,13 +51,10 @@
         </div>
     </div>
 </div>
-<div class="col-6">
+<div class="col-md-6 mb-2">
     <!--begin::Nav-->
-    <div class="stepper-nav ps-lg-10">
+    <div class="">
         <div class="fv-row mb-2">
-            <label class="d-flex align-items-center fs-5 fw-semibold mb-2">
-                <h4 class="">Thông tin liên hệ </h4>
-            </label>
             <!--begin::Label-->
             <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
                 <span class="required">Họ tên</span>
@@ -83,11 +76,8 @@
             <!--end::Input-->
         </div>
         <div class="fv-row mb-2">
-            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                <span class="">Ảnh</span>
-            </label>
             <div class="symbol symbol-circle symbol-100px overflow-hidden me-3">
-                <div class="symbol-label">
+                <div class="symbol-label w-90px h-90px">
                     @if ($staff->avatar == null)
                         <img src="{{ asset('images/avatar.jpg') }} " alt="" class="w-100" />
                     @else
@@ -98,12 +88,14 @@
             </div>
             <input type="file" class="form-control form-control-lg" name="avatar" value="" />
         </div>
-        <div class="fv-row mb-2">
-            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                <span class="">Địa
-                    chỉ</span>
-            </label>
-            <textarea name="description" id="" cols="" rows="2" class="form-control">{{ $staff->description }}</textarea>
-        </div>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="fv-row mb-2">
+        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+            <span class="">Địa
+                chỉ</span>
+        </label>
+        <textarea name="description" id="" cols="" rows="2" class="form-control">{{ $staff->description }}</textarea>
     </div>
 </div>

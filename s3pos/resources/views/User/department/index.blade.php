@@ -82,12 +82,12 @@
                 </form>
                 <!--end::Card header-->
                 <!--begin::Card body-->
-                <div class="card-body pt-0 table-loading">
+                <div class="card-body table-loading">
                     <!--begin::Table-->
                     <table class="table align-middle table-bordered fs-6 gy-5">
-                        <thead>
+                        <thead class="bg-primary">
                             <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                                <th class="w-120px">Mã</th>
+                                <th class="w-125px text-center">Mã</th>
                                 <th class="">Tên phòng ban</th>
                                 <th class="text-center w-400px">Mô tả</th>
                                 <th class="text-center w-125px">Trạng thái</th>

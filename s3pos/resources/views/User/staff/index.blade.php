@@ -78,10 +78,10 @@
                 </form>
                 <!--end::Card header-->
                 <!--begin::Card body-->
-                <div class="card-body pt-0 table-loading">
+                <div class="card-body table-loading">
                     <!--begin::Table-->
                     <table class="table align-middle table-bordered fs-6 gy-5">
-                        <thead>
+                        <thead class="bg-primary">
                             <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                 <th class="w-140px">Mã</th>
                                 <th>Nhân viên</th>
@@ -124,11 +124,11 @@
                         </div>
                         <!--end::Close-->
                     </div>
-                    <div class="modal-body py-lg-5">
-                        <div class="flex-row-fluid py-lg-5 ">
+                    <div class="modal-body px-6 pb-5">
+                        <div class="flex-row-fluid">
                             <div class="row content-update" id="kt_modal_create_app_stepper">
                             </div>
-                            <div class="text-center pt-10">
+                            <div class="text-center pt-5">
                                 <button type="reset" class="btn btn-light me-3 close-btn2">Hủy</button>
                                 <button type="submit" class="btn btn-primary btn-create">
                                     <span class="indicator-label">Cập nhật </span>
