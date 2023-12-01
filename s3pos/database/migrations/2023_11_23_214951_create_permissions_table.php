@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('permissions', function (Blueprint $table) {
             $table->id()->index();
             $table->unsignedBigInteger('staff_id')->index();
+            $table->string('name');
             $table->string('module')->index();
             $table->json('actions')->nullable();
             $table->timestamps();

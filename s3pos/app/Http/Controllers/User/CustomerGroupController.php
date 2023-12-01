@@ -26,6 +26,7 @@ class CustomerGroupController extends Controller
 
   public function index()
   {
+    $this->authorize('customer_group-view');
     $data = [
       'status' => CustomerGroup::get_status(),
     ];
@@ -34,6 +35,7 @@ class CustomerGroupController extends Controller
 
   public function list()
   {
+    $this->authorize('customer_group-view');
     try {
       $limit = request('limit', $this->limit_default);
       $status = request('status', '');

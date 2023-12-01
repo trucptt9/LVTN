@@ -19,6 +19,7 @@ class PermissionController extends Controller
     }
     public function list()
     {
+        $this->authorize('staff-permission');
         try {
             $limit = request('limit', $this->limit_default);
          

@@ -112,24 +112,42 @@
                                 </div>
                                 @if ($table->booking_id)
                                     <span class="info-table">
-                                        <button onclick="destroyBooking()" class="btn btn-danger btn-sm">Hủy đặt bàn</button>
+                                        <button onclick="destroyBooking()"
+                                            class="btn btn-danger btn-cancle-booking btn-sm">Hủy đặt bàn</button>
                                     </span>
                                 @else
                                     <span class="info-table">
-                                        <button onclick="addBooking()" class="btn btn-warning text-light btn-sm">Đặt bàn</button>
+                                        <button onclick="addBooking()" class="btn btn-warning text-light btn-sm">Đặt
+                                            bàn</button>
                                     </span>
                                 @endif
                             </div>
                             <div class="pos-sidebar-nav small">
-                                <ul class="nav nav-tabs nav-fill">
+                                <ul class="nav nav-tabs nav-fill" style="padding: 0px !important">
                                     <li class="nav-item">
                                         <a class="nav-link active" href="#" data-bs-toggle="tab"
                                             data-bs-target="#newOrderTab">Giỏ hàng</a>
+                                        
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#" data-bs-toggle="tab"
+                                    <li class="nav-item position-relative">
+                                        <a class="nav-link " href="#" data-bs-toggle="tab"
                                             data-bs-target="#customer">Khách hàng</a>
-
+                                        <span
+                                            class="position-absolute translate-middle badge rounded-pill bg-danger customer-chosed"
+                                            style="top: 8px; right:0px" hidden>
+                                            1
+                                            <span class="visually-hidden">unread messages</span>
+                                        </span>
+                                    </li>
+                                    <li class="nav-item position-relative">
+                                        <a class="nav-link coupons" href="#" data-bs-toggle="tab"
+                                            data-bs-target="#coupon">Mã giảm giá</a>
+                                        <span
+                                            class="position-absolute translate-middle badge rounded-pill bg-danger coupon-chosed"
+                                            style="top: 8px; right:0px" hidden>
+                                            1
+                                            <span class="visually-hidden">unread messages</span>
+                                        </span>
                                     </li>
                                 </ul>
                             </div>
@@ -145,11 +163,13 @@
                                     <div class="customer-list">
 
                                     </div>
-                                    {{-- <p class="customer-info px-3 fw-bold" data-value=""></p> --}}
+                                </div>
+                                <div class="tab-pane fade h-100" id="coupon">
+
                                 </div>
                             </div>
                             <div class="pos-sidebar-footer payment">
-                               
+
                             </div>
                         </div>
                     </div>
@@ -316,7 +336,7 @@
                                         <label for="" class="fw-semibold mb-2">Số người</label>
                                         <span class="text-danger"> *</span>
                                         <input type="number" class="form-control quantity-booking" name="quantity"
-                                            required placeholder="Số người đến">
+                                            required placeholder="Số người đến" value="1">
                                     </div>
                                     <div class="my-3">
                                         <label for="" class="fw-semibold mb-2">Ghi chú</label>

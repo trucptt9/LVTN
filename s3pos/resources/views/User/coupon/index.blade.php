@@ -28,11 +28,15 @@
                         <!--end::Item-->
                     </ul>
                 </div>
-                <a class="btn btn-add btn-primary h-40px">
-                    Tạo mới
-                </a>
+                @can('coupon-create')
+                    <a class="btn btn-add btn-primary h-40px">
+                        Tạo mới
+                    </a>
+                    @include('User.coupon.modal_add')
+                @endcan
+
             </div>
-            @include('User.coupon.modal_add')
+         
             <!--begin::promotions-->
             <div class="card card-flush">
                 <!--begin::Card header-->
@@ -75,8 +79,6 @@
                         </div>
                     </div>
                 </form>
-                <!--end::Card header-->
-                <!--begin::Card body-->
                 <div class="card-body pt-0 table-loading">
                     <!--begin::Table-->
                     <table class="table align-middle table-bordered fs-6 gy-5">

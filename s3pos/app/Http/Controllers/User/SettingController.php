@@ -14,6 +14,7 @@ class SettingController extends Controller
 
     public function index()
     {
+        $this->authorize('sale_source-view');
         $type = request('type', 'notification');
         $data = [
             'groups' => SettingGroup::ofStatus(SettingGroup::STATUS_ACTIVE)->orderBy('numering', 'desc')->get(),
@@ -24,6 +25,7 @@ class SettingController extends Controller
 
     public function update(Request $request)
     {
+        $this->authorize('setting-update');
         $data = $request->all();
         try {
             DB::beginTransaction();

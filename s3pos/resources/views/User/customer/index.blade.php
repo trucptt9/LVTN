@@ -29,9 +29,13 @@
                         <!--end::Item-->
                     </ul>
                 </div>
-                <button class="btn btn-primary h-40px btn-add">
-                    Tạo mới
-                </button>
+                @can('customer-create')
+                    <button class="btn btn-primary h-40px btn-add">
+                        Tạo mới
+                    </button>
+                    @include('User.customer.modal_add')
+                @endcan
+
             </div>
 
             <!--begin::Products-->
@@ -106,7 +110,7 @@
         </div>
         <!--end::Post-->
     </div>
-    @include('User.customer.modal_add')
+   
     <div class="modal fade" id="modal-edit" tabindex="-1" aria-hidden="true">
         <!--begin::Modal dialog-->
         <form action="{{ route('customer.update') }}" id="form-update" method="POST" enctype="multipart/form-data">

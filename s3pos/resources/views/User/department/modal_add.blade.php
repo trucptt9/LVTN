@@ -53,8 +53,8 @@
                        <div class="text-center pt-10">
                            <button type="reset" class="btn btn-light me-3 btn-cancle"
                                data-kt-users-modal-action="cancel">Hủy</button>
-                           <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
-                               <span class="indicator-label">Thêm</span>
+                           <button type="submit" class="btn btn-primary btn-create" data-kt-users-modal-action="submit">
+                               <span class="indicator-label "><i class="fas fa-plus"></i> Tạo mới</span>
                                <span class="indicator-progress">Please wait...
                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                            </button>

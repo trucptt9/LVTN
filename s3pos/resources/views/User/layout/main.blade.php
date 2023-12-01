@@ -120,6 +120,10 @@
             timer: 3000
         })
 
+        $('form').submit(function() {
+            $('button[type="submit"]').attr('disabled', true);
+        })
+
         function confirmLogout() {
             if (confirm("Xác nhận thoát khỏi hệ thống?")) {
                 location.href = "{{ route('logout') }}";
@@ -133,7 +137,7 @@
                 title: "{{ session('success') }}"
             });
 
-            console.log({{ session('success') }});
+            // console.log({{ session('success') }});
         @endif
 
         @if (session('error'))

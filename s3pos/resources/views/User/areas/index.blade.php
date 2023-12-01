@@ -28,9 +28,12 @@
                         <!--end::Item-->
                     </ul>
                 </div>
-                <button class="btn btn-primary h-40px btn-add">
-                    Tạo mới
-                </button>
+                @can('area-create')
+                    <button class="btn btn-primary h-40px btn-add">
+                        Tạo mới
+                    </button>
+                    @include('User.areas.modal_add')
+                @endcan
             </div>
             <!--begin::Products-->
             <div class="card card-flush">
@@ -95,7 +98,6 @@
                                 </td>
                             </tr>
                         </tbody>
-
                     </table>
                     <!--end::Table-->
                 </div>
@@ -105,7 +107,7 @@
         </div>
         <!--end::Post-->
     </div>
-    @include('User.areas.modal_add')
+
     <div class="modal fade" id="modal-edit" tabindex="-1" aria-hidden="true">
         <!--begin::Modal dialog-->
         <form action="{{ route('area.update') }}" id="form-update" method="POST" enctype="multipart/form-data">
@@ -170,7 +172,6 @@
             $('#modal-add').trigger('reset');
             $('#modal-add').modal('hide');
         })
-
         $('.close-btn2').click(function(e) {
             e.preventDefault();
             // $('#modal-edit').trigger('reset');

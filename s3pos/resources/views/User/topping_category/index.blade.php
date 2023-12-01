@@ -28,9 +28,13 @@
                         <!--end::Item-->
                     </ul>
                 </div>
-                <button class="btn btn-primary h-40px btn-add">
-                    Tạo mới
-                </button>
+                @can('topping_category-create')
+                    <button class="btn btn-primary h-40px btn-add">
+                        Tạo mới
+                    </button>
+                    @include('User.topping_category.modal_add')
+                @endcan
+
             </div>
             <!--begin::Products-->
             <div class="card card-flush">
@@ -105,7 +109,6 @@
         </div>
         <!--end::Post-->
     </div>
-    @include('User.topping_category.modal_add')
     <div class="modal fade" id="modal-edit" tabindex="-1" aria-hidden="true">
         <!--begin::Modal dialog-->
         <form action="{{ route('topping_category.update') }}" id="form-update" method="POST" enctype="multipart/form-data">

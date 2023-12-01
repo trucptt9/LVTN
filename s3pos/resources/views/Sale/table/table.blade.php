@@ -5,11 +5,15 @@
                 class="pos-checkout-table-container {{ 'pos-table ' . $item->id }}">
                 <div class="pos-checkout-table-header">
                     @if ($item->status_order == 'active')
-                        <div class="status" style="color: green!important"><i class="fa fa-circle"></i></div>
+                        <div class="status" style="color: green!important" data-bs-toggle="tooltip"
+                            data-bs-placement="bottom" title="Bàn đang có người sử dụng"><i class="fa fa-circle fa-2xl"></i>
+                        </div>
                     @elseif($item->booking_id != null)
-                        <div class="status text-warning"><i class="fa fa-circle"></i></div>
+                        <div class="status text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                            title="Bàn được đặt"><i class="fa fa-circle fa-2xl"></i></div>
                     @else
-                        <div class="status text-danger"><i class="fa fa-circle"></i></div>
+                        <div class="status text-danger" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                        title="Bàn trống"><i class="fa fa-circle fa-2xl"></i></div>
                     @endif
                     <div class="fw-semibold">Bàn</div>
                     <div class="fw-bold fs-1">{{ $item->name }}</div>

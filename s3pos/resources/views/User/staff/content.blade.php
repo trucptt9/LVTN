@@ -30,9 +30,16 @@
                         <!--end::Item-->
                     </ul>
                 </div>
-                <button class="btn btn-primary h-40px">
-                    Tạo mới
-                </button>
+                @can('staff-create')
+                    <button class="btn btn-primary h-40px">
+                        Tạo mới
+                    </button>
+                @else
+                    <button disabled class="btn btn-primary h-40px">
+                        Tạo mới
+                    </button>
+                @endcan
+
             </div>
             @include('User.staff.report')
             <!--begin::Products-->

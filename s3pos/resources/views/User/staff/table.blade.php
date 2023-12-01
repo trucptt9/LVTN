@@ -41,40 +41,52 @@
             </td>
 
             <td class="text-center">
-                <div class="form-check form-check-sm form-check-custom form-check-solid justify-content-center">
-                    <input name="status" class="form-check-input " type="checkbox" id={{ $item->id }}
-                        {{ $item->status == 'active' ? 'checked' : '' }}
-                        onclick="changeStatus('{{ $item->id }}')" />
-                </div>
+                @can('staff-update')
+                    <div class="form-check form-check-sm form-check-custom form-check-solid justify-content-center">
+                        <input name="status" class="form-check-input " type="checkbox" id={{ $item->id }}
+                            {{ $item->status == 'active' ? 'checked' : '' }}
+                            onclick="changeStatus('{{ $item->id }}')" />
+                    </div>
+                @else
+                    <div class="form-check form-check-sm form-check-custom form-check-solid justify-content-center">
+                        <input name="status" disabled class="form-check-input " type="checkbox" id={{ $item->id }}
+                            {{ $item->status == 'active' ? 'checked' : '' }}
+                            onclick="changeStatus('{{ $item->id }}')" />
+                    </div>
+                @endcan
+
             </td>
 
             <td class="text-center d-flex">
-                <a class="btn btn-light" style="padding: 0px" href="{{ route('staff.detail', $item->id) }}">
-                    <i class="ki-duotone fs-2qx ki-eye">
-                        <span class="path1"></span>
-                        <span class="path2"></span>
-                        <span class="path3"></span>
-                    </i>
-                </a>
-
+                @can('staff-view')
+                    <a class="btn btn-light" style="padding: 0px" href="{{ route('staff.detail', $item->id) }}">
+                        <i class="ki-duotone fs-2qx ki-eye">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                            <span class="path3"></span>
+                        </i>
+                    </a>
+                @endcan
+                @can('staff-update')
                     <a class="btn btn-light btn-edit" style="padding: 0px" href="{{ route('staff.detail', $item->id) }}">
                         <i class="ki-duotone ki-message-edit fs-2qx text-success">
                             <span class="path1"></span>
                             <span class="path2"></span>
                         </i>
                     </a>
-              
-                <button class="btn btn-light btn-delete" style="padding: 0px"
-                    onclick="confirmDelete('{{ $item->id }}')">
-                    <i class="ki-duotone ki-trash fs-2qx text-danger">
-                        <span class="path1"></span>
-                        <span class="path2"></span>
-                        <span class="path3"></span>
-                        <span class="path4"></span>
-                        <span class="path5"></span>
-                    </i>
-                </button>
-             
+                @endcan
+                @can('staff-delete')
+                    <button class="btn btn-light btn-delete" style="padding: 0px"
+                        onclick="confirmDelete('{{ $item->id }}')">
+                        <i class="ki-duotone ki-trash fs-2qx text-danger">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                            <span class="path3"></span>
+                            <span class="path4"></span>
+                            <span class="path5"></span>
+                        </i>
+                    </button>
+                @endcan
             </td>
         </tr>
     @endforeach

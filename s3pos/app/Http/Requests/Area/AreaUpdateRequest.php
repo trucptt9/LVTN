@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Area;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Support\Facades\Gate;
 class AreaUpdateRequest extends FormRequest
 {
     /**
@@ -11,7 +11,7 @@ class AreaUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return Gate::allows('area-update');
     }
 
     /**

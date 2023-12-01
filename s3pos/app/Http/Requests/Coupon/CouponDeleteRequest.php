@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Coupon;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Support\Facades\Gate;
 class CouponDeleteRequest extends FormRequest
 {
     /**
@@ -11,7 +11,7 @@ class CouponDeleteRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return Gate::allows('coupon-delete');
     }
 
     /**

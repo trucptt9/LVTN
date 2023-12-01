@@ -26,6 +26,7 @@ class PositionController extends Controller
 
   public function index()
   {
+    $this->authorize('position-view');
     $data = [
       'status' => Position::get_status(),
     ];
@@ -34,6 +35,7 @@ class PositionController extends Controller
 
   public function list()
   {
+    $this->authorize('position-view');
     try {
       $limit = request('limit', $this->limit_default);
       $status = request('status', '');

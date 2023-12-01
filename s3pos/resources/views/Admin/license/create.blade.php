@@ -18,7 +18,7 @@
                         </select>
                     </div>
                     <div class="mb-1 form-group">
-                        <label class="col-form-label">Gói dịc vụ *</label>
+                        <label class="col-form-label">Gói dịch vụ *</label>
                         <select name="package_id" class="form-select select-package_id select-picker">
                             <option value="" selected>-- Chọn --</option>
                             @foreach ($data['packages'] as $item)

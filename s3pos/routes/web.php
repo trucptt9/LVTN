@@ -8,6 +8,8 @@ use App\Http\Controllers\User\BookingController;
 use App\Http\Controllers\User\CouponController;
 use App\Http\Controllers\User\OrderController;
 use App\Http\Controllers\User\StoreController;
+use App\Http\Controllers\User\SaleSourceController;
+use App\Http\Controllers\User\MethodPaymentController;
 use App\Http\Controllers\User\TableController;
 use App\Http\Controllers\User\StaffController;
 use App\Http\Controllers\User\CustomerController;
@@ -74,7 +76,9 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
         Route::get('category', [SaleController::class, 'category'])->name('category');
         Route::get('product', [SaleController::class, 'product'])->name('product');
         //promotion
-        Route::post('promotion', [SaleController::class, 'promotion'])->name('promotion');
+        Route::get('promotion', [SaleController::class, 'promotion'])->name('promotion');
+        //coupon
+        Route::get('coupon', [SaleController::class, 'coupons'])->name('coupon');
         // cart
         Route::get('cart/{id}', [SaleController::class, 'cart'])->name('cart');
         Route::post('cart_insert/{id}', [SaleController::class, 'add_cart'])->name('cart_insert');
@@ -99,6 +103,7 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
         Route::get('table', [StoreController::class, 'table'])->name('table');
         Route::get('report', [StoreController::class, 'report'])->name('report');
         Route::get('detail/{id}', [StoreController::class, 'detail'])->name('detail');
+        
     });
     Route::prefix('staffs')->name('staff.')->group(function () {
         Route::get('', [StaffController::class, 'index'])->name('index');
@@ -152,7 +157,22 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
         Route::post('update', [TableController::class, 'update'])->name('update');
         Route::get('delete', [TableController::class, 'delete'])->name('delete');
     });
-
+    Route::prefix('method_payment')->name('method_payment.')->group(function () {
+        Route::get('', [MethodPaymentController::class, 'index'])->name('index');
+        Route::get('list', [MethodPaymentController::class, 'list'])->name('list');
+        Route::get('detail/{id}', [MethodPaymentController::class, 'detail'])->name('detail');
+        Route::post('insert', [MethodPaymentController::class, 'insert'])->name('insert');
+        Route::post('update', [MethodPaymentController::class, 'update'])->name('update');
+        Route::get('delete', [MethodPaymentController::class, 'delete'])->name('delete');
+    });
+    Route::prefix('sale_source')->name('sale_source.')->group(function () {
+        Route::get('', [SaleSourceController::class, 'index'])->name('index');
+        Route::get('list', [SaleSourceController::class, 'list'])->name('list');
+        Route::get('detail/{id}', [SaleSourceController::class, 'detail'])->name('detail');
+        Route::post('insert', [SaleSourceController::class, 'insert'])->name('insert');
+        Route::post('update', [SaleSourceController::class, 'update'])->name('update');
+        Route::get('delete', [SaleSourceController::class, 'delete'])->name('delete');
+    });
     // product
     Route::prefix('product_categories')->name('product_category.')->group(function () {
         Route::get('', [CategoryProductController::class, 'index'])->name('index');
@@ -226,9 +246,12 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
     });
     Route::prefix('card_member')->name('card_member.')->group(function () {
         Route::get('', [CardMemberController::class, 'index'])->name('index');
+        Route::get('list', [CardMemberController::class, 'list'])->name('list');
         Route::get('table', [CardMemberController::class, 'table'])->name('table');
         Route::get('report', [CardMemberController::class, 'report'])->name('report');
+        Route::post('update', [CardMemberController::class, 'update'])->name('update');
         Route::get('detail/{id}', [CardMemberController::class, 'detail'])->name('detail');
+        Route::get('delete', [CardMemberController::class, 'delete'])->name('delete');
     });
     Route::prefix('booking')->name('booking.')->group(function () {
         Route::get('', [BookingController::class, 'index'])->name('index');
@@ -296,6 +319,14 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
         Route::get('', [ReportController::class, 'index'])->name('index');
         Route::get('report_all', [ReportController::class, 'report_all'])->name('report_all');
         Route::get('report_chart', [ReportController::class, 'report_chart'])->name('report_chart');
+
+        Route::get('product', [ReportController::class, 'product'])->name('product');
+        Route::get('report_product', [ReportController::class, 'report_product'])->name('report_product');
+        Route::get('report_chart_product', [ReportController::class, 'report_chart_product'])->name('report_chart_product');
+       
+        Route::get('staff', [ReportController::class, 'staff'])->name('staff');
+        Route::get('report_staff', [ReportController::class, 'report_staff'])->name('report_staff');
+        Route::get('report_chart_staff', [ReportController::class, 'report_chart_staff'])->name('report_chart_staff');
     });
 
     // other

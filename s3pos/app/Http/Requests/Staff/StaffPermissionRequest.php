@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Staff;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Support\Facades\Gate;
 class StaffPermissionRequest extends FormRequest
 {
     /**
@@ -11,7 +11,7 @@ class StaffPermissionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return Gate::allows('staff-permission');
     }
 
     /**

@@ -192,7 +192,7 @@
             $.get(url, function(rs) {
                 if (rs.status == 200) {
                     $('.header-order').text(rs?.data?.total);
-                    $('.header-revenue').text(rs?.data?.revenue);
+                    $('.header-revenue').text(rs?.data?.revenue + ' đ');
                     $(".sniper-content").remove();
                 }
             });

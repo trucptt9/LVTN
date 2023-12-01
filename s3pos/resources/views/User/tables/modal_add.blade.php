@@ -65,10 +65,10 @@
                                <div class="col-md-6">
                                    <div class="fv-row mb-7">
                                        <!--begin::Label-->
-                                       <label class=" fw-semibold fs-6 mb-2">Khu vực</label>
+                                       <label class="required fw-semibold fs-6 mb-2">Khu vực</label>
                                        <!--end::Label-->
                                        <select class="form-select" data-control="select2" aria-label="Select example"
-                                           name="status">
+                                           name="area_id">
                                            <option selected value="">Chọn khu vực </option>
                                            @foreach ($data['areas'] as $item)
                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -83,7 +83,7 @@
                        <div class="text-center pt-10">
                            <button type="reset" class="btn btn-light me-3 btn-cancle"
                                data-kt-users-modal-action="cancel">Hủy</button>
-                           <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
+                           <button type="submit" class="btn btn-primary btn-create" data-kt-users-modal-action="submit">
                                <span class="indicator-label">Thêm</span>
                                <span class="indicator-progress">Please wait...
                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>

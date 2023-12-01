@@ -106,31 +106,34 @@
                     <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-8">
                         <!--begin:::Tab item-->
                         <li class="nav-item">
-                            <a class="nav-link text-active-primary pb-4 active fs-6" data-bs-toggle="tab"
+                            <a class="nav-link text-active-primary pb-4 active fs-6 info_account" data-bs-toggle="tab"
                                 href="#info_account">Thông tin nhân viên</a>
                         </li>
-                        <!--end:::Tab item-->
-                        <!--begin:::Tab item-->
                         <li class="nav-item">
-                            <a class="nav-link text-active-primary pb-4 fs-6 permision" data-kt-countup-tabs="true"
-                                data-bs-toggle="tab" href="#permission">Phân quyền</a>
+                            <a class="nav-link text-active-primary pb-4 fs-6 update_account" data-bs-toggle="tab"
+                                href="#update_account">Cập nhật tài khoản</a>
                         </li>
-                        <!--end:::Tab item-->
-                        <!--begin:::Tab item-->
-                        <li class="nav-item">
-                            <a class="nav-link text-active-primary pb-4 fs-6" data-bs-toggle="tab" href="#shift">Ca làm
-                                việc</a>
-                        </li>
-                        <!--end:::Tab item-->
-                        <!--begin:::Tab item-->
-                        <li class="nav-item">
-                            <a class="nav-link text-active-primary pb-4 fs-6 staff-log" data-bs-toggle="tab"
-                                href="#log">Lịch sử thao tác</a>
-                        </li>
-                        <!--end:::Tab item-->
+                        @can('staff-permission')
+                            <li class="nav-item">
+                                <a class="nav-link text-active-primary pb-4 fs-6 permission" data-kt-countup-tabs="true"
+                                    data-bs-toggle="tab" href="#permission">Phân quyền</a>
+                            </li>
+                        @endcan
+                        @can('shift-view')
+                            <li class="nav-item">
+                                <a class="nav-link text-active-primary pb-4 fs-6 shift" data-bs-toggle="tab" href="#shift">Ca
+                                    làm
+                                    việc</a>
+                            </li>
+                        @endcan
+                        @can('staff_history-view')
+                            <li class="nav-item">
+                                <a class="nav-link text-active-primary pb-4 fs-6 staff-log" data-bs-toggle="tab"
+                                    href="#log">Lịch sử thao tác</a>
+                            </li>
+                        @endcan
+
                     </ul>
-                    <!--end:::Tabs-->
-                    <!--begin:::Tab content-->
                     <div class="tab-content" id="myTabContent">
                         <!--begin:::Tab pane-->
                         <div class="tab-pane fade show active" id="info_account" role="tabpanel">
@@ -144,76 +147,12 @@
                                     </div>
                                     <!--end::Card title-->
                                 </div>
-                                <!--end::Card header-->
-                                <!--begin::Card body-->
                                 <div class="card-body pt-0 pb-5">
                                     <form action="{{ route('staff.update') }}" method="POST" class="form-update-account">
                                         <input type="hidden" name="id" value="{{ $staff->id }}" id=""
                                             hidden>
                                         <input type="hidden" name="type" value="all">
                                         <div class="row">
-                                            <div class="col-6">
-                                                <!--begin::Nav-->
-                                                <div class="stepper-nav ps-lg-1">
-                                                    <label class="d-flex align-items-center fs-5 fw-semibold mb-2">
-                                                        <h4 class="">Thông tin tài
-                                                            khoản</h4>
-                                                    </label>
-                                                    <div class="fv-row mb-2 account_staff">
-                                                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
-                                                            <span class="">Email</span>
-                                                        </label>
-                                                        <input type="text" class="form-control form-control-lg"
-                                                            name="email" placeholder="Email đăng nhập"
-                                                            value="{{ $staff->email }}" />
-                                                        <!--end::Input-->
-                                                    </div>
-                                                    <div class="fv-row mb-2">
-                                                        <label
-                                                            class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-3">
-                                                            <span class="">Chức vụ</span>
-                                                        </label>
-                                                        <select class="form-select" data-control="select2"
-                                                            aria-label="Select example" name="position_id">
-                                                            @foreach ($data['positions'] as $item)
-                                                                <option value="{{ $item->id }}"
-                                                                    {{ $item->id == $staff->position_id ? 'selected' : '' }}>
-                                                                    {{ $item->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                    <div class="fv-row mb-2">
-                                                        <!--begin::Label-->
-                                                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                                            <span class="">Phòng ban</span>
-                                                        </label>
-                                                        <select class="form-select" data-control="select2"
-                                                            aria-label="Select example" name="department_id">
-
-                                                            @foreach ($data['departments'] as $item)
-                                                                <option value="{{ $item->id }}"
-                                                                    {{ $item->id == $staff->department_id ? 'selected' : '' }}>
-                                                                    {{ $item->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                    <div class="fv-row mb-2">
-                                                        <!--begin::Label-->
-                                                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
-                                                            <span class="">Trạng thái</span>
-                                                        </label>
-                                                        <select class="form-select" data-hide-search="true"
-                                                            data-control="select2" aria-label="Select example"
-                                                            name="status">
-                                                            @foreach ($data['status'] as $key => $item)
-                                                                <option value="{{ $key }}"
-                                                                    {{ $staff->status == $key ? 'selected' : '' }}>
-                                                                    {{ $item[0] }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div class="col-6">
                                                 <!--begin::Nav-->
                                                 <div class="stepper-nav ps-lg-10">
@@ -279,23 +218,120 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-6">
+                                                <!--begin::Nav-->
+                                                <div class="stepper-nav ps-lg-1">
+                                                    <label class="d-flex align-items-center fs-5 fw-semibold mb-2">
+                                                        <h4 class="">Thông tin khác</h4>
+                                                    </label>
+
+                                                    <div class="fv-row mb-2">
+                                                        <label
+                                                            class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-3">
+                                                            <span class="">Chức vụ</span>
+                                                        </label>
+                                                        <select class="form-select" data-control="select2"
+                                                            aria-label="Select example" name="position_id">
+                                                            @foreach ($data['positions'] as $item)
+                                                                <option value=""
+                                                                    {{ $staff->position_id ? 'hidden' : '' }}>-- Chọn chức
+                                                                    vụ --</option>
+                                                                <option value="{{ $item->id }}"
+                                                                    {{ $item->id == $staff->position_id ? 'selected' : '' }}>
+                                                                    {{ $item->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="fv-row mb-2">
+                                                        <!--begin::Label-->
+                                                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                                            <span class="">Phòng ban</span>
+                                                        </label>
+                                                        <select class="form-select" data-control="select2"
+                                                            aria-label="Select example" name="department_id">
+
+                                                            @foreach ($data['departments'] as $item)
+                                                                <option value="{{ $item->id }}"
+                                                                    {{ $item->id == $staff->department_id ? 'selected' : '' }}>
+                                                                    {{ $item->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="fv-row mb-2">
+                                                        <!--begin::Label-->
+                                                        <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                                            <span class="">Trạng thái</span>
+                                                        </label>
+                                                        <select class="form-select" data-hide-search="true"
+                                                            data-control="select2" aria-label="Select example"
+                                                            name="status">
+                                                            @foreach ($data['status'] as $key => $item)
+                                                                <option value="{{ $key }}"
+                                                                    {{ $staff->status == $key ? 'selected' : '' }}>
+                                                                    {{ $item[0] }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </div>
-                                        <button class="btn btn-success mt-3 btn-create" style="float:inline-end"
-                                            type="submit">Cập nhật</button>
+                                        @can('staff-update')
+                                            <button class="btn btn-success mt-3 btn-create" style="float:inline-end"
+                                                type="submit">Cập nhật</button>
+                                        @endcan
                                     </form>
                                 </div>
                                 <!--end::Card body-->
                             </div>
                             <!--end::Card-->
                         </div>
-                        <!--end:::Tab pane-->
-                        <!--begin:::Tab pane-->
+                        <div class="tab-pane fade" id="update_account" role="tabpanel">
+                            <!--begin::Card-->
+                            <div class="card pt-4 mb-6 mb-xl-9">
+
+                                <div class="card-body pt-0 pb-5">
+                                    <button type="submit" class="btn btn-sm btn-flex btn-primary"
+                                        style="float:inline-end">
+                                        Cập nhật</button>
+                                    <div class="stepper-nav ps-lg-10">
+                                        <label class="d-flex align-items-center fs-5 fw-semibold mb-2">
+                                            <h4 class="">Cập nhật thông tin tài khoản</h4>
+                                        </label>
+                                        <div class="fv-row mb-2">
+                                            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                                                <span class="required">Email</span>
+                                            </label>
+                                            <!--end::Label-->
+                                            <!--begin::Input-->
+                                            <input type="text" class="form-control form-control-lg w-50"
+                                                name="email" placeholder="Email đăng nhập"
+                                                value="{{ $staff->email }}" />
+                                            <!--end::Input-->
+                                        </div>
+                                        <div class="fv-row mb-2">
+                                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                <span class="fw-bold">Cập nhật lại mật khẩu</span>
+                                            </label>
+
+                                            <input type="text" class="form-control form-control-lg w-50"
+                                                name="password" placeholder="Nhập mật khẩu mới" />
+
+                                            <input type="text" class="form-control form-control-lg mt-3 w-50"
+                                                name="password" placeholder="Nhập lại mật khẩu" />
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end::Card-->
+                        </div>
                         <div class="tab-pane fade" id="permission" role="tabpanel">
                             <!--begin::Card-->
                             <div class="card pt-4 mb-6 mb-xl-9">
-                                
+
                                 <div class="card-body pt-0 pb-5">
-                                  @include('user.staff.permission')
+                                    @include('user.staff.permission')
                                 </div>
                             </div>
                             <!--end::Card-->
@@ -512,10 +548,26 @@
     <script>
         const routeList = "{{ route('staff.log', $staff->id) }}";
         filterTable();
+
         function filterTable() {
             loadTable(routeList);
         };
         $(document).ready(function() {
+            // triggerClick();
+            function triggerClick(){
+                $classTrigger = localStorage.getItem('staff-info') || localStorage.getItem('staff-account') || localStorage.getItem('staff-log')
+                                || localStorage.getItem('staff-permission') || localStorage.getItem('staff-shift');
+                $classTrigger = "." + $classTrigger ;
+                if($classTrigger){
+                    $('.info_account').removeClass('active');
+                }
+                $('.update_account').removeClass('active');
+                $('.permission').removeClass('active');
+                $('.shift').removeClass('active');
+                $('.staff-log').removeClass('active');   
+                $($classTrigger).trigger("click");
+                $($classTrigger).addClass('active');
+            }
             $("#start_modal_add_schedule_datepicker").flatpickr({
                 enableTime: true,
                 noCalendar: true,
@@ -533,10 +585,42 @@
                 // $.get("{{ route('staff.permission') }}", function(res) {
                 //     $('.permition_table').html(res)
                 // })
+                localStorage.removeItem('staff-info');
+                localStorage.removeItem('staff-log');
+                localStorage.removeItem('staff-shift');
+                localStorage.removeItem('staff-account');
+                localStorage.setItem('staff-permission', 'permission');
+            })
+            $('.info_account').click(function(e) {
+                localStorage.setItem('staff-info', 'info_account');
+                localStorage.removeItem('staff-permission');
+                localStorage.removeItem('staff-log');
+                localStorage.removeItem('staff-shift');
+                localStorage.removeItem('staff-account');
+            })
+            $('.update_account').click(function(e) {
+                localStorage.setItem('staff-account', 'update_account');
+                localStorage.removeItem('staff-info');
+                localStorage.removeItem('staff-log');
+                localStorage.removeItem('staff-shift');
+                localStorage.removeItem('staff-permission');
+            })
+            $('.shift').click(function(e) {
+                localStorage.setItem('staff-shift', 'shift');
+                localStorage.removeItem('staff-info');
+                localStorage.removeItem('staff-log');
+                localStorage.removeItem('staff-permission');
+                localStorage.removeItem('staff-account');
             })
             $('.staff-log').click(function(e) {
                 e.preventDefault();
                 filterTable();
+                localStorage.removeItem('staff-info');
+                localStorage.removeItem('staff-permisison');
+                localStorage.removeItem('staff-shift');
+                localStorage.removeItem('staff-account');
+                localStorage.setItem('staff-log', 'staff-log');
+
             })
             $('.btn-create').click(function(e) {
                 e.preventDefault();
@@ -577,17 +661,18 @@
                     }
                 });
             })
-
-            $(document).on('click','.check-all', function(e){
-                let id = '#check-all-' +$(this).attr('data-id');
-                let moclass = '.module-'+ $(this).attr('data-id');
-                $(moclass).prop('checked', $(this).prop('checked')); 
-                $(moclass).click(function(e){
+           
+            $(document).on('click', '.check-all', function(e) {
+                let id = '#check-all-' + $(this).attr('data-id');
+                let moclass = '.module-' + $(this).attr('data-id');
+                $(moclass).prop('checked', $(this).prop('checked'));
+                $(moclass).click(function(e) {
                     $(id).prop('checked', false);
                 })
-            }) 
-            
+            })
+
 
         })
+       
     </script>
 @endsection

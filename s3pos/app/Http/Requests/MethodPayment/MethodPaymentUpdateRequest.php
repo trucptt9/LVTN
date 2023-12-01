@@ -3,7 +3,7 @@
 namespace App\Http\Requests\MethodPayment;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Support\Facades\Gate;
 class MethodPaymentUpdateRequest extends FormRequest
 {
     /**
@@ -11,7 +11,7 @@ class MethodPaymentUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return Gate::allows('method_payment-update');
     }
 
     /**
@@ -23,7 +23,7 @@ class MethodPaymentUpdateRequest extends FormRequest
     {
         return [
             //
-            'id' => 'required|exists:departments,id'
+            'id' => 'required|exists:method_payments,id'
         ];
     }
 }

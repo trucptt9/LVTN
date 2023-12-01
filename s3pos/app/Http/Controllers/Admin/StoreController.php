@@ -83,9 +83,9 @@ class StoreController extends Controller
             $data = request()->all();
             $store = Store::create($data);
             DB::commit();
-            if (request('generate_data', '') == '1') {
+           
                 event(new GenerateDataStore($store));
-            }
+                
             return Response::json([
                 'status' => ResHTTP::HTTP_OK,
                 'message' => 'Tạo mới thành công',

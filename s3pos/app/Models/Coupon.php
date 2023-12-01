@@ -41,6 +41,7 @@ class Coupon extends Model
             $model->code = $model->code ?? generateRandomString();
             $model->value = $model->value ?? 0;
             $model->type_value = $model->type_value ?? self::TYPE_PERCENT;
+            $model->quantity = $model->quantity ?? 1;
         });
         self::created(function ($model) {
             save_log_action("Tạo mới mã giảm giá #$model->code");

@@ -24,8 +24,8 @@
         @endforeach
     @else
         @foreach ($customer as $item)
-            <div class="card-body px-3 ">
-                <div class="row">
+            <div class="card-body px-3 mt-2">
+                <div class="row" style="background:#bddddd">
                     <div class="col-7">
                         <div class="d-flex align-items-center">
                             <input type="hidden" class="customer-id" value="{{ $item->id }}">

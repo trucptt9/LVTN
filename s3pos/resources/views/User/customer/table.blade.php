@@ -26,30 +26,37 @@
                 </div>
             </td>
             <td class="text-center d-flex">
-                <a href="{{ route('customer.detail', $item->id) }}">
-                    <i class="ki-duotone ki-eye fs-2qx text-dark">
-                        <span class="path1"></span>
-                        <span class="path2"></span>
-                        <span class="path3"></span>
-                    </i>
-                </a>
-                <a class="btn btn-light btn-edit" style="padding: 0px"
-                    href="{{ route('customer.detail', ['id' => $item->id]) }}">
-                    <i class="ki-duotone ki-message-edit fs-2qx text-success">
-                        <span class="path1"></span>
-                        <span class="path2"></span>
-                    </i>
-                </a>
-                <button class="btn btn-light btn-delete" style="padding: 0px"
-                    onclick="confirmDelete('{{ $item->id }}')">
-                    <i class="ki-duotone ki-trash fs-2qx text-danger">
-                        <span class="path1"></span>
-                        <span class="path2"></span>
-                        <span class="path3"></span>
-                        <span class="path4"></span>
-                        <span class="path5"></span>
-                    </i>
-                </button>
+                @can('customer-view')
+                    <a href="{{ route('customer.detail', $item->id) }}">
+                        <i class="ki-duotone ki-eye fs-2qx text-dark">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                            <span class="path3"></span>
+                        </i>
+                    </a>
+                @endcan
+                @can('customer-update')
+                    <a class="btn btn-light btn-edit" style="padding: 0px"
+                        href="{{ route('customer.detail', ['id' => $item->id]) }}">
+                        <i class="ki-duotone ki-message-edit fs-2qx text-success">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                    </a>
+                @endcan
+                @can('customer-delete')
+                    <button class="btn btn-light btn-delete" style="padding: 0px"
+                        onclick="confirmDelete('{{ $item->id }}')">
+                        <i class="ki-duotone ki-trash fs-2qx text-danger">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                            <span class="path3"></span>
+                            <span class="path4"></span>
+                            <span class="path5"></span>
+                        </i>
+                    </button>
+                @endcan
+
             </td>
         </tr>
     @endforeach

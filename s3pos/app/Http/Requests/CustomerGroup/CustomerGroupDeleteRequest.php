@@ -3,7 +3,7 @@
 namespace App\Http\Requests\CustomerGroup;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Support\Facades\Gate;
 class CustomerGroupDeleteRequest extends FormRequest
 {
     /**
@@ -11,7 +11,7 @@ class CustomerGroupDeleteRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return Gate::allows('customer_group-delete');
     }
 
     /**

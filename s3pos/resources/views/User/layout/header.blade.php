@@ -17,11 +17,11 @@
         <!--begin::Header Logo-->
         <div class="header-logo me-5 me-md-10 flex-grow-1 flex-lg-grow-0">
             <a href="{{ route('index') }}">
-                <img alt="Logo" style="height: 150px"
-                    src="{{ $user_store && $user_store->logo ? $user_store->logo : asset('images/ttpos-logos_transparent.png') }}"
+                <img alt="Logo" style="height:50px"
+                    src="{{ $user_store && $user_store->logo ? $user_store->logo : asset('images/logo.png') }}"
                     class="logo-default" />
                 <img alt="Logo"
-                    src="{{ $user_store && $user_store->logo ? $user_store->logo : asset('images/ttpos-logos_transparent.png') }}"
+                    src="{{ $user_store && $user_store->logo ? $user_store->logo : asset('images/logo.png') }}"
                     class="logo-sticky" />
             </a>
         </div>
@@ -52,23 +52,28 @@
                                         <span class="menu-arrow d-lg-none"></span>
                                     </span>
                                     <!--end:Menu link-->
-                                    <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown px-lg-2 py-lg-4 w-lg-200px"
-                                        style="">
-                                        @foreach ($item->menus as $menu)
-                                            <div class="menu-item">
-                                                <!--begin:Menu link-->
-                                                <a class="menu-link py-3" href="{{ $menu->url }}">
-                                                    <span class="menu-icon">
-                                                        {!! $menu->icon !!}
-                                                    </span>
-                                                    <span class="menu-title">
-                                                        {{ $menu->name }}
-                                                    </span>
-                                                </a>
-                                                <!--end:Menu link-->
-                                            </div>
-                                        @endforeach
-                                    </div>
+                                    @if ($item->menus->count() > 0)
+                                        <div class="menu-sub menu-sub-lg-down-accordion menu-sub-lg-dropdown px-lg-2 py-lg-4 w-lg-230px"
+                                            style="">
+
+                                            @foreach ($item->menus as $menu)
+                                                @can($menu->code . '-' . 'view')
+                                                    <div class="menu-item">
+                                                    
+                                                        <a class="menu-link py-3" href="{{ $menu->url }}">
+                                                            <span class="menu-icon">
+                                                                {!! $menu->icon !!}
+                                                            </span>
+                                                            <span class="menu-title">
+                                                                {{ $menu->name }}
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                @endcan
+                                            @endforeach
+
+                                        </div>
+                                    @endif
                                 </div>
                             @else
                                 <a href="{{ $item->url }}" class="menu-item me-0 me-lg-2">
@@ -102,8 +107,7 @@
                     <!--begin::Menu wrapper-->
                     <div class="btn btn-icon btn-active-light-primary btn-custom w-30px h-30px w-md-40px h-md-40px"
                         data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-                        <img class="h-30px w-30px rounded"
-                            src="{{ $user_staff->avatar ?? asset('images/avatar.jpg') }}"
+                        <img class="h-30px w-30px rounded" src="{{ $user_staff->avatar ?? asset('images/avatar.jpg') }}"
                             alt="">
                     </div>
                     <!--begin::User account menu-->
@@ -114,8 +118,7 @@
                             <div class="menu-content d-flex align-items-center px-3">
                                 <!--begin::Avatar-->
                                 <div class="symbol symbol-50px me-5">
-                                    <img alt="Logo"
-                                        src="{{ $user_staff->avatar ?? asset('images/avatar.jpg') }}">
+                                    <img alt="Logo" src="{{ $user_staff->avatar ?? asset('images/avatar.jpg') }}">
                                 </div>
                                 <!--end::Avatar-->
                                 <!--begin::Username-->

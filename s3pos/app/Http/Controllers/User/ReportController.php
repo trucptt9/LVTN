@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\CategoryProduct;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Response as ResHTTP;
 use Illuminate\Support\Facades\DB;
@@ -21,10 +22,22 @@ class ReportController extends Controller
     }
     public function index()
     {
-       
+        $this->authorize('report-view');
         return view('User.report.index');
     }
-
+    public function product()
+    {
+        $this->authorize('report-view');
+        $category = CategoryProduct::ofStatus(CategoryProduct::STATUS_ACTIVE)->get();
+        
+        return  view('user.report.product', compact('category'));
+        
+    }
+    public function staff()
+    {
+        $this->authorize('report-view');
+        return view('User.report.staff');
+    }
     public function report_all()
     {
         $date = request('date', '');
@@ -55,7 +68,34 @@ class ReportController extends Controller
             'data' => $data
         ]);
     }
-
+    public function report_product()
+    {
+        $date = request('date', '');
+            if ($date != '') {
+                $_array = explode('to', $date);
+                $from = trim($_array[0]);
+                $to = isset($_array[1]) ? trim($_array[1]) : $_array[0];
+            } else {
+                $to = now();
+                $from = now()->subDays(30);
+            }
+            $start = date_format(date_create($from), 'Y-m-d');
+            $end = date_format(date_create($to), 'Y-m-d');
+        $query = Order::storeId($this->store_id);
+        $sql = "SELECT sum(order_details.quantity) as quantity, sum(order_details.total) as total FROM order_details JOIN orders ON order_details.order_id = orders.id 
+        where orders.store_id = ".$this->store_id." and orders.status = 'finish' and DATE_FORMAT(orders.created_at,'%Y-%m-%d')
+        BETWEEN  '$start' AND '$end' ";
+        
+        $count = DB::select($sql);
+        $data = [
+            'total' => $count[0]->quantity,
+            'revenue' => number_format( $count[0]->total),
+        ];  
+        return Response::json([
+            'status' => ResHTTP::HTTP_OK,
+            'data' => $data
+        ]);
+    }
     public function report_chart()
     {
         $data = [];
@@ -103,7 +143,57 @@ class ReportController extends Controller
         }
        
     }
+    public function report_chart_product()
+    {
+        $data = [];
+        $category = [];
+        $status = [];
+        try {
+            $date = request('date', '');
+            if ($date != '') {
+                $_array = explode('to', $date);
+                $from = trim($_array[0]);
+                $to = isset($_array[1]) ? trim($_array[1]) : $_array[0];
+            } else {
+                $to = now();
+                $from = now()->subDays(30);
+            }
+            $start = date_format(date_create($from), 'Y-m-d');
+            $end = date_format(date_create($to), 'Y-m-d');
+            $sql = "SELECT products.id as id, products.name, SUM(order_details.total) AS revenue,
+             SUM(order_details.quantity) AS quantity, SUM(products.cost ) as cost FROM order_details
+             JOIN orders ON order_details.order_id = orders.id JOIN products ON order_details.product_id = products.id 
+             where orders.store_id = ".$this->store_id." and DATE_FORMAT(orders.created_at,'%Y-%m-%d') 
+             BETWEEN  '$start' AND '$end' group by id";
+             $sql1 = "SELECT products.id as id, products.name, SUM(order_details.total) AS revenue, SUM(products.cost) as cost,
+             SUM(order_details.quantity) AS quantity, SUM(products.cost ) as cost FROM products
+             LEFT JOIN order_details ON products.id = order_details.product_id LEFT JOIN orders ON order_details.order_id = orders.id
+             where orders.store_id = ".$this->store_id." and DATE_FORMAT(orders.created_at,'%Y-%m-%d') 
+             BETWEEN  '$start' AND '$end' group by id";
+             \DB::statement("SET SQL_MODE=''");
+            $list = DB::select($sql1);
+            $product = (DB::select($sql))[0];
+            foreach ($list as $value) {
+                array_push($data, $value->revenue);
+                array_push($category, $value->name);
+            }
+             
+        return Response::json([
+            'status' => ResHTTP::HTTP_OK,
+            'chart' => [
+                'data' => $data,
+                'category' => $category,
+            ],
+            'data'=> view('user.report.table_product', compact('product'))->render()
+            
+        ]); 
+        } catch (\Throwable $th) {
+            showLog($th);
+        }
+       
+    }
 
+  
     public static function report_by_status($query)
     {
         $category = [];

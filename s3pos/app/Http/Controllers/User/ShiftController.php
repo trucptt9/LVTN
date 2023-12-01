@@ -26,6 +26,7 @@ class ShiftController extends Controller
 
   public function index()
   {
+    $this->authorize('shift-view');
     $data = [
       'status' => Shift::get_status(),
     ];
@@ -35,6 +36,7 @@ class ShiftController extends Controller
 
   public function list()
   {
+    $this->authorize('shift-view');
     try {
       $limit = request('limit', $this->limit_default);
       $status = request('status', '');

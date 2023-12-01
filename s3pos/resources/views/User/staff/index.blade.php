@@ -1,7 +1,6 @@
 @extends('User.layout.main')
 @section('style')
 @endsection
-
 @section('content')
     <div id="kt_content_container" class="d-flex flex-column-fluid align-items-start container-xxl">
         <!--begin::Post-->
@@ -29,12 +28,13 @@
                         <!--end::Item-->
                     </ul>
                 </div>
-                <a class="btn btn-add btn-primary h-40px">
-                    Tạo mới
-                </a>
+                @can('staff-create')
+                    <a class="btn btn-add btn-primary h-40px">
+                        Tạo mới
+                    </a>
+                    @include('User.staff.modal_add')
+                @endcan
             </div>
-            @include('User.staff.modal_add')
-            <!--begin::Products-->
             <div class="card card-flush">
                 <!--begin::Card header-->
                 <form action="" id="form-filter">

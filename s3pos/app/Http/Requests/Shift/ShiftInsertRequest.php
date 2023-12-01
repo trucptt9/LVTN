@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Shift;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Support\Facades\Gate;
 class ShiftInsertRequest extends FormRequest
 {
     /**
@@ -11,7 +11,7 @@ class ShiftInsertRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return Gate::allows('shift-create');
     }
 
     /**

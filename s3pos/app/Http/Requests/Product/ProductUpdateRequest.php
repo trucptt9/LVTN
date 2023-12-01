@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Product;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Support\Facades\Gate;
 class ProductUpdateRequest extends FormRequest
 {
     /**
@@ -11,7 +11,7 @@ class ProductUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return Gate::allows('product-update');
     }
 
     /**

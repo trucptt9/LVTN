@@ -41,7 +41,7 @@ class SeedMenu extends Seeder
             'name' => 'Quản lý phòng ban',
             'icon' => '<i class="fas fa-layer-group fs-4 pe-2"></i>',
             'url' => route('department.index'),
-            'parent_id' => $store->id,
+            'parent_id' => $store->id,  
         ]);
         Menu::create([
             'code' => 'position',
@@ -71,7 +71,20 @@ class SeedMenu extends Seeder
             'url' => route('table.index'),
             'parent_id' => $store->id,
         ]);
-
+        Menu::create([
+            'code' => 'method_payment',
+            'name' => 'Phương thức thanh toán',
+            'icon' => '<i class="fa-solid fa-hand-holding-dollar fs-4 pe-2"></i>',
+            'url' => route('method_payment.index'),
+            'parent_id' => $store->id,
+        ]);
+        Menu::create([
+            'code' => 'sale_source',
+            'name' => 'Nguồn bán hàng',
+            'icon' => '<i class="fa-solid fa-comments-dollar fs-4 pe-2"></i>',
+            'url' => route('sale_source.index'),
+            'parent_id' => $store->id,
+        ]);
         // product
         $product = Menu::create([
             'name' => 'Sản phẩm',
@@ -141,13 +154,13 @@ class SeedMenu extends Seeder
             'url' => route('customer.index'),
             'parent_id' => $promotion->id,
         ]);
-        Menu::create([
-            'code' => 'card_member',
-            'name' => 'Thẻ thành viên',
-            'icon' => '<i class="far fa-address-card"></i>',
-            'url' => route('card_member.index'),
-            'parent_id' => $promotion->id,
-        ]);
+        // Menu::create([
+        //     'code' => 'card_member',
+        //     'name' => 'Thẻ thành viên',
+        //     'icon' => '<i class="far fa-address-card"></i>',
+        //     'url' => route('card_member.index'),
+        //     'parent_id' => $promotion->id,
+        // ]);
         Menu::create([
             'code' => 'booking',
             'name' => 'Quản lý đặt lịch',
@@ -225,7 +238,20 @@ class SeedMenu extends Seeder
             'url' => route('report.index'),
             'parent_id' => $report->id,
         ]);
-
+        Menu::create([
+            'code' => 'report',
+            'name' => 'Báo cáo theo sản phẩm',
+            'icon' => '<i class="fa-solid fa-cube fs-4 pe-2"></i>',
+            'url' => route('report.product'),
+            'parent_id' => $report->id,
+        ]);
+        Menu::create([
+            'code' => 'report',
+            'name' => 'Báo cáo theo nhân viên',
+            'icon' => '<i class="fa-solid fa-user fs-4 pe-"></i>',
+            'url' => route('report.staff'),
+            'parent_id' => $report->id,
+        ]);
         // other
         $other = Menu::create([
             'name' => 'Khác',

@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Table;
 
 use Illuminate\Foundation\Http\FormRequest;
-use PHPUnit\Logging\TeamCity\TestRunnerExecutionFinishedSubscriber;
+use Illuminate\Support\Facades\Gate;
 
 class TableUpdateRequest extends FormRequest
 {
@@ -12,7 +12,7 @@ class TableUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return Gate::allows('table-update');
     }
 
     /**
@@ -24,7 +24,8 @@ class TableUpdateRequest extends FormRequest
     {
         return [
             //
-            'id' => 'required|exists:tables,id'
+            'id' => 'required|exists:tables,id',
+            'name' => 'required_if:type,all'
         ];
     }
 }

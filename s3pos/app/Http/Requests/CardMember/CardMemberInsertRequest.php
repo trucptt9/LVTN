@@ -3,7 +3,7 @@
 namespace App\Http\Requests\CardMember;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Support\Facades\Gate;
 class CardMemberInsertRequest extends FormRequest
 {
     /**
@@ -11,7 +11,7 @@ class CardMemberInsertRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return Gate::allows('card_member-create');
     }
 
     /**

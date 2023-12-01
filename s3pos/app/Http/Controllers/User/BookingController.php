@@ -24,6 +24,7 @@ class BookingController extends Controller
 
     public function index()
     {
+        $this->authorize('booking-view');
         $data = [
             'status' => Booking::get_status(),
         ];
@@ -32,6 +33,7 @@ class BookingController extends Controller
 
     public function table()
     {
+        $this->authorize('booking-view');
         try {
             $limit = request('limit', $this->limit_default);
             $status = request('status', '');

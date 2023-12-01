@@ -26,6 +26,7 @@ class CategoryProductController extends Controller
 
     public function index()
     {
+        $this->authorize('product_category-view');
         $data = [
             'status' => CategoryProduct::get_status(),
         ];
@@ -34,6 +35,7 @@ class CategoryProductController extends Controller
 
     public function list()
     {
+        $this->authorize('product_category-view');
         try {
             $limit = request('limit', $this->limit_default);
             $status = request('status', '');

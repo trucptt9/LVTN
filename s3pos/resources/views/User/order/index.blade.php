@@ -83,7 +83,9 @@
                                 <th class="w-150px">Mã</th>
                                 <th class="">Nhân viên</th>
                                 <th class="text-center w-250px">Giảm giá</th>
+                                
                                 <th class="text-center w-250px">Tổng tiền</th>
+                                <th class="text-center w-150px">Thời gian</th>
                                 <th class="text-center w-150px">Trạng thái</th>
                                 <th class="text-center w-100px">#</th>
                             </tr>

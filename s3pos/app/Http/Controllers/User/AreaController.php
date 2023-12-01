@@ -26,38 +26,38 @@ class AreaController extends Controller
 
   public function index()
   {
-    $data = [
-      'status' => Area::get_status(),
-
-    ];
-
-    return view('user.areas.index', compact('data'));
+    $this->authorize('area-view');
+      $data = [
+        'status' => Area::get_status(),
+      ];
+      return view('user.areas.index', compact('data'));
   }
 
   public function list()
   {
-    try {
-      $limit = request('limit', $this->limit_default);
-      $status = request('status', '');
-      $search = request('search', '');
-
-      $list = Area::storeId($this->store_id);
-      $list = $status != '' ? $list->ofStatus($status) : $list;
-      $list = $search != '' ? $list->search($search) : $list;
-
-      $list = $list->latest()->paginate($limit);
-
-      return Response::json([
-        'status' => ResHTTP::HTTP_OK,
-        'data' => view('User.areas.table', compact('list'))->render(),
-      ]);
-    } catch (\Throwable $th) {
-      showLog($th);
-      return Response::json([
-        'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
-        'data' => '',
-      ]);
-    }
+    $this->authorize('area-view');
+      try {
+        $limit = request('limit', $this->limit_default);
+        $status = request('status', '');
+        $search = request('search', '');
+  
+        $list = Area::storeId($this->store_id);
+        $list = $status != '' ? $list->ofStatus($status) : $list;
+        $list = $search != '' ? $list->search($search) : $list;
+  
+        $list = $list->latest()->paginate($limit);
+  
+        return Response::json([
+          'status' => ResHTTP::HTTP_OK,
+          'data' => view('User.areas.table', compact('list'))->render(),
+        ]);
+      } catch (\Throwable $th) {
+        showLog($th);
+        return Response::json([
+          'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
+          'data' => '',
+        ]);
+      }
   }
 
 
@@ -72,6 +72,7 @@ class AreaController extends Controller
 
   public function insert(AreaInsertRequest $request)
   {
+    $this->authorize('area-create');
     try {
       $data = $request->all();
       $data['store_id'] = $this->store_id;
@@ -94,6 +95,7 @@ class AreaController extends Controller
 
   public function update(AreaUpdateRequest $request)
   {
+    $this->authorize('area-update');
     try {
       DB::beginTransaction();
       $id = $request->get('id', '');
@@ -128,6 +130,7 @@ class AreaController extends Controller
 
   public function delete(AreaDeleteRequest $request)
   {
+    $this->authorize('area-delete');
     try {
       $id = $request->get('id', '');
       $area = Area::storeId($this->store_id)->whereId($id)->first();

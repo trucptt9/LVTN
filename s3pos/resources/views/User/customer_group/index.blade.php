@@ -28,9 +28,12 @@
                         <!--end::Item-->
                     </ul>
                 </div>
-                <button class="btn btn-primary h-40px btn-add">
-                    Tạo mới
-                </button>
+                @can('customer_group-create')
+                    <button class="btn btn-primary h-40px btn-add">
+                        Tạo mới
+                    </button>
+                    @include('User.customer_group.modal_add')
+                @endcan
             </div>
             <!--begin::Products-->
             <div class="card card-flush">
@@ -104,7 +107,7 @@
         </div>
         <!--end::Post-->
     </div>
-    @include('User.customer_group.modal_add')
+
     <div class="modal fade" id="modal-edit" tabindex="-1" aria-hidden="true">
         <!--begin::Modal dialog-->
         <form action="{{ route('customer_group.update') }}" id="form-update" method="POST" enctype="multipart/form-data">
@@ -249,17 +252,10 @@
             })
         })
     </script>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-    <script src="{{ asset('user/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+   <script src="{{ asset('user/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script src="{{ asset('user/assets/js/custom/apps/ecommerce/sales/listing.js') }}"></script>
     <script src="{{ asset('user/assets/js/widgets.bundle.js') }}"></script>
     <script src="{{ asset('user/assets/js/custom/widgets.js') }}"></script>
->>>>>>> 86efb2d (update layout and controller)
-=======
->>>>>>> 0251e6c (update layout)
->>>>>>> 458b9fa (update layout)
+   
 @endsection
+    

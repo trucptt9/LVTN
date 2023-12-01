@@ -11,7 +11,9 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Models\Promotion;
+use App\Models\Coupon;
 use App\Models\Table;
+use App\Models\SaleSource;
 use App\Models\Booking;
 use App\Models\ToppingGroup;
 use App\Models\Toppings;
@@ -33,27 +35,25 @@ class SaleController extends Controller
     }
     public function index()
     {
+        $this->authorize('sale-sale');
         return view('Sale.table.index');
     }
     public function choose_product($id)
     {
+        $this->authorize('sale-sale');
         $payment_method = MethodPayment::storeId($this->store_id)->get();
         $table = Table::find($id); 
-        Cart::destroy();
         return view('Sale.home.index', compact('table','payment_method'));
     }
     public function category()
     {
+       
         $categories = CategoryProduct::storeId($this->store_id)->where('status', CategoryProduct::STATUS_ACTIVE)->get();
         return view('Sale.home.category', compact('categories'));
     }
     public function payment($id)
     {
-        $search = request('search' ,'');
         $condition = request('total' ,'');
-        $current_day = now()->format('Y-m-d');
-        $active = Promotion::STATUS_ACTIVE;
-        
         $type = request('type', 'add');
         $rowId = request('rowId', '');
         if($rowId != ''){
@@ -62,11 +62,7 @@ class SaleController extends Controller
             
             Cart::update($rowId, ['qty' => $qty]);
         }
-        $sql = "SELECT promotions.value, promotions.type_value, promotions.id FROM promotions LEFT JOIN stores ON promotions.store_id = stores.id WHERE 
-        promotions.store_id = ".$this->store_id." AND promotions.status LIKE '$active'
-        AND promotions.code = '$search'  AND  '$current_day' BETWEEN (promotions.start) AND promotions.`end` 
-        ";
-        $promotion = \DB::select($sql);
+        $sale_source = SaleSource::storeId($this->store_id)->ofStatus(SaleSource::STATUS_ACTIVE)->get();
         $sql1 = "select orders.id, orders.promotion_id, orders.total, orders.sub_total, promotions.`value`, promotions.type_value from `tables` JOIN orders ON tables.order_id = orders.id  
         LEFT JOIN promotions on orders.promotion_id = promotions.id
         WHERE tables.status_order = 'active' AND tables.id = $id";
@@ -79,14 +75,14 @@ class SaleController extends Controller
         $order_detail = \DB::select($sql2);
         return Response::json([
             'status' => ResHTTP::HTTP_OK,
-            'promotion' => $promotion,
-            'payment' => view('Sale.home.payment', compact('promotion','detail_payment','table'))->render(),
+            'payment' => view('Sale.home.payment', compact('detail_payment','table','sale_source'))->render(),
             'cart' => view('Sale.home.cart',compact('table','order_detail'))->render(),
             'detail_payment' => $detail_payment
         ]);
     }
     public function product()   
     {
+      
         $products = Product::whereHas('category', function ($q) {
             $q->storeId($this->store_id);
         })->where('status', Product::STATUS_ACTIVE)->get();
@@ -94,12 +90,14 @@ class SaleController extends Controller
     }
     public function area()
     {
+      
         $areas = Area::storeId($this->store_id)->where('status', Area::STATUS_ACTIVE)->get();
         return view('Sale.table.area', compact('areas'));
     }
-
+    
     public function table()
     {
+        
         $tables = Table::whereHas('area', function ($q) {
             $q->storeId($this->store_id);
         })->where('status', Table::STATUS_ACTIVE)->get();
@@ -118,7 +116,30 @@ class SaleController extends Controller
         return view('Sale.home.modal_add', compact('product', 'toppings'))->render();
     }
 
-    public function add_promotion(){    
+    public function promotion(){    
+        try{
+            $search = request('search' ,'');
+            $current_day = now()->format('Y-m-d');
+            $active = Promotion::STATUS_ACTIVE;
+            $sql = "SELECT promotions.value, promotions.type_value, promotions.id FROM promotions LEFT JOIN stores ON promotions.store_id = stores.id WHERE 
+            promotions.store_id = ".$this->store_id." AND promotions.status LIKE '$active'
+            AND promotions.code = '$search'  AND  '$current_day' BETWEEN (promotions.start) AND promotions.`end`  ";
+            
+            $promotion = \DB::select($sql);
+            return Response::json([
+                'status' => ResHTTP::HTTP_OK,
+                'promotion' => $promotion,
+              ]);
+            
+        }catch (\Throwable $th) {
+            showLog($th);
+            return Response::json([
+              'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
+              'data' => '',
+            ]);
+          }
+       
+        
     }
     public function add_cart(Request $request, $id)
     {
@@ -143,6 +164,27 @@ class SaleController extends Controller
         ]);
     }
 
+    public function coupons(){
+        try{
+            $current_day = now()->format('Y-m-d');
+            $active = Coupon::STATUS_ACTIVE;
+            $coupon = Coupon::storeId($this->store_id)->ofStatus(Coupon::STATUS_ACTIVE)
+                            ->where('quantity', 1) ->where('start', '<=' ,$current_day)->where('end', '>=' ,$current_day)->get();
+            return Response::json([
+                'status' => ResHTTP::HTTP_OK,
+                'data' => view('sale.home.promotion', compact('coupon'))->render(),
+              ]);
+            
+        }catch (\Throwable $th) {
+            showLog($th);
+            return Response::json([
+              'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
+              'data' => '',
+            ]);
+          }
+       
+       
+    }
     public function cart($id)
     {
         $table = Table::find($id);
@@ -187,7 +229,7 @@ class SaleController extends Controller
         showLog($th);
         return Response::json([
             'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
-            'message' => 'Không thể xóa giỏ hàng!',
+            'message' => 'Không thể hủy giỏ hàng!',
             'type' => 'error'
         ]);
     }
@@ -200,9 +242,10 @@ class SaleController extends Controller
     {
         $table_id = request('table', null);
         $customer_id = request('customer', null);
+        $sale_source_id = request('sale_source_id', null);
         $customer_name = request('customer_name', null);
-        
         $promotion_id = request('promotion', null);
+        $promotion_type = request('promotion_type', null);
         $discount = request('discount', null);
         $type_discount = request('type_discount', null);
         $discount_total = request('discount_total', null);
@@ -226,7 +269,8 @@ class SaleController extends Controller
             'sub_total' =>$sub_total,
             'method_payment_id' => $payment_method,
             'cost'=>$cost,
-            'profit' => $total - $cost
+            'profit' => $total - $cost,
+            'sale_source_id'=> $sale_source_id
         ]);
         foreach ($cart as $item) {
             $total_topping = 0;
@@ -250,32 +294,36 @@ class SaleController extends Controller
         }
         $order->status = Order::STATUS_FINISH;
         $order->save();
+        if($promotion_type == 'coupon' && $promotion_id){
+            $coupon = Coupon::find($promotion_id);
+            $coupon->quantity = 0;
+            $coupon->usage = 1;
+            $coupon->save();
+        }
+        if($promotion_type == 'promotion' && $promotion_id){
+            $promotion = Promotion::find($promotion_id);
+            $promotion->quantity =  $promotion->quantity - 1;
+            $promotion->save();
+        }
         $table = Table::find($table_id);
-        $table->status_order = Table::STATUS_ORDER_UN_ACTIVE;
-        $table->order_id = $order->id;
-        $table->booking_id = null;
-        $table->update();
+        if($table && $table->order_id) {
+            $table->status_order = Table::STATUS_ORDER_UN_ACTIVE;
+            $table->order_id = null;
+            $table->update();
+        }
+        
         Cart::destroy();
-        $sql1 = "select orders.id,orders.promotion_id, orders.total, orders.sub_total, promotions.`value`, promotions.type_value from `tables` JOIN orders ON tables.order_id = orders.id  
-        LEFT JOIN promotions on orders.promotion_id = promotions.id
-        WHERE tables.status_order = 'active' AND tables.id = $table_id";
-        $detail_payment = \DB::select($sql1);
         return Response::json([
             'status' => ResHTTP::HTTP_OK,
-            'payment' => view('Sale.home.payment', compact('detail_payment','table'))->render(),
-            'new_item' => '<li class="list-group-item d-flex justify-content-between align-items-center">
-                ' . $order->code . '
-                <span class="badge bg-primary rounded-pill">
-                    ' . number_format($order->total) . '
-                </span>
-            </li>'
         ]);
     }
     public function saveOrder()
     {
+        
         $table_id = request('table', null);
         $customer_id = request('customer', null);
         $promotion_id = request('promotion', null);
+        $promotion_type = request('promotion_type', null);
         $discount = request('discount', null);
         $type_discount = request('type_discount', null);
         $discount_total = request('discount_total', null);
@@ -283,6 +331,7 @@ class SaleController extends Controller
         $sub_total = request('sub_total', 0);
         $customer_name = request('customer_name','');
         $cost = request('total_cost',0);
+        $sale_source_id = request('sale_source_id', null);
         // $topping_total =  request('topping_total',0);
         $cart = Cart::content();
         $order = Order::create([
@@ -299,7 +348,8 @@ class SaleController extends Controller
             'sub_total' =>$sub_total,
             'customer_name' =>$customer_name,
             'cost'=>$cost,
-            'profit' => $total - $cost
+            'profit' => $total - $cost,
+            'sale_source_id' => $sale_source_id
         ]);
         foreach ($cart as $item) {
             $total_topping = 0;
@@ -323,12 +373,23 @@ class SaleController extends Controller
         }
         $order->status = Order::STATUS_TMP;
         $order->save();
+        if($promotion_type == 'coupon' && $promotion_id){
+            $coupon = Coupon::find($promotion_id);
+            $coupon->quantity = 0;
+            $coupon->usage = 1;
+            $coupon->save();
+        }
+        if($promotion_type == 'promotion' && $promotion_id){
+            $promotion = Promotion::find($promotion_id);
+            $promotion->quantity =  $promotion->quantity - 1;
+            $promotion->save();
+        }
         $table = Table::find($table_id);
         $table->status_order = Table::STATUS_ORDER_ACTIVE;
         $table->order_id = $order->id;
         $table->booking_id = null;
         $table->update();
-        // Cart::destroy();
+        Cart::destroy();
        return redirect()->route('sale.index')->with('success', 'Cập nhật thành công');
     }   
     public function try(){
@@ -345,6 +406,7 @@ class SaleController extends Controller
             $table->booking_id = null;
             $order->update();
             $table->update();
+            Cart::destroy();
             return redirect('/sale');
             
         }catch (\Throwable $th) {
@@ -361,14 +423,16 @@ class SaleController extends Controller
         try{
             $search = request('phone','');
             $type = request('type','choose');
-            $customer = Customer::storeId($this->store_id)->where('status',Customer::STATUS_ACTIVE)->where('phone','like',"%$search%")->get();
+            $customer = Customer::storeId($this->store_id)->where('status',Customer::STATUS_ACTIVE)
+            ->where('phone','like',"%$search%")->orWhere('code','like',"%$search%")->get();
             return view('Sale.home.customer', compact('customer', 'type'));
         }catch (\Throwable $th) {
             showLog($th);
             return Response::json([
                 'status' => ResHTTP::HTTP_FAILED_DEPENDENCY,
                 'message' => 'Lỗi',
-                'type' => 'error'
+                'type' => 'error',
+                'customer'=>$customer
             ]);
         }
        

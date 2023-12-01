@@ -28,6 +28,7 @@ class CustomerController extends Controller
 
     public function index()
     {
+        $this->authorize('customer-view');
         $data = [
             'status' => Customer::get_status(),
             'group' => CustomerGroup::storeId($this->store_id)->get(),
@@ -38,6 +39,7 @@ class CustomerController extends Controller
 
     public function list()
     {
+        $this->authorize('customer-view');
         try {
             $limit = request('limit', $this->limit_default);
             $status = request('status', '');
@@ -89,6 +91,7 @@ class CustomerController extends Controller
     }
     public function detail($id)
     {
+        $this->authorize('customer-view');
         $customer = Customer::storeId($this->store_id)->findOrFail($id);
         $data = [
             'status' => Customer::get_status(),

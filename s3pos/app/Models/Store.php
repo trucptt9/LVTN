@@ -86,5 +86,10 @@ class Store extends Model
     {
         return $this->hasOne(License::class, 'store_id', 'id')->ofStatus(License::STATUS_ACTIVE);
     }
+    public function manager()
+    {
+        return $this->hasOne(Staff::class, 'store_id', 'id')->ofSupper(Staff::IS_SUPPER);
+    }
 
+    
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Department;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Support\Facades\Gate;
 class DepartmentDeleteRequest extends FormRequest
 {
     /**
@@ -11,7 +11,7 @@ class DepartmentDeleteRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return Gate::allows('department-delete');
     }
 
     /**

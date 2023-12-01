@@ -3,7 +3,7 @@
 namespace App\Http\Requests\ToppingCategory;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Support\Facades\Gate;
 class ToppingCategoryInsertRequest extends FormRequest
 {
     /**
@@ -11,7 +11,7 @@ class ToppingCategoryInsertRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return Gate::allows('topping_category-create');
     }
 
     /**

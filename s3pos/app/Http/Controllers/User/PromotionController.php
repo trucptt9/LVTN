@@ -27,6 +27,7 @@ class PromotionController extends Controller
 
   public function index()
   {
+    $this->authorize('promotion-view');
     $data = [
       'status' => Promotion::get_status(),
       'customer_group' => CustomerGroup::storeId($this->store_id)->get(),
@@ -41,7 +42,7 @@ class PromotionController extends Controller
 
   public function list()
   {
-
+    $this->authorize('promotion-view');
     try {
       $limit = request('limit', $this->limit_default);
       $status = request('status', '');
@@ -68,18 +69,16 @@ class PromotionController extends Controller
 
   public function detail($id)
   {
+    $this->authorize('promotion-view');
     $data = [
       'status' => Promotion::get_status(),
       'customer_group' => CustomerGroup::storeId($this->store_id)->get(),
     ];
     $promotion = Promotion::storeId($this->store_id)->findOrFail($id);
     $status = Promotion::get_status($promotion->status);
-
-
     if (request()->ajax()) {
       return view('user.promotion.modal_edit', compact('promotion', 'data'))->render();
     }
-
     return view('user.promotion.detail', compact('promotion', 'data', 'status'))->render();
   }
   public function insert(PromotionsInsertRequest $request)

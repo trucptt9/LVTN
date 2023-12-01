@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Topping;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Support\Facades\Gate;
 class ToppingUpdateRequest extends FormRequest
 {
     /**
@@ -11,7 +11,7 @@ class ToppingUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return Gate::allows('topping-update');
     }
 
     /**

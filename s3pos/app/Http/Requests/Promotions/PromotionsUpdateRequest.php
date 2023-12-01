@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Promotions;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Support\Facades\Gate;
 class PromotionsUpdateRequest extends FormRequest
 {
     /**
@@ -11,7 +11,7 @@ class PromotionsUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return Gate::allows('promotion-update');
     }
 
     /**

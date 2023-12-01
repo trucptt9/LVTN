@@ -35,15 +35,30 @@
             const url = "{{ route('sale.payment', $table->id) }}"
             $.get(url, function(res) {
                 $('.payment').html(res.payment);
+                $pro_val = localStorage.getItem('pro_value');
+                $pro_type = localStorage.getItem('pro_type');
+                $cou_val = localStorage.getItem('coupon_val');
+                $cou_type = localStorage.getItem('coupon_type');
+                if ($pro_val && $pro_type) {
+                    apply_promotion($pro_val, $pro_type);
+                } else if ($cou_val && $cou_type) {
+
+                    apply_promotion($cou_val, $cou_type);
+                }
+
             })
         }
         $(document).on('click', '.btn-search-customer', function(e) {
             e.preventDefault();
+            $(this).html(`<span class="spinner-border spinner-border-sm" aria-hidden="true"></span>`);
+            $('.btn-search-customer').prop('disabled', true);
             const phone = $('.phone').val();
             $.get("{{ route('sale.customer') }}", {
                 phone: phone,
                 type: 'show'
             }, function(res) {
+                $('.btn-search-customer').html(`Tìm`);
+                $('.btn-search-customer').prop('disabled', false);
                 $('.customer-list').html(res);
             })
         })
@@ -73,51 +88,144 @@
         })
         $(document).on("click", ".btn-promotion", function(e) {
             e.preventDefault();
-            $('#modal-add-promotion').modal('show');
+            if (localStorage.getItem('coupon_val')) {
+                alert("Chỉ được chọn 1 loại giảm giá!")
+            } else {
+                $('#modal-add-promotion').modal('show');
+            }
+
         })
         $(document).on('click', '.btn-add-promtotion', function(e) {
             e.preventDefault();
+            $(this).html(`<span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                <span role="status">Loading...</span>`);
+            $('button[type=submit]').prop('disabled', true);
             const search = $('.search').val();
-            $.get("{{ route('sale.payment', $table->id) }}", {
+            $.get("{{ route('sale.promotion') }}", {
                 search: search,
             }, function(res) {
                 if (res.status == 200) {
+                    $('.btn-add-promtotion').html(`Xác nhận`);
+                    $('button[type=submit]').prop('disabled', false);
                     if (res.promotion.length == 0) {
-
                         $('.promotion-none').html("Không tìm thấy khuyến mãi phù hợp!")
                     } else {
+                        if (localStorage) {
+                            deleteStoragePro();
+                            localStorage.setItem('pro_value', res.promotion[0].value);
+                            localStorage.setItem('pro_type', res.promotion[0].type_value);
+                            localStorage.setItem('pro_id', res.promotion[0].id);
+                        }
                         $('#modal-add-promotion').modal('hide');
                         $('.promotion-none').html("");
-                        $('.payment').html(res.payment);
                         $('.promotion-id').val(res.promotion[0].id)
-                        $('.discount-type').html(res.promotion[0].type_value == 'percent' ?
-                            '%' : 'đ');
-                        $('.discount-type').attr('data-value', res.promotion[0].type_value);
-                        $('.discount-value').attr('data-value', res.promotion[0].value);
-                        $total = ($('.total-payment').val());
-                        $sub_total = $('.subtotal').attr('data-value');
-                        if (res.promotion[0].type_value == 'percent') {
-                            $total = $total - $total * (res.promotion[0].value / 100);
-                            $('.discount-total').val($sub_total * (res.promotion[0].value /
-                                100));
-                        } else {
-                            $total = $total - res.promotion[0].value;
-                            $('.discount-total').val(res.promotion[0].value);
-                        }
-                        $('.total-payment').val($total);
-                        $total = $total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-                        $('.payment-total').html(($total))
+                        apply_promotion(res.promotion[0].value, res.promotion[0].type_value);
                     }
+                } else {
+                    $('.btn-add-promtotion').html(`Xác nhận`);
+                    $('button[type=submit]').prop('disabled', false);
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Có lỗi!!'
+                    });
                 }
             })
+        })
+        //coupon
+        $('.coupons').click(function(e) {
+            const value = localStorage.getItem('coupon_val');
+            const type = localStorage.getItem('coupon_type');
+            const code = localStorage.getItem('coupon_code');
+
+            if (localStorage.getItem('pro_value')) {
+                $('#coupon').html(
+                    `<span class="small fw-semibold text-center px-3">Đã áp dụng khuyến mãi. Chỉ được chọn 1 khuyến mãi!</span>`
+                );
+            } else if (type && value) {
+                const format = type == 'percent' ? value : value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                const type_format = type == 'percent' ? '%' : ' đ'
+                const string = ` <div class="card-body px-3 mt-2">
+                <div class="row" style="background:#bddddd">
+                    <div class="col-7">
+                        <div class="d-flex align-items-center">
+                            <span class="fw-semibold">Mã : </span>
+                            <span class="coupon-code">${code}</span>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <span class="fw-semibold">Giá trị KM : </span>
+                            <span>${format} ${type_format}</span>
+                        </div>
+                    </div>
+                    <div class="col d-flex align-items-center justify-content-end">
+                        <button class="btn btn-sm btn-danger btn-cancle-coupon"><i
+                                class="fa-solid fa-xmark"></i></button>
+                    </div>
+                </div>
+            </div>`
+                $('#coupon').html(string);
+            } else {
+                $.get("{{ route('sale.coupon') }}", function(res) {
+                    if (res.status == 200) {
+                        $('#coupon').html(res.data);
+                    }
+                })
+            }
+
+        })
+        $(document).on('click', '.coupon-choose', function(e) {
+            e.preventDefault();
+            const id = $(this).attr('data-value');
+            const code = $('.coupon-code').attr('data-value');
+            const value = $('.coupon-value').val();
+            const type = $('.coupon-type').val();
+            localStorage.setItem('coupon_val', value);
+            localStorage.setItem('coupon_type', type);
+            localStorage.setItem('coupon_code', code);
+            localStorage.setItem('coupon_id', id);
+            const format = type == 'percent' ? value : value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            const type_format = type == 'percent' ? '%' : ' đ'
+            const string = ` <div class="card-body px-3 mt-2">
+                <div class="row" style="background:#bddddd">
+                    <div class="col-7">
+                        <div class="d-flex align-items-center">
+                            <span class="fw-semibold">Mã : </span>
+                            <span class="coupon-code">${code}</span>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <span class="fw-semibold">Giá trị KM : </span>
+                            <span>${format} ${type_format}</span>
+                        </div>
+                    </div>
+                    <div class="col d-flex align-items-center justify-content-end">
+                        <button class="btn btn-sm btn-danger btn-cancle-coupon"><i
+                                class="fa-solid fa-xmark"></i></button>
+                    </div>
+                </div>
+            </div>`
+            $('#coupon').html(string);
+            apply_promotion(value, type);
+            active_chose();
+        })
+        $(document).on('click', '.btn-cancle-coupon', function(e) {
+            deleteStorageCoupon();
+            $.get("{{ route('sale.coupon') }}", function(res) {
+                if (res.status == 200) {
+                    $('#coupon').html(res.data);
+                    $('.coupon-chosed').prop('hidden', true)
+                }
+            })
+            loadPayment();
+
         })
         $(document).on('click', '.btn-add-product', function(e) {
             const form_create = $('form#form-add-product');
             if (form_create) {
                 const action = form_create.attr('action');
                 e.preventDefault();
+                $('button[type=submit]').prop('disabled', true);
                 $('.btn-add-product').html(`<span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
-                     <span role="status">Loading...</span>`);
+                     <span role="status" disabled>Loading...</span>`);
+
                 const data = new FormData(form_create[0]);
                 $.ajax({
                     url: action,
@@ -128,7 +236,7 @@
                     success: function(rs) {
                         $('.btn-add-product').html(
                             `<i class="fas fa-plus"></i> Thêm vào giỏ hàng`);
-                        $('button[type=submit]').removeAttr('disabled');
+                        $('button[type=submit]').prop('disabled', false);
                         if (rs.status == 200) {
                             form_create[0].reset();
                             loadCart();
@@ -142,7 +250,7 @@
                     error: function(XMLHttpRequest, textStatus, errorThrown) {
                         $('.btn-add-product').html(
                             `<i class="fas fa-plus"></i> Thêm vào giỏ hàng`);
-                        $('button[type=submit]').removeAttr('disabled');
+                        $('button[type=submit]').prop('disabled', false);
                         Toast.fire({
                             icon: 'error',
                             title: 'Không thể thêm'
@@ -177,17 +285,9 @@
                 if (res.status == 200) {
                     $('.cart-product').html(res.cart);
                     $('.payment').html(res.payment);
-                    if (res.promotion.length != 0) {
-                        $('.discount-type').html(res.promotion[0].type_value == 'percent' ?
-                            '%' : 'đ');
-                        $total = ($('.total-payment').val());
-                        if (res.promotion[0].type_value == 'percent') {
-                            $total = $total - $total * (res.promotion[0].value / 100);
-                        } else {
-                            $total = $total - res.promotion[0].value;
-                        }
-                        $total = $total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-                        $('.payment-total').html(($total))
+                    if (localStorage.getItem('pro_value') && localStorage.getItem('pro_type')) {
+                        apply_promotion(localStorage.getItem('pro_value'), localStorage.getItem(
+                            'pro_type'));
                     }
                 }
             })
@@ -204,18 +304,11 @@
                 if (res.status == 200) {
                     $('.cart-product').html(res.cart);
                     $('.payment').html(res.payment);
-                    if (res.promotion.length != 0) {
-                        $('.discount-type').html(res.promotion[0].type_value == 'percent' ?
-                            '%' : 'đ');
-                        $total = ($('.total-payment').val());
-                        if (res.promotion[0].type_value == 'percent') {
-                            $total = $total - $total * (res.promotion[0].value / 100);
-                        } else {
-                            $total = $total - res.promotion[0].value;
-                        }
-                        $total = $total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-                        $('.payment-total').html(($total))
+                    if (localStorage.getItem('pro_value') && localStorage.getItem('pro_type')) {
+                        apply_promotion(localStorage.getItem('pro_value'), localStorage.getItem(
+                            'pro_type'));
                     }
+
                 }
             })
         })
@@ -227,12 +320,13 @@
             $.get("{{ route('sale.customer') }}", {
                 phone: phone,
             }, function(res) {
+                localStorage.setItem('customer', res)
                 $('#customer').html(res);
+                $('.customer-chosed').removeAttr('hidden');
             })
         })
         $(document).on('click', '.btn-cancle-customer', function(e) {
             e.preventDefault();
-
             $string = `<div class="d-flex align-items-center my-3 px-3">
                             <input type="text" class="form-control phone" placeholder="Nhập số điện thoại" name="phone">
                             <button class="btn ms-2 btn-primary btn-search-customer">Tìm</button>
@@ -241,9 +335,49 @@
                                         
                         </div>`
             $('#customer').html($string);
+            $('.customer-chosed').prop('hidden', true)
 
         })
     })
+
+    function active_chose() {
+        if (localStorage.getItem('coupon_val')) {
+            $('.coupon-chosed').removeAttr('hidden')
+        }
+    }
+    active_chose();
+
+    function apply_promotion(value, type) {
+        $('.discount-type').html(type == 'percent' ?
+            '%' : 'đ');
+        const format = type == 'percent' ? value : value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        $('.discount-value').html(format);
+        $total = ($('.total-payment').val());
+        $sub_total = $('.subtotal').attr('data-value');
+        if (type == 'percent') {
+            $total = $total - $total * (value / 100);
+            $('.discount-total').val($sub_total * (value / 100));
+        } else {
+            $total = $total - value < 0 ? 0 : $total - value;
+            $('.discount-total').val(value);
+        }
+        $('.total-payment').val($total);
+        $total = $total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' đ';
+        $('.payment-total').html(($total))
+    }
+
+    function deleteStorageCoupon() {
+        localStorage.removeItem('coupon_val');
+        localStorage.removeItem('coupon_type');
+        localStorage.removeItem('coupon_code');
+        localStorage.removeItem('coupon_id');
+    }
+
+    function deleteStoragePro() {
+        localStorage.removeItem('pro_value');
+        localStorage.removeItem('pro_type');
+        localStorage.removeItem('pro_id');
+    }
 
     function addBooking() {
         $('#modal-add-booking').modal('show');
@@ -300,13 +434,23 @@
 
     function destroyBooking() {
         if (confirm('Xác nhận hủy đặt bàn ?')) {
+            $('.btn-cancle-booking').html(`<span class="spinner-border spinner-border-sm" aria-hidden="true"></span>`);
+            $('button[type=submit]').prop('disabled', true);
             $.get("{{ route('sale.destroy_booking', $table->id) }}", function(res) {
+                $('.btn-cancle-booking').html(
+                    `Hủy đặt bàn`);
+                $('button[type=submit]').prop('disabled', false);
                 if (res.status == 200) {
                     Toast.fire({
                         icon: res?.type,
                         title: res.message
                     });
                     location.href = "{{ route('sale.index') }}"
+                } else {
+                    Toast.fire({
+                        icon: res?.type,
+                        title: res.message
+                    });
                 }
             })
         }
@@ -314,25 +458,17 @@
 
     function DestroyCart() {
         if (confirm('Xác nhận xóa giỏ hàng?')) {
+            $('.btn-destroy').html(`<span class="spinner-border spinner-border-sm" aria-hidden="true"></span>`);
+            $('button[type=submit]').prop('disabled', true);
             $.get("{{ route('sale.destroy') }}", function(res) {
+                $('.btn-destroy').html(`<span>
+                    <i class="fas fa-trash fa-fw fa-lg my-10px d-block"></i>
+                    <span class="small fw-semibold">Hủy</span>
+                </span>`);
+                $('button[type=submit]').prop('disabled', false);
                 if (res.status == 200) {
-                    $('.cart-product').html('');
-                    Toast.fire({
-                        icon: 'success',
-                        title: 'Đã xóa giỏ hàng'
-                    });
-                }
-            })
-        }
-    }
-
-    function deleteOrder() {
-        if (confirm('Xác nhận xóa giỏ hàng?')) {
-            const id = $('.order-id').val();
-            $.get("{{ route('sale.delete_order') }}", {
-                id: id
-            }, function(res) {
-                if (res.status == 200) {
+                    deleteStorageCoupon();
+                    deleteStoragePro();
                     $('.cart-product').html('');
                     $('.payment').html(res.payment);
                     $('.customer-payment').val('');
@@ -343,11 +479,53 @@
                     $('.discount-value').html('0');
                     $('.discount-type').html('%');
                     $('.payment-total').html('0đ');
+                    $('.btn-save-tmp').prop('disabled', true);
+                    $('.btn-destroy').prop('disabled', true);
+                    $('.btn-payment').prop('disabled', true);
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Đã xóa giỏ hàng'
+                    });
+                }
+            })
+        }
+    }
+
+    function deleteOrder() {
+        if (confirm('Xác nhận hủy giỏ hàng?')) {
+            const id = $('.order-id').val();
+            $('.btn-delete-order').html(`<span class="spinner-border spinner-border-sm" aria-hidden="true"></span>`);
+            $('btn-delete-order').prop('disabled', true);
+            $.get("{{ route('sale.delete_order') }}", {
+                id: id
+            }, function(res) {
+                $('.btn-delete-order').html(` <span>
+                    <i class="fas fa-trash fa-fw fa-lg my-10px d-block"></i>
+                    <span class="small fw-semibold">Hủy</span>
+                </span>`);
+                $('btn-delete-order').prop('disabled', false);
+                if (res.status == 200) {
+                    deleteStorageCoupon();
+                    deleteStoragePro();
+                    $('.cart-product').html('');
+                    $('.payment').html(res.payment);
+                    $('.customer-payment').val('');
+                    $('.payment_change').html('');
+                    $('.phone').val('');
+                    $('.customer-info').html('');
+                    $('.subtotal').html('0đ');
+                    $('.discount-value').html('0');
+                    $('.discount-type').html('%');
+                    $('.payment-total').html('0đ');
+                    $('.btn-save-tmp').prop('disabled', true);
+                    $('.btn-destroy').prop('disabled', true);
+                    $('.btn-payment').prop('disabled', true);
                 }
                 Toast.fire({
                     icon: res?.type,
                     title: res.message
                 });
+                location.href = "{{ route('sale.index') }}"
             })
         }
     }
@@ -367,12 +545,22 @@
             } else if (payment_change < 0) {
                 alert("Số tiền khách đưa chưa đủ!")
             } else {
+                $('.btn-payment').html(`<span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                <span role="status">Loading...</span>`);
+                $('button[type=submit]').prop('disabled', true);
                 $table_id = $('.table').val();
                 $customer_id = $('.customer-id').val();
+                $sale_source_id = $('.sale_source').val();
                 $customer_name = $('.customer-name').val();
-                $promotion_id = $('.promotion-id').val();
-                $discount = $('.discount-value').attr('data-value');
-                $type_discount = $('.discount-type').attr('data-value');
+                if (localStorage.getItem('pro_id')) {
+                    $promotion_id = localStorage.getItem('pro_id');
+                    $promotion_type = 'promotion';
+                } else {
+                    $promotion_id = localStorage.getItem('coupon_id');
+                    $promotion_type = 'coupon';
+                }
+                $discount = localStorage.getItem('pro_value') || localStorage.getItem('coupon_val');
+                $type_discount = localStorage.getItem('pro_type') || localStorage.getItem('coupon_type');
                 $discount_total = $('.discount-total').val();
                 $total = $('.total-payment').val();
                 $sub_total = $('.subtotal').attr('data-value');
@@ -384,6 +572,7 @@
                     customer: $customer_id,
                     customer_name: $customer_name,
                     promotion: $promotion_id,
+                    promotion_type:$promotion_type,
                     discount: $discount,
                     type_discount: $type_discount,
                     discount_total: $discount_total,
@@ -392,10 +581,14 @@
                     payment_method: $payment_method,
                     total_cost: $total_cost,
                     topping_total: $topping_total,
+                    sale_source_id: $sale_source_id
 
                 }, function(res) {
                     if (res.status == 200) {
-                        // tableSelect = null;
+                        deleteStorageCoupon();
+                        deleteStoragePro();
+                        $('.btn-payment').html(`Xác nhận`);
+                        $('button[type=submit]').prop('disabled', false);
                         $('.cart-product').html('');
                         $('.payment').html(res.payment);
                         $('.customer-payment').val('');
@@ -408,8 +601,15 @@
                             title: 'Thanh toán thành công'
                         });
                         location.href = "{{ route('sale.index') }}"
+                    } else {
+                        $('.btn-payment').html(`Xác nhận`);
+                        $('button[type=submit]').removeAttr('disabled');
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Thanh toán lỗi'
+                        });
                     }
-                })
+                }, )
             }
         })
     }
@@ -443,7 +643,10 @@
                     processData: false,
                     contentType: false,
                     success: function(res) {
+                        localStorage.removeItem('pro_value');
+                        localStorage.removeItem('pro_type');
                         $('.btn-payment').html(`Xác nhận`);
+                        $('button[type=submit]').removeAttr('disabled');
                         $('#modal_payment').modal('hide');
                         $('.cart-product').html('');
                         $('.payment').html(res.payment);
@@ -462,7 +665,7 @@
                         location.href = "{{ route('sale.index') }}"
                     },
                     error: function(XMLHttpRequest, textStatus, errorThrown) {
-                        $('.btn-create').html(`Xác nhận`);
+                        $('.btn-payment').html(`Xác nhận`);
                         $('button[type=submit]').removeAttr('disabled');
                         Toast.fire({
                             icon: 'error',
@@ -479,18 +682,26 @@
         $table_id = $('.table').val();
         $customer_id = $('.customer-id').val();
         $customer_name = $('.customer-name').val();
-        $promotion_id = $('.promotion-id').val();
-        $discount = $('.discount-value').attr('data-value');
-        $type_discount = $('.discount-type').attr('data-value');
+        if (localStorage.getItem('pro_id')) {
+            $promotion_id = localStorage.getItem('pro_id');
+            $promotion_type = 'promotion';
+        } else {
+            $promotion_id = localStorage.getItem('coupon_id');
+            $promotion_type = 'coupon';
+        }
+        $discount = localStorage.getItem('pro_value');
+        $type_discount = localStorage.getItem('pro_type');
         $discount_total = $('.discount-total').val();
         $total = $('.total-payment').val();
         $sub_total = $('.subtotal').attr('data-value');
         $total_cost = $('.total-cost').val();
         $topping_total = $('.topping_total').val();
+        $sale_source_id = $('.sale_source').val();
         $.get("{{ route('sale.saveOrder') }}", {
             table: $table_id,
             customer: $customer_id,
             promotion: $promotion_id,
+            promotion_type:$promotion_type,
             discount: $discount,
             type_discount: $type_discount,
             discount_total: $discount_total,
@@ -498,9 +709,9 @@
             sub_total: $sub_total,
             customer_name: $customer_name,
             total_cost: $total_cost,
-            topping_total: $topping_total
+            topping_total: $topping_total,
+            sale_source_id: $sale_source_id
         }, function(res) {
-            $('#modal_payment').modal('hide');
             Toast.fire({
                 icon: 'success',
                 title: 'Lưu đơn thành công'

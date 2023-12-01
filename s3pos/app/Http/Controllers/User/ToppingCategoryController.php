@@ -32,6 +32,7 @@ class ToppingCategoryController extends Controller
 
     public function index()
     {
+        $this->authorize('topping_category-view');
         $data = [
             'status' => ToppingGroup::get_status(),
         ];
@@ -40,6 +41,7 @@ class ToppingCategoryController extends Controller
 
     public function list()
     {
+        $this->authorize('topping_category-view');
         try {
             $limit = request('limit', $this->limit_default);
             $status = request('status', '');

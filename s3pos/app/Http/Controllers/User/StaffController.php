@@ -32,6 +32,7 @@ class StaffController extends Controller
 
     public function index()
     {
+        $this->authorize('staff-view');
         $data = [
             'status' => Staff::get_status(),
             'departments' => Department::storeId($this->store_id)->get(),
@@ -46,6 +47,7 @@ class StaffController extends Controller
 
     public function log($id)
     {
+        $this->authorize('staff_history-view');
         try {
             $limit = request('limit', $this->limit_default);
             $search = request('search', '');
@@ -70,6 +72,7 @@ class StaffController extends Controller
     }
     public function list()
     {
+        $this->authorize('staff-view');
         try {
             $limit = request('limit', $this->limit_default);
             $status = request('status', '');
@@ -96,6 +99,7 @@ class StaffController extends Controller
 
     public function detail($id)
     {
+         $this->authorize('staff-view');
         $data = [
             'status' => Staff::get_status(),
             'departments' => Department::storeId($this->store_id)->get(),
@@ -114,6 +118,7 @@ class StaffController extends Controller
         try {
             DB::beginTransaction();
             $id = $request->get('staff_id', '');
+            $name = $request->get('name', '');
             $staff = Staff::storeId($this->store_id)->whereId($id)->first();
             if ($staff) {
                 // xóa tất cả các permission cũ
@@ -123,10 +128,12 @@ class StaffController extends Controller
                 foreach ($actions as $key => $action) {
                     Permission::create([
                         'staff_id' => $id,
+                        'name'=>$name,
                         'module' => $key,   
                         'actions' => json_encode($action)
                     ]);
                 }
+                save_log_action("Phân quyền cho nhân viên #$name");
                 DB::commit();
                 return redirect()->back()->with('success', 'Phân quyền thành công');
             }

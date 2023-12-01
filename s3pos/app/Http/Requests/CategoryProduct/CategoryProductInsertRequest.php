@@ -3,7 +3,7 @@
 namespace App\Http\Requests\CategoryProduct;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Support\Facades\Gate;
 class CategoryProductInsertRequest extends FormRequest
 {
     /**
@@ -11,7 +11,7 @@ class CategoryProductInsertRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return Gate::allows('product_category-create');
     }
 
     /**

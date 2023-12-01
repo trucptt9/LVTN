@@ -26,14 +26,16 @@ class CardMemberController extends Controller
 
   public function index()
   {
+    $this->authorize('card_member-view');
     $data = [
       'status' => CardMember::get_status(),
     ];
-    return view('user.customer_group.index', compact('data'));
+    return view('user.card_member.index', compact('data'));
   }
 
   public function list()
   {
+    $this->authorize('card_member-view');
     try {
       $limit = request('limit', $this->limit_default);
       $status = request('status', '');
@@ -47,7 +49,7 @@ class CardMemberController extends Controller
 
       return Response::json([
         'status' => ResHTTP::HTTP_OK,
-        'data' => view('User.customer_group.table', compact('list'))->render(),
+        'data' => view('User.card_member.table', compact('list'))->render(),
       ]);
     } catch (\Throwable $th) {
       showLog($th);
@@ -64,8 +66,8 @@ class CardMemberController extends Controller
     $data = [
       'status' => CardMember::get_status(),
     ];
-    $customer_group = CardMember::storeId($this->store_id)->findOrFail($id);
-    return view('user.customer_group.modal_edit', compact('customer_group', 'data'))->render();
+    $card_member = CardMember::storeId($this->store_id)->findOrFail($id);
+    return view('user.card_member.modal_edit', compact('card_member', 'data'))->render();
   }
 
   public function insert(CardMemberInsertRequest $request)
@@ -96,14 +98,14 @@ class CardMemberController extends Controller
       DB::beginTransaction();
       $id = $request->get('id', '');
       $type = request('type', 'one');
-      $customer_group = CardMember::storeId($this->store_id)->whereId($id)->first();
+      $card_member = CardMember::storeId($this->store_id)->whereId($id)->first();
       if ($type == 'all') {
         $data = $request->all();
-        $data['status'] = $customer_group->status == CardMember::STATUS_ACTIVE ? CardMember::STATUS_BLOCKED : CardMember::STATUS_ACTIVE;
-        $customer_group->update($data);
+        $data['status'] = $card_member->status == CardMember::STATUS_ACTIVE ? CardMember::STATUS_BLOCKED : CardMember::STATUS_ACTIVE;
+        $card_member->update($data);
       } else {
-        $customer_group->status = $customer_group->status == CardMember::STATUS_ACTIVE ? CardMember::STATUS_BLOCKED : CardMember::STATUS_ACTIVE;
-        $customer_group->save();
+        $card_member->status = $card_member->status == CardMember::STATUS_ACTIVE ? CardMember::STATUS_BLOCKED : CardMember::STATUS_ACTIVE;
+        $card_member->save();
       }
       DB::commit();
       if (request()->ajax()) {
@@ -129,8 +131,8 @@ class CardMemberController extends Controller
   {
     try {
       $id = $request->get('id', '');
-      $customer_group = CardMember::storeId($this->store_id)->whereId($id)->first();
-      $customer_group->delete();
+      $card_member = CardMember::storeId($this->store_id)->whereId($id)->first();
+      $card_member->delete();
       return Response::json([
         'status' => ResHTTP::HTTP_OK,
         'message' => 'Xóa dữ liệu thành công',

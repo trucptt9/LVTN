@@ -26,6 +26,7 @@ class CouponController extends Controller
 
     public function index()
     {
+        $this->authorize('coupon-view');
         $data = [
             'status' => Coupon::get_status(),
         ];
@@ -39,7 +40,7 @@ class CouponController extends Controller
 
     public function list()
     {
-
+        $this->authorize('coupon-view');
         try {
             $limit = request('limit', $this->limit_default);
             $status = request('status', '');
@@ -70,6 +71,7 @@ class CouponController extends Controller
 
     public function detail($id)
     {
+        $this->authorize('coupon-view');
         $data = [
             'status' => Coupon::get_status(),
         ];

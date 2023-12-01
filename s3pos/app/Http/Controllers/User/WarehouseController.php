@@ -24,6 +24,7 @@ class WarehouseController extends Controller
 
     public function index()
     {
+        $this->authorize('warehouse-view');
         $data = [
             'status' => Warehouse::get_status(),
         ];
@@ -32,6 +33,7 @@ class WarehouseController extends Controller
 
     public function list()
     {
+        $this->authorize('warehouse-view');
         try {
             $limit = request('limit', $this->limit_default);
             $status = request('status', '');

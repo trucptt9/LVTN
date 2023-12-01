@@ -3,7 +3,7 @@
 namespace App\Http\Requests\CardMember;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Support\Facades\Gate;
 class CardMemberUpdateRequest extends FormRequest
 {
     /**
@@ -11,7 +11,7 @@ class CardMemberUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return Gate::allows('card_member-update');
     }
 
     /**

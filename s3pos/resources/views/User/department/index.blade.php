@@ -28,9 +28,12 @@
                         <!--end::Item-->
                     </ul>
                 </div>
-                <button class="btn btn-primary h-40px btn-add">
-                    Tạo mới
-                </button>
+                @can('department-create')
+                    <button class="btn btn-primary h-40px btn-add">
+                        Tạo mới
+                    </button>
+                    @include('User.department.modal_add')
+                @endcan
             </div>
             <!--begin::Products-->
             <div class="card card-flush">
@@ -108,7 +111,7 @@
         </div>
         <!--end::Post-->
     </div>
-    @include('User.department.modal_add')
+
     <div class="modal fade" id="modal-edit" tabindex="-1" aria-hidden="true">
         <!--begin::Modal dialog-->
         <form action="{{ route('department.update') }}" id="form-update" method="POST" enctype="multipart/form-data">

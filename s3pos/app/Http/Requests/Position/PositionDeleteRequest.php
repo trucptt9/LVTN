@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Position;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Support\Facades\Gate;
 class PositionDeleteRequest extends FormRequest
 {
     /**
@@ -11,7 +11,7 @@ class PositionDeleteRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return Gate::allows('position-delete');
     }
 
     /**

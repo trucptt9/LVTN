@@ -29,16 +29,17 @@
                         <!--end::Item-->
                     </ul>
                 </div>
-                <button class="btn btn-primary h-40px btn-add">
-                    Tạo mới
-                </button>
+                @can('card_member-create')
+                    <button class="btn btn-primary h-40px btn-add">
+                        Tạo mới
+                    </button>
+                @endcan
             </div>
             <!--begin::Products-->
             <div class="card card-flush">
                 <!--begin::Card header-->
                 <form action="" id="form-filter">
                     <div class="card-header align-items-center py-5 gap-2 gap-md-5">
-
                         <div class="card-title">
                             <!--begin::Search-->
                             <div class="d-flex align-items-center position-relative my-1">
@@ -84,7 +85,7 @@
                         <thead>
                             <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                 <th class="w-100px">Mã</th>
-                                <th class="w-300px">Tên nhóm</th>
+                                <th class="w-300px">tên thẻ thành viên</th>
                                 <th class="text-center">Mô tả</th>
                                 <th class="text-center w-125px">Trạng thái</th>
                                 <th class="text-center w-100px">#</th>
@@ -106,10 +107,10 @@
         </div>
         <!--end::Post-->
     </div>
-    @include('User.customer_group.modal_add')
+    @include('User.card_member.modal_add')
     <div class="modal fade" id="modal-edit" tabindex="-1" aria-hidden="true">
         <!--begin::Modal dialog-->
-        <form action="{{ route('customer_group.update') }}" id="form-update" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('card_member.update') }}" id="form-update" method="POST" enctype="multipart/form-data">
             <div class="modal-dialog modal-dialog-centered mw-650px">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -151,8 +152,8 @@
 
 @section('script')
     <script>
-        const routeList = "{{ route('customer_group.list') }}";
-        const routeUpdate = "{{ route('customer_group.update') }}";
+        const routeList = "{{ route('card_member.list') }}";
+        const routeUpdate = "{{ route('card_member.update') }}";
         filterTable();
 
         function filterTable() {
@@ -223,11 +224,11 @@
         }
 
         function confirmDelete(id) {
-            deleteData(id, "{{ route('customer_group.delete') }}");
+            deleteData(id, "{{ route('card_member.delete') }}");
         }
 
         function changeStatus(id) {
-            $.post("{{ route('customer_group.update') }}", {
+            $.post("{{ route('card_member.update') }}", {
                 id
             }, function(rs) {
                 Toast.fire({

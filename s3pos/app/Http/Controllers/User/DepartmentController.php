@@ -26,6 +26,7 @@ class DepartmentController extends Controller
 
   public function index()
   {
+    $this->authorize('department-view');
     $data = [
       'status' => Department::get_status(),
     ];
@@ -34,6 +35,7 @@ class DepartmentController extends Controller
 
   public function list()
   {
+    $this->authorize('department-view');
     try {
       $limit = request('limit', $this->limit_default);
       $status = request('status', '');
@@ -60,6 +62,7 @@ class DepartmentController extends Controller
 
   public function detail($id)
   {
+    
     $data = [
       'status' => Department::get_status(),
     ];

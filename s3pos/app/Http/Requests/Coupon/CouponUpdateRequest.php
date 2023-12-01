@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Coupon;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Support\Facades\Gate;
 class CouponUpdateRequest extends FormRequest
 {
     /**
@@ -11,8 +11,9 @@ class CouponUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return Gate::allows('coupon-update');
     }
+    
 
     /**
      * Get the validation rules that apply to the request.

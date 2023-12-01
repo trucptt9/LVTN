@@ -27,6 +27,7 @@ class ProductController extends Controller
 
     public function index()
     {
+        $this->authorize('product-view');
         $data = [
             'status' => Product::get_status(),
             'category' => CategoryProduct::storeId($this->store_id)->get(),
@@ -44,12 +45,13 @@ class ProductController extends Controller
 
     public function list()
     {
+        $this->authorize('product-view');
         try {
             $limit = request('limit', $this->limit_default);
             $status = request('status', '');
             $search = request('search', '');
 
-            $list = Product::whereHas('group', function ($q) {
+            $list = Product::whereHas('category', function ($q) {
                 $q->storeId($this->store_id);
             });
             $list = $status != '' ? $list->ofStatus($status) : $list;

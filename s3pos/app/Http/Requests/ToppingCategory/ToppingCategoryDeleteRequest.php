@@ -3,7 +3,7 @@
 namespace App\Http\Requests\ToppingCategory;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Support\Facades\Gate;
 class ToppingCategoryDeleteRequest extends FormRequest
 {
     /**
@@ -11,7 +11,7 @@ class ToppingCategoryDeleteRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return Gate::allows('topping_category-delete');
     }
 
     /**

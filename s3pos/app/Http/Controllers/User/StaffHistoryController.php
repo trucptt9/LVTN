@@ -23,6 +23,7 @@ class StaffHistoryController extends Controller
 
     public function index()
     {
+        $this->authorize('staff_history-view');
         $data = [
             'staffs' => Staff::ofStatus(Staff::STATUS_ACTIVE)->get(),
             'date' => get_date_string()
@@ -32,6 +33,7 @@ class StaffHistoryController extends Controller
 
     public function list()
     {
+        $this->authorize('staff_history-view');
         try {
             $limit = request('limit', $this->limit_default);
             $search = request('search', '');

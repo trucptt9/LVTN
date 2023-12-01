@@ -38,15 +38,20 @@
                         onclick="changeStatus('{{ $item->id }}')" />
                 </div>
             </td>
-           
+
             <td class="text-center d-flex">
-                <a class="btn btn-light" style="padding: 0px" href="{{ route('product.detail',$item->id) }}">
-                    <i class="ki-duotone fs-2qx ki-eye">
-                        <span class="path1"></span>
-                        <span class="path2"></span>
-                        <span class="path3"></span>
-                    </i>
-                </a>
+                @can('product-view')
+                    <a class="btn btn-light" style="padding: 0px" href="{{ route('product.detail', $item->id) }}">
+                        <i class="ki-duotone fs-2qx ki-eye">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                            <span class="path3"></span>
+                        </i>
+                    </a>
+                @endcan
+                @can('product-update')
+                    
+                @endcan
                 <a class="btn btn-light btn-edit" style="padding: 0px" href="{{ route('product.detail', $item->id) }}">
                     <i class="ki-duotone ki-message-edit fs-2qx text-success">
                         <span class="path1"></span>

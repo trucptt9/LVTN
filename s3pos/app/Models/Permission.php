@@ -12,6 +12,7 @@ class Permission extends Model
 
     protected $fillable = [
         'staff_id',
+        'name',
         'module',
         'actions',
         
@@ -32,7 +33,7 @@ class Permission extends Model
             
         });
         self::created(function ($model) {
-            
+           
         });
         self::updated(function ($model) {
         });

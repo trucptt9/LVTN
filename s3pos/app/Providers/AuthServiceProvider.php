@@ -31,13 +31,12 @@ class AuthServiceProvider extends ServiceProvider
                 $actions = json_decode($module->actions);
                 foreach($actions as $action){
                     $gate = $module->code.'-'.$action->code;
-                    Gate::define($gate, function (Staff $staff) {
-                        // if($staff->is_supper == 'true'){
-                        //     return true;
-                        // }
-                    //    $sql = "select permissions.action from permissions where"
-                   
-                    // return $staff->id == use($module);
+                    Gate::define($gate, function (Staff $staff ) use ($module,$action ){
+                        $sql = "select permissions.actions from permissions where staff_id = $staff->id and permissions.module = '$module->code'";
+                        $actions = \DB::select($sql);
+                        $new = $actions ? json_decode($actions[0] ->actions) :  [] ;
+                        return $staff->is_supper == 'true' || in_array($action->code, $new);
+            
                     });
                 }
             }

@@ -70,6 +70,17 @@ class SeedModule extends Seeder
             ])
         ]);
         Module::create([
+            'code' => 'sale',
+            'name' => 'Bán hàng',
+            'icon' => '<i class="fas fa-layer-group"></i>',
+            'actions' => json_encode([
+                [
+                    'code' => 'sale',
+                    'name' => 'Bán hàng'
+                ]
+            ])
+        ]);
+        Module::create([
             'code' => 'position',
             'name' => 'Chức vụ',
             'icon' => '<i class="fas fa-pencil-ruler"></i>',
@@ -161,7 +172,52 @@ class SeedModule extends Seeder
                 ],
             ])
         ]);
-
+        Module::create([
+            'code' => 'method_payment',
+            'name' => 'Phương thức thanh toán',
+            'icon' => '<i class="fas fa-table"></i>',
+            'actions' => json_encode([
+                [
+                    'code' => 'view',
+                    'name' => 'Xem'
+                ],
+                [
+                    'code' => 'create',
+                    'name' => 'Tạo mới'
+                ],
+                [
+                    'code' => 'update',
+                    'name' => 'Cập nhật'
+                ],
+                [
+                    'code' => 'delete',
+                    'name' => 'Xóa'
+                ],
+            ])
+        ]);
+        Module::create([
+            'code' => 'sale_source',
+            'name' => 'Kênh thanh toán',
+            'icon' => '<i class="fas fa-table"></i>',
+            'actions' => json_encode([
+                [
+                    'code' => 'view',
+                    'name' => 'Xem'
+                ],
+                [
+                    'code' => 'create',
+                    'name' => 'Tạo mới'
+                ],
+                [
+                    'code' => 'update',
+                    'name' => 'Cập nhật'
+                ],
+                [
+                    'code' => 'delete',
+                    'name' => 'Xóa'
+                ],
+            ])
+        ]);
         // product
         Module::create([
             'code' => 'product_category',

@@ -5,8 +5,6 @@
 
     @foreach ($list as $item)
         <tr>
-
-
             <td class="text-center">
                 @if ($item->image != null)
                     <img src="{{ asset('storage/' . $item->image) }}" alt="" width="50" height="50">
@@ -33,24 +31,27 @@
                 </div>
             </td>
             <td class="text-center d-flex">
-                <a class="btn btn-light btn-edit" style="padding: 0px" href="{{ route('topping_category.detail',$item->id) }}">
-                    <i class="ki-duotone ki-message-edit fs-2qx text-success">
-                        <span class="path1"></span>
-                        <span class="path2"></span>
-                    </i>
-                </a>
-
-                <button class="btn btn-light btn-delete" style="padding: 0px"
-                    onclick="confirmDelete('{{ $item->id }}')">
-                    <i class="ki-duotone ki-trash fs-2qx text-danger">
-                        <span class="path1"></span>
-                        <span class="path2"></span>
-                        <span class="path3"></span>
-                        <span class="path4"></span>
-                        <span class="path5"></span>
-                    </i>
-                </button>
-
+                @can('topping_category-update')
+                    <a class="btn btn-light btn-edit" style="padding: 0px"
+                        href="{{ route('topping_category.detail', $item->id) }}">
+                        <i class="ki-duotone ki-message-edit fs-2qx text-success">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                    </a>
+                @endcan
+                @can('topping-delete')
+                    <button class="btn btn-light btn-delete" style="padding: 0px"
+                        onclick="confirmDelete('{{ $item->id }}')">
+                        <i class="ki-duotone ki-trash fs-2qx text-danger">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                            <span class="path3"></span>
+                            <span class="path4"></span>
+                            <span class="path5"></span>
+                        </i>
+                    </button>
+                @endcan
             </td>
         </tr>
     @endforeach

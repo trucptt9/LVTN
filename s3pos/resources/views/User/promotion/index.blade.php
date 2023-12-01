@@ -28,12 +28,13 @@
                         <!--end::Item-->
                     </ul>
                 </div>
-                <a class="btn btn-add btn-primary h-40px">
-                    Tạo mới
-                </a>
+                @can('promotion-create')
+                    <a class="btn btn-add btn-primary h-40px">
+                        Tạo mới
+                    </a>
+                    @include('User.promotion.modal_add')
+                @endcan
             </div>
-            @include('User.promotion.modal_add')
-            <!--begin::promotions-->
             <div class="card card-flush">
                 <!--begin::Card header-->
                 <form action="" id="form-filter">

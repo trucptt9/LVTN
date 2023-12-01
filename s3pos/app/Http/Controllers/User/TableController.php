@@ -27,6 +27,7 @@ class TableController extends Controller
 
   public function index()
   {
+    $this->authorize('table-view');
     $data = [
       'status' => Table::get_status(),
       'areas' => Area::storeId($this->store_id)->get(),
@@ -36,16 +37,15 @@ class TableController extends Controller
 
   public function list()
   {
+    $this->authorize('table-view');
     try {
       $limit = request('limit', $this->limit_default);
       $status = request('status', '');
       $search = request('search', '');
       $area = Area::storeId($this->store_id)->get();
-      $area_id = array();
-      foreach ($area as $val) {
-        $area_id[] = $val->id;
-      }
-      $list = Table::areaId($area_id);
+      $list = Table::whereHas('area', function ($q) {
+        $q->storeId($this->store_id);
+    });
       $list = $status != '' ? $list->ofStatus($status) : $list;
       $list = $search != '' ? $list->search($search) : $list;
 

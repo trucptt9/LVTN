@@ -23,6 +23,7 @@ class OrderController extends Controller
 
   public function index()
   {
+    $this->authorize('order-view');
     $data = [
       'status' => Order::get_status(),
     ];
@@ -31,6 +32,7 @@ class OrderController extends Controller
 
   public function table()
   {
+    $this->authorize('order-view');
     try {
       $limit = request('limit', $this->limit_default);
       $status = request('status', '');
@@ -57,6 +59,7 @@ class OrderController extends Controller
 
   public function detail($id)
   {
+    $this->authorize('order-view');
     $order = Order::storeId($this->store_id)->findOrFail($id);
     // return $order; 
     return view('user.order.detail', compact('order'));

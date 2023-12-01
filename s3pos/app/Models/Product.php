@@ -98,4 +98,5 @@ class Product extends Model
     {
         return $this->belongsTo(CategoryProduct::class, 'category_id');
     }
+   
 }

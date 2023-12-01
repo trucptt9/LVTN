@@ -3,7 +3,7 @@
 namespace App\Http\Requests\SaleSource;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Support\Facades\Gate;
 class SaleSourceUpdateRequest extends FormRequest
 {
     /**
@@ -11,7 +11,7 @@ class SaleSourceUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return Gate::allows('sale_source-update');
     }
 
     /**

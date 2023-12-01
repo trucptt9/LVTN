@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Area;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Support\Facades\Gate;
 class AreaDeleteRequest extends FormRequest
 {
     /**
@@ -11,7 +11,7 @@ class AreaDeleteRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return Gate::allows('area-delete');
     }
 
     /**

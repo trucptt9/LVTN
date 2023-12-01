@@ -27,6 +27,7 @@ class ToppingController extends Controller
 
     public function index()
     {
+        $this->authorize('topping-view');
         $data = [
             'status' => Toppings::get_status(),
             'group_topping' => ToppingGroup::storeId($this->store_id)->get(),
@@ -36,6 +37,7 @@ class ToppingController extends Controller
 
     public function list()
     {
+        $this->authorize('topping-view');
         try {
             $limit = request('limit', $this->limit_default);
             $status = request('status', '');
