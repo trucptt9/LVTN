@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class Area extends Model
 {
@@ -40,12 +41,15 @@ class Area extends Model
             $model->priority = $model->priority ?? self::getOrder($model->store_id);
         });
         self::created(function ($model) {
+            Cache::forget('sale-table-area');
             save_log_action("Tạo mới khu vực bàn #$model->name");
         });
         self::updated(function ($model) {
+            Cache::forget('sale-table-area');
             save_log_action("Cập nhật thông tin khu vực bàn #$model->name");
         });
         self::deleted(function ($model) {
+            Cache::forget('sale-table-area');
             save_log_action("Xóa khu vực bàn #$model->name");
         });
     }
@@ -97,7 +101,7 @@ class Area extends Model
     {
         return $query->where(function ($query) use ($search) {
             $query->where('areas.code', 'LIKE', "%$search%")
-                ->orWhere('areas.name', 'LIKE', "%$search%"); 
+                ->orWhere('areas.name', 'LIKE', "%$search%");
         });
     }
 

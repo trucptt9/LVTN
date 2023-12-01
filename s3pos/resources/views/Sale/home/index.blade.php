@@ -31,6 +31,10 @@
             padding: 0px !important;
             margin-bottom: 7px;
         }
+
+        .pos .pos-sidebar .pos-sidebar-header {
+            padding: 8px 12px !important;
+        }
     </style>
 </head>
 <!--end::Head-->
@@ -125,14 +129,14 @@
                             <div class="pos-sidebar-nav small">
                                 <ul class="nav nav-tabs nav-fill" style="padding: 0px !important">
                                     <li class="nav-item">
-                                        <a class="nav-link active" href="#" data-bs-toggle="tab"
+                                        <a class="nav-link active tab-cart" href="#" data-bs-toggle="tab"
                                             data-bs-target="#newOrderTab">Giỏ hàng</a>
-                                        
+
                                     </li>
                                     <li class="nav-item position-relative">
                                         <a class="nav-link " href="#" data-bs-toggle="tab"
                                             data-bs-target="#customer">Khách hàng</a>
-                                        <span
+                                        <span data-bs-toggle="tooltip" title="Đang có khách được chọn"
                                             class="position-absolute translate-middle badge rounded-pill bg-danger customer-chosed"
                                             style="top: 8px; right:0px" hidden>
                                             1
@@ -141,8 +145,8 @@
                                     </li>
                                     <li class="nav-item position-relative">
                                         <a class="nav-link coupons" href="#" data-bs-toggle="tab"
-                                            data-bs-target="#coupon">Mã giảm giá</a>
-                                        <span
+                                            data-bs-target="#coupon">Phiếu mua hàng</a>
+                                        <span data-bs-toggle="tooltip" title="Đang có phiếu mua hàng được chọn"
                                             class="position-absolute translate-middle badge rounded-pill bg-danger coupon-chosed"
                                             style="top: 8px; right:0px" hidden>
                                             1
@@ -154,17 +158,17 @@
                             <div class="pos-sidebar-body tab-content" data-scrollbar="true" data-height="100%">
                                 <div class="tab-pane fade h-100 show active cart-product " id="newOrderTab">
                                 </div>
-                                <div class="tab-pane fade h-100 py-1" id="customer">
-                                    <div class="d-flex align-items-center my-3 px-3">
+                                <div class="tab-pane fade h-100 p-2" id="customer">
+                                    <div class="d-flex align-items-center">
                                         <input type="text" class="form-control phone"
                                             placeholder="Nhập số điện thoại" name="phone">
                                         <button class="btn ms-2 btn-primary btn-search-customer">Tìm</button>
                                     </div>
-                                    <div class="customer-list">
+                                    <div class="customer-list mt-2">
 
                                     </div>
                                 </div>
-                                <div class="tab-pane fade h-100" id="coupon">
+                                <div class="tab-pane fade h-100 p-2" id="coupon">
 
                                 </div>
                             </div>
@@ -218,22 +222,22 @@
             <div class="modal modal-pos fade" id="modal-add-promotion">
                 <div class="modal-dialog modal-md">
                     <div class="modal-content border-0 ">
-                        <a href="#" data-bs-dismiss="modal"
-                            class="btn-close close-product position-absolute top-0 end-0 m-4"></a>
+                        <div class="modal-header">
+                            <h5 class="modal-title">Tìm chương trình khuyến mãi</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
                         <div class="modal-pos-promotion modal-promotion">
-                            <div class="modal-header title text-uppercase fw-bold">Khuyến mãi</div>
-                            <div class="modal-pos-product-info px-5 mb-3"
-                                style="width:100% ; flex:0 0 100%;max-width:100%">
-                                <div class="d-flex align-items-center my-3">
+                            <div class="modal-pos-product-info">
+                                <div class="modal-body">
                                     <input type="text" class="form-control search" placeholder="Nhập mã"
                                         name="search">
                                     <input type="hidden" name="total"
                                         value="{{ Cart::total() + $total_topping }}" id="">
+                                    <p class="promotion-none small text-center mt-2"></p>
                                 </div>
-                                <p class="promotion-none small text-center"></p>
                             </div>
                         </div>
-                        <hr class="opacity-1">
                         <div class="row mx-2 pb-3">
                             <div class="col-2">
                                 <a href="#" class="btn btn-default fw-semibold mb-0 d-block"
@@ -241,7 +245,7 @@
                             </div>
                             <div class="col-8">
                                 <button type="submit" class="btn btn-add-promtotion btn-theme fw-semibold  m-0">
-                                    Xác nhận
+                                    Tìm
                                 </button>
                             </div>
                         </div>
@@ -255,52 +259,59 @@
                     <form action="{{ route('sale.paymentOrderTmp') }}" type="POST" id="form-payment">
                         @csrf
                         <div class="modal-content border-0">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Xác nhận thanh toán</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
                             <div class="modal-pos-promotion modal-promotion">
-                                <input type="hidden" name="order_id" class="order-id-payment" value="">
-                                <div class="modal-pos-product-info px-5 py-3 mb-3"
-                                    style="width:100% ; flex:0 0 100%;max-width:100%">
-                                    <div class="d-flex align-items-center justify-content-between my-3">
-                                        <span class="fw-bold fs-5 ">Tổng thanh toán</span>
-                                        <span class="payment_total fs-5 "></span>
-                                    </div>
-                                    <div class="d-flex align-items-center justify-content-between my-3">
-                                        <span class="fw-bold fs-5 ">Khách đưa</span>
-                                        <input type="text" style="text-align:end"
-                                            class="customer-payment form-control w-120px fs-5"
-                                            onkeyup="handleCalculate()">
-                                    </div>
-                                    <div class="d-flex align-items-center justify-content-between my-3">
-                                        <span class="fw-bold fs-5 ">Tiền thừa</span>
-                                        <span class="payment_change fs-5 " data-value=""></span>
-                                    </div>
-                                    <div class="d-flex align-items-center justify-content-between my-3">
-                                        <span class="fw-bold fs-5 ">Thanh toán bằng</span>
-                                        <div class="d-flex align-items-center justify-content-between">
-                                            @if ($payment_method->count() > 0)
-                                                @foreach ($payment_method as $item)
-                                                    <div class="p-2 me-2 ">
-                                                        <input type="radio" name="payment_method"
-                                                            {{ $item->default == 'true' ? 'checked' : '' }}
-                                                            value="{{ $item->id }}" class="form-check-input">
-                                                        <label for=""
-                                                            class="text-dark fw-bold">{{ $item->name }}</label>
-                                                    </div>
-                                                @endforeach
-                                            @endif
+                                <div class="modal-body">
+                                    <input type="hidden" name="order_id" class="order-id-payment" value="">
+                                    <div class="modal-pos-product-info">
+                                        <div class="d-flex align-items-center justify-content-between my-1">
+                                            <span class="col-form-label">Tổng thanh toán</span>
+                                            <span class="payment_total "></span>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between my-1">
+                                            <span class="col-form-label">Khách đưa</span>
+                                            <input type="text" style="text-align:end"
+                                                class="customer-payment form-control w-120px fs-5"
+                                                onkeyup="handleCalculate()">
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between my-1">
+                                            <span class="col-form-label">Tiền thừa</span>
+                                            <span class="payment_change " data-value=""></span>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between my-1">
+                                            <span class="col-form-label">Thanh toán bằng</span>
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                @if ($payment_method->count() > 0)
+                                                    @foreach ($payment_method as $item)
+                                                        <div class="p-2 me-2 ">
+                                                            <input type="radio"
+                                                                id="payment_method-{{ $item->id }}"
+                                                                name="payment_method"
+                                                                {{ $item->default == 'true' ? 'checked' : '' }}
+                                                                value="{{ $item->id }}" class="form-check-input">
+                                                            <label for="payment_method-{{ $item->id }}"
+                                                                class="text-dark fw-bold">{{ $item->name }}</label>
+                                                        </div>
+                                                    @endforeach
+                                                @endif
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <hr class="opacity-1">
-                            <div class="d-flex justify-content-center mx-2 pb-3">
+                            <div class="modal-footer">
                                 <div class="me-3">
-                                    <a href="#" class="btn text-light fw-semibold mb-0 d-block"
-                                        data-bs-dismiss="modal" style="background: #464b55">Thoát</a>
+                                    <a href="#" class="btn btn-secondary text-light fw-semibold mb-0 d-block"
+                                        data-bs-dismiss="modal">Thoát</a>
                                 </div>
                                 <div class="">
                                     <button type="submit"
                                         class="btn btn-payment btn-warning text-light fw-semibold  m-0">
-                                        Xác nhận
+                                        <i class="fas fa-dollar-sign"></i> Xác nhận
                                     </button>
                                 </div>
                             </div>
@@ -314,45 +325,52 @@
                     <form action="{{ route('sale.booking') }}" id="form-add-booking">
                         @csrf
                         <div class="modal-content border-0 ">
-                            <a href="#" data-bs-dismiss="modal"
-                                class="btn-close close-product position-absolute top-0 end-0 m-4"></a>
+                            <div class="modal-header">
+                                <h5 class="modal-title">Đặt bàn</h5>
+                                <button type="button" class="btn-close close-product" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
                             <div class="modal-pos-promotion modal-promotion">
-                                <div class="modal-header title text-uppercase fw-bold">Đặt bàn</div>
-                                <div class="modal-pos-product-info px-5 mb-3"
-                                    style="width:100% ; flex:0 0 100%;max-width:100%">
-                                    <div class="my-3">
+                                <div class="modal-pos-product-info modal-body">
+                                    <div class="form-group mb-2">
                                         <label for="" class="fw-semibold mb-2">Tên người đặt</label>
                                         <span class="text-danger"> *</span>
                                         <input type="text" class="form-control name-booking" name="name"
                                             required placeholder="Tên người đặt bàn">
                                     </div>
-                                    <div class="my-3">
-                                        <label for="" class="fw-semibold mb-2">Số điện thoại</label>
-                                        <span class="text-danger"> *</span>
-                                        <input type="text" class="form-control phone-booking" name="phone"
-                                            required placeholder="0987 877 776">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-2">
+                                            <div class="form-group">
+                                                <label for="" class="fw-semibold mb-2">Số điện thoại</label>
+                                                <span class="text-danger"> *</span>
+                                                <input type="text" class="form-control phone-booking"
+                                                    name="phone" required placeholder="0987 877 776">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-2">
+                                            <div class="form-group">
+                                                <label for="" class="fw-semibold mb-2">Số người</label>
+                                                <span class="text-danger"> *</span>
+                                                <input type="number" class="form-control quantity-booking"
+                                                    name="quantity" required placeholder="Số người đến"
+                                                    value="1">
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="my-3">
-                                        <label for="" class="fw-semibold mb-2">Số người</label>
-                                        <span class="text-danger"> *</span>
-                                        <input type="number" class="form-control quantity-booking" name="quantity"
-                                            required placeholder="Số người đến" value="1">
-                                    </div>
-                                    <div class="my-3">
+                                    <div class="form-group mb-2">
                                         <label for="" class="fw-semibold mb-2">Ghi chú</label>
                                         <textarea name="note" class="form-control note-booking"></textarea>
                                     </div>
                                 </div>
                             </div>
-                            <hr class="opacity-1">
-                            <div class="d-flex align-items-center justify-content-center mx-2 pb-3">
+                            <div class="modal-footer">
                                 <div class="me-3">
                                     <a href="#" class="btn btn-default fw-semibold mb-0 d-block"
                                         data-bs-dismiss="modal">Thoát</a>
                                 </div>
                                 <div class="">
                                     <button type="submit" class="btn btn-booking btn-theme fw-semibold m-0">
-                                        Xác nhận
+                                        <i class="fas fa-calendar-alt"></i> Xác nhận
                                     </button>
                                 </div>
                             </div>

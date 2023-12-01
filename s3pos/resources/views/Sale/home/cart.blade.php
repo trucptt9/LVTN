@@ -32,7 +32,7 @@ $cart = Cart::Content();
                             <a href="#" class="btn btn-secondary btn-sm sub-product"
                                 data-id="{{ $item->rowId }}"><i class="fa fa-minus"></i></a>
                             <input type="text" disabled
-                                class="form-control w-50px form-control-sm mx-2 bg-white bg-opacity-25 bg-white bg-opacity-25 text-center"
+                                class="form-control quantity w-50px form-control-sm mx-2 bg-white bg-opacity-25 bg-white bg-opacity-25 text-center"
                                 value="{{ $item->qty }}">
                             <a href="#" class="btn btn-secondary btn-sm add-product"
                                 data-id="{{ $item->rowId }}"><i class="fa fa-plus"></i></a>
@@ -99,7 +99,8 @@ $cart = Cart::Content();
             </div>
             <div class="pos-order-price d-flex flex-column">
                 <div class="flex-1 title">
-                    {{ number_format($item->price*$item->quantity + $item->topping_total, 0, ',', '.') . ' đ' }}</div>
+                    {{ number_format($item->price * $item->quantity + $item->topping_total, 0, ',', '.') . ' đ' }}
+                </div>
 
                 <div class="text-end">
                     <a href="{{ url('/sale/delete/' . $item->id) }}" class="btn btn-default btn-sm btn-delete"><i

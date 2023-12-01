@@ -18,9 +18,10 @@ if ($cart) {
     <div class="d-flex align-items-center mb-2">
         <div>Hình thức mua</div>
         <div class="flex-1 text-end mb-0 d-flex justify-content-end">
-            <select class="form-select w-150px sale_source" name="sale_source_id" >
+            <select class="form-select w-150px sale_source" name="sale_source_id">
                 @foreach ($sale_source as $item)
-                    <option value="{{ $item->id }}" {{ $item->default == 'true' ? 'selected' : '' }} >{{ $item->name }}</option>
+                    <option value="{{ $item->id }}" {{ $item->default == 'true' ? 'selected' : '' }}>
+                        {{ $item->name }}</option>
                 @endforeach
 
             </select>
@@ -41,8 +42,8 @@ if ($cart) {
     <div class="d-flex align-items-center">
         <div>Giảm giá</div>
         <div class="flex-1 d-flex justify-content-end text-end h6 mb-0">
-            <a class="d-flex justify-content-center align-items-center btn-promotion ms-2 disabled" style="text-decoration:none"
-                href="{{ route('sale.promotion') }}" data-bs-toggle="modal">
+            <a class="d-flex justify-content-center align-items-center btn-promotion ms-2 disabled"
+                style="text-decoration:none" href="{{ route('sale.promotion') }}" data-bs-toggle="modal">
                 <i class="fas fa-tags fa-lg"></i>
             </a>
             <div class="flex-1 text-end h6 mb-0 ">
@@ -65,7 +66,7 @@ if ($cart) {
     <div class="mt-3">
         <div class="d-flex">
             <button onclick="saveOrderTmp()" {{ Cart::count() > 0 ? '' : 'disabled' }}
-                class="btn btn-default w-70px me-10px d-flex align-items-center justify-content-cente btn-save-tmp">
+                class="btn btn-default w-70px me-10px text-center btn-save-tmp">
                 <span>
                     <i class="fas fa-cloud-download-alt fa-lg my-10px d-block"></i>
                     <span class="small fw-semibold">Lưu</span>
@@ -105,7 +106,7 @@ if ($cart) {
         </div>
         <input type="hidden" name="" class="total-cost" value="{{ Cart::total() + $topping_cost }}">
     </div>
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center mb-2">
         <div>Thuế</div>
         <div class="flex-1 text-end h6 mb-0">{{ number_format(Cart::tax()) }} %</div>
     </div>

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class Product extends Model
 {
@@ -41,12 +42,15 @@ class Product extends Model
             $model->cost = $model->cost ?? 0;
         });
         self::created(function ($model) {
+            Cache::forget('sale-product');
             save_log_action("Tạo mới sản phẩm #$model->name");
         });
         self::updated(function ($model) {
+            Cache::forget('sale-product');
             save_log_action("Cập nhật thông tin sản phẩm #$model->name");
         });
         self::deleted(function ($model) {
+            Cache::forget('sale-product');
             save_log_action("Xóa sản phẩm #$model->name");
         });
     }
@@ -98,5 +102,4 @@ class Product extends Model
     {
         return $this->belongsTo(CategoryProduct::class, 'category_id');
     }
-   
 }

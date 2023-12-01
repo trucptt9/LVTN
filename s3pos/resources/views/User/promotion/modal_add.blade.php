@@ -61,7 +61,7 @@
                                         <!--end::Label-->
                                         <!--begin::Input-->
                                         <input type="number" class="form-control form-control-lgUnit::" name="value"
-                                            placeholder="Giá trị khuyến mãi" value="" />
+                                            placeholder="Giá trị khuyến mãi" value="0" />
                                     </div>
                                     <div class="" style="margin-left:10px; position: relative; top:20px">
                                         <label class="form-check form-check-custom form-check-solid">
@@ -86,7 +86,7 @@
                                         <span class="">Tổng tiền đơn hàng >=</span>
                                     </label>
                                     <input type="number" class="form-control form-control-lgUnit::" name="total_order"
-                                        placeholder="" value="" />
+                                        placeholder="" value="0" />
                                     <!--end::Input-->
                                 </div>
                             </div>

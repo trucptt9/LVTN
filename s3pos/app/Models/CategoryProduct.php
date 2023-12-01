@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class CategoryProduct extends Model
 {
@@ -35,12 +36,15 @@ class CategoryProduct extends Model
             $model->code = $model->code ?? generateRandomString();
         });
         self::created(function ($model) {
+            Cache::forget('sale-category');
             save_log_action("Tạo mới danh mục sản phẩm #$model->name");
         });
         self::updated(function ($model) {
+            Cache::forget('sale-category');
             save_log_action("Cập nhật thông tin danh mục sản phẩm #$model->name");
         });
         self::deleted(function ($model) {
+            Cache::forget('sale-category');
             save_log_action("Xóa danh mục sản phẩm #$model->name");
         });
     }

@@ -66,13 +66,13 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
     Route::prefix('sale')->name('sale.')->group(function () {
         Route::get('', [SaleController::class, 'index'])->name('index');
         Route::get('detail/{id}', [SaleController::class, 'detail'])->name('detail');
-       //customer
-        Route::get('customer', [SaleController::class,'customer'])->name('customer');
+        //customer
+        Route::get('customer', [SaleController::class, 'customer'])->name('customer');
         //area -table
         Route::get('area', [SaleController::class, 'area'])->name('area');
         Route::get('table', [SaleController::class, 'table'])->name('table');
         //category-produc-topping
-        Route::get('choose_product/{id}', [SaleController::class, 'choose_product'])->name('choose_product');
+        Route::get('table/{id}', [SaleController::class, 'choose_product'])->name('choose_product');
         Route::get('category', [SaleController::class, 'category'])->name('category');
         Route::get('product', [SaleController::class, 'product'])->name('product');
         //promotion
@@ -91,11 +91,10 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
         Route::get('update_item', [SaleController::class, 'update_item'])->name('update_item');
         Route::post('order', [SaleController::class, 'order'])->name('order');
         Route::post('payment_tmp', [SaleController::class, 'paymentOrderTmp'])->name('paymentOrderTmp');
-        Route::get('delete_order', [SaleController::class,'delete_order'])->name('delete_order');
+        Route::get('delete_order', [SaleController::class, 'delete_order'])->name('delete_order');
         //booking
         Route::get('booking', [SaleController::class, 'booking'])->name('booking');
         Route::get('destroy_booking/{id}', [SaleController::class, 'destroy_booking'])->name('destroy_booking');
-        
     });
     // store
     Route::prefix('stores')->name('store.')->group(function () {
@@ -103,7 +102,6 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
         Route::get('table', [StoreController::class, 'table'])->name('table');
         Route::get('report', [StoreController::class, 'report'])->name('report');
         Route::get('detail/{id}', [StoreController::class, 'detail'])->name('detail');
-        
     });
     Route::prefix('staffs')->name('staff.')->group(function () {
         Route::get('', [StaffController::class, 'index'])->name('index');
@@ -323,7 +321,7 @@ Route::middleware(['auth', 'checkStaff'])->group(function () {
         Route::get('product', [ReportController::class, 'product'])->name('product');
         Route::get('report_product', [ReportController::class, 'report_product'])->name('report_product');
         Route::get('report_chart_product', [ReportController::class, 'report_chart_product'])->name('report_chart_product');
-       
+
         Route::get('staff', [ReportController::class, 'staff'])->name('staff');
         Route::get('report_staff', [ReportController::class, 'report_staff'])->name('report_staff');
         Route::get('report_chart_staff', [ReportController::class, 'report_chart_staff'])->name('report_chart_staff');

@@ -44,13 +44,13 @@ class Coupon extends Model
             $model->quantity = $model->quantity ?? 1;
         });
         self::created(function ($model) {
-            save_log_action("Tạo mới mã giảm giá #$model->code");
+            save_log_action("Tạo mới phiếu mua hàng #$model->code");
         });
         self::updated(function ($model) {
-            save_log_action("Cập nhật thông tin mã giảm giá #$model->name");
+            save_log_action("Cập nhật thông tin phiếu mua hàng #$model->name");
         });
         self::deleted(function ($model) {
-            save_log_action("Xóa mã giảm giá #$model->name");
+            save_log_action("Xóa phiếu mua hàng #$model->name");
         });
     }
 

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class Table extends Model
 {
@@ -40,12 +41,15 @@ class Table extends Model
             $model->seat = $model->seat ?? 1;
         });
         self::created(function ($model) {
+            Cache::forget('sale-table');
             save_log_action("Tạo mới bàn #$model->name");
         });
         self::updated(function ($model) {
+            Cache::forget('sale-table');
             save_log_action("Cập nhật thông tin bàn #$model->name");
         });
         self::deleted(function ($model) {
+            Cache::forget('sale-table');
             save_log_action("Xóa bàn #$model->name");
         });
     }
@@ -102,7 +106,7 @@ class Table extends Model
     {
         return $query->where('tables.order_id', $order_id);
     }
- 
+
     public function area()
     {
         return $this->belongsTo(Area::class, 'area_id');
@@ -116,5 +120,4 @@ class Table extends Model
     {
         return $this->hasOne(Booking::class, 'id', 'booking_id');
     }
-    
 }
