@@ -68,6 +68,10 @@
                                     <div class="text-gray-600">
                                         {{ $promotion->subject }}
                                     </div>
+                                    <div class="fw-bold mt-5">Ngày tạo</div>
+                                    <div class="text-gray-600">
+                                        {{ date('H:i:d d/m/Y', strtotime($promotion->created_at)) }}
+                                    </div>
                                     <!--begin::Details item-->
                                     <!--begin::Details item-->
                                     <div class="fw-bold mt-5">Trạng thái</div>
@@ -137,7 +141,7 @@
                                                 <!--begin::Card-->
                                                 <div class="card">
                                                     <!--begin::Card header-->
-                                                    <div class="card-header border-0 pt-6">
+                                                    <div class="card-header border-0 pt-6 px-0">
                                                         <!--begin::Card title-->
                                                         <div class="card-title">
                                                             <!--begin::Search-->
@@ -301,7 +305,7 @@
                                                     </div>
                                                     <!--end::Card header-->
                                                     <!--begin::Card body-->
-                                                    <div class="card-body py-4">
+                                                    <div class="card-body p-0">
                                                         <!--begin::Table-->
                                                         <table
                                                             class="table promotion_log align-middle table-row-dashed fs-6 gy-5"

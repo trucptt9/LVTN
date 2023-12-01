@@ -68,6 +68,10 @@
                                     <div class="text-gray-600">
                                         {{ $coupon->name }}
                                     </div>
+                                    <div class="fw-bold mt-5">Ngày tạo</div>
+                                    <div class="text-gray-600">
+                                        {{ date('H:i:s d/m/Y', strtotime($coupon->created_at)) }}
+                                    </div>
                                     <div class="fw-bold mt-5">Trạng thái</div>
                                     <div class="">
                                         <div class="{{ 'badge badge-light-' . $status[1] }} status-change "
@@ -174,19 +178,16 @@
                                                     <div class="card-body py-4 table-loading">
                                                         <!--begin::Table-->
                                                         <table class="table align-middle table-bordered fs-6 gy-5">
-                                                            <thead>
+                                                            <thead class="bg-primary">
                                                                 <tr
                                                                     class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
-                                                                    <th class="min-w-100px">Mã khách hàng</th>
+                                                                    <th class="min-w-200px text-center">Mã khách hàng</th>
                                                                     <th class="min-w-100px">Mã hóa đơn</th>
                                                                     <th class="min-w-125px text-center">Thời gian</th>
                                                                     <th class="min-w-150px">Ghi chú</th>
-
-
                                                                 </tr>
                                                             </thead>
                                                             <tbody class="text-gray-600 fw-semibold" id="load-table">
-
                                                                 <tr>
                                                                     <td colspan="4" class="text-center">
                                                                         Không tìm thấy dữ liệu

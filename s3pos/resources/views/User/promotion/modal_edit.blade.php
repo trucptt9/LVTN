@@ -59,8 +59,8 @@
             </div>
         </div>
         <div class="fv-row mt-5">
-            <p class="text-uppercase fw-bold required">Điều kiện áp dụng</p>
-            <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
+            <span class="text-uppercase fw-bold required">Điều kiện áp dụng</span>
+            <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-1">
                 <span class="">Tổng tiền đơn hàng >=</span>
             </label>
             <input type="number" class="form-control form-control-lg" name="total_order" placeholder=""
@@ -108,7 +108,7 @@
             <!--end::Label-->
             <!--begin::Input-->
             <select name="status" id="" class="form-select" data-control="select2" data-hide-search="true">
-               
+
                 @foreach ($data['status'] as $key => $item)
                     <option value="{{ $key }}" {{ $key == $promotion->status ?? 'selected' }}>
                         {{ $item[0] }}</option>

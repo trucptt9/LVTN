@@ -26,11 +26,11 @@
                         <!--end::Item-->
                     </ul>
                 </div>
-                @can('booking-create')
+                {{-- @can('booking-create')
                     <button class="btn btn-primary h-40px btn-add">
                         Tạo mới
                     </button>
-                @endcan
+                @endcan --}}
 
             </div>
             <!--begin::Products-->
@@ -80,12 +80,12 @@
                 <div class="card-body pt-0 table-loading">
                     <!--begin::Table-->
                     <table class="table align-middle table-bordered fs-6 gy-5">
-                        <thead>
+                        <thead class="bg-primary">
                             <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                                <th class="w-100px">Khách hàng</th>
-                                <th class="w-100px">Điện thoại</th>
-                                <th class="w-200px">Thời gian</th>
-                                <th class="text-center w-100px">Trạng thái</th>
+                                <th class="text-center">Khách hàng</th>
+                                <th class="w-200px text-center">Điện thoại</th>
+                                <th class="w-200px text-center">Thời gian</th>
+                                <th class="text-center w-125px">Trạng thái</th>
                                 <th class="text-center w-125px">#</th>
                             </tr>
                         </thead>
@@ -105,7 +105,6 @@
         </div>
         <!--end::Post-->
     </div>
-    @include('User.category_product.modal_add')
     <div class="modal fade" id="modal-edit" tabindex="-1" aria-hidden="true">
         <!--begin::Modal dialog-->
         <form action="{{ route('booking.update') }}" id="form-update" method="POST" enctype="multipart/form-data">
@@ -126,9 +125,7 @@
                         <div class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid"
                             id="kt_modal_create_app_stepper">
                             <div class="flex-row-fluid py-lg-5 ">
-                                <div class="d-flex flex-column scroll-y px-5 px-lg-10 content-update"
-                                    id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="true"
-                                    data-kt-scroll-max-height="auto" data-kt-scroll-offset="300px">
+                                <div class="d-flex flex-column scroll-y px-5 px-lg-10 content-update">
                                 </div>
                                 <div class="text-center pt-10">
                                     <button type="reset" class="btn btn-light me-3 close-btn2">Hủy</button>

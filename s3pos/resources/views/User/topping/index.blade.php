@@ -80,13 +80,13 @@
                 </form>
                 <!--end::Card header-->
                 <!--begin::Card body-->
-                <div class="card-body pt-0 table-loading">
+                <div class="card-body table-loading">
                     <!--begin::Table-->
                     <table class="table align-middle table-bordered fs-6 gy-5">
-                        <thead>
+                        <thead class="bg-primary">
                             <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                                <th class="w-125px">Hình ảnh</th>
-                                <th class="w-140px">Mã</th>
+                                <th class="w-100px text-center">Hình ảnh</th>
+                                <th class="w-125px text-center">Mã</th>
                                 <th class="">Tên topping</th>
                                 <th class="text-center w-150px">Giá bán</th>
                                 <th class="text-center w-150px">Giá vốn</th>
@@ -133,11 +133,9 @@
                             id="kt_modal_create_app_stepper">
 
                             <div class="flex-row-fluid py-lg-5 ">
-                                <div class="d-flex flex-column scroll-y px-5 px-lg-10 content-update"
-                                    id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="true"
-                                    data-kt-scroll-max-height="auto" data-kt-scroll-offset="300px">
+                                <div class="d-flex flex-column scroll-y px-5 content-update">
                                 </div>
-                                <div class="text-center pt-10">
+                                <div class="text-center pt-5">
                                     <button type="reset" class="btn btn-light me-3 close-btn2">Hủy</button>
                                     <button type="submit" class="btn btn-primary btn-create">
                                         <span class="indicator-label">Cập nhật </span>
@@ -246,10 +244,10 @@
                 showSpinner(".table-loading");
                 e.preventDefault();
                 const url = $(this).attr('href');
-                console.log(url)
+
                 $.get(url, function(data) {
                     hideSniper(".table-loading");
-                    console.log(data);
+
                     $('.content-update').html(data);
                     $('#modal-edit').modal('show');
                 })

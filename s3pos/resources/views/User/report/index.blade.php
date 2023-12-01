@@ -47,7 +47,8 @@
                     <!--begin::Card widget 2-->
                     <div class="card">
                         <!--begin::Body-->
-                        <div class="card-body d-flex fw-semibold justify-content-between justify-content-center text-danger">
+                        <div
+                            class="card-body d-flex fw-semibold justify-content-between justify-content-center text-danger">
                             <span class="fw-semibold fs-3x text-gray-800 lh-1 ls-n2 header-revenue">
                                 0
                             </span>
@@ -73,11 +74,12 @@
                                 </span>
                                 <!--end::Description-->
                             </div>
-                          
-                           
+
+
                             <div class="text-center loading"></div>
                             <div class="card-toolbar">
-                                <div data-kt-daterangepicker="true" data-kt-daterangepicker-opens="left" data-kt-indicator=""
+                                <div data-kt-daterangepicker="true" data-kt-daterangepicker-opens="left"
+                                    data-kt-indicator=""
                                     class="btn btn-sm btn-light filter-date d-flex align-items-center px-4">
                                     <!--begin::Display range-->
                                     <div class="text-gray-600 fw-bold">Loading date range...</div>
@@ -89,10 +91,10 @@
                         </div>
                         <!--end::Header-->
                         <!--begin::Body-->
-                        
-                        <div class="card-body d-flex align-items-end ps-4 pe-0 pb-4" >
+
+                        <div class="card-body d-flex align-items-end ps-4 pe-0 pb-4">
                             <!--begin::Chart-->
-                            
+
                             <div id="kt_charts_revenue" class="h-400px w-100 min-h-auto "></div>
                             <!--end::Chart-->
                         </div>
@@ -108,7 +110,7 @@
                 <!--begin::Col-->
                 <div class="col-xl-6 mb-5 mb-xl-8">
                     <!--begin::Table widget 9-->
-                    <div class="card card-flush h-xl-100">
+                    <div class="card card-flush h-300px">
                         <!--begin::Header-->
                         <div class="card-header pt-5">
                             <!--begin::Title-->
@@ -150,7 +152,7 @@
                 <!--end::Col-->
                 <!--begin::Col-->
                 <div class="col-xl-6 mb-5 mb-xl-4">
-                    <div class="card card-flush h-xl-100">
+                    <div class="card card-flush h-300px">
                         <!--begin::Header-->
                         <div class="card-header pt-7">
                             <!--begin::Statistics-->
@@ -186,6 +188,7 @@
         let chartCategoryPercent = [];
         let _date = '';
         loadTotal();
+
         function loadTotal(date) {
             const __date = date ? date : _date;
             const url = "{{ route('report.report_all') }}?date=" + __date + "&withcontent=1";
@@ -345,8 +348,8 @@
         //                     e.self.render(), (e.rendered = !0);
         //                 }, 200);
         //             }
-                    
-                
+
+
         //     });
         // }
 

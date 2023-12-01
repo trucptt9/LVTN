@@ -26,7 +26,7 @@ class UnitController extends Controller
         $data = [
             'status' => Unit::get_status(),
         ];
-        return view('user.topping_category.index', compact('data'));
+        return view('user.unit.index', compact('data'));
     }
 
     public function list()
@@ -44,7 +44,7 @@ class UnitController extends Controller
 
             return Response::json([
                 'status' => ResHTTP::HTTP_OK,
-                'data' => view('User.topping_category.table', compact('list'))->render(),
+                'data' => view('User.unit.table', compact('list'))->render(),
             ]);
         } catch (\Throwable $th) {
             showLog($th);
@@ -55,9 +55,13 @@ class UnitController extends Controller
         }
     }
 
-    public function detail()
+    public function detail($id)
     {
-        return view('user.topping_category.detail');
+        $data = [
+            'status' => Unit::get_status(),
+        ];
+        $unit = Unit::storeId($this->store_id)->findOrFail($id);
+        return view('user.unit.modal_edit', compact('unit', 'data'))->render();
     }
 
     public function insert(Request $request)
@@ -65,7 +69,7 @@ class UnitController extends Controller
         try {
             $data = $request->all();
             if ($request->file('image') != null) {
-                $path = $request->file('image')->store('topping_category');
+                $path = $request->file('image')->store('unit');
                 $data['image'] = $path;
             } else {
                 $data['image'] = null;
@@ -93,9 +97,16 @@ class UnitController extends Controller
     {
         try {
             $id = $request->get('id', '');
-            $topping_group = Unit::storeId($this->store_id)->whereId($id)->first();
-            $topping_group->status = $topping_group->status == Unit::STATUS_ACTIVE ? Unit::STATUS_BLOCKED : Unit::STATUS_ACTIVE;
-            $topping_group->save();
+            $type = request('type', 'one');
+            $unit = Unit::storeId($this->store_id)->whereId($id)->first();
+            if ($type == 'all') {
+                $data = $request->all();
+                $data['status'] = $unit->status == Unit::STATUS_ACTIVE ? Unit::STATUS_ACTIVE : Unit::STATUS_ACTIVE;
+                $unit->update($data);
+            } else {
+                $unit->status = $unit->status == Unit::STATUS_ACTIVE ? Unit::STATUS_BLOCKED : Unit::STATUS_ACTIVE;
+                $unit->save();
+            }
             return Response::json([
                 'status' => ResHTTP::HTTP_OK,
                 'message' => 'Cập nhật thành công',
@@ -115,8 +126,8 @@ class UnitController extends Controller
     {
         try {
             $id = $request->get('id', '');
-            $topping_group = Unit::storeId($this->store_id)->whereId($id)->first();
-            $topping_group->delete();
+            $unit = Unit::storeId($this->store_id)->whereId($id)->first();
+            $unit->delete();
             return Response::json([
                 'status' => ResHTTP::HTTP_OK,
                 'message' => 'Xóa dữ liệu thành công',

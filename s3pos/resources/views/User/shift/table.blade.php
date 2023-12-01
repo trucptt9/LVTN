@@ -32,7 +32,7 @@
                     @endcan
                 </div>
             </td>
-            <td class="text-center d-flex">
+            <td class="text-center">
                 @can('shift-update')
                     <a class="btn btn-light btn-edit" style="padding: 0px" href="{{ route('shift.detail', $item->id) }}">
                         <i class="ki-duotone ki-message-edit fs-2qx text-success">

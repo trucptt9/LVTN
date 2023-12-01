@@ -26,7 +26,7 @@
 
                 </div>
             </td>
-            <td class="text-center d-flex">
+            <td class="text-center">
                 @can('department-update')
                     <a class="btn btn-light btn-edit" style="padding: 0px"
                         href="{{ route('department.detail', $item->id) }}">

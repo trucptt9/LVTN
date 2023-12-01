@@ -132,7 +132,7 @@
                     <!--begin::Table container-->
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered">
-                            <thead>
+                            <thead class="bg-primary">
                                 <tr>
                                     <td class="text-uppercase text-bold">Sản phẩm</td>
                                     <td class="text-uppercase text-bold">Số lượng</td>
@@ -166,13 +166,14 @@
         let chartCategoryPercent = [];
         let _date = '';
         loadTotal();
+
         function loadTotal(date) {
             const __date = date ? date : _date;
             const url = "{{ route('report.report_product') }}?date=" + __date + "&withcontent=1";
             $.get(url, function(rs) {
                 if (rs.status == 200) {
-                    $('.header-order').text(rs?.data?.total);
-                    $('.header-revenue').text(rs?.data?.revenue);
+                    $('.header-order').text(rs?.data?.total ?? 0);
+                    $('.header-revenue').text(rs?.data?.revenue ?? 0);
                     $(".sniper-content").remove();
                 }
             });

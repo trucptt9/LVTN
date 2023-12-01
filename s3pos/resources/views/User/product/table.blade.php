@@ -2,18 +2,14 @@
     @php
         $paginate = $list->appends(request()->all())->links();
     @endphp
-
     @foreach ($list as $item)
         <tr>
-
-
             <td class="text-center">
                 @if ($item->image != null)
                     <img src="{{ asset('storage/' . $item->image) }}" alt="" width="50" height="50">
                 @else
                     <img src="{{ asset('images/image_none.png') }}" alt="" width="50" height="50">
                 @endif
-
             </td>
             <td>
                 {{ $item->code }}
@@ -30,7 +26,6 @@
             <td class="text-center">
                 {{ $item->category->name }}
             </td>
-
             <td class="text-center">
                 <div class="form-check form-check-sm form-check-custom form-check-solid justify-content-center">
                     <input name="status" class="form-check-input " type="checkbox" id={{ $item->id }}
@@ -38,19 +33,17 @@
                         onclick="changeStatus('{{ $item->id }}')" />
                 </div>
             </td>
-
-            <td class="text-center d-flex">
+            <td class="text-center">
                 @can('product-view')
-                    <a class="btn btn-light" style="padding: 0px" href="{{ route('product.detail', $item->id) }}">
+                    {{-- <a class="btn btn-light" style="padding: 0px" href="{{ route('product.detail', $item->id) }}">
                         <i class="ki-duotone fs-2qx ki-eye">
                             <span class="path1"></span>
                             <span class="path2"></span>
                             <span class="path3"></span>
                         </i>
-                    </a>
+                    </a> --}}
                 @endcan
                 @can('product-update')
-                    
                 @endcan
                 <a class="btn btn-light btn-edit" style="padding: 0px" href="{{ route('product.detail', $item->id) }}">
                     <i class="ki-duotone ki-message-edit fs-2qx text-success">
@@ -58,7 +51,6 @@
                         <span class="path2"></span>
                     </i>
                 </a>
-
                 <button class="btn btn-light btn-delete" style="padding: 0px"
                     onclick="confirmDelete('{{ $item->id }}')">
                     <i class="ki-duotone ki-trash fs-2qx text-danger">
@@ -69,7 +61,6 @@
                         <span class="path5"></span>
                     </i>
                 </button>
-
             </td>
         </tr>
     @endforeach

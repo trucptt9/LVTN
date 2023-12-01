@@ -19,9 +19,9 @@
                         {{ $item->status == 'active' ? 'checked' : '' }} onclick="changeStatus('{{ $item->id }}')" />
                 </div>
             </td>
-            <td class="text-center d-flex">
+            <td class="text-center">
                 @can('warehouse-update')
-                    <a class="btn btn-light btn-edit" style="padding: 0px" href="{{ route('material.detail', $item->id) }}">
+                    <a class="btn btn-light btn-edit" style="padding: 0px" href="{{ route('warehouse.detail', $item->id) }}">
                         <i class="ki-duotone ki-message-edit fs-2qx text-success">
                             <span class="path1"></span>
                             <span class="path2"></span>

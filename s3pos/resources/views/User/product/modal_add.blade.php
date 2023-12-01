@@ -26,7 +26,7 @@
                     <!--begin::Aside-->
                     <!--begin::Aside-->
                     <!--begin::Content-->
-                    <div class="flex-row-fluid py-lg-5 px-lg-15">
+                    <div class="flex-row-fluid py-lg-5 px-lg-10">
                         <!--begin::Form-->
                         <form class="form" action="{{ route('product.insert') }}" id="form-create" method="POST"
                             enctype="multipart/form-data">
@@ -105,7 +105,7 @@
                                 </div>
                             </div>
                             <!--begin::Actions-->
-                            <div class="text-center pt-10">
+                            <div class="text-center pt-5">
                                 <button type="reset" class="btn btn-sm btn-light me-3 btn-cancle"
                                     data-kt-users-modal-action="cancel">Hủy</button>
                                 <button type="submit" class="btn btn-sm btn-primary btn-create"

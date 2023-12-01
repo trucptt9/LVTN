@@ -57,7 +57,7 @@
 
             </td>
 
-            <td class="text-center d-flex">
+            <td class="text-center">
                 @can('staff-view')
                     <a class="btn btn-light" style="padding: 0px" href="{{ route('staff.detail', $item->id) }}">
                         <i class="ki-duotone fs-2qx ki-eye">

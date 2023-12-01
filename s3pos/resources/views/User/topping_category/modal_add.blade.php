@@ -32,7 +32,7 @@
                           <form class="form" action="{{ route('topping_category.insert') }}" id="form-create"
                               method="POST" enctype="multipart/form-data">
                               <!--begin::Scroll-->
-                              <div class="d-flex flex-column scroll-y px-5 px-lg-10" id="kt_modal_add_user_scroll">
+                              <div class="d-flex flex-column scroll-y px-5" id="kt_modal_add_user_scroll">
                                   <div class="row">
                                       <div class="col-md-6">
                                           <div class="fv-row mb-7">

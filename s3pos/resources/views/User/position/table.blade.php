@@ -30,7 +30,7 @@
                 </div>
             </td>
 
-            <td class="text-center d-flex">
+            <td class="text-center">
                 @can('position-update')
                     <a class="btn btn-light btn-edit" style="padding: 0px" href="{{ route('position.detail', $item->id) }}">
                         <i class="ki-duotone ki-message-edit fs-2qx text-success">

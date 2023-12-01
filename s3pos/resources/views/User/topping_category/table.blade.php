@@ -30,7 +30,7 @@
                         onclick="changeStatus('{{ $item->id }}')" />
                 </div>
             </td>
-            <td class="text-center d-flex">
+            <td class="text-center">
                 @can('topping_category-update')
                     <a class="btn btn-light btn-edit" style="padding: 0px"
                         href="{{ route('topping_category.detail', $item->id) }}">

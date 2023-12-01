@@ -20,7 +20,7 @@
                         {{ $item->status == 'active' ? 'checked' : '' }} onclick="changeStatus('{{ $item->id }}')" />
                 </div>
             </td>
-            <td class="text-center d-flex">
+            <td class="text-center">
                 <a href="{{ route('customer_group.detail', ['id' => $item->id]) }}" class="btn btn-light btn-edit"
                     style="padding: 0px">
                     <i class="ki-duotone ki-message-edit fs-2qx text-success">

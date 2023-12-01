@@ -21,7 +21,7 @@
                         {{ $item->status == 'active' ? 'checked' : '' }} onclick="changeStatus('{{ $item->id }}')" />
                 </div>
             </td>
-            <td class="text-center d-flex">
+            <td class="text-center">
                 @can('customer_group-update')
                     <a href="{{ route('customer_group.detail', ['id' => $item->id]) }}" class="btn btn-light btn-edit"
                         style="padding: 0px">

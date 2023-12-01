@@ -126,11 +126,10 @@
                                                     <div class="card-body py-4 table-loading">
                                                         <!--begin::Table-->
                                                         <table class="table align-middle table-bordered fs-6 gy-5">
-                                                            <thead>
+                                                            <thead class="bg-primary">
                                                                 <tr
                                                                     class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
                                                                     <th class="min-w-100px">Mã hóa đơn</th>
-                                                                    <th class="min-w-100px">Hành động</th>
                                                                     <th class="min-w-75px text-center ">Số điểm</th>
                                                                     <th class="min-w-125px text-center">Thời gian</th>
                                                                     <th class="min-w-150px">Ghi chú</th>
@@ -138,7 +137,7 @@
                                                             </thead>
                                                             <tbody class="text-gray-600 fw-semibold" id="load-table">
                                                                 <tr>
-                                                                    <td colspan="5" class="text-center">
+                                                                    <td colspan="4" class="text-center">
                                                                         Không tìm thấy dữ liệu
                                                                     </td>
                                                                 </tr>

@@ -34,9 +34,7 @@
                     </a>
                     @include('User.coupon.modal_add')
                 @endcan
-
             </div>
-         
             <!--begin::promotions-->
             <div class="card card-flush">
                 <!--begin::Card header-->
@@ -82,15 +80,15 @@
                 <div class="card-body pt-0 table-loading">
                     <!--begin::Table-->
                     <table class="table align-middle table-bordered fs-6 gy-5">
-                        <thead>
+                        <thead class="bg-primary">
                             <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                                <th class="w-100px">Mã</th>
+                                <th class="w-125px text-center">Mã</th>
                                 <th class="">Tên</th>
                                 <th class="w-200px text-center">Thời gian áp dụng</th>
-                                <th class="w-140px text-center">Giá trị</th>
-                                <th class="w-140px text-center">Số lượng còn lại</th>
+                                <th class="w-125px text-center">Giá trị</th>
+                                <th class="w-150px text-center">Số lượng còn lại</th>
                                 <th class="w-125px text-center">Trạng thái</th>
-                                <th class=" w-90px text-center">#</th>
+                                <th class=" w-100px text-center">#</th>
                             </tr>
                         </thead>
                         <tbody class="fw-semibold text-gray-600" id="load-table">
@@ -129,7 +127,7 @@
                         <div class="flex-row-fluid py-lg-5 ">
                             <div class="row content-update" id="kt_modal_create_app_stepper">
                             </div>
-                            <div class="text-center pt-10">
+                            <div class="text-center pt-5">
                                 <button type="reset" class="btn btn-light me-3 close-btn2">Hủy</button>
                                 <button type="submit" class="btn btn-primary btn-create">
                                     <span class="indicator-label">Cập nhật </span>
@@ -264,10 +262,10 @@
                 showSpinner(".table-loading");
                 e.preventDefault();
                 const url = $(this).attr('href');
-                console.log(url)
+
                 $.get(url, function(data) {
                     hideSniper(".table-loading");
-                    console.log(data);
+
                     $('.content-update').html(data);
                     $('#modal-edit').modal('show');
                 })

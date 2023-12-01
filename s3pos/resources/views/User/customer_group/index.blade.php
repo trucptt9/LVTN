@@ -82,9 +82,9 @@
                 <div class="card-body pt-0 table-loading">
                     <!--begin::Table-->
                     <table class="table align-middle table-bordered fs-6 gy-5">
-                        <thead>
+                        <thead class="bg-primary">
                             <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                                <th class="w-100px">Mã</th>
+                                <th class="w-125px text-center">Mã</th>
                                 <th class="w-300px">Tên nhóm</th>
                                 <th class="text-center">Mô tả</th>
                                 <th class="text-center w-125px">Trạng thái</th>
@@ -242,20 +242,18 @@
                 showSpinner(".table-loading");
                 e.preventDefault();
                 const url = $(this).attr('href');
-                console.log(url)
+
                 $.get(url, function(data) {
                     hideSniper(".table-loading");
-                    console.log(data);
+
                     $('.content-update').html(data);
                     $('#modal-edit').modal('show');
                 })
             })
         })
     </script>
-   <script src="{{ asset('user/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
+    <script src="{{ asset('user/assets/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <script src="{{ asset('user/assets/js/custom/apps/ecommerce/sales/listing.js') }}"></script>
     <script src="{{ asset('user/assets/js/widgets.bundle.js') }}"></script>
     <script src="{{ asset('user/assets/js/custom/widgets.js') }}"></script>
-   
 @endsection
-    

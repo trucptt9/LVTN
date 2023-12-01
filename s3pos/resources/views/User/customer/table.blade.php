@@ -25,7 +25,7 @@
                         {{ $item->status == 'active' ? 'checked' : '' }} onclick="changeStatus('{{ $item->id }}')" />
                 </div>
             </td>
-            <td class="text-center d-flex">
+            <td class="text-center">
                 @can('customer-view')
                     <a href="{{ route('customer.detail', $item->id) }}">
                         <i class="ki-duotone ki-eye fs-2qx text-dark">

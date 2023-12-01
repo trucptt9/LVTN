@@ -142,7 +142,7 @@
                             </div>
                             <!--end::Nav-->
                         </div>
-                        <div class="text-center pt-10">
+                        <div class="text-center pt-5">
                             <button type="reset" class="btn btn-light me-3 btn-cancle"
                                 data-kt-users-modal-action="cancel">Hủy</button>
                             <button type="submit" class="btn btn-primary btn-create"

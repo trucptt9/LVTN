@@ -7,11 +7,9 @@
                 <div class="row" id="kt_modal_create_app_stepper">
                     <input type="hidden" name="id" value="{{ $promotion->id }}">
                     <input type="hidden" name="type" value="all">
-                    <div class="col-7" style="padding-left: 0px">
+                    <div class="col-md-6 mb-2">
                         <!--begin::Nav-->
                         <div class="stepper-nav ps-lg-10 ">
-                            <h4 class="">Thông tin chương trình
-                            </h4>
                             <div class="fv-row mb-2">
                                 <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">
                                     <span class="required">Tên chương trình</span>
@@ -79,12 +77,9 @@
                     </div>
                     <!--begin::Aside-->
                     <!--begin::Content-->
-                    <div class="col-5">
+                    <div class="col-md-6 mb-2">
                         <!--begin::Nav-->
                         <div class="stepper-nav ps-lg-10">
-                            <label class="d-flex align-items-center fs-5 fw-semibold mb-2">
-                                <h4 class="">Thời gian áp dụng</h4>
-                            </label>
                             <div class="fv-row mb-2">
                                 <!--begin::Label-->
                                 <label class="d-flex align-items-center fs-6 fw-semibold mb-2 mt-2">

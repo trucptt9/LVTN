@@ -5,16 +5,13 @@
     @foreach ($list as $item)
         <tr>
             <td>
-                Mã hóa đơn gắn với việc tích điểm, sd điểm của kh
-            </td>
-            <td class="d-flex align-items-center">
-                {{ item->type == 'add' ? 'Tích điểm' : 'Sử dụng điểm' }}
+                {{ $item->code }}
             </td>
             <td class="text-center">
-                {{ $item->point }}
+                {{ $item->type == 'add' ? '+' : '-' }} {{ $item->point }}
             </td>
             <td class="text-center">
-                {{ $item->created_at }}
+                {{ date('H:i:s d/m/Y', strtotime($item->created_at)) }}
             </td>
             <td>
                 {{ $item->note }}
@@ -23,7 +20,7 @@
     @endforeach
     @if ($paginate != '')
         <tr>
-            <td colspan="7">
+            <td colspan="4">
                 <div class="mt-2">
                     {{ $paginate }}
                 </div>
@@ -32,7 +29,7 @@
     @endif
 @else
     <tr>
-        <td colspan="7" class="text-center no-data">
+        <td colspan="4" class="text-center no-data">
             Không tìm thấy dữ liệu!
         </td>
     </tr>

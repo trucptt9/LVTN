@@ -190,7 +190,7 @@
             var data = $(formElement).serialize();
             console.log(data)
             const url = uri + "?page=" + page + "&" + data;
-            console.log(url)
+
             $.get(url, function(rs) {
                 // console.log(status)
                 hideSniper(".table-loading");

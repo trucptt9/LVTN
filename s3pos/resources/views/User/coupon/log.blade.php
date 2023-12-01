@@ -1,4 +1,4 @@
-<thead>
+<thead class="bg-primary">
     <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
         <th class="min-w-100px">Mã</th>
         <th class="min-w-100px">Ngày</th>

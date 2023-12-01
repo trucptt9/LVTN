@@ -21,12 +21,12 @@
                         <!--end::Item-->
                         <!--begin::Item-->
                         <li class="breadcrumb-item text-white opacity-75">
-                           Báo cáo
+                            Báo cáo
                         </li>
                         <!--end::Item-->
                     </ul>
                 </div>
-                
+
             </div>
             <!--begin::Products-->
             <div class="card card-flush">
@@ -78,13 +78,12 @@
                 <div class="card-body pt-0 table-loading">
                     <!--begin::Table-->
                     <table class="table align-middle table-bordered fs-6 gy-5">
-                        <thead>
+                        <thead class="bg-primary">
                             <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                 <th class="w-150px">Mã</th>
                                 <th class="">Nhân viên</th>
-                                <th class="text-center w-250px">Giảm giá</th>
-                                
-                                <th class="text-center w-250px">Tổng tiền</th>
+                                <th class="text-center w-150px">Giảm giá</th>
+                                <th class="text-center w-150px">Tổng tiền</th>
                                 <th class="text-center w-150px">Thời gian</th>
                                 <th class="text-center w-150px">Trạng thái</th>
                                 <th class="text-center w-100px">#</th>

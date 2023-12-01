@@ -264,10 +264,10 @@
                 showSpinner(".table-loading");
                 e.preventDefault();
                 const url = $(this).attr('href');
-                console.log(url)
+
                 $.get(url, function(data) {
                     hideSniper(".table-loading");
-                    console.log(data);
+
                     $('.content-update').html(data);
                     $('#modal-edit').modal('show');
                 })

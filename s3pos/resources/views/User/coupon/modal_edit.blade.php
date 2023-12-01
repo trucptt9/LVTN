@@ -86,7 +86,7 @@
             </label>
             <!--end::Label-->
             <!--begin::Input-->
-            <textarea class="form-control" name="description" aria-label="With textarea" rows="3">{{ $coupon->description }}</textarea>
+            <textarea class="form-control" name="description" aria-label="With textarea" rows="1">{{ $coupon->description }}</textarea>
             <!--end::Input-->
         </div>
     </div>

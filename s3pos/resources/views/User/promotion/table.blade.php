@@ -23,7 +23,7 @@
                         {{ $item->status == 'active' ? 'checked' : '' }} onclick="changeStatus('{{ $item->id }}')" />
                 </div>
             </td>
-            <td class="text-center d-flex">
+            <td class="text-center">
                 @can('promotion-view')
                     <a class="btn btn-light" style="padding: 0px" href="{{ route('promotion.detail', $item->id) }}">
                         <i class="ki-duotone fs-2qx ki-eye">

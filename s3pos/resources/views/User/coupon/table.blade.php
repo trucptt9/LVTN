@@ -27,7 +27,7 @@
                         onclick="changeStatus('{{ $item->id }}')" />
                 </div>
             </td>
-            <td class="text-center d-flex">
+            <td class="text-center">
                 @can('coupon-view')
                     <a class="btn btn-light" style="padding: 0px" href="{{ route('coupon.detail', $item->id) }}">
                         <i class="ki-duotone fs-2qx ki-eye">
