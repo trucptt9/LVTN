@@ -92,14 +92,14 @@ class Admin extends Authenticatable
     const ROOT = 'true';
     const NOT_ROOT = 'false';
 
-    const STATUS_UN_ACTIVE = 'un_active';
+    // const STATUS_UN_ACTIVE = 'un_active';
     const STATUS_ACTIVE = 'active';
     const STATUS_SUSPEND = 'blocked';
 
     public static function get_status($status = '')
     {
         $types = [
-            self::STATUS_UN_ACTIVE => ['Chưa kích hoạt', 'secondary', COLOR_SECONDARY],
+            // self::STATUS_UN_ACTIVE => ['Chưa kích hoạt', 'secondary', COLOR_SECONDARY],
             self::STATUS_ACTIVE => ['Đang kích hoạt', 'success', COLOR_SUCCESS],
             self::STATUS_SUSPEND => ['Tạm ngưng', 'warning', COLOR_WARNING],
         ];

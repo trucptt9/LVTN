@@ -46,7 +46,7 @@
                                     <span class="path1"></span>
                                     <span class="path2"></span>
                                 </i>
-                                <input type="text" data-kt-ecommerce-order-filter="search"
+                                <input type="text" name="search"
                                     class="form-control w-250px ps-12" placeholder="Nhập nội dung ..." />
                             </div>
                             <!--end::Search-->

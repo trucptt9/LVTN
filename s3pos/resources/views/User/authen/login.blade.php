@@ -26,14 +26,14 @@
                 <!--begin::Input group=-->
                 <div class="fv-row mb-8">
                     <!--begin::Email-->
-                    <input type="text" placeholder="Nhập email" value="a@gmail.com" name="email" autocomplete="off"
+                    <input type="text" placeholder="Nhập email" name="email" autocomplete="off"
                         class="form-control bg-transparent" />
                     <!--end::Email-->
                 </div>
                 <!--end::Input group=-->
                 <div class="fv-row mb-3">
                     <!--begin::Password-->
-                    <input type="password" placeholder="Nhập mật khẩu" value="123456" name="password" autocomplete="off"
+                    <input type="password" placeholder="Nhập mật khẩu" name="password" autocomplete="off"
                         class="form-control bg-transparent" />
                     <!--end::Password-->
                 </div>

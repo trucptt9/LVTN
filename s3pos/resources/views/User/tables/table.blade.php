@@ -16,6 +16,20 @@
             <td class="text-center">
                 {{ $item->seat }}
             </td>
+           <?php 
+                $status = '';
+                if($item->order_id == null && $item->booking_id == null){
+                    $status = 'Bàn trống ';
+                }else if($item->booking_id != null){
+                    $status = "Bàn đặt trước";
+                }else{
+                    $status = "Bàn đang có đơn";
+                }
+           ?>
+
+            <td class="text-center">
+                {{ $status}}
+            </td>
             <td class="text-center">
                 @can('table-update')
                     <div class="form-check form-check-sm form-check-custom form-check-solid justify-content-center">
@@ -56,7 +70,7 @@
     @endforeach
     @if ($paginate != '')
         <tr>
-            <td colspan="5">
+            <td colspan="7">
                 <div class="mt-2">
                     {{ $paginate }}
                 </div>

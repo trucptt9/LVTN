@@ -42,13 +42,15 @@ class TableController extends Controller
       $limit = request('limit', $this->limit_default);
       $status = request('status', '');
       $search = request('search', '');
+      $area_id = request('kv_id', '');
       $area = Area::storeId($this->store_id)->get();
       $list = Table::whereHas('area', function ($q) {
         $q->storeId($this->store_id);
       });
       $list = $status != '' ? $list->ofStatus($status) : $list;
       $list = $search != '' ? $list->search($search) : $list;
-
+      $list = $area_id  != '' ? $list->areaId($area_id) : $list;
+      
       $list = $list->latest()->paginate($limit);
 
       return Response::json([

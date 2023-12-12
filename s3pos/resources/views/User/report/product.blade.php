@@ -90,13 +90,13 @@
                                 </div> --}}
                                 <div class="w-250px me-3">
                                     <!--begin::Select2-->
-                                    <select class="form-select" data-control="select2" data-hide-search="true"
+                                    {{-- <select class="form-select" data-control="select2" data-hide-search="true"
                                         name="category_id">
                                         <option value="" selected>-- Chọn danh mục sản phẩm --</option>
                                         @foreach ($category as $item)
                                             <option value="{{ $item->id }}"> {{ $item->name }}</option>
                                         @endforeach
-                                    </select>
+                                    </select> --}}
                                     <!--end::Select2-->
                                 </div>
                                 <div data-kt-daterangepicker="true" data-kt-daterangepicker-opens="left"
@@ -134,14 +134,14 @@
                         <table class="table table-striped table-bordered">
                             <thead class="bg-primary">
                                 <tr>
-                                    <td class="text-uppercase text-bold">Sản phẩm</td>
-                                    <td class="text-uppercase text-bold">Số lượng</td>
+                                    <td class="text-uppercase text-bold ">Sản phẩm</td>
+                                    <td class="text-uppercase text-bold text-center">Số lượng</td>
                                     <td class="text-uppercase text-bold text-center">Doanh thu</td>
                                     <td class="text-uppercase text-bold text-center">Chi phí</td>
                                     <td class="text-uppercase text-bold text-center">Lợi nhuận</td>
                                 </tr>
                             </thead>
-                            <tbody id="revenue_by_status">
+                            <tbody class="revenue_by_product">
                                 <tr>
                                     <td colspan="5" class="text-center">
                                         Không tìm thấy dữ liệu!
@@ -356,9 +356,10 @@
                     // $('#rate_by_status').empty();
                     KTChartLogAccess.init();
                     if (chartData.length > 0) {
-                        KTChartsWidget22.init(chartDataPercent, chartCategoryPercent);
+                        // KTChartsWidget22.init(chartDataPercent, chartCategoryPercent);
                     }
-                    $('#revenue_by_status').html(rs?.content?.table || '');
+                    
+                    $('.revenue_by_product').html(rs?.data || '');
                 } else {
                     Toast.fire({
                         icon: 'error',

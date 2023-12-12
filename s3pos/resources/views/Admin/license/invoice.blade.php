@@ -63,7 +63,7 @@
         <div class="invoice-details">
             <div><strong>Cửa hàng:</strong> {{ $license->store->name }}</div>
             <div><strong>Địa chỉ:</strong> {{ $license->store->address }}</div>
-            <div><strong>Trạng thái:</strong> {{ $license->status }}</div>
+            <div><strong>Trạng thái:</strong> {{ $license->status == 'active' ? "Đã kích hoạt" : "Chưa kích hoạt" }}</div>
             <div><strong>Thời gian sử dụng:</strong> {{ date('d/m/Y', strtotime($license->date_start)) }} -
                 {{ date('d/m/Y', strtotime($license->date_end)) }}</div>
         </div>

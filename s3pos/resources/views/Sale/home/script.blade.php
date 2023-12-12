@@ -5,6 +5,23 @@
         },
     });
     let tableSelect = null;
+
+    function loadPayment() {
+        const url = "{{ route('sale.payment', $table->id) }}"
+        $.get(url, function(res) {
+            $('.payment').html(res.payment);
+            $pro_val = localStorage.getItem('pro_value');
+            $pro_type = localStorage.getItem('pro_type');
+            $cou_val = localStorage.getItem('coupon_val');
+            $cou_type = localStorage.getItem('coupon_type');
+            if ($pro_val && $pro_type) {
+                apply_promotion($pro_val, $pro_type);
+            } else if ($cou_val && $cou_type) {
+                apply_promotion($cou_val, $cou_type);
+            }
+
+        })
+    }
     $(document).ready(function() {
         loadCategory();
         loadProduct();
@@ -31,22 +48,7 @@
         }
         loadPayment();
 
-        function loadPayment() {
-            const url = "{{ route('sale.payment', $table->id) }}"
-            $.get(url, function(res) {
-                $('.payment').html(res.payment);
-                $pro_val = localStorage.getItem('pro_value');
-                $pro_type = localStorage.getItem('pro_type');
-                $cou_val = localStorage.getItem('coupon_val');
-                $cou_type = localStorage.getItem('coupon_type');
-                if ($pro_val && $pro_type) {
-                    apply_promotion($pro_val, $pro_type);
-                } else if ($cou_val && $cou_type) {
-                    apply_promotion($cou_val, $cou_type);
-                }
 
-            })
-        }
         $(document).on('click', '.option-list .option-input', function(e) {
             if ($(this).is(':checked')) {
                 $(this).closest('.option').find('.option-label').addClass('active');
@@ -584,7 +586,9 @@
                             icon: 'success',
                             title: 'Thanh toán thành công'
                         });
-                        location.href = "{{ route('sale.index') }}"
+                        setTimeout(() => {
+                            location.href = "{{ route('sale.index') }}";
+                        }, 1000);
                     } else {
                         $('.btn-payment').html(`Xác nhận`);
                         $('button[type=submit]').removeAttr('disabled');
@@ -684,11 +688,13 @@
         }, function(res) {
             Toast.fire({
                 icon: 'success',
-                title: 'Lưu đơn thành công'
+                title: 'Lưu đơn thành công',
             });
             setTimeout(() => {
                 location.href = "{{ route('sale.index') }}";
             }, 1000);
+
+            resetCart();
         })
 
     }

@@ -19,8 +19,15 @@
             </td>
             <td class="text-center">
                 <div class="form-check form-check-sm form-check-custom form-check-solid justify-content-center">
-                    <input name="status" class="form-check-input " type="checkbox" id={{ $item->id }}
-                        {{ $item->status == 'active' ? 'checked' : '' }} onclick="changeStatus('{{ $item->id }}')" />
+                    @can('product-update')
+                        <input name="status" class="form-check-input " type="checkbox" id={{ $item->id }}
+                            {{ $item->status == 'active' ? 'checked' : '' }} onclick="changeStatus('{{ $item->id }}')" />
+                    @else
+                        <input name="status" class="form-check-input " disabled type="checkbox" id={{ $item->id }}
+                            {{ $item->status == 'active' ? 'checked' : '' }}
+                            onclick="changeStatus('{{ $item->id }}')" />
+                    @endcan
+
                 </div>
             </td>
             <td class="text-center">

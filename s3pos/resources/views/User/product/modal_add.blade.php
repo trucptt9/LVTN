@@ -63,7 +63,7 @@
                                         <div class="col-md-6 d-flex flex-column mb-7 fv-row">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                                <span class="required">Giá bán</span>
+                                                <span class="">Giá bán</span>
                                             </label>
                                             <!--end::Label-->
                                             <input type="text" class="form-control" placeholder="Giá bán sản phẩm"
@@ -72,7 +72,7 @@
                                         <div class="col-md-6 d-flex flex-column mb-7 fv-row">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-6 fw-semibold form-label mb-2">
-                                                <span class="required">Giá vốn</span>
+                                                <span class="">Giá vốn</span>
                                             </label>
                                             <!--end::Label-->
                                             <input type="text" class="form-control" placeholder="Giá vốn sản phẩm"

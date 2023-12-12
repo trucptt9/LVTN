@@ -60,8 +60,8 @@ class Coupon extends Model
     public static function get_status($status = '')
     {
         $types = [
-            self::STATUS_ACTIVE => ['Đang kích hoạt', 'success', COLOR_SUCCESS],
-            self::STATUS_BLOCKED => ['Tạm ngưng', 'danger', COLOR_DANGER],
+            self::STATUS_ACTIVE => ['Chưa sử dụng', 'success', COLOR_SUCCESS],
+            self::STATUS_BLOCKED => ['Đã sử dụng', 'danger', COLOR_DANGER],
         ];
         return $status == '' ? $types : $types["$status"];
     }
@@ -85,7 +85,7 @@ class Coupon extends Model
 
     public function scopeOfStatus($query, $status)
     {
-        return $query->where('coupons.status', $status);
+        return $query->where('coupons.usage', $status);
     }
 
     public function scopeStoreId($query, $store_id)

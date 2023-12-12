@@ -39,11 +39,11 @@ class OrderController extends Controller
       $limit = request('limit', $this->limit_default);
       $status = request('status', '');
       $search = request('search', '');
-
+      $staff_id = request('staff_id', '');
       $list = Order::storeId($this->store_id);
       $list = $status != '' ? $list->ofStatus($status) : $list;
       $list = $search != '' ? $list->search($search) : $list;
-
+      $list = $staff_id != '' ? $list->staffId($staff_id) : $list;
       $list = $list->latest()->paginate($limit);
 
       return Response::json([

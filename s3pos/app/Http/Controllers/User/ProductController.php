@@ -50,13 +50,15 @@ class ProductController extends Controller
             $limit = request('limit', $this->limit_default);
             $status = request('status', '');
             $search = request('search', '');
-
+            $category = request('category_id', '');
+            
             $list = Product::whereHas('category', function ($q) {
                 $q->storeId($this->store_id);
             });
             $list = $status != '' ? $list->ofStatus($status) : $list;
             $list = $search != '' ? $list->search($search) : $list;
-
+            $list = $category != '' ? $list->categoryId($category) : $list;
+           
             $list = $list->latest()->paginate($limit);
 
             return Response::json([

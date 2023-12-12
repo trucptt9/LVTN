@@ -49,6 +49,7 @@
         const url = uri + "?page=" + _page + "&" + data;
         $.get(url, function(rs) {
             hideSniper(".table-loading");
+            // $('.sniper-content').remove();
             $("button[type=submit]").removeAttr("disabled");
             $(".btn-reload").html('<i class="fas fa-sync"></i>');
             if (rs.status == 200) {

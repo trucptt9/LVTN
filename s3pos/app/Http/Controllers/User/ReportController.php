@@ -89,7 +89,7 @@ class ReportController extends Controller
         $count = DB::select($sql);
         $data = [
             'total' => $count[0]->quantity,
-            'revenue' => number_format( $count[0]->total),
+            'revenue' => number_format( $count[0]->total).' đ',
         ];  
         return Response::json([
             'status' => ResHTTP::HTTP_OK,
@@ -113,6 +113,7 @@ class ReportController extends Controller
             }
             $start = date_format(date_create($from), 'Y-m-d');
             $end = date_format(date_create($to), 'Y-m-d');
+            
             $sql_day = "SELECT DATE_FORMAT(orders.created_at,'%Y-%m-%d') AS day, SUM(total) AS revenue,
             SUM(profit) as profit, SUM(discount_total) as discount, SUM(cost) as cost , COUNT(*) AS order_count
             FROM orders LEFT JOIN stores ON orders.store_id = stores.id  WHERE stores.id = " . $this->store_id . " 
@@ -172,7 +173,7 @@ class ReportController extends Controller
              BETWEEN  '$start' AND '$end' group by id";
              \DB::statement("SET SQL_MODE=''");
             $list = DB::select($sql1);
-            $product = (DB::select($sql))[0];
+            $product = (DB::select($sql));
             foreach ($list as $value) {
                 array_push($data, $value->revenue);
                 array_push($category, $value->name);
@@ -184,7 +185,7 @@ class ReportController extends Controller
                 'data' => $data,
                 'category' => $category,
             ],
-            'data'=> view('user.report.table_product', compact('product'))->render()
+            'data'=> view('User.report.table_product', compact('product'))->render()
             
         ]); 
         } catch (\Throwable $th) {
@@ -192,8 +193,6 @@ class ReportController extends Controller
         }
        
     }
-
-  
     public static function report_by_status($query)
     {
         $category = [];

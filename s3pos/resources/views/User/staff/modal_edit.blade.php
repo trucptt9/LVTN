@@ -77,12 +77,12 @@
         </div>
         <div class="fv-row mb-2">
             <div class="symbol symbol-circle symbol-100px overflow-hidden me-3">
-                <div class="symbol-label w-100 h-90px">
+                <div class="symbol-label w-50px h-50px">
                     @if ($staff->avatar == null)
-                        <img src="{{ asset('images/avatar.jpg') }} " alt="" class="w-100" />
+                        <img src="{{ asset('images/avatar.jpg') }} " alt="" class="h-50px" />
                     @else
-                        <img src="{{ asset('storage/' . $staff->avatar) }} " alt="{{ $staff->name }}"
-                            class="w-100" />
+                        <img src="{{ asset('storage/' . $staff->avatar) }} " alt="{{ $staff->name }}" 
+                            class="h-50px" />
                     @endif
                 </div>
             </div>

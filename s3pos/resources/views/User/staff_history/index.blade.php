@@ -110,9 +110,9 @@
                             <thead>
                                 <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0 bg-light-primary">
                                     {{-- <th class="w-50px text-center">#</th> --}}
-                                    <th class="w-200px">Tài khoản</th>
-                                    <th class="w-175px text-center">Thời gian</th>
-                                    <th class="text-center">Nội dung</th>
+                                    <th class="w-250px">Tài khoản</th>
+                                    <th class="w-250px text-center">Thời gian</th>
+                                    <th class="">Nội dung</th>
                                 </tr>
                             </thead>
                             <tbody id="load-table" class="text-gray-600 fw-semibold">

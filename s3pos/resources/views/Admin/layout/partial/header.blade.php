@@ -44,9 +44,9 @@
                     </div>
                 </div>
                 <div class="menu-img online">
-                    <img src="{{ $admin_staff->avatar ?? show_s3_file(get_option_admin('app-favicon')) }}"
+                    <img src="{{ $admin_staff->avatar ?? asset('images/avatar.jpg') }}"
                         alt="" class="ms-100 mh-100 rounded-circle" />
-                </div>
+                </div>  
             </a>
             <div class="dropdown-menu dropdown-menu-end me-lg-3">
                 <a class="dropdown-item d-flex align-items-center"

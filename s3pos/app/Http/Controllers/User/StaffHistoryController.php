@@ -25,7 +25,7 @@ class StaffHistoryController extends Controller
     {
         $this->authorize('staff_history-view');
         $data = [
-            'staffs' => Staff::ofStatus(Staff::STATUS_ACTIVE)->get(),
+            'staffs' => Staff::storeId($this->store_id)->ofStatus(Staff::STATUS_ACTIVE)->get(),
             'date' => get_date_string()
         ];
         return view('user.staff_history.index', compact('data'));

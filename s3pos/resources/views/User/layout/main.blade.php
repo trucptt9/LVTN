@@ -60,7 +60,7 @@
         }
 
         #kt_content .card {
-            min-height: 400px;
+            /* min-height: 400px; */
         }
     </style>
 </head>

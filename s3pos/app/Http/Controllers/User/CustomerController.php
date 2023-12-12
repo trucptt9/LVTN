@@ -44,11 +44,11 @@ class CustomerController extends Controller
             $limit = request('limit', $this->limit_default);
             $status = request('status', '');
             $search = request('search', '');
-
+            $group = request('group', '');
             $list = Customer::storeId($this->store_id);
             $list = $status != '' ? $list->ofStatus($status) : $list;
             $list = $search != '' ? $list->search($search) : $list;
-
+            $list = $group != '' ? $list->groupId($group) : $list;
             $list = $list->latest()->paginate($limit);
 
             return Response::json([

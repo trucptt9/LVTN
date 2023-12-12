@@ -107,7 +107,7 @@
                         <!--end::Statistics-->
                         <!--begin::Toolbar-->
                         <div class="card-toolbar">
-                            <div data-kt-daterangepicker="true" data-kt-daterangepicker-opens="left"
+                            <div data-kt-daterangepicker="true" data-kt-daterangepicker-opens="left" name="date"
                                 class="btn btn-sm btn-light d-flex align-items-center px-4 filter-date">
                                 <!--begin::Display range-->
                                 <div class="text-gray-600 fw-bold">Loading date range...</div>

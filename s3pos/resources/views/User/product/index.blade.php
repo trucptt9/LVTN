@@ -53,7 +53,7 @@
                         </div>
                         <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
                             <div class="min-w-200px">
-                                <select name="category_d" data-hide-search="true" data-control="select2"
+                                <select name="category_id" data-hide-search="true" data-control="select2"
                                     class="form-select form-filter">
                                     <option value="">-- Danh mục --</option>
                                     @foreach ($data['category'] as $item)

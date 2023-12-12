@@ -38,7 +38,7 @@ class StoreController extends Controller
             $limit = request('limit', $this->limit_default);
             $status = request('status', '');
             $search = request('search', '');
-            $business_type_id = request('business_type_id', '');
+            $business_type_id = request('type_id', '');
 
             $list = Store::with('businessType');
             $list = $status != '' ? $list->ofStatus($status) : $list;

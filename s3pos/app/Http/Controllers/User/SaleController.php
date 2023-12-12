@@ -36,13 +36,13 @@ class SaleController extends Controller
     }
     public function index()
     {
-        $this->authorize('sale-sale');
+        // $this->authorize('sale-sale');
         return view('Sale.table.index');
     }
 
     public function choose_product($id)
     {
-        $this->authorize('sale-sale');
+        // $this->authorize('sale-sale');
         $payment_method = MethodPayment::storeId($this->store_id)->get();
         $table = Table::find($id);
         return view('Sale.home.index', compact('table', 'payment_method'));
@@ -50,13 +50,14 @@ class SaleController extends Controller
     public function category()
     {
         $key = 'sale-category';
-        if (Cache::has($key)) {
-            $categories = Cache::get($key);
-        } else {
-            $categories = Cache::rememberForever($key, function () {
-                return CategoryProduct::storeId($this->store_id)->where('status', CategoryProduct::STATUS_ACTIVE)->select('id', 'name')->get();
-            });
-        }
+        // if (Cache::has($key)) {
+        //     $categories = Cache::get($key);
+        // } else {
+        //     $categories = Cache::rememberForever($key, function () {
+        //         return CategoryProduct::storeId($this->store_id)->where('status', CategoryProduct::STATUS_ACTIVE)->select('id', 'name')->get();
+        //     });
+        // }
+        $categories =  CategoryProduct::storeId($this->store_id)->where('status', CategoryProduct::STATUS_ACTIVE)->select('id', 'name')->get();
         return view('Sale.home.category', compact('categories'));
     }
     public function payment($id)
@@ -90,43 +91,52 @@ class SaleController extends Controller
     }
     public function product()
     {
+       
         $key = 'sale-product';
-        if (Cache::has($key)) {
-            $products = Cache::get($key);
-        } else {
-            $products = Cache::rememberForever($key, function () {
-                return Product::whereHas('category', function ($q) {
-                    $q->storeId($this->store_id);
-                })->where('status', Product::STATUS_ACTIVE)->select('id', 'name', 'category_id', 'price')->get();
-            });
-        }
+        // Cache::forget($key);
+        // if (Cache::has($key)) {
+        //     $products = Cache::get($key);
+        // } else {
+        //     $products = Cache::rememberForever($key, function () {
+        //         return Product::whereHas('category', function ($q) {
+        //             $q->storeId($this->store_id);
+        //         })->where('status', Product::STATUS_ACTIVE)->select('id', 'name', 'category_id', 'price', 'image')->get();
+        //     });
+    //    }
+    $products =  Product::whereHas('category', function ($q) {
+        $q->storeId($this->store_id);
+    })->where('status', Product::STATUS_ACTIVE)->select('id', 'name', 'category_id', 'price', 'image')->get();
         return view('Sale.home.product', compact('products'));
     }
     public function area()
     {
         $key = 'sale-table-area';
-        if (Cache::has($key)) {
-            $areas = Cache::get($key);
-        } else {
-            $areas = Cache::rememberForever($key, function () {
-                return Area::storeId($this->store_id)->where('status', Area::STATUS_ACTIVE)->select('id', 'name')->get();
-            });
-        }
+        // if (Cache::has($key)) {
+        //     $areas = Cache::get($key);
+        // } else {
+        //     $areas = Cache::rememberForever($key, function () {
+        //         return Area::storeId($this->store_id)->where('status', Area::STATUS_ACTIVE)->select('id', 'name')->get();
+        //     });
+        // }
+       $areas =  Area::storeId($this->store_id)->where('status', Area::STATUS_ACTIVE)->select('id', 'name')->get();
         return view('Sale.table.area', compact('areas'));
     }
 
     public function table()
     {
         $key = 'sale-table';
-        if (Cache::has($key)) {
-            $tables = Cache::get($key);
-        } else {
-            $tables = Cache::rememberForever($key, function () {
-                return Table::whereHas('area', function ($q) {
-                    $q->storeId($this->store_id);
-                })->where('status', Table::STATUS_ACTIVE)->get();
-            });
-        }
+        // if (Cache::has($key)) {
+        //     $tables = Cache::get($key);
+        // } else {
+        //     $tables = Cache::rememberForever($key, function () {
+        //         return Table::whereHas('area', function ($q) {
+        //             $q->storeId($this->store_id);
+        //         })->where('status', Table::STATUS_ACTIVE)->get();
+        //     });
+        // }
+        $tables=   Table::whereHas('area', function ($q) {
+            $q->storeId($this->store_id);
+        })->where('status', Table::STATUS_ACTIVE)->orderBy('area_id','ASC' )->get();
         return view('Sale.table.table', compact('tables'));
     }
     public function detail($id)
@@ -193,7 +203,7 @@ class SaleController extends Controller
             $current_day = now()->format('Y-m-d');
             $active = Coupon::STATUS_ACTIVE;
             $coupon = Coupon::storeId($this->store_id)->ofStatus(Coupon::STATUS_ACTIVE)
-                ->where('quantity', 1)->where('start', '<=', $current_day)->where('end', '>=', $current_day)->get();
+                ->where('quantity', 1)->where('usage',0)->where('start', '<=', $current_day)->where('end', '>=', $current_day)->get();
             return Response::json([
                 'status' => ResHTTP::HTTP_OK,
                 'data' => view('sale.home.promotion', compact('coupon'))->render(),
@@ -317,7 +327,6 @@ class SaleController extends Controller
         $order->save();
         if ($promotion_type == 'coupon' && $promotion_id) {
             $coupon = Coupon::find($promotion_id);
-            $coupon->quantity = 0;
             $coupon->usage = 1;
             $coupon->save();
         }

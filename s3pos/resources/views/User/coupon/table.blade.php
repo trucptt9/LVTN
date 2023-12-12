@@ -18,13 +18,15 @@
                 {{ $item->value }} {{ $item->type_value == 'percent' ? '%' : 'đ' }}
             </td>
             <td class="text-center">
-                {{ $item->quantity }} / {{ $item->usage }}
+                {{ $item->usage == 0 ? 'Chưa sử dụng' : 'Đã sử dụng' }}
             </td>
             <td class="text-center">
                 <div class="form-check form-check-sm form-check-custom form-check-solid justify-content-center">
                     <input name="status" class="form-check-input " type="checkbox" id={{ $item->id }}
                         {{ $item->status == 'active' ? 'checked' : '' }}
                         onclick="changeStatus('{{ $item->id }}')" />
+                        
+                        
                 </div>
             </td>
             <td class="text-center">

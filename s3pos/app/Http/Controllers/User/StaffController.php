@@ -77,9 +77,13 @@ class StaffController extends Controller
             $limit = request('limit', $this->limit_default);
             $status = request('status', '');
             $search = request('search', '');
+            $department = request('department_id', '');
+            $position = request('position_id', '');
             $list = Staff::storeId($this->store_id);
             $list = $status != '' ? $list->ofStatus($status) : $list;
             $list = $search != '' ? $list->search($search) : $list;
+            $list = $department != '' ? $list->departmentId($department) : $list;
+            $list = $position != '' ? $list->positionId($position) : $list;
             $list = $list->latest()->paginate($limit);
 
             return Response::json([

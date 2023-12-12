@@ -218,9 +218,7 @@
                                                         <select class="form-select" data-control="select2"
                                                             aria-label="Select example" name="position_id">
                                                             @foreach ($data['positions'] as $item)
-                                                                <option value=""
-                                                                    {{ $staff->position_id ? 'hidden' : '' }}>-- Chọn chức
-                                                                    vụ --</option>
+                
                                                                 <option value="{{ $item->id }}"
                                                                     {{ $item->id == $staff->position_id ? 'selected' : '' }}>
                                                                     {{ $item->name }}</option>

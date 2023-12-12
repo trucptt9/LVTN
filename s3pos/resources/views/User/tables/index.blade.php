@@ -54,7 +54,7 @@
                         </div>
                         <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
                             <div class="min-w-200px">
-                                <select name="area_id" data-hide-search="true" data-control="select2"
+                                <select name="kv_id" data-hide-search="true" data-control="select2"
                                     class="form-select form-filter">
                                     <option value="">-- Khu vực --</option>
                                     @foreach ($data['areas'] as $item)
@@ -94,9 +94,11 @@
                         <thead class="bg-primary">
                             <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                 <th class="w-125px text-center">Mã</th>
-                                <th class="">Tên bàn</th>
+                                <th class="w-125px">Tên bàn</th>
                                 <th class="w-300px text-center">Khu vực</th>
                                 <th class="w-200px text-center">Số ghế</th>
+                                <th class="text-center">Trạng thái bàn</th>
+                                
                                 <th class="text-center w-125px">Trạng thái</th>
                                 <th class="text-center w-100px">#</th>
                             </tr>

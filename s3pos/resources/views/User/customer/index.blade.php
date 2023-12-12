@@ -57,7 +57,7 @@
                         </div>
                         <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
                             <div class="min-w-200px">
-                                <select name="group_id" data-hide-search="true" data-control="select2"
+                                <select name="group" data-hide-search="true" data-control="select2"
                                     class="form-select form-filter">
                                     <option value="">-- Nhóm --</option>
                                     @foreach ($data['group'] as $item)
@@ -89,6 +89,7 @@
                         </div>
                     </div>
                 </form>
+                {{-- <div class="table-loading"></div> --}}
                 <div class="card-body pt-0 table-loading">
                     <!--begin::Table-->
                     <table class="table align-middle table-bordered fs-6 gy-5">
